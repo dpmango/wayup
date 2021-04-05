@@ -1,0 +1,226 @@
+.icon-20 {
+  @include width-flex(20px)
+  height: 20px;
+}
+
+.buttons-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.title-wrap{
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.page-title{
+  font-size: 32px;
+  font-family: $FiraSansSemiBold;
+  display: flex;
+
+
+}
+.span-title{
+  font-family: $FiraSansRegular;
+  margin-left: 5px;
+  font-size: 32px;
+}
+
+.title-blue{
+  font-size: 16px;
+  color: #326BFF;
+}
+
+.v-input{
+  flex: initial;
+}
+
+/* select general start*/
+
+.select-base {
+  &.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
+    box-shadow: none;
+    border-radius: 8px;
+  }
+
+  .v-input__slot {
+    margin-bottom: 0;
+  }
+
+
+  .v-select__selection {
+    max-width: 100%;
+  }
+
+  .input {
+    width: auto;
+  }
+
+
+}
+
+.v-menu__content .v-list-item {
+  padding: 0 38px 0 38px;
+}
+
+.v-select__selection {
+  .v-list-item__title {
+    font-size: 14px;
+  }
+
+}
+
+
+/* select general end*/
+
+
+/* select custom start*/
+
+.custom-select {
+  width: 184px;
+
+  .v-icon.v-icon {
+    @include background-contain('arrow-down.svg')
+    width: 16px;
+    height: 16px;
+  }
+
+  .v-input__icon {
+    width: 16px;
+    height: 16px;
+  }
+
+
+  &.v-text-field.v-text-field--solo .v-input__control {
+    min-height: 40px ;
+  }
+
+  .v-label{
+    color: #000;
+  }
+
+
+
+
+
+}
+
+.v-application .v-list-item.primary--text {
+  color: #000000 !important;
+
+}
+
+.v-list-item__title {
+  font-size: 14px;
+  position: relative;
+
+}
+
+.v-list-item--active {
+  &:after {
+    content: '';
+    @include background-contain('check-icon.svg')
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 10px;
+    top: 0;
+  }
+}
+
+
+.v-list-item--link:before {
+  background: rgba(228, 232, 242, .5);
+}
+.v-input__control{
+  flex-grow: initial;
+}
+
+.theme--light.v-list-item--active:before,
+.theme--light.v-list-item--active:hover:before,
+.theme--light.v-list-item:focus:before {
+  opacity: 1;
+}
+
+
+
+/* select custom end*/
+
+
+/* custom button start*/
+
+.custom-button {
+
+  min-width: 0;
+
+  font-family: $FiraSansMedium;
+  height: 40px;
+  text-transform: none;
+
+  .v-btn__content {
+    font-size: 16px;
+    letter-spacing: normal;
+  }
+}
+
+.button-icon {
+  min-width: 40px !important;
+  width: 40px !important;
+}
+
+.button-active {
+  .custom-button {
+    background: transparent !important;
+
+  }
+
+  .v-btn__content {
+    color: $blue;
+
+  }
+}
+
+
+/* custom button end */
+
+
+/* card  start */
+
+.card{
+  padding: 16px;
+  border-radius: 12px !important;
+}
+
+.card-title{
+  font-size: 14px;
+  font-family: $FiraSansBold;
+  margin-bottom: 16px;
+
+}
+
+.target-icon{
+  @include width-flex(14px)
+  height: 20px;
+  margin-right: 8px;
+}
+.info-block{
+  display: flex;
+  align-items: center;
+  background: rgba(61, 197, 13, 0.1);
+  border-radius: 4px;
+  padding: 12px 20px;
+
+  margin-bottom: 20px;
+}
+
+.info-text{
+  font-size: 14px;
+}
+
+/* card  end */
+
+
+.progress-indication{
+
+}

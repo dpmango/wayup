@@ -1,0 +1,68 @@
+<template lang="pug">
+  .header
+    v-row
+      v-col(md='8')
+        .title Календарь
+      v-col(md='4')
+        .header-right
+          .text-block
+            img.icon-20.icon-cup(
+              src="@/assets/images/coffee-cup.svg"
+            )
+            .text-info Вы работаете непрерывно
+              span 16 часов
+          v-avatar(
+            height='40px'
+            width='40px'
+            )
+            img(
+              src="@/assets/images/avatar.png"
+            )
+
+</template>
+
+<script>
+export default {
+  props:{
+
+  },
+
+  name: "ScheduleHeader"
+}
+</script>
+
+<style lang="scss" scoped>
+.header {
+  padding:0 0 24px 0;
+}
+.header-right{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.title{
+  font-size: 24px;
+  text-transform: uppercase;
+
+}
+
+.text-block{
+  display: flex;
+  align-items: center;
+  margin-right: 24px;
+}
+.icon-cup{
+  margin-right: 12px;
+}
+
+.text-info{
+  padding-top: 3px;
+  font-size: 12px;
+  span{
+    color: $red;
+    margin-left: 3px;
+  }
+}
+
+
+</style>
