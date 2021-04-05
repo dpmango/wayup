@@ -1,6 +1,6 @@
 <template lang="pug">
   v-btn(
-    class='class'
+    :class='classAttr'
     elevation='0'
     color="#F1F3F9"
     height='40px'
@@ -21,7 +21,7 @@ export default {
       type:String,
       default:'button'
     },
-    class:{
+    classAttr:{
       type:String,
       default:''
     }

@@ -1,6 +1,6 @@
 <template lang="pug">
     v-select(
-      class='class'
+      :class='classAttr'
       :items="items"
       :label='label'
       solo
@@ -18,7 +18,7 @@ export default {
       type:String,
       default:''
     },
-    class:{
+    classAttr:{
       type:String,
       default:''
     }

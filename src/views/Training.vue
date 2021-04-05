@@ -27,8 +27,8 @@
           TagsTraining
 
           .buttons-wrap(data-app)
-            base-button(label='Редактировать' class='custom-button mr-6')
-            base-select(label='Выберите группу' class='select-base custom-select mr-6')
+            base-button(label='Редактировать' classAttr='custom-button mr-6')
+            base-select(label='Выберите группу' classAttr='select-base custom-select mr-6')
             .title-blue Итоговый план
         v-row
           v-col(

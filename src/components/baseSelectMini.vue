@@ -1,6 +1,7 @@
 <template lang="pug">
   .div(data-app)
-    v-select.select-base.custom-select_mini(
+    v-select(
+      :class='classAttr'
       :items="cirles"
       :label="label"
       solo
@@ -17,7 +18,7 @@ export default {
       type:String,
       default:''
     },
-    class:{
+    classAttr:{
       type:String,
       default:''
     }

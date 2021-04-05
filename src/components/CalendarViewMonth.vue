@@ -7,13 +7,13 @@
       .circle-block
         .circle-item
           .circle-title Макроцикл
-          base-select-mini(label='Выбрать цикл')
+          base-select-mini(label='Выбрать цикл' classAttr='select-base custom-select_mini')
         .circle-item
           .circle-title Мезоцикл
-          base-select-mini(label='Выбрать цикл')
+          base-select-mini(label='Выбрать цикл' classAttr='select-base custom-select_mini')
         .circle-item
           .circle-title Макроцикл
-          base-select-mini(label='Выбрать цикл')
+          base-select-mini(label='Выбрать цикл' classAttr='select-base custom-select_mini')
 
 
     .calendar
