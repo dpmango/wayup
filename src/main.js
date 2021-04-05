@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 import vuetify from '@/plugins/vuetify'
 import VueDraggable from 'vue-draggable'
+import VueSimpleAccordion from 'vue-simple-accordion';
+import 'vue-simple-accordion/dist/vue-simple-accordion.css';
 
 
 // import  SvgSprite  from 'vue-svg-sprite'
@@ -17,6 +19,16 @@ import VueDraggable from 'vue-draggable'
 
 
 Vue.use(VueDraggable)
+Vue.use(VueSimpleAccordion, {
+    tags: {
+        // list: "ul",
+        // list__item: "div",
+        // item__heading: "div",
+        // heading__content: "div",
+        // heading__icon: "span",
+        // item__content: "div"
+    },
+});
 
 Vue.config.productionTip = false
 
@@ -26,6 +38,7 @@ new Vue({
     store,
     vuetify,
     VueDraggable,
+    VueSimpleAccordion,
 
 // SvgSprite,
     // moment,

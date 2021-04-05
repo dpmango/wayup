@@ -2,7 +2,7 @@
   .div(data-app)
     v-select.select-base.custom-select_mini(
       :items="cirles"
-      label="Выбрать цикл"
+      :label="label"
       solo
       background-color="transparent"
       item-color='#000'
@@ -12,6 +12,16 @@
 
 <script>
 export default {
+  props:{
+    label:{
+      type:String,
+      default:''
+    },
+    class:{
+      type:String,
+      default:''
+    }
+  },
   data: () => ({
     cirles: ['Базовый 1', 'Базовый 2', 'Базовый 3', 'Базовый 4', 'Базовый 5', 'Базовый 6'],
     defaultSelected: {

@@ -77,34 +77,34 @@
 
 /* select custom start*/
 
-.custom-select {
-  width: 184px;
-
-  .v-icon.v-icon {
-    @include background-contain('arrow-down.svg')
-    width: 16px;
-    height: 16px;
-  }
-
-  .v-input__icon {
-    width: 16px;
-    height: 16px;
-  }
-
-
-  &.v-text-field.v-text-field--solo .v-input__control {
-    min-height: 40px ;
-  }
-
-  .v-label{
-    color: #000;
-  }
-
-
+//.custom-select {
+//  width: 184px;
+//
+//  .v-icon.v-icon {
+//    @include background-contain('arrow-down.svg')
+//    width: 16px;
+//    height: 16px;
+//  }
+//
+//  .v-input__icon {
+//    width: 16px;
+//    height: 16px;
+//  }
+//
+//
+//  &.v-text-field.v-text-field--solo .v-input__control {
+//    min-height: 40px ;
+//  }
+//
+//  .v-label{
+//    color: #000;
+//  }
 
 
 
-}
+
+
+//}
 
 .v-application .v-list-item.primary--text {
   color: #000000 !important;
@@ -150,36 +150,36 @@
 
 /* custom button start*/
 
-.custom-button {
-
-  min-width: 0;
-
-  font-family: $FiraSansMedium;
-  height: 40px;
-  text-transform: none;
-
-  .v-btn__content {
-    font-size: 16px;
-    letter-spacing: normal;
-  }
-}
-
-.button-icon {
-  min-width: 40px !important;
-  width: 40px !important;
-}
-
-.button-active {
-  .custom-button {
-    background: transparent !important;
-
-  }
-
-  .v-btn__content {
-    color: $blue;
-
-  }
-}
+//.custom-button {
+//
+//  min-width: 0;
+//
+//  font-family: $FiraSansMedium;
+//  height: 40px;
+//  text-transform: none;
+//
+//  .v-btn__content {
+//    font-size: 16px;
+//    letter-spacing: normal;
+//  }
+//}
+//
+//.button-icon {
+//  min-width: 40px !important;
+//  width: 40px !important;
+//}
+//
+//.button-active {
+//  .custom-button {
+//    background: transparent !important;
+//
+//  }
+//
+//  .v-btn__content {
+//    color: $blue;
+//
+//  }
+//}
 
 
 /* custom button end */
