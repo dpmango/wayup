@@ -1,16 +1,4 @@
 <template lang="pug">
-  mixin Accordion(data)
-    v-expansion-panels
-      draggable.accordion-group(:list=`${data.list}` group=`${data.group}` @change='log')
-        v-expansion-panel(
-          v-for=`(element, index) in ${data.list}`
-          :key='element.name'
-        )
-          v-expansion-panel-header
-            | {{ element.name}}
-          v-expansion-panel-content
-            | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
   .page-training
     v-row
       v-col(
@@ -28,7 +16,7 @@
 
           .buttons-wrap(data-app)
             base-button(label='Редактировать' classAttr='custom-button mr-6')
-            base-select(label='Выберите группу' classAttr='select-base custom-select mr-6')
+            base-select(label='Поделиться' classAttr='select-base custom-select mr-6')
             .title-blue Итоговый план
         v-row
           v-col(
@@ -52,24 +40,40 @@
                 v-col(
                   md='12'
                 )
-                  //Accordion(list='list1' group='training')
-                        v-expansion-panels
-                  AccordionTest(
-                    v-for="(faq, i) in faqs"
-                    :faq="faq"
+                  AccordionBig(
+                    v-for="(accordionBigItem, i) in accordionBigItems"
+                    :classAttr="accordionBigItem"
                     :index="i"
                     :key="i"
-                    :open="faq.open"
+                    :open="accordionBigItem.open"
                     @toggleOpen="toggleOpen"
                   )
-                    +Accordion({
-                      list: 'list1',
-                      group: 'training'
-                    })
-                  +Accordion({
-                    list: 'list4',
-                    group: 'power'
-                  })
+                    template(v-slot:accord-header)
+                      .accordion-big__head
+                        .accordion-subtitle 2 упражнений, 17 мин
+                        .accordion-big__header
+                          .accordion-big__header-title Подготовительная часть
+                          .labels
+                            base-label(
+                              label='Нормально'
+                              color='rgba(235, 173, 16, 0.2)'
+                              textColor="#9E7200"
+                              )
+                    template(v-slot:accord-body)
+                      Accordion
+
+                      //+Accordion({
+                      //  list: 'list1',
+                      //  group: 'training'
+                      //})
+                        //template(v-slot:accord-mini-header)
+
+                        //template(v-slot:accord-mini-body)
+
+                      //+Accordion({
+                      //  list: 'list4',
+                      //  group: 'power'
+                      //})
               v-row
                 v-col(
                   md='6'
@@ -80,15 +84,7 @@
           v-col(
             md='4'
           )
-            //Accordion(list='list2' group='training')
-            +Accordion({
-              list: 'list2',
-              group: 'training'
-            })
-            +Accordion({
-              list: 'list3',
-              group: 'power'
-            })
+            TrainingAside
 
 
 </template>
@@ -101,24 +97,28 @@ import TheBreadcrumbs from "@/components/TheBreadcrumbs";
 import TagsTraining from "@/components/TagsTraining";
 import CardIndications from "@/components/CardIndications";
 import AccordionItem from "@/components/AccordionItem";
-import draggable from 'vuedraggable'
+// import draggable from 'vuedraggable'
 import Accordion from "@/components/Accordion";
-import AccordionTest from "@/components/AccordionTest";
 import BaseSelect from "@/components/baseSelect";
 import BaseButton from "@/components/baseButton";
+import AccordionBig from "@/components/AccordionBig";
+import BaseLabel from "@/components/baseLabel";
+import TrainingAside from "@/components/TrainingAside";
 
 export default {
   name: 'Training',
   components: {
+    TrainingAside,
+    BaseLabel,
+    AccordionBig,
     BaseButton,
     BaseSelect,
-    AccordionTest,
     Accordion,
     AccordionItem,
     CardIndications,
     TagsTraining,
     TheBreadcrumbs,
-    draggable
+    // draggable
   },
   data: () => ({
     // options: {
@@ -129,8 +129,6 @@ export default {
     list1: [
       {name: "Баланс в основной стойке", id: 1},
       {name: "Подъем в основную стойку из положения лежа на животе", id: 2},
-      // { name: "Jean", id: 3 },
-      // { name: "Gerard", id: 4 }
     ],
     list2: [
       {name: "5 х 4  Большинство", id: 5},
@@ -147,22 +145,44 @@ export default {
       {name: "Свободная игра 2232", id: 9},
       {name: "Свободная игра 3323", id: 10}
     ],
-    faqs: [
+    accordionBigItems: [
       {
-        question: "Who is the best Superhero?",
-        // answer: "I'm not sure but we love him 3000",
-        open: false
+        open: true,
+        children:[
+          {name: "Баланс в основной стойке", id: 1},
+          {name: "Подъем в основную стойку из положения лежа на животе", id: 2},
+
+        ]
       },
       {
-        question: "What is Goku's form called with White Hair?",
-        // answer: "Mastered Ultra Instinct",
-        open: false
+        open: false,
+        children:[
+          {name: "5 х 4  Большинство", id: 5},
+          {name: "3 х 5 Меньшинство", id: 6},
+          {name: "Розыгрыш", id: 7}
+
+        ]
       },
       {
-        question: "Have you liked & subscried yet?",
-        // answer: "YES",
-        open: false
-      }
+        open: false,
+        children:[
+          {name: "Свободная игра 1", id: 8},
+          {name: "Свободная игра 2", id: 9},
+          {name: "Свободная игра 3", id: 10}
+
+        ]
+      },
+      {
+        open: false,
+        children:[
+          {name: "Свободная игра 123", id: 8},
+          {name: "Свободная игра 2232", id: 9},
+          {name: "Свободная игра 3323", id: 10}
+
+
+        ]
+      },
+
     ]
 
   }),
@@ -183,13 +203,13 @@ export default {
       window.console.log(evt);
     },
     toggleOpen: function (index) {
-      this.faqs = this.faqs.map((faq, i) => {
+      this.accordionBigItems = this.accordionBigItems.map((accordionBigItem, i) => {
         if (index === i) {
-          faq.open = !faq.open;
+          accordionBigItem.open = !accordionBigItem.open;
         } else {
-          faq.open = false;
+          accordionBigItem.open = false;
         }
-        return faq;
+        return accordionBigItem;
       });
     }
   }
@@ -204,73 +224,86 @@ export default {
   margin-bottom: 64px;
 }
 
-.accordion-group {
-  width: 100%;
-  min-height: 128px;
+/* accordion */
+//.accordion-big__header{
+//
+//}
+//
+//.accordion-subtitle{
+//  color: rgba(0, 0, 0, 0.5);
+//  font-size: 12px;
+//  margin-bottom: 8px;
+//}
+//
+//
+//.accordion-big {
+//  display: block;
+//  width: 100%;
+//  //max-width: 768px;
+//  //margin: 15px auto;
+//  //padding: 15px;
+//  //border-radius: 8px;
+//  //box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+//  //background-color: #FFF;
+//}
+//
+//.accordion-big__header {
+//  position: relative;
+//  color: #3c3c3c;
+//  font-size: 20px;
+//  transition: all 0.4s linear;
+//}
+//.accordion-big__header-title{
+//  font-size: 20px;
+//  font-family: $FiraSansMedium;
+//  margin-right: 8px;
+//
+//}
+//.accordion-big__header{
+//  padding-left: 30px;
+//
+//  display: flex;
+//  align-items: center;
+//  &:after {
+//    content: '';
+//    position: absolute;
+//    top: 50%;
+//    left: 0px;
+//    transform: translateY(-50%) rotate(0deg);
+//    @include width-flex(18px)
+//    height: 18px;
+//    @include background-contain('arrow-down.svg')
+//
+//    transition: all 0.2s linear;
+//  }
+//}
+//
+//.accordion-big.open .accordion-big__header {
+//  margin-bottom: 15px;
+//}
+//
+//.accordion-big.open .accordion-big__header::after {
+//  transform: translateY(-50%) rotate(180deg);
+//}
+//
+//.accordion-big .accordion-big__body {
+//  color: #3c3c3c;
+//  font-size: 18px;
+//  opacity: 0;
+//  max-height: 0px;
+//  overflow-y: hidden;
+//  transition: all 0.4s ease-out;
+//}
+//
+//.accordion-big.open .accordion-big__body {
+//  opacity: 1;
+//  max-height: 1000px;
+//}
 
-}
 
-.v-item-group {
-  margin-bottom: 25px;
-}
+/**/
 
 
-/* accordion-big */
-.faq {
-  display: block;
-  width: 100%;
-  max-width: 768px;
-  margin: 15px auto;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  background-color: #FFF;
-}
-
-.faq .question {
-  position: relative;
-  color: #3c3c3c;
-  font-size: 20px;
-  transition: all 0.4s linear;
-}
-
-.faq .question::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 0px;
-  transform: translateY(-50%) rotate(0deg);
-  width: 30px;
-  height: 30px;
-  //background-image: url('./arrow-down-mint.svg');
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-
-  transition: all 0.2s linear;
-}
-
-.faq.open .question {
-  margin-bottom: 15px;
-}
-
-.faq.open .question::after {
-  transform: translateY(-50%) rotate(90deg);
-}
-
-.faq .answer {
-  color: #3c3c3c;
-  font-size: 18px;
-  opacity: 0;
-  max-height: 0px;
-  overflow-y: hidden;
-  transition: all 0.4s ease-out;
-}
-
-.faq.open .answer {
-  opacity: 1;
-  max-height: 1000px;
-}
 
 /**/
 
