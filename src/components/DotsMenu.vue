@@ -43,12 +43,18 @@ name: "dotsMenu"
 
 .dropdown-menu__wrap{
   position: absolute;
-  right: 100px;
+  right: 63px;
   top: 10px;
   z-index: 100;
 }
 
 
+
+.dots-menu-buttton{
+  //position: absolute;
+  //left: 0;
+  //top: 0;
+}
 
 .v-dropdown-menu__overlay{
   display: none !important;
@@ -63,8 +69,9 @@ name: "dotsMenu"
 
 }
 .v-dropdown-menu--direction-left .v-dropdown-menu__container{
-  right: 0 !important;
+  right: 23px !important;
   left: auto !important;
+  top:calc(100% - 5px) !important;
 }
 
 .v-dropdown-menu__body{

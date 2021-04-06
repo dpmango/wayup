@@ -4,6 +4,7 @@
     :color='color'
     label
     :text-color="textColor"
+
   ) {{label}}
 
 </template>

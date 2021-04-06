@@ -36,6 +36,12 @@
   flex: initial;
 }
 
+.close-button,
+.drag-button{
+  &:hover{
+    cursor: pointer;
+  }
+}
 
 
 

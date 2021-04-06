@@ -7,6 +7,7 @@ import VueDraggable from 'vue-draggable'
 import VueSimpleAccordion from 'vue-simple-accordion';
 import 'vue-simple-accordion/dist/vue-simple-accordion.css';
 import DropdownMenu from 'v-dropdown-menu'
+// import { Draggable } from 'draggable-vue-directive'
  // Base style, required.
 
 
@@ -30,6 +31,9 @@ Vue.use(DropdownMenu,{
 })
 
 Vue.use(VueDraggable)
+
+
+
 Vue.use(VueSimpleAccordion, {
     tags: {
         // list: "ul",

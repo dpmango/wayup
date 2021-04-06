@@ -8,6 +8,8 @@
         v-for='(element, index) in list1'
         :key='element.name'
       )
+
+
         dots-menu
         v-expansion-panel-header.accordion-panel__header
           .panel-num {{index + 1 }}
@@ -62,7 +64,7 @@
 import draggable from 'vuedraggable'
 import BaseLabel from "@/components/baseLabel";
 import AccordionTabs from "@/components/AccordionTabs";
-import DotsMenu from "@/components/dotsMenu";
+import DotsMenu from "@/components/DotsMenu";
 
 export default {
 

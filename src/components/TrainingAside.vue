@@ -1,19 +1,21 @@
 <template lang="pug">
   .training-aside
+    TrainingAsideFilter
     -for (var i = 0; i < 3; i++)
-        .training-aside__head
-          .training-aside__title Физические
-          .training-aside__subtitle 12 мин
-        Accordion
+      .training-aside__head
+        .training-aside__title Физические
+        .training-aside__subtitle 12 мин
+      Accordion
 
 </template>
 
 <script>
 import Accordion from "@/components/Accordion";
+import TrainingAsideFilter from "@/components/TrainingAsideFilter";
 
 export default {
   name: "TrainingAside",
-  components: {Accordion}
+  components: {TrainingAsideFilter, Accordion}
 }
 </script>
 
@@ -22,7 +24,7 @@ export default {
 
   .training-aside {
     .v-expansion-panels{
-      margin-bottom: 32px;
+      margin-bottom: 16px;
     }
     .panel-num,
     .add-training{

@@ -15,24 +15,60 @@
           TagsTraining
 
           .buttons-wrap(data-app)
-            base-button(label='Редактировать' classAttr='custom-button mr-6')
+            base-button(
+              :label="!isActiveEdit ? 'Редактировать' :'Применить'"
+              classAttr='custom-button mr-6'
+              @click='editTraining'
+
+            )
             base-select(label='Поделиться' classAttr='select-base custom-select mr-6')
-            .title-blue Итоговый план
+            .summary-button.title-blue(
+              @click='toggleModalPlan'
+
+            ) Итоговый план
+            .summury-plan__modal-wrap(:class="isActiveModal ? 'm-show' : 'm-hide'")
+              .summury-plan__modal(v-draggable)
+                .summury-plan__head
+                  .summury-plan__title Итоговый план
+                  .summury-plan__head__right
+                    .drag-button
+                      img.drag-icon.mt-n1.mr-5(
+                        src="@/assets/images/svg/drag-icon.svg"
+                      )
+                    .close-button(
+                      @click='toggleModalPlan'
+                    )
+                      img.drag-icon(
+                        src="@/assets/images/svg/icon-close.svg"
+                      )
+
+                v-card
+                  v-card-title.headline
+                    | Use Google's location service?
+                  v-card-text
+                    | Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
+                  v-card-actions
+                    v-spacer
+                    v-btn(color='green darken-1' text='' @click='dialog = false')
+                      | Disagree
+                    v-btn(color='green darken-1' text='' @click='dialog = false')
+                      | Agree
+
         v-row
           v-col(
-            md='8'
+            :cols="!isActiveEdit ? '12' : '8'"
           )
             .indications-blocks.mb-12
               v-row
                 v-col(
-                  md='12'
+                  :cols="!isActiveEdit ? '6' : '12'"
                 )
                   v-card.card(
                     elevation="2"
                   )
                     .card-title Интенсивность занятия
                 v-col(
-                  md='12'
+                  :cols="!isActiveEdit ? '6' : '12'"
                 )
                   CardIndications
             .trainings__block
@@ -58,7 +94,7 @@
                               label='Нормально'
                               color='rgba(235, 173, 16, 0.2)'
                               textColor="#9E7200"
-                              )
+                            )
                     template(v-slot:accord-body)
                       Accordion
 
@@ -84,7 +120,8 @@
           v-col(
             md='4'
           )
-            TrainingAside
+            .div(:class="!isActiveEdit ? 'd-none' : 'd-block'")
+              TrainingAside
 
 
 </template>
@@ -104,10 +141,17 @@ import BaseButton from "@/components/baseButton";
 import AccordionBig from "@/components/AccordionBig";
 import BaseLabel from "@/components/baseLabel";
 import TrainingAside from "@/components/TrainingAside";
+import ModalSummaryPlan from "@/components/ModalSummaryPlan";
+import {Draggable} from 'draggable-vue-directive';
+
 
 export default {
   name: 'Training',
+  directives: {
+    Draggable,
+  },
   components: {
+    ModalSummaryPlan,
     TrainingAside,
     BaseLabel,
     AccordionBig,
@@ -121,6 +165,13 @@ export default {
     // draggable
   },
   data: () => ({
+    isActiveEdit: false,
+    isActiveModal: false,
+    dialog: false,
+    handleId: "handle-id",
+    draggableValue: {
+      handle: undefined
+    },
     // options: {
     //   dropzoneSelector: ".dropzone",
     //   draggableSelector: ".dropzone-item"
@@ -148,7 +199,7 @@ export default {
     accordionBigItems: [
       {
         open: true,
-        children:[
+        children: [
           {name: "Баланс в основной стойке", id: 1},
           {name: "Подъем в основную стойку из положения лежа на животе", id: 2},
 
@@ -156,7 +207,7 @@ export default {
       },
       {
         open: false,
-        children:[
+        children: [
           {name: "5 х 4  Большинство", id: 5},
           {name: "3 х 5 Меньшинство", id: 6},
           {name: "Розыгрыш", id: 7}
@@ -165,7 +216,7 @@ export default {
       },
       {
         open: false,
-        children:[
+        children: [
           {name: "Свободная игра 1", id: 8},
           {name: "Свободная игра 2", id: 9},
           {name: "Свободная игра 3", id: 10}
@@ -174,7 +225,7 @@ export default {
       },
       {
         open: false,
-        children:[
+        children: [
           {name: "Свободная игра 123", id: 8},
           {name: "Свободная игра 2232", id: 9},
           {name: "Свободная игра 3323", id: 10}
@@ -211,7 +262,18 @@ export default {
         }
         return accordionBigItem;
       });
-    }
+    },
+    editTraining: function () {
+      this.isActiveEdit = !this.isActiveEdit;
+
+    },
+
+    toggleModalPlan: function () {
+      this.isActiveModal = !this.isActiveModal;
+      console.log(this.isActiveModal)
+
+    },
+
   }
 
 
@@ -224,84 +286,45 @@ export default {
   margin-bottom: 64px;
 }
 
-/* accordion */
-//.accordion-big__header{
-//
-//}
-//
-//.accordion-subtitle{
-//  color: rgba(0, 0, 0, 0.5);
-//  font-size: 12px;
-//  margin-bottom: 8px;
-//}
-//
-//
-//.accordion-big {
-//  display: block;
-//  width: 100%;
-//  //max-width: 768px;
-//  //margin: 15px auto;
-//  //padding: 15px;
-//  //border-radius: 8px;
-//  //box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-//  //background-color: #FFF;
-//}
-//
-//.accordion-big__header {
-//  position: relative;
-//  color: #3c3c3c;
-//  font-size: 20px;
-//  transition: all 0.4s linear;
-//}
-//.accordion-big__header-title{
-//  font-size: 20px;
-//  font-family: $FiraSansMedium;
-//  margin-right: 8px;
-//
-//}
-//.accordion-big__header{
-//  padding-left: 30px;
-//
-//  display: flex;
-//  align-items: center;
-//  &:after {
-//    content: '';
-//    position: absolute;
-//    top: 50%;
-//    left: 0px;
-//    transform: translateY(-50%) rotate(0deg);
-//    @include width-flex(18px)
-//    height: 18px;
-//    @include background-contain('arrow-down.svg')
-//
-//    transition: all 0.2s linear;
-//  }
-//}
-//
-//.accordion-big.open .accordion-big__header {
-//  margin-bottom: 15px;
-//}
-//
-//.accordion-big.open .accordion-big__header::after {
-//  transform: translateY(-50%) rotate(180deg);
-//}
-//
-//.accordion-big .accordion-big__body {
-//  color: #3c3c3c;
-//  font-size: 18px;
-//  opacity: 0;
-//  max-height: 0px;
-//  overflow-y: hidden;
-//  transition: all 0.4s ease-out;
-//}
-//
-//.accordion-big.open .accordion-big__body {
-//  opacity: 1;
-//  max-height: 1000px;
-//}
+.summury-plan__modal {
+  background: #F1F3F9;
+  box-shadow: 0px 4px 12px rgba(165, 169, 180, 0.2), 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1), 0px 4px 5px rgba(50, 107, 255, 0.06);
+  border-radius: 12px;
+  padding: 25px;
+  width: 410px;
+  position: absolute;
+  //top: 50%;
+  //left: 50%;
+  z-index: 10000;
+  //margin-left: -450px;
+}
 
+.summury-plan__head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 17px;
+}
 
-/**/
+.summury-plan__head__right{
+  display: flex;
+  align-items: center;
+}
+.summary-button{
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.m-show{
+  opacity: 1;
+
+}
+.m-hide{
+  opacity: 0;
+  pointer-events: none;
+}
+
 
 
 
