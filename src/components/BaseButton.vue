@@ -26,7 +26,7 @@ export default {
       default:''
     }
   },
-  name: "baseButton"
+  name: "BaseButton"
 }
 </script>
 

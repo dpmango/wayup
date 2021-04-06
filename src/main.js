@@ -32,6 +32,10 @@ Vue.use(VueSimpleAccordion, {
 
 Vue.config.productionTip = false
 
+Vue.component('base-button', () => import('./components/BaseButton.vue'));
+Vue.component('base-link', () => import('./components/BaseLink.vue'));
+Vue.component('base-select', () => import('./components/BaseSelect.vue'));
+Vue.component('base-select-mini', () => import('./components/BaseSelectMini.vue'));
 
 new Vue({
     router,

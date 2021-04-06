@@ -104,8 +104,8 @@ import AccordionItem from "@/components/AccordionItem";
 import draggable from 'vuedraggable'
 import Accordion from "@/components/Accordion";
 import AccordionTest from "@/components/AccordionTest";
-import BaseSelect from "@/components/baseSelect";
-import BaseButton from "@/components/baseButton";
+import BaseSelect from "@/components/BaseSelect";
+import BaseButton from "@/components/BaseButton";
 
 export default {
   name: 'Training',
