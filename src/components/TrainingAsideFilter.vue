@@ -18,12 +18,11 @@
 </template>
 
 <script>
-import BaseInput from "@/components/baseInput";
 import FiltersAccordion from "@/components/FiltersAccordion";
 import Accordion from "@/components/Accordion";
 export default {
 name: "TrainingAsideFilter",
-  components: {Accordion, FiltersAccordion, BaseInput}
+  components: {Accordion, FiltersAccordion}
 }
 </script>
 

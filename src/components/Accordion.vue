@@ -62,7 +62,6 @@
 
 <script>
 import draggable from 'vuedraggable'
-import BaseLabel from "@/components/baseLabel";
 import AccordionTabs from "@/components/AccordionTabs";
 import DotsMenu from "@/components/DotsMenu";
 
@@ -112,7 +111,6 @@ export default {
   components: {
     DotsMenu,
     AccordionTabs,
-    BaseLabel,
     draggable,
   },
 

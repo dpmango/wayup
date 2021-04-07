@@ -32,11 +32,10 @@ export default {
     //   default:''
     // }
   },
-  name: "baseButton",
+  name: "BaseButton",
   methods:{
     handleOnClick:function (){
       this.$emit("click");
-
     }
   }
 }

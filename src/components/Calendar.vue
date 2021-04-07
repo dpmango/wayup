@@ -1,20 +1,21 @@
 <template lang="pug">
   .div
-    CalendarButtons
-    CalendarViewMonth
-
-
+    CalendarNav
+    router-view
 </template>
 
 <script>
-import CalendarButtons from "@/components/CalendarButtons";
+import CalendarNav from "@/components/CalendarNav";
 import CalendarViewMonth from "@/components/CalendarViewMonth";
+import CalendarViewWeek from "@/components/CalendarViewMonth";
 export default {
-name: "Calendar",
-  components: { CalendarViewMonth, CalendarButtons}
+    props: {
+        period: {
+            type: String,
+            default: 'year'
+        },
+    },
+    name: "Calendar",
+    components: { CalendarViewMonth, CalendarNav, CalendarViewWeek},
 }
 </script>
-
-<style scoped>
-
-</style>

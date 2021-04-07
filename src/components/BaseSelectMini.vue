@@ -29,7 +29,7 @@ export default {
       label:''
     }
   }),
-  name: "baseSelectMini"
+  name: "BaseSelectMini"
 }
 </script>
 

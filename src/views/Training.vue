@@ -149,14 +149,12 @@ import CardIndications from "@/components/CardIndications";
 import AccordionItem from "@/components/AccordionItem";
 // import draggable from 'vuedraggable'
 import Accordion from "@/components/Accordion";
-import BaseSelect from "@/components/baseSelect";
-import BaseButton from "@/components/baseButton";
+//import AccordionTest from "@/components/AccordionTest";
 import AccordionBig from "@/components/AccordionBig";
-import BaseLabel from "@/components/baseLabel";
+//import BaseLabel from "@/components/BaseLabel";
 import TrainingAside from "@/components/TrainingAside";
 import ModalSummaryPlan from "@/components/ModalSummaryPlan";
 import {Draggable} from 'draggable-vue-directive';
-
 
 export default {
   name: 'Training',
@@ -168,10 +166,7 @@ export default {
   components: {
     ModalSummaryPlan,
     TrainingAside,
-    BaseLabel,
     AccordionBig,
-    BaseButton,
-    BaseSelect,
     Accordion,
     AccordionItem,
     CardIndications,
@@ -350,10 +345,6 @@ export default {
 
 .m-show{
   opacity: 1;
-  //transition: .3s;
-
-
-
 }
 .m-hide{
   opacity: 0;
@@ -411,10 +402,6 @@ export default {
   margin-bottom: 6px;
 
 }
-
-
-
-
 
 /**/
 

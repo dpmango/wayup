@@ -26,7 +26,7 @@ export default {
   data: () => ({
     items: ['Группа С8 | 10-13', 'Группа С8 | 10-14', 'Группа С8 | 10-15'],
   }),
-  name: "baseSelect"
+  name: "BaseSelect"
 }
 </script>
 

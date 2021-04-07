@@ -1,8 +1,7 @@
 <template lang="pug">
   .div
     ScheduleHeader(text='Календарь 134')
-    Calendar
-
+    Calendar(:period="$route.params.period")
 </template>
 
 <script>
