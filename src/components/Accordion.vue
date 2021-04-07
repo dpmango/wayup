@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-expansion-panels
+  v-expansion-panels.accordion-training
     draggable.accordion-group(
       :list='list1'
       group='power'
@@ -8,8 +8,6 @@
         v-for='(element, index) in list1'
         :key='element.name'
       )
-
-
         dots-menu
         v-expansion-panel-header.accordion-panel__header
           .panel-num {{index + 1 }}
@@ -129,9 +127,17 @@ export default {
   margin-bottom: 25px;
 }
 
+.accordion-training{
+  .accordion-panel__header {
+    min-height: 128px;
+    padding-left: 36px;
+    padding-right: 24px;
+
+  }
+}
+
 .accordion-panel__header{
-  padding-left: 36px;
-  padding-right: 24px;
+
   position: relative;
   align-items: flex-start;
   .img-wrap{
@@ -147,23 +153,19 @@ export default {
 
 }
 
+
+
+
 .accordion-panel__title{
   font-size: 16px;
   font-family: $FiraSansMedium;
   margin-bottom: 8px;
 }
 
-.v-expansion-panel-header__icon{
-  @include background-contain('arrow-down_blue.svg')
-  @include width-flex(20px)
-  height: 20px;
-  transition: 0.5s;
 
-
-}
 
 .v-expansion-panel-header{
-  min-height: 128px;
+
 }
 .v-expansion-panel-content__wrap{
   padding: 10px 24px 24px 36px;
@@ -171,17 +173,7 @@ export default {
 .v-expansion-panel--active>.v-expansion-panel-header{
   min-height: 128px;
 }
-.v-expansion-panel-header--active{
-  .v-expansion-panel-header__icon{
-    transform: rotate(180deg);
-    transition: 0.5s;
-  }
 
-}
-
-.accordion-group{
-  padding: 2px 1px;
-}
 
 .accordion-panel{
   background: #FFFFFF;
