@@ -6,6 +6,9 @@ import vuetify from '@/plugins/vuetify'
 import VueDraggable from 'vue-draggable'
 import VueSimpleAccordion from 'vue-simple-accordion';
 import 'vue-simple-accordion/dist/vue-simple-accordion.css';
+import DropdownMenu from 'v-dropdown-menu'
+// import { Draggable } from 'draggable-vue-directive'
+ // Base style, required.
 
 
 // import  SvgSprite  from 'vue-svg-sprite'
@@ -18,7 +21,19 @@ import 'vue-simple-accordion/dist/vue-simple-accordion.css';
 // Vue.prototype.moment = moment
 
 
+
+
+
+Vue.use(DropdownMenu,{
+    direction:'right',
+    overlay: false,
+    overlayBgColor:'transparent'
+})
+
 Vue.use(VueDraggable)
+
+
+
 Vue.use(VueSimpleAccordion, {
     tags: {
         // list: "ul",
@@ -39,6 +54,7 @@ new Vue({
     vuetify,
     VueDraggable,
     VueSimpleAccordion,
+    DropdownMenu,
 
 // SvgSprite,
     // moment,

@@ -36,6 +36,15 @@
   flex: initial;
 }
 
+.close-button,
+.drag-button{
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+
+
 /* select general start*/
 
 .select-base {

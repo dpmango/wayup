@@ -1,17 +1,5 @@
 <template lang="pug">
-  mixin Accordion(data)
-    v-expansion-panels
-      draggable.accordion-group(:list=`${data.list}` group=`${data.group}` @change='log')
-        v-expansion-panel(
-          v-for=`(element, index) in ${data.list}`
-          :key='element.name'
-        )
-          v-expansion-panel-header
-            | {{ element.name}}
-          v-expansion-panel-content
-            | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-  .page-training
+  .page-training( ref="bounder")
     v-row
       v-col(
         md='10'
@@ -27,24 +15,73 @@
           TagsTraining
 
           .buttons-wrap(data-app)
-            base-button(label='Редактировать' classAttr='custom-button mr-6')
-            base-select(label='Выберите группу' classAttr='select-base custom-select mr-6')
-            .title-blue Итоговый план
+            base-button(
+              :label="!isActiveEdit ? 'Редактировать' :'Применить'"
+              classAttr='custom-button mr-6'
+              @click='editTraining'
+
+            )
+            base-select(label='Поделиться' classAttr='select-base custom-select mr-6')
+            .summary-button.title-blue(
+              @click='toggleModalPlan'
+
+            ) Итоговый план
+            .summury-plan__modal-wrap(:class="isActiveModal ? 'm-show' : 'm-hide'")
+              .summury-plan__modal(v-draggable)
+                .summury-plan__head
+                  .summury-plan__title Итоговый план
+                  .summury-plan__head__right
+                    .drag-button
+                      img.drag-icon.mt-n1.mr-5(
+                        src="@/assets/images/svg/drag-icon.svg"
+                      )
+                    .close-button(
+                      @click='toggleModalPlan'
+                    )
+                      img.drag-icon(
+                        src="@/assets/images/svg/icon-close.svg"
+                      )
+
+                .summury-plan__block
+                  .summury-plan__block
+                    each val in ['подготовка', 'Основная часть', 'заключительная часть']
+                      .summury-plan__block-title !{val}
+                      ul.summury-plan__list
+                        -for(var i=0; i<2; i++)
+                          li.summury-plan__item
+                            .summury-plan__num !{i+1}
+                            .summury-plan__desc Подъем в основную стойку из положения лежа на животе
+                            .labels
+                              base-label(
+                                label='10 мин'
+                                color='#F1F3F9'
+                                textColor="#000000"
+                              )
+                              base-label(
+                                label='У'
+                                color='rgba(61, 197, 13, 0.2)'
+                                textColor="#1F7800"
+                              )
+
+
+
+
+
         v-row
           v-col(
-            md='8'
+            :cols="!isActiveEdit ? '12' : '8'"
           )
             .indications-blocks.mb-12
               v-row
                 v-col(
-                  md='12'
+                  :cols="!isActiveEdit ? '6' : '12'"
                 )
                   v-card.card(
                     elevation="2"
                   )
                     .card-title Интенсивность занятия
                 v-col(
-                  md='12'
+                  :cols="!isActiveEdit ? '6' : '12'"
                 )
                   CardIndications
             .trainings__block
@@ -52,24 +89,40 @@
                 v-col(
                   md='12'
                 )
-                  //Accordion(list='list1' group='training')
-                        v-expansion-panels
-                  AccordionTest(
-                    v-for="(faq, i) in faqs"
-                    :faq="faq"
+                  AccordionBig(
+                    v-for="(accordionBigItem, i) in accordionBigItems"
+                    :classAttr="accordionBigItem"
                     :index="i"
                     :key="i"
-                    :open="faq.open"
+                    :open="accordionBigItem.open"
                     @toggleOpen="toggleOpen"
                   )
-                    +Accordion({
-                      list: 'list1',
-                      group: 'training'
-                    })
-                  +Accordion({
-                    list: 'list4',
-                    group: 'power'
-                  })
+                    template(v-slot:accord-header)
+                      .accordion-big__head
+                        .accordion-subtitle 2 упражнений, 17 мин
+                        .accordion-big__header
+                          .accordion-big__header-title Подготовительная часть
+                          .labels
+                            base-label(
+                              label='Нормально'
+                              color='rgba(235, 173, 16, 0.2)'
+                              textColor="#9E7200"
+                            )
+                    template(v-slot:accord-body)
+                      Accordion
+
+                      //+Accordion({
+                      //  list: 'list1',
+                      //  group: 'training'
+                      //})
+                        //template(v-slot:accord-mini-header)
+
+                        //template(v-slot:accord-mini-body)
+
+                      //+Accordion({
+                      //  list: 'list4',
+                      //  group: 'power'
+                      //})
               v-row
                 v-col(
                   md='6'
@@ -80,15 +133,8 @@
           v-col(
             md='4'
           )
-            //Accordion(list='list2' group='training')
-            +Accordion({
-              list: 'list2',
-              group: 'training'
-            })
-            +Accordion({
-              list: 'list3',
-              group: 'power'
-            })
+            .div(:class="!isActiveEdit ? 'd-none' : 'd-block'")
+              TrainingAside
 
 
 </template>
@@ -101,26 +147,48 @@ import TheBreadcrumbs from "@/components/TheBreadcrumbs";
 import TagsTraining from "@/components/TagsTraining";
 import CardIndications from "@/components/CardIndications";
 import AccordionItem from "@/components/AccordionItem";
-import draggable from 'vuedraggable'
+// import draggable from 'vuedraggable'
 import Accordion from "@/components/Accordion";
-import AccordionTest from "@/components/AccordionTest";
 import BaseSelect from "@/components/baseSelect";
 import BaseButton from "@/components/baseButton";
+import AccordionBig from "@/components/AccordionBig";
+import BaseLabel from "@/components/baseLabel";
+import TrainingAside from "@/components/TrainingAside";
+import ModalSummaryPlan from "@/components/ModalSummaryPlan";
+import {Draggable} from 'draggable-vue-directive';
+
 
 export default {
   name: 'Training',
+  // draggableWithBoundries: DraggableValue = {},
+
+  directives: {
+    Draggable,
+  },
   components: {
+    ModalSummaryPlan,
+    TrainingAside,
+    BaseLabel,
+    AccordionBig,
     BaseButton,
     BaseSelect,
-    AccordionTest,
     Accordion,
     AccordionItem,
     CardIndications,
     TagsTraining,
     TheBreadcrumbs,
-    draggable
+    // draggable
   },
   data: () => ({
+    isActiveEdit: false,
+    isActiveModal: false,
+    dialog: false,
+
+    // handleId: "handle-id",
+    // draggableValue: {
+    //   handle: undefined
+    // },
+
     // options: {
     //   dropzoneSelector: ".dropzone",
     //   draggableSelector: ".dropzone-item"
@@ -129,8 +197,6 @@ export default {
     list1: [
       {name: "Баланс в основной стойке", id: 1},
       {name: "Подъем в основную стойку из положения лежа на животе", id: 2},
-      // { name: "Jean", id: 3 },
-      // { name: "Gerard", id: 4 }
     ],
     list2: [
       {name: "5 х 4  Большинство", id: 5},
@@ -147,23 +213,46 @@ export default {
       {name: "Свободная игра 2232", id: 9},
       {name: "Свободная игра 3323", id: 10}
     ],
-    faqs: [
+    accordionBigItems: [
       {
-        question: "Who is the best Superhero?",
-        // answer: "I'm not sure but we love him 3000",
-        open: false
+        open: true,
+        children: [
+          {name: "Баланс в основной стойке", id: 1},
+          {name: "Подъем в основную стойку из положения лежа на животе", id: 2},
+
+        ]
       },
       {
-        question: "What is Goku's form called with White Hair?",
-        // answer: "Mastered Ultra Instinct",
-        open: false
+        open: false,
+        children: [
+          {name: "5 х 4  Большинство", id: 5},
+          {name: "3 х 5 Меньшинство", id: 6},
+          {name: "Розыгрыш", id: 7}
+
+        ]
       },
       {
-        question: "Have you liked & subscried yet?",
-        // answer: "YES",
-        open: false
-      }
-    ]
+        open: false,
+        children: [
+          {name: "Свободная игра 1", id: 8},
+          {name: "Свободная игра 2", id: 9},
+          {name: "Свободная игра 3", id: 10}
+
+        ]
+      },
+      {
+        open: false,
+        children: [
+          {name: "Свободная игра 123", id: 8},
+          {name: "Свободная игра 2232", id: 9},
+          {name: "Свободная игра 3323", id: 10}
+
+
+        ]
+      },
+
+    ],
+
 
   }),
 
@@ -183,16 +272,39 @@ export default {
       window.console.log(evt);
     },
     toggleOpen: function (index) {
-      this.faqs = this.faqs.map((faq, i) => {
+      this.accordionBigItems = this.accordionBigItems.map((accordionBigItem, i) => {
         if (index === i) {
-          faq.open = !faq.open;
+          accordionBigItem.open = !accordionBigItem.open;
         } else {
-          faq.open = false;
+          accordionBigItem.open = false;
         }
-        return faq;
+        return accordionBigItem;
       });
-    }
+    },
+    editTraining: function () {
+      this.isActiveEdit = !this.isActiveEdit;
+
+    },
+
+    toggleModalPlan: function () {
+      this.isActiveModal = !this.isActiveModal;
+      console.log(this.isActiveModal)
+
+    },
+
+
+  },
+  mounted() {
+    console.log(this.$refs)
+    // this.draggableWithBoundries.boundingElement = this.$refs.bounder as HTMLElement;
+    // this.draggableWithBoundries.boundingRectMargin = {
+    //   top: 2,
+    //   bottom: 2,
+    //   left: 2,
+    //   right: 2
+    // };
   }
+
 
 
 }
@@ -204,73 +316,105 @@ export default {
   margin-bottom: 64px;
 }
 
-.accordion-group {
-  width: 100%;
-  min-height: 128px;
+/* summury-plan */
 
-}
-
-.v-item-group {
-  margin-bottom: 25px;
-}
-
-
-/* accordion-big */
-.faq {
-  display: block;
-  width: 100%;
-  max-width: 768px;
-  margin: 15px auto;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  background-color: #FFF;
-}
-
-.faq .question {
-  position: relative;
-  color: #3c3c3c;
-  font-size: 20px;
-  transition: all 0.4s linear;
-}
-
-.faq .question::after {
-  content: '';
+.summury-plan__modal {
+  background: #F1F3F9;
+  box-shadow: 0px 4px 12px rgba(165, 169, 180, 0.2), 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1), 0px 4px 5px rgba(50, 107, 255, 0.06);
+  border-radius: 12px;
+  padding: 25px;
+  width: 410px;
   position: absolute;
-  top: 50%;
-  right: 0px;
-  transform: translateY(-50%) rotate(0deg);
-  width: 30px;
-  height: 30px;
-  //background-image: url('./arrow-down-mint.svg');
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-
-  transition: all 0.2s linear;
+  //top: 50%;
+  //left: 50%;
+  z-index: 10000;
+  //margin-left: -450px;
 }
 
-.faq.open .question {
-  margin-bottom: 15px;
+.summury-plan__head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 17px;
 }
 
-.faq.open .question::after {
-  transform: translateY(-50%) rotate(90deg);
+.summury-plan__head__right{
+  display: flex;
+  align-items: center;
+}
+.summary-button{
+  &:hover{
+    cursor: pointer;
+  }
 }
 
-.faq .answer {
-  color: #3c3c3c;
-  font-size: 18px;
-  opacity: 0;
-  max-height: 0px;
-  overflow-y: hidden;
-  transition: all 0.4s ease-out;
-}
-
-.faq.open .answer {
+.m-show{
   opacity: 1;
-  max-height: 1000px;
+  //transition: .3s;
+
+
+
 }
+.m-hide{
+  opacity: 0;
+  //transition: .3s;
+  pointer-events: none;
+}
+
+.summury-plan__list{
+  background: #FFFFFF;
+  border-radius: 8px;
+  padding-left: 0 !important;
+  margin-bottom: 16px;
+
+}
+
+.summury-plan__item{
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+  border-bottom: 1px solid #F1F3F9;
+  &:last-child{
+    border-bottom: none;
+  }
+  .labels{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    @include width-flex(30%)
+    justify-content: flex-end;
+    .v-chip--label{
+      @include last-mr-0
+    }
+
+  }
+}
+
+.summury-plan__num{
+  @include width-flex(10%)
+  font-size: 12px;
+  padding-left: 5px;
+  display: flex;
+  color: rgba(0, 0, 0, .4);
+}
+.summury-plan__desc{
+  @include width-flex(60%)
+  font-size: 14px;
+
+}
+
+.summury-plan__block-title {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: rgba(0, 0, 0, .4);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+
+}
+
+
+
+
 
 /**/
 
