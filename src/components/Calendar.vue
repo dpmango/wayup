@@ -19,7 +19,3 @@ export default {
     components: { CalendarViewMonth, CalendarNav, CalendarViewWeek},
 }
 </script>
-
-<style scoped>
-
-</style>

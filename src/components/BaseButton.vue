@@ -5,6 +5,8 @@
     color="#F1F3F9"
     height='40px'
     :tag="tag"
+    @click="handleOnClick($event)"
+
   ) {{label}}
     slot
 
@@ -24,9 +26,18 @@ export default {
     classAttr:{
       type:String,
       default:''
-    }
+    },
+    // clickEvent:{
+    //   type:String,
+    //   default:''
+    // }
   },
-  name: "BaseButton"
+  name: "BaseButton",
+  methods:{
+    handleOnClick:function (){
+      this.$emit("click");
+    }
+  }
 }
 </script>
 
