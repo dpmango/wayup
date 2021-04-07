@@ -1,5 +1,5 @@
 <template lang="pug">
-  .page-training
+  .page-training( ref="bounder")
     v-row
       v-col(
         md='10'
@@ -42,17 +42,30 @@
                         src="@/assets/images/svg/icon-close.svg"
                       )
 
-                v-card
-                  v-card-title.headline
-                    | Use Google's location service?
-                  v-card-text
-                    | Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
-                  v-card-actions
-                    v-spacer
-                    v-btn(color='green darken-1' text='' @click='dialog = false')
-                      | Disagree
-                    v-btn(color='green darken-1' text='' @click='dialog = false')
-                      | Agree
+                .summury-plan__block
+                  .summury-plan__block
+                    each val in ['подготовка', 'Основная часть', 'заключительная часть']
+                      .summury-plan__block-title !{val}
+                      ul.summury-plan__list
+                        -for(var i=0; i<2; i++)
+                          li.summury-plan__item
+                            .summury-plan__num !{i+1}
+                            .summury-plan__desc Подъем в основную стойку из положения лежа на животе
+                            .labels
+                              base-label(
+                                label='10 мин'
+                                color='#F1F3F9'
+                                textColor="#000000"
+                              )
+                              base-label(
+                                label='У'
+                                color='rgba(61, 197, 13, 0.2)'
+                                textColor="#1F7800"
+                              )
+
+
+
+
 
         v-row
           v-col(
@@ -147,6 +160,8 @@ import {Draggable} from 'draggable-vue-directive';
 
 export default {
   name: 'Training',
+  // draggableWithBoundries: DraggableValue = {},
+
   directives: {
     Draggable,
   },
@@ -168,10 +183,12 @@ export default {
     isActiveEdit: false,
     isActiveModal: false,
     dialog: false,
-    handleId: "handle-id",
-    draggableValue: {
-      handle: undefined
-    },
+
+    // handleId: "handle-id",
+    // draggableValue: {
+    //   handle: undefined
+    // },
+
     // options: {
     //   dropzoneSelector: ".dropzone",
     //   draggableSelector: ".dropzone-item"
@@ -234,7 +251,8 @@ export default {
         ]
       },
 
-    ]
+    ],
+
 
   }),
 
@@ -274,7 +292,19 @@ export default {
 
     },
 
+
+  },
+  mounted() {
+    console.log(this.$refs)
+    // this.draggableWithBoundries.boundingElement = this.$refs.bounder as HTMLElement;
+    // this.draggableWithBoundries.boundingRectMargin = {
+    //   top: 2,
+    //   bottom: 2,
+    //   left: 2,
+    //   right: 2
+    // };
   }
+
 
 
 }
@@ -285,6 +315,8 @@ export default {
 .training-head {
   margin-bottom: 64px;
 }
+
+/* summury-plan */
 
 .summury-plan__modal {
   background: #F1F3F9;
@@ -318,12 +350,68 @@ export default {
 
 .m-show{
   opacity: 1;
+  //transition: .3s;
+
+
 
 }
 .m-hide{
   opacity: 0;
+  //transition: .3s;
   pointer-events: none;
 }
+
+.summury-plan__list{
+  background: #FFFFFF;
+  border-radius: 8px;
+  padding-left: 0 !important;
+  margin-bottom: 16px;
+
+}
+
+.summury-plan__item{
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+  border-bottom: 1px solid #F1F3F9;
+  &:last-child{
+    border-bottom: none;
+  }
+  .labels{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    @include width-flex(30%)
+    justify-content: flex-end;
+    .v-chip--label{
+      @include last-mr-0
+    }
+
+  }
+}
+
+.summury-plan__num{
+  @include width-flex(10%)
+  font-size: 12px;
+  padding-left: 5px;
+  display: flex;
+  color: rgba(0, 0, 0, .4);
+}
+.summury-plan__desc{
+  @include width-flex(60%)
+  font-size: 14px;
+
+}
+
+.summury-plan__block-title {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: rgba(0, 0, 0, .4);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+
+}
+
 
 
 
