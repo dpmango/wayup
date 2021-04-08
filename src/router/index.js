@@ -25,6 +25,7 @@ const routes = [
                 path: 'month',
                 component: CalendarViewMonth,
                 meta: {layout: 'main'},
+                name: 'CalendarMonth'
             },
             {
                 path: 'week',

@@ -1,7 +1,10 @@
 <template lang="pug">
-    .day
+    div(:class="classObjectDay")
         div(:class="classObject")
-            | {{ day.format('D') }}
+               template(v-if="day.format('D') == 1")
+                |  {{ day.format('D MMMM') }}
+               template(v-else)
+                | {{ day.format('D') }}
         .event(v-if="isToday")
             .event-name Индивидуальное занятие длинное
             .event-time 16:00
@@ -14,22 +17,51 @@
         props: {
             day: {
                 type: [Object, Array, Number]
+            },
+            series: {
+                type: Array
             }
         },
         name: "CalendarDay",
         data: () => ({
             todayDay: moment().format("D"),
+            todayMonth: moment().format("M"),
+            isHover: false
         }),
         computed: {
             isToday: function() {
-                return (this.todayDay == this.day.format('D'));
+                return (moment().format("DD-MM-YYYY") == this.day.format('DD-MM-YYYY') && this.day.format('D') !== 1);
+            },
+            isCurrentMonth: function() {
+                return (this.todayMonth == this.day.format('M'));
+            },
+            isWeekend: function() {
+                return (this.day.day() == 0 || this.day.day() == 6)
             },
             classObject: function () {
                 return {
-                    'day-today': this.isToday,
-                    'day-number': true
+                    'day-today' : this.isToday,
+                    'day-number': true,
                 };
             },
+            classObjectDay: function() {
+               return {
+                   'day' : true,
+                   'gray': this.isWeekend,
+                   'disable' : !this.isCurrentMonth,
+                   'dark'    : this.isHover
+               }
+            }
+        },
+        methods: {
+            backlightDay: function() {
+                if(this.series.includes(this.day.format('DD MM YYYY'))) {
+                    this.isHover = true;
+                }
+            },
+            notBacklightDay: function() {
+                this.isHover = false;
+            }
         },
     }
 </script>
@@ -43,11 +75,21 @@
         text-align: center;
         padding: 45px 12px 30px;
         height: 170px;
+        transition: all .4s;
+        &.gray {
+         background: rgba(121, 140, 189, 0.05);
+        }
+        &.disable {
+            color: rgba(0,0,0, .5);
+        }
+        &.dark {
+            background: rgba(50, 107, 255, 0.1)
+        }
     }
     .day-number {
         position: absolute;
         right: 16px;
-        top: 12px;
+        top: 16px;
         &.day-today {
             width: 32px;
             height: 32px;
@@ -81,5 +123,4 @@
         color: rgba(0, 0, 0, .4);
         margin-left: auto;
     }
-
 </style>
