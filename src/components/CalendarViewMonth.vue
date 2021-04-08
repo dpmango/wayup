@@ -14,7 +14,6 @@
         .circle-item
           .circle-title Макроцикл
           base-select-mini(label='Выбрать цикл' classAttr='select-base custom-select_mini')
-
     .calendar
       .weeks
         .week-day(v-for='weekDay in weekDays' :key='weekDay')
@@ -24,7 +23,11 @@
             v-for="n in periodLength"
             :key="n"
             :day="getDay(n)"
+            :series="series"
         )
+        .base-line(:style="baseLineStyle" v-if="isShowBaseline")
+            .base-line-label(@mouseover="hoverChildren" @mouseleave="leaveChildren") Базовый 8 15 фев - 13 марта, 2021
+            .base-line-label-big Базовый 8 15 фев - 13 марта, 2021
 </template>
 
 <script>
@@ -35,36 +38,50 @@ import CalendarDay from "@/components/CalendarDay";
 export default {
   name: "CalendarViewMonth",
   components: { CalendarDay},
-  data: () => ({
-    thisMonth: moment().format("MMMM"),
-    thisYear: moment().format("YYYY"),
-    weekDays: moment.weekdays(),
-    startDay: moment().startOf('month'),
-    endDay: moment().endOf('month'),
-    counter: 0,
-  }),
+    props: {
+        initDay: {
+          type: Date
+      }
+    },
+  data: function () {
+    return {
+    dataInitDay: this.initDay,
+    weekDays: moment.weekdaysShort(true),
+    series: ['29 03 2021','30 03 2021', '31 03 2021', '01 04 2021', '02 04 2021', '03 04 2021', '04 04 2021'
+          , '05 04 2021', '06 04 2021', '07 04 2021', '08 04 2021', '09 04 2021', '10 04 2021']
+  }},
   methods: {
-    previousMonth: function () {
-      this.counter--
-      this.thisMonth = moment().add(this.counter, 'months').format('MMMM');
-      this.lastDay = parseInt(moment().add(this.counter, 'months').endOf('month').format('D'));
-      this.thisYear = moment().add(this.counter, 'months').format("YYYY");
-      this.firstWeekDay = moment().add(this.counter, 'months').startOf('month').format("dddd");
-      console.log(this.thisMonth)
-    },
-    nextMonth: function () {
-      this.counter++
-      this.thisMonth = moment().add(this.counter, 'months').format('MMMM');
-      this.lastDay = parseInt(moment().add(this.counter, 'months').endOf('month').format('D'));
-      this.thisYear = moment().add(this.counter, 'months').format("YYYY");
-      this.firstWeekDay = moment().add(this.counter, 'months').startOf('month').format("dddd");
-      console.log(this.thisMonth)
-    },
-      getDay(n) {
+      getDay: function (n) {
           return moment(this.startWeek.toDate()).add(n-1, 'd');
+      },
+      hoverChildren: function () {
+          this.$children.forEach(child => {
+              if(child.$options.name === "CalendarDay") {
+                  child.backlightDay();
+              }
+          });
+      },
+      leaveChildren: function () {
+          this.$children.forEach(child => {
+              if(child.$options.name === "CalendarDay") {
+                  child.notBacklightDay();
+              }
+          });
       }
   },
     computed: {
+        thisMonth: function () {
+            return moment(this.initDay).format("MMMM");
+        },
+        thisYear: function () {
+            return moment(this.initDay).format("YYYY");
+        },
+        startDay: function () {
+            return moment(this.initDay).startOf('month');
+        },
+        endDay: function () {
+            return moment(this.initDay).endOf('month');
+        },
         startWeek: function () {
             return this.startDay.startOf('week');
         },
@@ -74,6 +91,15 @@ export default {
         periodLength: function () {
             return this.endWeek.diff(this.startWeek, 'days') + 1;
         },
+        baseLineStyle: function () {
+            let periodOfStart = moment().diff(this.startWeek, 'days') + 1;
+            return {
+                top: (Math.ceil(periodOfStart/7) * 170) + 'px'
+            }
+        },
+        isShowBaseline: function () {
+            return moment(this.initDay).format('DD-MM-YYYY') == moment().format('DD-MM-YYYY')
+        }
     },
     created: function () {
         moment.locale('ru');
@@ -157,16 +183,72 @@ export default {
     }
 
     .week-day {
-      width: 100px;
-      flex-grow: 1;
-      padding: 10px;
-      text-align: left;
-      font-size: 14px;
+        width: 100px;
+        flex-grow: 1;
+        padding: 10px;
+        text-align: left;
+        font-size: 14px;
     }
 
     .days {
-      display: flex;
-      flex-wrap: wrap;
-      border-left: 1px solid rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-wrap: wrap;
+        border-left: 1px solid rgba(0, 0, 0, 0.1);
+        position: relative;
     }
+    .base-line {
+        position: absolute;
+        top: 340px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        transform: translateY(-50%);
+        &-label {
+            padding: 6px 8px 5px;
+            background: linear-gradient(0deg, rgba(236, 72, 101, 0.2), rgba(236, 72, 101, 0.2)), #FFFFFF;
+            border: 1px solid #EC4865;
+            box-sizing: border-box;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #A12238;
+            font-size: 10px;
+            position: relative;
+            z-index: 1;
+            cursor: pointer;
+            &:hover + .base-line-label-big {
+                display: flex;
+            }
+        }
+        &:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 20, 20, 0.6);
+            top: 50%;
+        }
+        &-label-big {
+            position: absolute;
+            top: -6px;
+            background: #FFFFFF;
+            border: 1px solid #EC4865;
+            box-sizing: border-box;
+            border-radius: 4px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #A12238;
+            padding: 0 8px;
+            height: 29px;
+            line-height: 1;
+            align-items: center;
+            cursor: default;
+            user-select: none;
+            transform: translateY(-100%);
+            display: none;
+        }
+    }
+
 </style>

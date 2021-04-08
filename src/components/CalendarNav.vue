@@ -21,11 +21,11 @@
         label="День"
       )
       .today-block.mr-6.ml-6
-        base-button(classAttr='custom-button button-icon mr-1' tag='a')
+        base-button(classAttr='custom-button button-icon mr-1' tag='a' @click="handlePrev($event)")
           svg(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
             path(d='M9 4L5 8L9 12' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
-        base-button(label='Сегодня' classAttr='custom-button mr-1' tag='a')
-        base-button(classAttr='custom-button button-icon mr-1' tag='a')
+        base-button(:label='labelNav' classAttr='custom-button mr-1 cpt-button' tag='a')
+        base-button(classAttr='custom-button button-icon mr-1' tag='a' @click="handleNext($event)")
           svg(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
             path(d='M7 12L11 8L7 4' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
       .search-block
@@ -43,11 +43,21 @@
 
 <script>
 export default {
-  name: "CalendarNav",
-
-  data: () => ({
-    // items: ['Группа С8 | 10-13', 'Группа С8 | 10-14', 'Группа С8 | 10-15'],
-  }),
+    name: "CalendarNav",
+    props: {
+      labelNav: {
+          type: String,
+          default: 'Сегодня'
+      }
+    },
+    methods: {
+        handleNext: function () {
+            this.$emit("next");
+        },
+        handlePrev: function () {
+            this.$emit("prev");
+        }
+    },
 }
 </script>
 
@@ -56,5 +66,8 @@ export default {
     .buttons-right{
       display: flex;
       align-items: center;
+    }
+    .cpt-button {
+        text-transform: capitalize;
     }
 </style>
