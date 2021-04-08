@@ -1,4 +1,11 @@
 <template lang="pug">
+  mixin circle-week__desc
+    .circle-week__desc
+      .circle-week__desc-time 16.00—18.00
+      .circle-week__desc-title Практическое занятие, ССМ-2, №12
+      .circle-week__desc-text Аэробная выносливость
+        span.num-indication 5/10
+
   .div
     ScheduleHeader(text='Календарь 134')
       template(v-slot:header-block)
@@ -49,8 +56,38 @@
                 span Скрыть микроциклы
           .block-flex__right
             .show-more(@click="all") Раскрыть все
-
         AccordionCircle
+        v-card.card.mt-5(
+          elevation="2"
+        )
+          .block-flex.mb-5.justify-space-between
+            .h6 Текущий микроцикл
+            base-label(
+              label='базовый 9, 27 сен — 3 окт'
+              color='#F1F3F9'
+              textColor="rgba(0, 0, 0, 0.6)"
+            )
+          .circle-week__block
+            .circle-week__item.active
+              .circle-week__title ПН
+              +circle-week__desc
+            .circle-week__item
+              .circle-week__title ВТ
+            .circle-week__item.active
+              .circle-week__title СР
+              +circle-week__desc
+            .circle-week__item
+              .circle-week__title ЧТ
+            .circle-week__item
+              .circle-week__title ПТ
+            .circle-week__item
+              .circle-week__title СБ
+            .circle-week__item
+              .circle-week__title ВС
+
+
+
+
 
       v-col(
         md='4'
@@ -60,7 +97,8 @@
             .h6 Цель сезона
           .block-flex__right
             dots-menu.position-static
-        CardIndications
+        .target-block
+          CardIndications
 
 
 
@@ -102,6 +140,57 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.circle-week__item{
+  position: relative;
+  padding: 8px 16px 8px 53px;
+
+  box-shadow: inset 1px 0px 0px rgba(0, 0, 0, 0.1), inset -1px 0px 0px rgba(0, 0, 0, 0.1), inset 0px -1px 0px rgba(0, 0, 0, 0.1);
+
+  min-height: 64px;
+  &:first-child{
+    box-shadow: inset -1px 0px 0px rgba(0, 0, 0, 0.1), inset 1px 0px 0px rgba(0, 0, 0, 0.1), inset 0px 1px 0px rgba(0, 0, 0, 0.1), inset 0px -1px 0px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.circle-week__item.active{
+  box-shadow: inset -1px 0px 0px rgba(0, 0, 0, 0.16), inset 2px 0px 0px #FFBF26, inset 0px 1px 0px rgba(0, 0, 0, 0.16), inset 0px -1px 0px rgba(0, 0, 0, 0.16);
+  background: #FFF5DD;
+  .circle-week__title{
+    color: #000000;
+  }
+}
+
+.circle-week__title{
+  position: absolute;
+  left: 16px;
+  top: 8px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, .6);
+}
+
+.circle-week__desc-time{
+  font-size: 12px;
+  margin-bottom: 6px;
+
+}
+
+.circle-week__desc-title{
+  font-size: 12px;
+  font-family: $FiraSansMedium;
+  margin-bottom: 6px;
+}
+
+.circle-week__desc-text{
+  font-size: 12px;
+}
+.num-indication{
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #9E7200;
+  margin-left: 5px;
+}
+
 
 
 </style>
