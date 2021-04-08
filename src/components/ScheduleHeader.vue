@@ -2,7 +2,9 @@
   .header
     v-row
       v-col(md='8')
-        .title Календарь
+        .header-left
+          .title Календарь
+          slot(name="header-block")
       v-col(md='4')
         .header-right
           .text-block
@@ -62,6 +64,11 @@ export default {
     color: $red;
     margin-left: 3px;
   }
+}
+
+.header-left{
+  display: flex;
+  align-items: center;
 }
 
 

@@ -42,5 +42,6 @@ name: "baseLabel",
 }
 .v-chip--label{
   margin-right: 8px;
+  height: 20px !important;
 }
 </style>

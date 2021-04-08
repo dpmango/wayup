@@ -1,5 +1,5 @@
 <template lang="pug">
-  #app
+  #app(data-app)
     component(:is="layout")
       router-view
 
