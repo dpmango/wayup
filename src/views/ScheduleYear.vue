@@ -7,7 +7,7 @@
         span.num-indication 5/10
 
   .div
-    ScheduleHeader(text='Календарь 134')
+    ScheduleHeader(title='Расписание')
       template(v-slot:header-block)
         base-select(label='Выберите группу' classAttr='select-base custom-select ml-5')
         base-button(classAttr='custom-button button-icon button-blue ml-5' tag='a' color="#326BFF")
@@ -29,6 +29,20 @@
             path(d='M13.3333 1.66669V5.00002' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
             path(d='M6.66675 1.66669V5.00002' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
             path(d='M2.5 8.33331H17.5' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
+      template(v-slot:header-right)
+        .text-block
+          img.icon-20.icon-cup(
+            src="@/assets/images/coffee-cup.svg"
+          )
+          .text-info Вы работаете непрерывно
+            span 16 часов
+        v-avatar(
+          height='40px'
+          width='40px'
+        )
+          img(
+            src="@/assets/images/avatar.png"
+          )
 
 
     v-row
@@ -55,35 +69,43 @@
                     base-button(classAttr='button-middle button-blue ml-1 br-50' heightButton='24px' tag='button' color="#326BFF" label="Микроциклы")
                 span Скрыть микроциклы
           .block-flex__right
-            .show-more(@click="all") Раскрыть все
+            .show-more Раскрыть все
         AccordionCircle
-        v-card.card.mt-5(
-          elevation="2"
+        draggable(
+          :list='trainings'
+          group='test'
         )
-          .block-flex.mb-5.justify-space-between
-            .h6 Текущий микроцикл
-            base-label(
-              label='базовый 9, 27 сен — 3 окт'
-              color='#F1F3F9'
-              textColor="rgba(0, 0, 0, 0.6)"
+          .div(
+            v-for='(element, index) in trainings'
+            :key='element.name'
+          )
+            v-card.card.mt-5(
+              elevation="2"
             )
-          .circle-week__block
-            .circle-week__item.active
-              .circle-week__title ПН
-              +circle-week__desc
-            .circle-week__item
-              .circle-week__title ВТ
-            .circle-week__item.active
-              .circle-week__title СР
-              +circle-week__desc
-            .circle-week__item
-              .circle-week__title ЧТ
-            .circle-week__item
-              .circle-week__title ПТ
-            .circle-week__item
-              .circle-week__title СБ
-            .circle-week__item
-              .circle-week__title ВС
+              .block-flex.mb-5.justify-space-between
+                .h6 {{element.name}}
+                base-label(
+                  label='базовый 9, 27 сен — 3 окт'
+                  color='#F1F3F9'
+                  textColor="rgba(0, 0, 0, 0.6)"
+                )
+              .circle-week__block
+                .circle-week__item.active
+                  .circle-week__title ПН
+                  +circle-week__desc
+                .circle-week__item
+                  .circle-week__title ВТ
+                .circle-week__item.active
+                  .circle-week__title СР
+                  +circle-week__desc
+                .circle-week__item
+                  .circle-week__title ЧТ
+                .circle-week__item
+                  .circle-week__title ПТ
+                .circle-week__item
+                  .circle-week__title СБ
+                .circle-week__item
+                  .circle-week__title ВС
 
 
 
@@ -98,14 +120,7 @@
           .block-flex__right
             dots-menu.position-static
         .target-block
-          CardIndications
-
-
-
-
-
-
-
+          CardIndications(vertical-orientation='true')
 
 </template>
 
@@ -115,24 +130,44 @@ import ScheduleHeader from "@/components/ScheduleHeader";
 import DotsMenu from "@/components/DotsMenu";
 import CardIndications from "@/components/CardIndications";
 import AccordionCircle from "@/components/AccordionCircle";
+// import {Draggable} from 'draggable-vue-directive';
+import draggable from "vuedraggable";
+import Accordion from "@/components/Accordion";
+
 
 export default {
   name: 'ScheduleYear',
-  components: {AccordionCircle, CardIndications, DotsMenu, ScheduleHeader},
-  data: () =>  ({
+  components: {
+    Accordion,
+    AccordionCircle,
+    CardIndications,
+    DotsMenu,
+    ScheduleHeader,
+    draggable,
+  },
+
+  data: () => ({
     panel: [],
     items: 5,
+    trainings: [
+      {name: "Текущий микроцикл", id: 1},
+    ],
   }),
   methods: {
     // Create an array the length of our items
     // with all values as true
-    all () {
-      this.panel = [...Array(this.items).keys()].map((k, i) => i)
-    },
-    // Reset the panel
-    none () {
-      this.panel = []
-    },
+    // all () {
+    //   this.panel = [...Array(this.items).keys()].map((k, i) => i)
+    // },
+    // // Reset the panel
+    // none () {
+    //   this.panel = []
+    // },
+
+    // setPosition: function () {
+    //   this.tagFilters.isActive = !this.tagFilters.isActive;
+    //   console.log('клик')
+    // }
   },
 
 
@@ -141,27 +176,29 @@ export default {
 
 <style lang="scss" scoped>
 
-.circle-week__item{
+.circle-week__item {
   position: relative;
   padding: 8px 16px 8px 53px;
 
   box-shadow: inset 1px 0px 0px rgba(0, 0, 0, 0.1), inset -1px 0px 0px rgba(0, 0, 0, 0.1), inset 0px -1px 0px rgba(0, 0, 0, 0.1);
 
   min-height: 64px;
-  &:first-child{
+
+  &:first-child {
     box-shadow: inset -1px 0px 0px rgba(0, 0, 0, 0.1), inset 1px 0px 0px rgba(0, 0, 0, 0.1), inset 0px 1px 0px rgba(0, 0, 0, 0.1), inset 0px -1px 0px rgba(0, 0, 0, 0.1);
   }
 }
 
-.circle-week__item.active{
+.circle-week__item.active {
   box-shadow: inset -1px 0px 0px rgba(0, 0, 0, 0.16), inset 2px 0px 0px #FFBF26, inset 0px 1px 0px rgba(0, 0, 0, 0.16), inset 0px -1px 0px rgba(0, 0, 0, 0.16);
   background: #FFF5DD;
-  .circle-week__title{
+
+  .circle-week__title {
     color: #000000;
   }
 }
 
-.circle-week__title{
+.circle-week__title {
   position: absolute;
   left: 16px;
   top: 8px;
@@ -169,28 +206,28 @@ export default {
   color: rgba(0, 0, 0, .6);
 }
 
-.circle-week__desc-time{
+.circle-week__desc-time {
   font-size: 12px;
   margin-bottom: 6px;
 
 }
 
-.circle-week__desc-title{
+.circle-week__desc-title {
   font-size: 12px;
   font-family: $FiraSansMedium;
   margin-bottom: 6px;
 }
 
-.circle-week__desc-text{
+.circle-week__desc-text {
   font-size: 12px;
 }
-.num-indication{
+
+.num-indication {
   font-size: 10px;
   letter-spacing: 1px;
   color: #9E7200;
   margin-left: 5px;
 }
-
 
 
 </style>

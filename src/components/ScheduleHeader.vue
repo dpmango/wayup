@@ -3,30 +3,21 @@
     v-row
       v-col(md='8')
         .header-left
-          .title Календарь
+          .title {{title}}
           slot(name="header-block")
       v-col(md='4')
         .header-right
-          .text-block
-            img.icon-20.icon-cup(
-              src="@/assets/images/coffee-cup.svg"
-            )
-            .text-info Вы работаете непрерывно
-              span 16 часов
-          v-avatar(
-            height='40px'
-            width='40px'
-            )
-            img(
-              src="@/assets/images/avatar.png"
-            )
+          slot(name="header-right")
 
 </template>
 
 <script>
 export default {
-  props:{
-
+  props: {
+    title: {
+      type: String,
+      default: ''
+    }
   },
 
   name: "ScheduleHeader"
@@ -40,6 +31,9 @@ export default {
 .header-right{
   display: flex;
   justify-content: flex-end;
+}
+.header-left{
+  min-height: 40px;
 }
 
 .title{

@@ -1,6 +1,7 @@
 <template lang="pug">
   mixin accord-block
     v-expansion-panel-header.accordion-panel__header.flex-column.align-start
+      dots-menu
       .block-flex.accordion-circle__header-top.mb-5
         .block-flex__left.d-flex.align-center
           base-label(
@@ -35,7 +36,7 @@
       v-expansion-panel-content
         v-expansion-panels.accord-mezoocircle
           v-expansion-panel(v-for='(item,i) in 3' :key='i')
-            dots-menu
+
             +accord-block
             v-expansion-panel-content
               v-expansion-panels.accord-microcircle
@@ -52,19 +53,19 @@ import DotsMenu from "@/components/DotsMenu";
 export default {
   name: "AccordionCircle",
   components: {DotsMenu},
-  data: () =>  ({
+  data: () => ({
     panel: [],
     items: 5,
   }),
   methods: {
     // Create an array the length of our items
     // with all values as true
-    all () {
+    all() {
       this.panel = [...Array(this.items).keys()].map((k, i) => i)
 
     },
     // Reset the panel
-    none () {
+    none() {
       this.panel = []
     },
   },
@@ -79,16 +80,33 @@ export default {
   border-radius: 12px;
 
   .accordion-panel__header {
-    min-height: 94px;
-    border-radius: 12px 12px 0px 0px !important;
+    min-height: 94px !important;
+    border-radius: 0px !important;
     padding-left: 16px;
     padding-right: 24px;
     box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.15);
+
+  }
+
+  .v-expansion-panel {
+    &:last-child {
+      .accordion-panel__header {
+        box-shadow: none;
+      }
+      .v-expansion-panel-header--active {
+        box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.4);
+
+      }
+    }
   }
 
   .v-expansion-panel-header--active {
     box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.4);
 
+  }
+
+  .v-item-group {
+    margin-bottom: 0px !important;
   }
 
   .accordion-circle__title {

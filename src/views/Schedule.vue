@@ -1,6 +1,21 @@
 <template lang="pug">
   .div
-    ScheduleHeader(text='Календарь 134')
+    ScheduleHeader(title='Календарь')
+      template(v-slot:header-right)
+        .text-block
+          img.icon-20.icon-cup(
+            src="@/assets/images/coffee-cup.svg"
+          )
+          .text-info Вы работаете непрерывно
+            span 16 часов
+        v-avatar(
+          height='40px'
+          width='40px'
+        )
+          img(
+            src="@/assets/images/avatar.png"
+          )
+
     Calendar(:period="$route.params.period")
 </template>
 
