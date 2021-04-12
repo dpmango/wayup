@@ -2,6 +2,19 @@
   @include width-flex(20px)
   height: 20px;
 }
+.icon-16 {
+  @include width-flex(16px)
+  height: 16px;
+}
+
+.icon-36 {
+  @include width-flex(36px)
+  height: 36px;
+}
+
+.emoji-36{
+  font-size: 36px;
+}
 
 .buttons-wrap {
   display: flex;
@@ -66,6 +79,21 @@
   color: #326BFF;
 }
 
+.img-wrap{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-blue{
+  color: $blue !important;
+}
+
+.border-bottom-dotted-blue{
+  border-bottom: 2px dotted $blue;
+}
+
+
 .v-input{
   flex: initial;
 }
@@ -81,6 +109,10 @@
   position: static !important;
 }
 
+.position-absolute{
+  position: absolute !important;
+}
+
 .show-more{
   font-size: 12px;
   color: #326BFF;
@@ -94,8 +126,15 @@
     height: 15px;
   }
 }
-
-
+.accordion-panel{
+  background: #FFFFFF;
+  box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+.accordion-panel{
+  border-radius: 12px !important;
+}
 
 //.accordion-group{
 //  padding: 2px 1px;
@@ -293,28 +332,46 @@
 
 }
 
-.target-icon{
-  @include width-flex(14px)
-  height: 20px;
-  margin-right: 8px;
-}
-.info-block{
-  display: flex;
-  align-items: center;
-  background: rgba(61, 197, 13, 0.1);
-  border-radius: 4px;
-  padding: 12px 20px;
 
-  margin-bottom: 20px;
-}
 
-.info-text{
-  font-size: 14px;
-}
+
+
 
 /* card  end */
 
 
-.progress-indication{
+.breadcrumbs-icon{
+  opacity: .5;
+  transform: rotate(-90deg);
+}
+.v-breadcrumbs__item{
+  color: #326BFF !important;
+  font-size: 14px;
+}
 
+.v-breadcrumbs__item--disabled{
+  font-size: 14px;
+  color: #000000 !important;
+  font-family: $FiraSansMedium;
+}
+
+.nav-bottom{
+  display: flex;
+  align-items: center;
+  padding-left: 120px;
+  padding-right: 48px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 80px;
+  background: #FFFFFF;
+  box-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.nav-bottom__block{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }

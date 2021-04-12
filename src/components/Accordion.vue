@@ -8,8 +8,10 @@
         v-for='(element, index) in list1'
         :key='element.name'
       )
-        dots-menu
+
         v-expansion-panel-header.accordion-panel__header
+          dots-menu
+
           .panel-num {{index + 1 }}
           img.icon-20.more-icon(
             src="@/assets/images/svg/more-icon.svg"
@@ -42,11 +44,7 @@
               |Лежа на льду на животе; руки подняты, на клюшке; локти на льду
         v-expansion-panel-content.accordion-panel__content
           AccordionTabs
-    .add-training
-      .add-training__block
-        svg.plus-icon(width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg')
-          path(d='M12 7V17M17 12L7 12' stroke='#798CBD' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
-      .add-training__block-text Добавить упражнение
+    add-block(text='Добавить упражнение')
 
 
 
@@ -62,6 +60,7 @@
 import draggable from 'vuedraggable'
 import AccordionTabs from "@/components/AccordionTabs";
 import DotsMenu from "@/components/DotsMenu";
+import AddBlock from "@/components/elements/addBlock";
 
 export default {
 
@@ -107,12 +106,15 @@ export default {
     ],
   }),
   components: {
+    AddBlock,
     DotsMenu,
     AccordionTabs,
     draggable,
   },
 
-  name: "Accordion"
+  name: "Accordion",
+
+
 }
 </script>
 
@@ -171,16 +173,16 @@ export default {
   padding: 10px 24px 24px 36px;
 }
 .v-expansion-panel--active>.v-expansion-panel-header{
-  min-height: 128px;
+  //min-height: 128px;
 }
 
 
-.accordion-panel{
-  background: #FFFFFF;
-  box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  margin-bottom: 20px;
-}
+//.accordion-panel{
+//  background: #FFFFFF;
+//  box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1);
+//  border-radius: 12px;
+//  margin-bottom: 20px;
+//}
 
 .more-icon{
   position: absolute;
@@ -217,28 +219,7 @@ export default {
   color: rgba(0, 0, 0, 0.5);
 }
 
-.add-training{
-  width: 100%;
-  height: 104px;
-  border: 1px solid rgba(121, 140, 189, 0.2);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  padding: 22px;
-  .plus-icon{
-    margin-right: 8px;
-    @include width-flex(24px)
-    height: 24px;
-  }
-  &:hover{
-    cursor: pointer;
-  }
-}
 
-.add-training__block-text{
-  color: #798CBD;
-  font-size: 14px;
-}
 .v-expansion-panels>:last-child{
   border-radius: 12px;
 }

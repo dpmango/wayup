@@ -54,6 +54,13 @@ Vue.component('base-select', () => import('./components/BaseSelect.vue'));
 Vue.component('base-select-mini', () => import('./components/BaseSelectMini.vue'));
 
 
+
+Vue.component('base-select-new', () => import('./components/library/BaseSelect.vue'));
+Vue.component('base-input-new', () => import('./components/library/BaseInput.vue'));
+Vue.component('base-badge', () => import('./components/library/BaseBadge'));
+Vue.component('base-tag', () => import('./components/library/BaseTag'));
+
+
 new Vue({
     router,
     store,
