@@ -173,16 +173,16 @@ export default {
   padding: 10px 24px 24px 36px;
 }
 .v-expansion-panel--active>.v-expansion-panel-header{
-  min-height: 128px;
+  //min-height: 128px;
 }
 
 
-.accordion-panel{
-  background: #FFFFFF;
-  box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  margin-bottom: 20px;
-}
+//.accordion-panel{
+//  background: #FFFFFF;
+//  box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1);
+//  border-radius: 12px;
+//  margin-bottom: 20px;
+//}
 
 .more-icon{
   position: absolute;

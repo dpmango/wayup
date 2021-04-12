@@ -37,7 +37,7 @@
             path(d='M2.5 8.3335H17.5'  stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
 
       li.sidebar__item
-        router-link.sidebar-link(to='/test' active-class='sidebar-link-active')
+        router-link.sidebar-link(to='/test1' active-class='sidebar-link-active')
           svg.sidebar-link-icon(width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg')
             g(clip-path='url(#clip0)')
               path(d='M14.1667 17.5V15.8333C14.1667 14.9493 13.8375 14.1014 13.2515 13.4763C12.6654 12.8512 11.8705 12.5 11.0417 12.5H4.79175C3.96295 12.5 3.16809 12.8512 2.58204 13.4763C1.99599 14.1014 1.66675 14.9493 1.66675 15.8333V17.5'  stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
@@ -50,7 +50,7 @@
 
 
       li.sidebar__item
-        router-link.sidebar-link(to='/test' active-class='sidebar-link-active')
+        router-link.sidebar-link(to='/test2' active-class='sidebar-link-active')
           svg.sidebar-link-icon(width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg')
             path(d='M10.0001 18.3332C14.6025 18.3332 18.3334 14.6022 18.3334 9.99984C18.3334 5.39746 14.6025 1.6665 10.0001 1.6665C5.39771 1.6665 1.66675 5.39746 1.66675 9.99984C1.66675 14.6022 5.39771 18.3332 10.0001 18.3332Z'  stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
             path(d='M8.33325 6.6665L13.3333 9.99984L8.33325 13.3332V6.6665Z' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')

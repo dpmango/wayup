@@ -18,17 +18,17 @@
           )
     BaseTimeline
     <!-- TrainingPlanEmpty start -->
-    //v-row
-    //  v-col(
-    //    md='12'
-    //  )
-    //    .empty-block
-    //      .img-wrap.mb-7
-    //        img(
-    //          src=`@/assets/images/img-content-group.png`
-    //        )
-    //      .empty-block-text.mb-3 Группы, доступные вам пока не добавлены в систему. Начните с добавления
-    //      base-button(classAttr='custom-button button-blue ml-5' label='Добавить группу' tag='a' color="#326BFF")
+    v-row
+      v-col(
+        md='12'
+      )
+        .empty-block
+          .img-wrap.mb-7
+            img(
+              src=`@/assets/images/img-content-group.png`
+            )
+          .empty-block-text.mb-3 Группы, доступные вам пока не добавлены в систему. Начните с добавления
+          base-button(classAttr='custom-button button-blue ml-5' label='Добавить группу' tag='a' color="#326BFF")
 
     <!-- TrainingPlanEmpty end -->
 
@@ -62,46 +62,46 @@
     <!-- TrainingPlanGroup end -->
 
     <!-- TrainingPlanEvent start -->
-    .nav-bottom
-      v-container(fluid)
-        v-row
-          v-col(
-            md='3'
-            offset-md='5'
-          )
-            .nav-bottom__block
-              base-button(label='Группа' classAttr='custom-button mr-6')
-              base-button(label='Далее' classAttr='custom-button button-blue mr-6')
-
-    .title-wrap
-      .emoji-36.mr-3 🏆
-      .h2 Добавьте обязательные мероприятия
-
-    v-row
-      v-col(
-        md='8'
-      )
-        info-block(text="В Базовом мезоцикле уже запланированы мероприятия. Вы можете удалить или добавить другие")
-          slot
-            template
-              .target-icon
-                div 💡
-        add-block.mb-5(text='Добавить меропритие')
-        v-row
-          v-col(
-            md='12'
-          )
-            TrainingEventItem(:class="!isActiveList ? 'tiles' : ''")
-            //TrainingGroupItem(:class="!isActiveList ? 'tiles' : ''")
-
-      v-col(
-        md='3'
-        offset-md='1'
-      )
-        FilterTrainingGroup(
-          @changeView="listViewActive"
-
-        )
+    //.nav-bottom
+    //  v-container(fluid)
+    //    v-row
+    //      v-col(
+    //        md='3'
+    //        offset-md='5'
+    //      )
+    //        .nav-bottom__block
+    //          base-button(label='Группа' classAttr='custom-button mr-6')
+    //          base-button(label='Далее' classAttr='custom-button button-blue mr-6')
+    //
+    //.title-wrap
+    //  .emoji-36.mr-3 🏆
+    //  .h2 Добавьте обязательные мероприятия
+    //
+    //v-row
+    //  v-col(
+    //    md='8'
+    //  )
+    //    info-block(text="В Базовом мезоцикле уже запланированы мероприятия. Вы можете удалить или добавить другие")
+    //      slot
+    //        template
+    //          .target-icon
+    //            div 💡
+    //    add-block.mb-5(text='Добавить меропритие')
+    //    v-row
+    //      v-col(
+    //        md='12'
+    //      )
+    //        TrainingEventItem(:class="!isActiveList ? 'tiles' : ''")
+    //        //TrainingGroupItem(:class="!isActiveList ? 'tiles' : ''")
+    //
+    //  v-col(
+    //    md='3'
+    //    offset-md='1'
+    //  )
+    //    FilterTrainingGroup(
+    //      @changeView="listViewActive"
+    //
+    //    )
     <!-- TrainingPlanEvent end -->
 
 
@@ -120,7 +120,7 @@ import TrainingEventItem from "@/components/TrainingEventItem";
 // import BaseSelectOutline from "@/components/library/BaseSelectOutline";
 
 export default {
-  name: 'TrainingPlan',
+  name: 'Test1',
   components: {
     TrainingEventItem,
     AddBlock,
