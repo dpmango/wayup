@@ -6,15 +6,17 @@
 </template>
 
 <script>
+import EmptyLayout from '@/layouts/layout-empty'
 import MainLayout from '@/layouts/layout'
 export default {
   computed:{
     layout(){
-      return this.$route.meta.layout + '-layout'
+      return (this.$route.meta.layout || 'empty') + '-layout'
     }
   },
   components:{
-    MainLayout
+    MainLayout,
+    EmptyLayout
   }
 }
 </script>

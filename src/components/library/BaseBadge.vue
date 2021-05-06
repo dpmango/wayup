@@ -41,11 +41,20 @@ export default {
 <style scoped lang="scss">
 
 .chip-custom{
-  height: 18px;
-  line-height: 18px;
-  padding: 0 8px ;
-  font-size: 10px;
+  //height: rem(18px);
+  //line-height: rem(18px);
+  height: rem(22px);
+  line-height: rem(22px);
+  padding: 0 rem(8px);
+  font-size: rem(10px);
   text-transform: uppercase;
+  ::v-deep .icon-badge{
+    margin-bottom: rem(4px);
+  }
+  ::v-deep .chip-text{
+    font-size: rem(10px);
+
+  }
 }
 
 

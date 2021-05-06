@@ -1,3 +1,8 @@
+
+.w-100{
+  width: 100%;
+}
+
 .icon-20 {
   @include width-flex(20px)
   height: 20px;
@@ -14,6 +19,10 @@
 
 .emoji-36{
   font-size: 36px;
+}
+
+.v-menu__content {
+  max-width: 342px !important;
 }
 
 .buttons-wrap {

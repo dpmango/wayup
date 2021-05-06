@@ -1,9 +1,13 @@
 <template lang="pug">
   v-text-field(
-    v-model='model'
+    v-model="password"
+    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+    :rules="[rules.required, rules.min]"
+    :type="show1 ? 'text' : 'password'"
     :label='label'
     :class='classAttr'
-    :rules="rules"
+    hint="At least 8 characters"
+    @click:append="show1 = !show1"
     outlined
     clearable
     :readonly="readonly"
@@ -20,16 +24,20 @@
 <script>
 export default {
   name: "BaseInput",
+  data () {
+    return {
+      show1: false,
+      password: 'Password',
+      rules: {
+        required: value => !!value || 'Обязательное поле.',
+        // counter: value => value.length <= 20 || 'Максимум 20 знаков',
+        min: v => v.length >= 8 || 'Минимум 8 знаков',
+        emailMatch: () => (`The email and password you entered don't match`),
+      },
+    }
+  },
   props: {
-    model: {
-      type: String,
-      default: ''
-    },
     label: {
-      type: String,
-      default: ''
-    },
-    rules: {
       type: String,
       default: ''
     },
@@ -40,10 +48,6 @@ export default {
     readonly: {
       type: Boolean,
       default: false
-    },
-    hideDetails: {
-      type: Boolean,
-      default: true
     },
     value: {
       type: String,
@@ -56,7 +60,11 @@ export default {
     disabled: {
       type: Boolean,
       default: false
-    }
+    },
+    type: {
+      type: String,
+      default: ''
+    },
   },
 }
 </script>
@@ -64,22 +72,6 @@ export default {
 <style scoped lang="scss">
 
 .input-default {
-
-
-  ::v-deep .v-input__slot {
-    margin-bottom: 0;
-
-    fieldset {
-      border-color: #CCCCCC;
-    }
-
-    &:hover {
-      fieldset {
-        border-color: #1751E5;
-      }
-    }
-  }
-
 
   ::v-deep .v-text-field__details {
     position: relative;
@@ -102,6 +94,19 @@ export default {
     }
   }
 
+  ::v-deep .v-input__slot {
+    margin-bottom: 0;
+    fieldset {
+      border-color: #CCCCCC;
+    }
+    &:hover {
+      fieldset {
+        border-color: #1751E5;
+      }
+    }
+  }
+
+
   ::v-deep .v-input__prepend-inner {
     margin-right: rem(5px);
 
@@ -120,12 +125,11 @@ export default {
       height: rem(16px);
     }
 
-    .mdi-close {
+    .mdi-close{
       background-image: url('~@/assets/images/svg/icon-close.svg');
 
     }
-
-    .mdi-eye-off, .mdi-eye {
+    .mdi-eye-off, .mdi-eye{
       background-image: url('~@/assets/images/svg/icon-eye.svg');
 
     }
@@ -133,12 +137,6 @@ export default {
   }
 
 
-}
-
-.error--text {
-  ::v-deep .v-text-field__details {
-    display: block;
-  }
 }
 
 .input-big {
@@ -152,11 +150,9 @@ export default {
     top: rem(10px);
     font-size: rem(16px);
   }
-
-  ::v-deep .theme--light.v-label {
+  ::v-deep .theme--light.v-label{
     color: #000;
   }
-
   ::v-deep .v-input__prepend-inner {
     margin-top: rem(12px);
   }
@@ -172,7 +168,6 @@ export default {
   ::v-deep.v-input__prepend-inner ~ .v-text-field__slot .v-label {
     left: rem(-23px) !important;
   }
-
   ::v-deep fieldset {
     padding-left: rem(17px);
   }
@@ -180,7 +175,6 @@ export default {
 
 .input-small {
   font-size: rem(12px);
-
   ::v-deep .v-input__slot {
     min-height: rem(24px);
     padding: 0 rem(9px) !important;
@@ -195,7 +189,6 @@ export default {
   ::v-deep .v-input__prepend-inner {
     margin-top: rem(7px);
   }
-
   ::v-deep .v-input__append-inner {
     margin-top: rem(5px);
     margin-right: rem(-2px);
@@ -209,7 +202,6 @@ export default {
     top: rem(16px);
     font-size: rem(16px);
   }
-
   ::v-deep fieldset {
     padding-left: rem(4px);
   }
@@ -224,7 +216,6 @@ export default {
     border-color: #123FB2;
   }
 }
-
 .input-default.v-input--is-focused {
   ::v-deep fieldset {
     border-color: #1751E5;
@@ -248,7 +239,7 @@ export default {
 }
 
 .input-default.error--text {
-  ::v-deep .v-label {
+  ::v-deep .v-label{
     color: #EC4865 !important;
     caret-color: #EC4865 !important;
   }
@@ -264,7 +255,6 @@ export default {
     fieldset {
       border-color: #EC4865;
     }
-
     &:hover {
       fieldset {
         border-color: #EC4865;
@@ -279,6 +269,12 @@ export default {
 
   ::v-deep fieldset {
     border-color: #EC4865;
+  }
+}
+
+.error--text{
+  ::v-deep .v-text-field__details{
+    display: block;
   }
 }
 

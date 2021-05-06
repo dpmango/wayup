@@ -2,10 +2,10 @@
   .dropdown-menu__wrap(  @click.stop='onClick()')
     dropdown-menu
       button(slot='trigger').dots-menu-buttton
-        svg(width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg')
-          path(d='M11.9999 12.6668C12.3681 12.6668 12.6665 12.3684 12.6665 12.0002C12.6665 11.632 12.3681 11.3335 11.9999 11.3335C11.6317 11.3335 11.3332 11.632 11.3332 12.0002C11.3332 12.3684 11.6317 12.6668 11.9999 12.6668Z' stroke='#326BFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
-          path(d='M16.6665 12.6668C17.0347 12.6668 17.3332 12.3684 17.3332 12.0002C17.3332 11.632 17.0347 11.3335 16.6665 11.3335C16.2983 11.3335 15.9998 11.632 15.9998 12.0002C15.9998 12.3684 16.2983 12.6668 16.6665 12.6668Z' stroke='#326BFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
-          path(d='M7.33317 12.6668C7.70136 12.6668 7.99984 12.3684 7.99984 12.0002C7.99984 11.632 7.70136 11.3335 7.33317 11.3335C6.96498 11.3335 6.6665 11.632 6.6665 12.0002C6.6665 12.3684 6.96498 12.6668 7.33317 12.6668Z' stroke='#326BFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
+        svg.dots-img(width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg')
+          path(d='M11.9999 12.6668C12.3681 12.6668 12.6665 12.3684 12.6665 12.0002C12.6665 11.632 12.3681 11.3335 11.9999 11.3335C11.6317 11.3335 11.3332 11.632 11.3332 12.0002C11.3332 12.3684 11.6317 12.6668 11.9999 12.6668Z'  stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
+          path(d='M16.6665 12.6668C17.0347 12.6668 17.3332 12.3684 17.3332 12.0002C17.3332 11.632 17.0347 11.3335 16.6665 11.3335C16.2983 11.3335 15.9998 11.632 15.9998 12.0002C15.9998 12.3684 16.2983 12.6668 16.6665 12.6668Z'  stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
+          path(d='M7.33317 12.6668C7.70136 12.6668 7.99984 12.3684 7.99984 12.0002C7.99984 11.632 7.70136 11.3335 7.33317 11.3335C6.96498 11.3335 6.6665 11.632 6.6665 12.0002C6.6665 12.3684 6.96498 12.6668 7.33317 12.6668Z'  stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
 
 
       ul(slot='body').dots-menu__list
@@ -103,6 +103,10 @@ export default {
 
 .dots-menu__item {
 
+}
+
+.dots-img{
+  stroke: #326BFF;
 }
 
 .dots-menu__link {
