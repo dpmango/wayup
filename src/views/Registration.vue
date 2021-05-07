@@ -11,10 +11,12 @@
       .inputs-block.mt-12
         base-input(
           label="Фамилия"
+          :rules='[rules.required, rules.minText]'
           classAttr="input-default input-big mb-6"
         )
         base-input(
           label="Имя"
+          :rules='[rules.required, rules.minText]'
           classAttr="input-default input-big mb-6"
         )
         base-input(
@@ -22,7 +24,6 @@
           classAttr="input-default input-big mb-6"
         )
         base-input(
-
           label="Почта"
           :rules='[rules.required, rules.email]'
           classAttr="input-default input-big mb-6"
@@ -58,6 +59,7 @@ export default {
         required: value => !!value || 'Обязательное поле',
         counter: value => value.length <= 20 || 'Максимум 20 знаков',
         min: v => v.length >= 8 || 'Минимум 8 знаков',
+        minText: v => v.length >= 1 || 'Минимум 1 знак',
         email: value => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
           return pattern.test(value) || 'Проверьте правильность написания почты. Адрес почты содержит символ @, например:ivanov@pochta.ru'

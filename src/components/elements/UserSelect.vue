@@ -106,25 +106,13 @@ export default {
 
   }
 
-  .v-input__slot {
-    //background: #F1F3F9;
-    //border-radius: 8px;
-    //box-shadow: none ;
-
-
-  }
-
   .v-input__control > .v-input__slot:before {
     &:before {
       border-color: transparent;
     }
   }
 
-  .v-select__selections {
-    .user-info__wrap > input {
-      //display: none;
-    }
-  }
+
   .dots-img{
     stroke: #000000;
   }
@@ -139,7 +127,6 @@ export default {
 }
 .v-autocomplete.v-select.v-input--is-focused ::v-deep input{
   display: none;
-  //min-height: 0;
 }
 
 .user-info__wrap {
@@ -151,7 +138,6 @@ export default {
 }
 
 .user-name {
-  //max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
