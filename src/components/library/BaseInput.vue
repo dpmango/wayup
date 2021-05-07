@@ -87,7 +87,6 @@ export default {
     padding-top: 10px;
     padding-left: 25px;
     margin-bottom: 0;
-
     &:before {
       position: absolute;
       left: 0;
