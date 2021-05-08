@@ -133,6 +133,12 @@ const routes = [
         meta: {layout: 'empty'},
         component: () => import(/* webpackChunkName: "about" */ '../views/Login')
     },
+    {
+        path: '/account-sportsman',
+        name: 'AccountSportsman',
+        meta: {layout: 'main'},
+        component: () => import(/* webpackChunkName: "about" */ '../views/AccountSportsman')
+    },
 ]
 
 const router = new VueRouter({
