@@ -7,6 +7,11 @@ import VueDraggable from 'vue-draggable'
 import VueSimpleAccordion from 'vue-simple-accordion';
 import 'vue-simple-accordion/dist/vue-simple-accordion.css';
 import DropdownMenu from 'v-dropdown-menu'
+// import VueAwesomeSwiper from 'vue-awesome-swiper'
+// import 'swiper/swiper-bundle.css'
+
+
+// import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
 // import { Draggable } from 'draggable-vue-directive'
  // Base style, required.
 
@@ -32,7 +37,13 @@ Vue.use(DropdownMenu,{
 
 Vue.use(VueDraggable)
 
+//
+// import SwiperCore, {
+//     Scrollbar,Mousewheel
+// } from 'swiper/core';
 
+// Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
+// SwiperCore.use([Scrollbar,Mousewheel]);
 
 Vue.use(VueSimpleAccordion, {
     tags: {

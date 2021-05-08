@@ -93,6 +93,91 @@
               v-col(
                 md="6"
               )
+                .widget
+                  .widget-header
+                    .widget-header__top
+                      img.drag-icon.mt-n1.mr-5(
+                        src="@/assets/images/svg/more-icon.svg"
+                      )
+                      .widget-header__title Выполнение ДЗ
+                      dots-menu.mt-0.position-static.ml-auto
+                  .widget-content
+                    vue-custom-scrollbar.scroll-area(:settings="settings" @ps-scroll-y="scrollHanle")
+                      h4 Scroll Container
+                      p
+                        | Lorem ipsum dolor sit amet, consectetur adipiscing elit. In luctus, ex eu sagittis faucibus, ligula ipsum
+                        | sagittis magna, et imperdiet dolor lectus eu libero. Vestibulum venenatis eget turpis sed faucibus. Maecenas
+                        | in ullamcorper orci, eu ullamcorper sem. Etiam elit ante, luctus non ante sit amet, sodales vulputate odio.
+                        | Aenean tristique nisl tellus, sit amet fringilla nisl volutpat cursus. Quisque dignissim lectus ac nunc
+                        | consectetur mattis. Proin vel hendrerit ipsum, et lobortis dolor. Vestibulum convallis, nibh et tincidunt
+                        | tristique, nisl risus facilisis lectus, ut interdum orci nisl ac nunc. Cras et aliquam felis. Quisque vel
+                        | ipsum at elit sodales posuere eget non est. Fusce convallis vestibulum dolor non volutpat. Vivamus vestibulum
+                        | quam ut ultricies pretium.
+                      p
+                        | Suspendisse rhoncus fringilla nisl. Mauris eget lorem ac urna consectetur convallis non vel mi. Donec libero
+                        | dolor, volutpat ut urna sit amet, aliquet molestie purus. Phasellus faucibus, leo vel scelerisque lobortis,
+                        | ipsum leo sollicitudin metus, eget sagittis ante orci eu ipsum. Nulla ac mauris eu risus sagittis scelerisque
+                        | iaculis bibendum mauris. Cras ut egestas orci. Cras odio risus, sagittis ut nunc vitae, aliquam consectetur
+                        | purus. Vivamus ornare nunc vel tellus facilisis, quis dictum elit tincidunt. Donec accumsan nisi at laoreet
+                        | sodales. Cras at ullamcorper massa. Maecenas at facilisis ex. Nam mollis dignissim purus id efficitur.
+                      p
+                        | Curabitur eget aliquam erat. Curabitur a neque vitae purus volutpat elementum. Vivamus quis vestibulum leo,
+                        | efficitur ullamcorper velit. Integer tincidunt finibus metus vel porta. Mauris sed mauris congue, pretium est
+                        | nec, malesuada purus. Nulla hendrerit consectetur arcu et lacinia. Suspendisse augue justo, convallis eget
+                        | arcu in, pretium tempor ligula. Nullam vulputate tincidunt est ut ullamcorper.
+                      p
+                        | Curabitur sed sodales leo. Nulla facilisi. Etiam condimentum, nisi id tempor vulputate, nisi justo cursus
+                        | justo, pellentesque condimentum diam arcu sit amet leo. Cum sociis natoque penatibus et magnis dis parturient
+                        | montes, nascetur ridiculus mus. In placerat tellus a posuere vehicula. Donec diam massa, efficitur vitae
+                        | mattis et, pretium in augue. Fusce iaculis mi quis ante venenatis, sit amet pellentesque orci aliquam.
+                        | Vestibulum elementum posuere vehicula.
+                      p
+                        | Sed tincidunt diam a massa pharetra faucibus. Praesent condimentum id arcu nec fringilla. Maecenas faucibus,
+                        | ante et venenatis interdum, erat mi eleifend dui, at convallis nisl est nec arcu. Duis vitae arcu rhoncus,
+                        | faucibus magna ut, tempus metus. Cras in nibh sed ipsum consequat rhoncus. Proin fringilla nulla ut augue
+                        | tempor fermentum. Nunc hendrerit non nisi vitae finibus. Donec eget ornare libero. Aliquam auctor erat enim, a
+                        | semper risus semper at. In ut dui in metus tincidunt euismod eget et lacus. Aenean et dictum urna, sed rhoncus
+                        | lorem. Duis pharetra sagittis odio. Etiam a libero ut nisi feugiat tincidunt vel vitae turpis. Maecenas vel
+                        | orci sit amet lorem hendrerit venenatis sollicitudin ut dui. Quisque rhoncus nibh in massa pretium
+                        | scelerisque.
+                      p
+                        | Lorem ipsum dolor sit amet, consectetur adipiscing elit. In luctus, ex eu sagittis faucibus, ligula ipsum
+                        | sagittis magna, et imperdiet dolor lectus eu libero. Vestibulum venenatis eget turpis sed faucibus. Maecenas
+                        | in ullamcorper orci, eu ullamcorper sem. Etiam elit ante, luctus non ante sit amet, sodales vulputate odio.
+                        | Aenean tristique nisl tellus, sit amet fringilla nisl volutpat cursus. Quisque dignissim lectus ac nunc
+                        | consectetur mattis. Proin vel hendrerit ipsum, et lobortis dolor. Vestibulum convallis, nibh et tincidunt
+                        | tristique, nisl risus facilisis lectus, ut interdum orci nisl ac nunc. Cras et aliquam felis. Quisque vel
+                        | ipsum at elit sodales posuere eget non est. Fusce convallis vestibulum dolor non volutpat. Vivamus vestibulum
+                        | quam ut ultricies pretium.
+                      p
+                        | Suspendisse rhoncus fringilla nisl. Mauris eget lorem ac urna consectetur convallis non vel mi. Donec libero
+                        | dolor, volutpat ut urna sit amet, aliquet molestie purus. Phasellus faucibus, leo vel scelerisque lobortis,
+                        | ipsum leo sollicitudin metus, eget sagittis ante orci eu ipsum. Nulla ac mauris eu risus sagittis scelerisque
+                        | iaculis bibendum mauris. Cras ut egestas orci. Cras odio risus, sagittis ut nunc vitae, aliquam consectetur
+                        | purus. Vivamus ornare nunc vel tellus facilisis, quis dictum elit tincidunt. Donec accumsan nisi at laoreet
+                        | sodales. Cras at ullamcorper massa. Maecenas at facilisis ex. Nam mollis dignissim purus id efficitur.
+                      p
+                        | Curabitur eget aliquam erat. Curabitur a neque vitae purus volutpat elementum. Vivamus quis vestibulum leo,
+                        | efficitur ullamcorper velit. Integer tincidunt finibus metus vel porta. Mauris sed mauris congue, pretium est
+                        | nec, malesuada purus. Nulla hendrerit consectetur arcu et lacinia. Suspendisse augue justo, convallis eget
+                        | arcu in, pretium tempor ligula. Nullam vulputate tincidunt est ut ullamcorper.
+                      p
+                        | Curabitur sed sodales leo. Nulla facilisi. Etiam condimentum, nisi id tempor vulputate, nisi justo cursus
+                        | justo, pellentesque condimentum diam arcu sit amet leo. Cum sociis natoque penatibus et magnis dis parturient
+                        | montes, nascetur ridiculus mus. In placerat tellus a posuere vehicula. Donec diam massa, efficitur vitae
+                        | mattis et, pretium in augue. Fusce iaculis mi quis ante venenatis, sit amet pellentesque orci aliquam.
+                        | Vestibulum elementum posuere vehicula.
+                      p
+                        | Sed tincidunt diam a massa pharetra faucibus. Praesent condimentum id arcu nec fringilla. Maecenas faucibus,
+                        | ante et venenatis interdum, erat mi eleifend dui, at convallis nisl est nec arcu. Duis vitae arcu rhoncus,
+                        | faucibus magna ut, tempus metus. Cras in nibh sed ipsum consequat rhoncus. Proin fringilla nulla ut augue
+                        | tempor fermentum. Nunc hendrerit non nisi vitae finibus. Donec eget ornare libero. Aliquam auctor erat enim, a
+                        | semper risus semper at. In ut dui in metus tincidunt euismod eget et lacus. Aenean et dictum urna, sed rhoncus
+                        | lorem. Duis pharetra sagittis odio. Etiam a libero ut nisi feugiat tincidunt vel vitae turpis. Maecenas vel
+                        | orci sit amet lorem hendrerit venenatis sollicitudin ut dui. Quisque rhoncus nibh in massa pretium
+                        | scelerisque.
+                  .widget-footer
+                    .widget-footer__text Перейти к домашним заданиям
 
 
 
@@ -102,27 +187,108 @@
 
 
 
-          v-tab-item(transition="fade-transition")
-            v-card(flat='')
-              v-card-text
-                p
-                  | Morbi nec metus. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Sed mollis, eros et ultrices tempus, mauris ipsum aliquam libero, non adipiscing dolor urna a orci. Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Nunc sed turpis.
-                p
-                  | Suspendisse feugiat. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. In hac habitasse platea dictumst. Fusce ac felis sit amet ligula pharetra condimentum.
-                p
-                  | Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Nam commodo suscipit quam. In consectetuer turpis ut velit. Sed cursus turpis vitae tortor. Aliquam eu nunc.
-                p
-                  | Etiam ut purus mattis mauris sodales aliquam. Ut varius tincidunt libero. Aenean viverra rhoncus pede. Duis leo. Fusce fermentum odio nec arcu.
-                p.mb-0
-                  | Donec venenatis vulputate lorem. Aenean viverra rhoncus pede. In dui magna, posuere eget, vestibulum et, tempor auctor, justo. Fusce commodo aliquam arcu. Suspendisse enim turpis, dictum sed, iaculis a, condimentum nec, nisi.
-          v-tab-item(transition="fade-transition")
-            v-card(flat='')
-              v-card-text
-                p
-                  | Fusce a quam. Phasellus nec sem in justo pellentesque facilisis. Nam eget dui. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. In dui magna, posuere eget, vestibulum et, tempor auctor, justo.
-                p.mb-0
-                  | Cras sagittis. Phasellus nec sem in justo pellentesque facilisis. Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nam at tortor in tellus interdum sagittis.
 
+
+
+
+
+
+
+
+
+
+    //
+    //              .test-1(:content='content' :step='step' v-if="content.Type=='Question'")
+    //                .widget-header
+    //                  .drag-button
+    //                    img.drag-icon.mt-n1.mr-5(
+    //                      src="@/assets/images/svg/more-icon.svg"
+    //                    )
+    //                  | lorem 2
+    //              .test-1(:content='content' :step='step' v-if="content.Type=='Question'")
+    //                .widget-header
+    //                  .drag-button
+    //                    img.drag-icon.mt-n1.mr-5(
+    //                      src="@/assets/images/svg/more-icon.svg"
+    //                    )
+    //                  | lorem 3
+    //              .test-1(:content='content' :step='step' v-if="content.Type=='Question'")
+    //                .widget-header
+    //                  .drag-button
+    //                    img.drag-icon.mt-n1.mr-5(
+    //                      src="@/assets/images/svg/more-icon.svg"
+    //                    )
+    //                  | lorem 4
+    //            draggable(:list='step.Content')
+    //              .paragraph(:content='content' :key='content.Id')
+    //
+    //
+    ////  draggable.widgets-wrapper(
+    //          //    :list='widgetsListOne'
+    //          //    group='widgets'
+    //          //  )
+    //          //    transition-group(type="transition" name="flip-list")
+    //          //      .wrap(
+    //          //        v-for='(element, index) in widgetsListOne'
+    //          //        :key='element.id'
+    //          //      )
+    //          //        .widget
+    //          //          .widget-header
+    //          //            .drag-button
+    //          //              img.drag-icon.mt-n1.mr-5(
+    //          //                src="@/assets/images/svg/more-icon.svg"
+    //          //              )
+    //          //
+    //          //v-col(
+    //          //  md="6"
+    //          //)
+    //          //  draggable.widgets-wrapper(
+    //          //    :list='widgetsListTwo'
+    //          //    group='widgets'
+    //          //  )
+    //          //    transition-group(type="transition" name="flip-list")
+    //          //      .wrap(
+    //          //        v-for='(element, index) in widgetsListTwo'
+    //          //        :key='element.id'
+    //          //      )
+    //          //        .widget
+    //          //          .widget-header
+    //          //            .drag-button
+    //          //              img.drag-icon.mt-n1.mr-5(
+    //          //                src="@/assets/images/svg/more-icon.svg"
+    //          //              )
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //      v-tab-item(transition="fade-transition")
+    //        v-card(flat='')
+    //          v-card-text
+    //            p
+    //              | Morbi nec metus. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Sed mollis, eros et ultrices tempus, mauris ipsum aliquam libero, non adipiscing dolor urna a orci. Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Nunc sed turpis.
+    //            p
+    //              | Suspendisse feugiat. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. In hac habitasse platea dictumst. Fusce ac felis sit amet ligula pharetra condimentum.
+    //            p
+    //              | Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Nam commodo suscipit quam. In consectetuer turpis ut velit. Sed cursus turpis vitae tortor. Aliquam eu nunc.
+    //            p
+    //              | Etiam ut purus mattis mauris sodales aliquam. Ut varius tincidunt libero. Aenean viverra rhoncus pede. Duis leo. Fusce fermentum odio nec arcu.
+    //            p.mb-0
+    //              | Donec venenatis vulputate lorem. Aenean viverra rhoncus pede. In dui magna, posuere eget, vestibulum et, tempor auctor, justo. Fusce commodo aliquam arcu. Suspendisse enim turpis, dictum sed, iaculis a, condimentum nec, nisi.
+    //      v-tab-item(transition="fade-transition")
+    //        v-card(flat='')
+    //          v-card-text
+    //            p
+    //              | Fusce a quam. Phasellus nec sem in justo pellentesque facilisis. Nam eget dui. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. In dui magna, posuere eget, vestibulum et, tempor auctor, justo.
+    //            p.mb-0
+    //              | Cras sagittis. Phasellus nec sem in justo pellentesque facilisis. Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nam at tortor in tellus interdum sagittis.
+    //
 
 </template>
 
@@ -131,21 +297,61 @@ import ScheduleHeader from "@/components/ScheduleHeader";
 import LevelBlock from "@/components/LevelBlock";
 import UserSidebar from "@/components/UserSidebar";
 import SnackBar from "@/components/elements/SnackBar";
+import draggable from "vuedraggable";
+import DotsMenu from "@/components/DotsMenu";
+import vueCustomScrollbar from 'vue-custom-scrollbar'
+import "vue-custom-scrollbar/dist/vueScrollbar.css"
+
 
 export default {
   name: "AccountSportsman",
-  components: {SnackBar, UserSidebar, LevelBlock, ScheduleHeader},
+  components: {
+    DotsMenu,
+    SnackBar,
+    UserSidebar,
+    LevelBlock,
+    ScheduleHeader,
+    draggable,
+    vueCustomScrollbar
+  },
+
   data: () => ({
+    suppressScrollY: false,
+    suppressScrollX: false,
+    wheelPropagation: false,
     interval: {},
     value: 100,
     snackbar: false,
     text: 'Выставлены оценки. Можно ознакомиться в разделе с оценками',
     timeout: 10000,
+    widgetsListOne: [
+      {name: "Текущий микроцикл 1", id: 1},
+      {name: "Текущий микроцикл 2", id: 2},
+      // {name: "Текущий микроцикл 3", id: 3},
+      // {name: "Текущий микроцикл 4", id: 4},
+    ],
+    widgetsListTwo: [
+      {name: "Текущий микроцикл 5", id: 5},
+      {name: "Текущий микроцикл 6", id: 6},
+      // {name: "Текущий микроцикл 7", id: 7},
+      // {name: "Текущий микроцикл 8", id: 8},
+    ],
+
+
   }),
+
+
   beforeDestroy() {
     clearInterval(this.interval)
   },
+  methods: {
+    scrollHanle(evt) {
+      console.log(evt)
+    }
+  },
   mounted() {
+
+
     this.interval = setInterval(() => {
       if (this.value === 0) {
         return (this.value = 0)
@@ -181,6 +387,10 @@ export default {
 
   .v-tab--active {
     color: #000;
+  }
+
+  .v-tabs-items {
+    padding: 30px 3px 60px;
   }
 
   .v-snack__content {
@@ -236,13 +446,75 @@ export default {
 
 .menu-settings {
   width: 271px;
+
   .v-list-item {
     padding: 10px 20px;
     min-height: 0px;
   }
-  .v-list-item__title{
+
+  .v-list-item__title {
     font-size: 16px;
   }
 }
+
+
+/* widgets */
+
+.widget {
+  width: 100%;
+  //background: #F8F9FB;
+  box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+.widget-header {
+  min-height: 48px;
+  display: flex;
+
+  align-items: center;
+  padding: 5px 16px;
+  background: #FFFFFF;
+  box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 8px 8px 0px 0px;
+}
+
+.widget-header__top {
+  align-items: center;
+  display: flex;
+  width: 100%;
+
+}
+
+.widget-header__title {
+  font-family: $FiraSansBold;
+}
+
+.widget-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  background: #FFFFFF;
+  box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 0px 0px 8px 8px;
+}
+
+.widget-footer__text {
+  color: #326BFF;
+  font-size: 14px;
+}
+
+.mySwiper1 {
+  height: 250px;
+}
+
+.scroll-area {
+  position: relative;
+  margin: auto;
+  height: 250px;
+}
+
+
+/**/
 
 </style>

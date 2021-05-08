@@ -139,6 +139,24 @@ const routes = [
         meta: {layout: 'main'},
         component: () => import(/* webpackChunkName: "about" */ '../views/AccountSportsman')
     },
+
+    {
+        path: '/demo2',
+        name: 'Demo2',
+        meta: {layout: 'main'},
+        component: () => import(/* webpackChunkName: "about" */ '../views/Demo2')
+    },
+    {
+        path: '/demo3',
+        name: 'Demo3',
+        meta: {layout: 'main'},
+        component: () => import(/* webpackChunkName: "about" */ '../views/Demo3')
+    },
+
+
+
+
+
 ]
 
 const router = new VueRouter({
