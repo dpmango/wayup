@@ -729,43 +729,32 @@
     .library-block
       .library-title Segment
       .segments-block
-        router-link(
-          to="/components"
-          active-class="button-active"
-        )
-          base-segment(
-            classAttr='segment-default'
-            label="Текст"
-            tag="div"
-          )
-        router-link(
-          to="/test"
-          active-class="button-active"
-        )
-          base-segment(
-            classAttr='segment-default'
-            label="Текст"
-            tag="div"
-          )
-        router-link(
-          to="/test"
-          active-class="button-active"
-        )
-          base-segment(
-            classAttr='segment-default'
-            label="Текст"
-            tag="div"
-          )
-        router-link(
-          to="/test"
-          active-class="button-active"
-        )
-          base-segment(
-            classAttr='segment-default'
-            label="Текст"
-            tag="div"
+        v-item-group(mandatory)
+          v-item(
+            v-for="n in 3"
+            :key="n"
+            v-slot='{ active, toggle }'
           )
 
+            base-segment(
+              classAttr='segment-default segment-big'
+              label="Текст"
+              tag="div"
+              @click='toggle'
+            )
+      .segments-block.mt-4
+        v-item-group(mandatory)
+          v-item(
+            v-for="n in 3"
+            :key="n"
+            v-slot='{ active, toggle }'
+          )
+            base-segment(
+              classAttr='segment-default segment-small'
+              label="Текст"
+              tag="div"
+              @click='toggle'
+            )
 
     .library-block
       .library-title Select

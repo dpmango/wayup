@@ -23,7 +23,7 @@
                 )
                 img(src="@/assets/images/avatar.png")
           .avatars-block-quant +19
-        .avatars-block-text 24 спортсмена
+        a(href='#').avatars-block-text 24 спортсмена
       base-button(
         classAttr="custom-button ml-auto"
         tag="a"
@@ -48,19 +48,19 @@ name: "TrainingGroupItem"
 </script>
 
 <style scoped lang="scss">
-.avatar-group{
-  border: 1px solid #FFFFFF;
-
-  &:hover{
-    transform: scale(1.5);
-  }
-}
-.avatar-group-link{
-  margin-left: -10px;
-  &:first-child{
-    margin-left: 0;
-  }
-}
+//.avatar-group{
+//  border: 1px solid #FFFFFF;
+//
+//  &:hover{
+//    transform: scale(1.5);
+//  }
+//}
+//.avatar-group-link{
+//  margin-left: -10px;
+//  &:first-child{
+//    margin-left: 0;
+//  }
+//}
 
 
 .group-item{
@@ -94,25 +94,11 @@ name: "TrainingGroupItem"
   margin-right: 40px;
 }
 
-.avatars-block-top{
-  display: flex;
-  align-items: center;
-  margin-bottom: 6px;
-}
-.avatars-block-quant{
-  margin-left: 16px;
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.6);
-
-}
 .group-item__avatars-block{
   min-width: 150px;
 }
 
-.avatars-block-text{
-  font-size: 14px;
-  color: $blue;
-}
+
 
 .tiles{
   .v-btn{

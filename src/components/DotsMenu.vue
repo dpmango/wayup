@@ -101,9 +101,14 @@ export default {
 
 }
 
-.dots-menu__item {
 
+.dots-black{
+  .dots-img{
+    stroke: #000000;
+
+  }
 }
+
 
 .dots-img{
   stroke: #326BFF;

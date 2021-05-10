@@ -96,39 +96,39 @@ export default {
   height: 8px;
   border-radius: 50%;
 }
-
-.progress-quant {
-  font-size: 11px;
-  margin-left: 3px;
-}
-
-.green-result {
-  .progress-quant {
-    color: $green;
-  }
-  .progress-indication{
-    fill: $green;
-  }
-
-}
-
-
-.red-result {
-  .progress-quant {
-    color: $red;
-  }
-  .progress-indication{
-    fill: $red;
-    transform: rotate(180deg);
-  }
-}
-
-.progress-quant__block {
-  @include width-flex(30px)
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
+//
+//.progress-quant {
+//  font-size: 11px;
+//  margin-left: 3px;
+//}
+//
+//.green-result {
+//  .progress-quant {
+//    color: $green;
+//  }
+//  .progress-indication{
+//    fill: $green;
+//  }
+//
+//}
+//
+//
+//.red-result {
+//  .progress-quant {
+//    color: $red;
+//  }
+//  .progress-indication{
+//    fill: $red;
+//    transform: rotate(180deg);
+//  }
+//}
+//
+//.progress-quant__block {
+//  @include width-flex(30px)
+//  display: flex;
+//  align-items: center;
+//  justify-content: flex-end;
+//}
 
 
 

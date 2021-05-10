@@ -73,6 +73,7 @@ Vue.component('base-badge', () => import('./components/library/BaseBadge'));
 Vue.component('base-tag', () => import('./components/library/BaseTag'));
 Vue.component('base-checkbox', () => import('./components/library/BaseCheckbox'));
 Vue.component('base-button', () => import('./components/library/BaseButton'));
+Vue.component('base-segment', () => import('./components/library/BaseSegment'));
 
 
 new Vue({
