@@ -137,8 +137,10 @@
                   )
                     component(:is="element.component")
 
-
-
+              v-col(
+                  md="4"
+              )
+                WidgetLevel
 
 
 </template>
@@ -162,6 +164,7 @@ import WidgetStatistic from "@/components/widgets/WidgetStatistic";
 import WidgetMapsGoal from "@/components/widgets/WidgetMapsGoal";
 import WidgetTeam from "@/components/widgets/WidgetTeam";
 import WidgetLearn from "@/components/widgets/WidgetLearn";
+import WidgetLevel from "@/components/widgets/WidgetLevel";
 
 
 export default {
@@ -176,6 +179,7 @@ export default {
     WidgetFormPlayer,
     WidgetEvents,
     WidgetHomework,
+    WidgetLevel,
     HmProgress,
     DotsMenu,
     SnackBar,
