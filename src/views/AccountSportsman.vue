@@ -89,544 +89,57 @@
 
 
           v-tab-item(transition="fade-transition")
+            //v-row
+            //  v-col(
+            //    md="4"
+            //  )
+            //    WidgetHomework
+            //    WidgetEvents
+            //    WidgetFormPlayer
+            //    WidgetFriends
+            //  v-col(
+            //    md="4"
+            //  )
+            //    WidgetAwards
+            //    WidgetStatistic
+            //    WidgetMapsGoal
+            //    WidgetTeam
+            //    WidgetLearn
+
+
             v-row
               v-col(
                 md="4"
               )
-                //.widget
-                //  .widget-header
-                //    .widget-header__top
-                //      img.drag-icon.mt-n1.mr-5(
-                //        src="@/assets/images/svg/more-icon.svg"
-                //      )
-                //      .widget-header__title Выполнение ДЗ
-                //      dots-menu.mt-0.position-static.ml-auto
-                //  .widget-content.widget-content_gray
-                //    vue-custom-scrollbar(
-                //      :class="!isShowList ? 'scroll-area' : 'scroll-area show'"
-                //      style='max-height: 50px;'
-                //      @ps-scroll-y="scrollHanle"
-                //      wheelPropagation="false"
-                //      :swicher="!isShowList ? true : false"
-                //    )
-                //      .hm-progress__wrap
-                //        HmProgress(
-                //          title='Теория'
-                //          quantity='62%'
-                //          position-left='left:85%'
-                //        )
-                //        HmProgress(
-                //          title='Рефлексия'
-                //          quantity='71%'
-                //          position-left='left:85%'
-                //        )
-                //        HmProgress(
-                //          title='❗️ОФП'
-                //          quantity='62%'
-                //          position-left='left:85%'
-                //        )
-                //      .widget__items
-                //        .widget__item
-                //
-                //
-                //  .widget-footer
-                //    .widget-footer__text(
-                //      @click='toggleList'
-                //    )
-                //      |Перейти к домашним заданиям
 
-
-                .widget
-                  .widget-header
-                    .widget-header__top
-                      img.drag-icon.mr-3(
-                        src="@/assets/images/svg/more-icon.svg"
-                      )
-                      .widget-header__title Выполнение ДЗ
-                      dots-menu.mt-0.position-static.ml-auto
-                  .widget-content.widget-content_gray
-                    vue-custom-scrollbar.scroll-area(
-                      style='max-height: 206px;'
-                      @ps-scroll-y="scrollHanle"
-                      :settings="settings"
-
-                    )
-                      .hm-progress__wrap
-                        HmProgress(
-                          title='Теория'
-                          quantity='62%'
-                          position-left='left:85%'
-                        )
-                        HmProgress(
-                          title='Рефлексия'
-                          quantity='71%'
-                          position-left='left:85%'
-                        )
-                        HmProgress(
-                          title='❗️ОФП'
-                          quantity='62%'
-                          position-left='left:85%'
-                        )
-                      .widget__items
-                        .widget__item.mb-1(
-                          v-for='(item,i) in 5' :key='i'
-                        )
-                          .hm-item-title Отжимания 4 по 30
-                          .hm-item-right.ml-auto.d-flex.align-center
-                            base-badge(
-                              label="2 дня назад"
-                              background="rgba(236, 72, 101, 0.2)"
-                              textColor="#A12238"
-                            )
-                            dots-menu.mt-0.ml-2.position-static
-                  .widget-footer
-                    a(href='#').widget-footer__text
-                      |Перейти к домашним заданиям
-
-
-                .widget
-                  .widget-header
-                    .widget-header__top
-                      img.drag-icon.mr-3(
-                        src="@/assets/images/svg/more-icon.svg"
-                      )
-                      .widget-header__title Предстоящие события
-                      dots-menu.mt-0.position-static.ml-auto
-                  .widget-content.widget-content_gray
-                    vue-custom-scrollbar.scroll-area(
-                      style='max-height: 206px;'
-                      @ps-scroll-y="scrollHanle"
-
-                      :settings="settings"
-                    )
-                      .widget__items
-                        .widget__item.mb-1(
-                          v-for='(item,i) in 5' :key='i'
-                        )
-                          .event-item.pr-6
-                            .event-item__left
-                              .event-item__date 14 мар 2021
-                            .event-item__right
-                              .event-item__title Лёд, Одинцово
-                              .event-item__desc Собираемся размяться, забронировали лёд. Берите снарягу, горячий чай и друзей.
-                              .avatars-block-top
-                                .avatars-block
-                                  a.avatar-group-link(
-                                    href='#'
-                                    v-for='(item,i) in 5' :key='i'
-                                  )
-                                    v-avatar.avatar-group(
-                                      size='24'
-                                    )
-                                      img(src="@/assets/images/avatar.png")
-                                .avatars-block-quant.ml-1 +19
-                                a(href='#').avatars-block-text.ml-1 все участники
-
-
-
-                  .widget-footer
-                    a(href='#').widget-footer__text
-                      |Открыть календарь
-                .widget.widget-form
-                  img.drag-icon(
-                    src="@/assets/images/svg/more-icon.svg"
+                draggable(
+                  class='widgets-wrapper'
+                  :list='widgetsListOne'
+                  group='widgets'
+                )
+                  .widgets-block(
+                    v-for='(element, index) in widgetsListOne'
+                    :key='element.id'
                   )
-                  .form-player__right
-                    img.form-player__img.mb-6(
-                      src="@/assets/images/form-img.jpeg"
-                    )
-                    base-button(
-                      classAttr='button-default button-gray button-small'
-                      label="Обновить форму"
-                    )
-                  .form-player__left
-                    .form-player__desc-block
-                      .title-small Фамилия для свитера
-                      .form-player__name Bryzgalov
-                    .form-player__desc-block
-                      .title-small Номер
-                      .form-player__num 89
-                    .form-player__desc-block.d-flex
-                      .form-player__desc-block_part.mr-4
-                        .title-small Позиция на льду
-                        .text-middle Вратарь
-                        .form-player__desc-status Goaltender
-                      .form-player__desc-block_part
-                        .title-small Хват
-                        .text-middle Л
-                    .form-player__desc-block
-                      .title-small Клуб
-                      .text-middle Boston Hockey Academy (USA)
-                .widget.widget-freinds
-                  .widget-header
-                    .widget-header__top
-                      img.drag-icon.mr-3(
-                        src="@/assets/images/svg/more-icon.svg"
-                      )
-                      .widget-header__title Друзья
-                  .widget-content
-                    .avatar-freind__block
-                      v-avatar.avatar-freind(
-                        size='64'
-                        v-for='(item,i) in 7' :key='i'
-                      )
-                        img(src="@/assets/images/avatar.png")
-                      a(href='#')
-                        svg.ml-3(width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg')
-                          g(clip-path='url(#clip0)')
-                            rect(width='40' height='40' rx='20' fill='#F1F3F9')
-                            path(d='M20 15.3334V24.6667M15.3333 20H24.6667' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
-                          defs
-                            clippath#clip0
-                              rect(width='40' height='40' rx='20' fill='white')
+                    component(:is="element.component")
+
               v-col(
                 md="4"
               )
-                .widget.widget-award
-                  .widget-header
-                    .widget-header__top
-                      img.drag-icon.mr-3(
-                        src="@/assets/images/svg/more-icon.svg"
-                      )
-                      .widget-header__title Мои награды
-                  .widget-content
-                    vue-custom-scrollbar(
-                      :class="!isShowList ? 'scroll-area' : 'scroll-area show'"
-                      style='max-height: 206px;'
-                      @ps-scroll-y="scrollHanle"
-                      :settings='settings'
-                      :swicher="!isShowList ? true : false"
-                    )
-                      .award-item
-                        .award-item__img 🏆
-                        .award-item__desc
-                          .award-item-text Первенство области на приз губернатора
-                          .award-item-date сезон 2019-2020
-                      .award-item
-                        .award-item__img 🥇
-                        .award-item__desc
-                          .award-item-text Первенство области на приз губернатора
-                          .award-item-date сезон 2019-2020
-                      .award-item
-                        .award-item__img 🥇
-                        .award-item__desc
-                          .award-item-text Первенство области на приз губернатора
-                          .award-item-date сезон 2019-2020
-                      .award-item
-                        .award-item__img 🥇
-                        .award-item__desc
-                          .award-item-text Первенство области на приз губернатора
-                          .award-item-date сезон 2019-2020
+                draggable(
+                  class='widgets-wrapper'
+                  :list='widgetsListTwo'
+                  group='widgets'
+                )
+                  .widgets-block(
+                    v-for='(element, index) in widgetsListTwo'
+                    :key='element.id'
+                  )
+                    component(:is="element.component")
 
 
 
 
-
-                  .widget-footer
-                    .widget-footer__text(
-                      @click='toggleList'
-                    )
-                      |Все награды
-
-
-
-                .widget
-                  .widget-header
-                    .widget-header__top
-                      img.drag-icon.mr-3(
-                        src="@/assets/images/svg/more-icon.svg"
-                      )
-                      .widget-header__title Статистика сезона 2020-2021
-                      dots-menu.mt-0.position-static.ml-auto
-                    .widget-header__bottom
-                      .statistic-season__head
-                        .statistic-td.first Сезон
-                        .statistic-td И
-                        .statistic-td Г
-                        .statistic-td П
-                        .statistic-td О
-                  .widget-content.widget-content_gray
-                    vue-custom-scrollbar(
-                      :class="!isShowList ? 'scroll-area' : 'scroll-area show'"
-                      style='max-height: 84px;'
-                      @ps-scroll-y="scrollHanle"
-                      :settings='settings'
-                      :swicher="!isShowList ? true : false"
-                    )
-                      .statistic-season__body
-                        .widget__item.mb-1(
-                          v-for='(item,i) in 7' :key='i'
-                        )
-                          .statistic-td.first 2020-2021
-                          .statistic-td 4
-                          .statistic-td 3
-                          .statistic-td 2
-                          .statistic-td 5
-                        .widget__item.mb-1
-                          .statistic-td.first.total Всего
-                          .statistic-td 4
-                          .statistic-td 3
-                          .statistic-td 2
-                          .statistic-td 5
-                  .widget-footer
-                    .widget-footer__text(
-                      @click='toggleList'
-                    )
-                      |Показать всю статистику
-
-
-                .widget
-                  .widget-header
-                    .widget-header__top
-                      img.drag-icon.mr-3(
-                        src="@/assets/images/svg/more-icon.svg"
-                      )
-                      .widget-header__title Карта бросков и голов
-                      v-item-group.d-flex.ml-auto(mandatory)
-                        each val in ['Все', 'Голы', 'Броски']
-                          v-item(
-                            v-slot='{ active, toggle }'
-                          )
-                            base-segment(
-                              classAttr='segment-default segment-small'
-                              label=val
-                              tag="div"
-                              @click='toggle'
-                            )
-                  .widget-content
-                    .maps-goal__wrap
-                      img.maps-goal(
-                        src="@/assets/images/maps-goal.svg"
-                      )
-                      .point-goal(style="left: 250px; top:50px")
-                      .point-goal.red(style="left: 150px; top:190px")
-                      .point-goal(style="left: 150px; top:150px")
-                      .point-goal(style="left: 250px; top:150px")
-                      .point-goal(style="left: 150px; top:250px")
-                    .widget-bottom.d-flex
-                      .goal-statistic.goal-complete Отбитых <span>19</span>
-                      .goal-statistic.goal-fail Пропущенных <span>2</span>
-
-
-                .widget.widget-team
-                  .widget-header
-                    .widget-header__top
-                      img.drag-icon.mr-3(
-                        src="@/assets/images/svg/more-icon.svg"
-                      )
-                      .widget-header__title Команда
-                      v-item-group.d-flex.ml-4(mandatory)
-                        each val in ['Вратари', 'Защитники', 'Нападающие']
-                          v-item(
-                            v-slot='{ active, toggle }'
-                          )
-                            base-segment(
-                              classAttr='segment-default segment-small'
-                              label=val
-                              tag="div"
-                              @click='toggle'
-                            )
-                      dots-menu.mt-0.position-static.ml-auto
-                    .widget-header__bottom
-                      .statistic-season__head
-                        .statistic-td.first Игрок
-                        .statistic-td
-                        .statistic-td GP↑
-                        .statistic-td GAA
-                        .statistic-td SV%
-                        .statistic-td
-
-                  .widget-content.widget-content_gray
-                    vue-custom-scrollbar(
-                      style='max-height: 208px;'
-                      @ps-scroll-y="scrollHanle"
-                      :settings='settings'
-                    )
-                      .statistic-season__body
-                        .widget__item.mb-1(
-                          v-for='(item,i) in 7' :key='i'
-                        )
-                          .statistic-td.first.d-flex.align-center
-                            v-avatar.avatar-player(
-                              size='32'
-                            )
-                              img(src="@/assets/images/avatar.png")
-                            .team-player__name Даниил Брызгалов
-
-                          .statistic-td
-                            base-badge(
-                              label="#89"
-                              background="#F1F3F9"
-                              textColor="#000000"
-                            )
-                          .statistic-td 30
-                          .statistic-td 2.43
-                          .statistic-td -
-                          .statistic-td.text-right
-                            dots-menu.dots-black.mt-0.position-static
-                .widget.widget-learn
-                  .widget-header
-                    .widget-header__top
-                      img.drag-icon.mr-3(
-                        src="@/assets/images/svg/more-icon.svg"
-                      )
-                      .widget-header__title.mr-2 Учёба
-                      .widget-header__text средний балл  <span class='ml-1'>3,5</span>
-                      .nav-slider.ml-auto
-                        svg.nav-arrow(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
-                          path(d='M9 4L5 8L9 12' stroke='#326BFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
-                        .nav-slider__text 2 семестр
-                        svg.nav-arrow(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
-                          path(d='M7 4L11 8L7 12' stroke='#326BFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
-                      dots-menu.mt-0.position-static.ml-5
-                  .widget-content.widget-content_gray
-                    vue-custom-scrollbar(
-                      :class="!isShowList ? 'scroll-area' : 'scroll-area show'"
-                      style='max-height: 266px;'
-                      @ps-scroll-y="scrollHanle"
-                      :settings='settings'
-                      :swicher="!isShowList ? true : false"
-                    )
-
-                      .widget__item.mb-1(
-                        v-for='(item,i) in 7' :key='i'
-                      )
-                        .text-small Основы специальной педагогики и психологии
-                        .widget__item-right.d-flex.align-center.ml-auto
-                          .discipline-num 4,2
-                            <!-- при отрицательном результате 'green-result' заменить на 'red-result' -->
-                          .progress-quant__block.green-result
-                            svg.progress-indication(width='8' height='5' viewBox='0 0 8 5' fill='none' xmlns='http://www.w3.org/2000/svg')
-                              path(d='M4 0L8 5H0L4 0Z' )
-                            .progress-quant 15
-                          dots-menu.dots-black.mt-0.position-static.d-flex.align-center.ml-2
-                    .widget-footer
-                      .widget-footer__text(
-                        @click='toggleList'
-                      )
-                        |Развернуть список
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //
-    //              .test-1(:content='content' :step='step' v-if="content.Type=='Question'")
-    //                .widget-header
-    //                  .drag-button
-    //                    img.drag-icon.mt-n1.mr-5(
-    //                      src="@/assets/images/svg/more-icon.svg"
-    //                    )
-    //                  | lorem 2
-    //              .test-1(:content='content' :step='step' v-if="content.Type=='Question'")
-    //                .widget-header
-    //                  .drag-button
-    //                    img.drag-icon.mt-n1.mr-5(
-    //                      src="@/assets/images/svg/more-icon.svg"
-    //                    )
-    //                  | lorem 3
-    //              .test-1(:content='content' :step='step' v-if="content.Type=='Question'")
-    //                .widget-header
-    //                  .drag-button
-    //                    img.drag-icon.mt-n1.mr-5(
-    //                      src="@/assets/images/svg/more-icon.svg"
-    //                    )
-    //                  | lorem 4
-    //            draggable(:list='step.Content')
-    //              .paragraph(:content='content' :key='content.Id')
-    //
-    //
-    ////  draggable.widgets-wrapper(
-    //          //    :list='widgetsListOne'
-    //          //    group='widgets'
-    //          //  )
-    //          //    transition-group(type="transition" name="flip-list")
-    //          //      .wrap(
-    //          //        v-for='(element, index) in widgetsListOne'
-    //          //        :key='element.id'
-    //          //      )
-    //          //        .widget
-    //          //          .widget-header
-    //          //            .drag-button
-    //          //              img.drag-icon.mt-n1.mr-5(
-    //          //                src="@/assets/images/svg/more-icon.svg"
-    //          //              )
-    //          //
-    //          //v-col(
-    //          //  md="6"
-    //          //)
-    //          //  draggable.widgets-wrapper(
-    //          //    :list='widgetsListTwo'
-    //          //    group='widgets'
-    //          //  )
-    //          //    transition-group(type="transition" name="flip-list")
-    //          //      .wrap(
-    //          //        v-for='(element, index) in widgetsListTwo'
-    //          //        :key='element.id'
-    //          //      )
-    //          //        .widget
-    //          //          .widget-header
-    //          //            .drag-button
-    //          //              img.drag-icon.mt-n1.mr-5(
-    //          //                src="@/assets/images/svg/more-icon.svg"
-    //          //              )
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //
-    //      v-tab-item(transition="fade-transition")
-    //        v-card(flat='')
-    //          v-card-text
-    //            p
-    //              | Morbi nec metus. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Sed mollis, eros et ultrices tempus, mauris ipsum aliquam libero, non adipiscing dolor urna a orci. Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Nunc sed turpis.
-    //            p
-    //              | Suspendisse feugiat. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. In hac habitasse platea dictumst. Fusce ac felis sit amet ligula pharetra condimentum.
-    //            p
-    //              | Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Nam commodo suscipit quam. In consectetuer turpis ut velit. Sed cursus turpis vitae tortor. Aliquam eu nunc.
-    //            p
-    //              | Etiam ut purus mattis mauris sodales aliquam. Ut varius tincidunt libero. Aenean viverra rhoncus pede. Duis leo. Fusce fermentum odio nec arcu.
-    //            p.mb-0
-    //              | Donec venenatis vulputate lorem. Aenean viverra rhoncus pede. In dui magna, posuere eget, vestibulum et, tempor auctor, justo. Fusce commodo aliquam arcu. Suspendisse enim turpis, dictum sed, iaculis a, condimentum nec, nisi.
-    //      v-tab-item(transition="fade-transition")
-    //        v-card(flat='')
-    //          v-card-text
-    //            p
-    //              | Fusce a quam. Phasellus nec sem in justo pellentesque facilisis. Nam eget dui. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. In dui magna, posuere eget, vestibulum et, tempor auctor, justo.
-    //            p.mb-0
-    //              | Cras sagittis. Phasellus nec sem in justo pellentesque facilisis. Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nam at tortor in tellus interdum sagittis.
-    //
 
 </template>
 
@@ -640,11 +153,29 @@ import DotsMenu from "@/components/DotsMenu";
 import vueCustomScrollbar from 'vue-custom-scrollbar'
 import "vue-custom-scrollbar/dist/vueScrollbar.css"
 import HmProgress from "@/components/elements/HmProgress";
+import WidgetHomework from "@/components/widgets/WidgetHomework";
+import WidgetEvents from "@/components/widgets/WidgetEvents";
+import WidgetFormPlayer from "@/components/widgets/WidgetFormPlayer";
+import WidgetFriends from "@/components/widgets/WidgetFriends";
+import WidgetAwards from "@/components/widgets/WidgetAwards";
+import WidgetStatistic from "@/components/widgets/WidgetStatistic";
+import WidgetMapsGoal from "@/components/widgets/WidgetMapsGoal";
+import WidgetTeam from "@/components/widgets/WidgetTeam";
+import WidgetLearn from "@/components/widgets/WidgetLearn";
 
 
 export default {
   name: "AccountSportsman",
   components: {
+    WidgetLearn,
+    WidgetTeam,
+    WidgetMapsGoal,
+    WidgetStatistic,
+    WidgetAwards,
+    WidgetFriends,
+    WidgetFormPlayer,
+    WidgetEvents,
+    WidgetHomework,
     HmProgress,
     DotsMenu,
     SnackBar,
@@ -656,7 +187,7 @@ export default {
   },
 
   data: () => ({
-    isShowList:false,
+    isShowList: false,
     settings: {
       suppressScrollY: false,
       suppressScrollX: false,
@@ -668,16 +199,14 @@ export default {
     text: 'Выставлены оценки. Можно ознакомиться в разделе с оценками',
     timeout: 10000,
     widgetsListOne: [
-      {name: "Текущий микроцикл 1", id: 1},
-      {name: "Текущий микроцикл 2", id: 2},
-      // {name: "Текущий микроцикл 3", id: 3},
-      // {name: "Текущий микроцикл 4", id: 4},
+      {id: 1, component: 'WidgetHomework'},
+      {id: 2, component: 'WidgetEvents'},
+      {id: 3, component: 'WidgetFormPlayer'},
     ],
     widgetsListTwo: [
-      {name: "Текущий микроцикл 5", id: 5},
-      {name: "Текущий микроцикл 6", id: 6},
-      // {name: "Текущий микроцикл 7", id: 7},
-      // {name: "Текущий микроцикл 8", id: 8},
+      {id: 1, component: 'WidgetLearn'},
+      {id: 2, component: 'WidgetMapsGoal'},
+      {id: 3, component: 'WidgetTeam'},
     ],
 
 
@@ -694,20 +223,28 @@ export default {
     toggleList: function () {
       this.isShowList = !this.isShowList;
       console.log(this.isShowList)
-
     },
   },
   mounted() {
 
 
-    this.interval = setInterval(() => {
-      if (this.value === 0) {
-        return (this.value = 0)
-      }
-      this.value -= 10
-    }, 1000)
-
   },
+  watch: {
+    // openNotification: function (val) {
+    //   if(val) {
+    //     this.interval = setInterval(() => {
+    //       if (this.value === 0) {
+    //         return (this.value = 0)
+    //       }
+    //       this.value -= 10
+    //     }.bind(this), 1000)
+    //   }
+    //
+    //   else {
+    //
+    //   }
+    // },
+  }
 }
 </script>
 
@@ -805,346 +342,5 @@ export default {
   }
 }
 
-
-/* widgets */
-
-.widget {
-  width: 100%;
-  //background: #F8F9FB;
-  box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  margin-bottom: 16px;
-}
-
-.widget-header {
-  //min-height: 48px;
-  //display: flex;
-  //align-items: center;
-  padding: 10px 16px;
-  background: #FFFFFF;
-  box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1);
-  border-radius: 8px 8px 0px 0px;
-}
-
-.widget-header__top {
-  align-items: center;
-  display: flex;
-  width: 100%;
-
-}
-
-.widget-header__title {
-  font-family: $FiraSansBold;
-}
-
-.widget-footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 40px;
-  background: #FFFFFF;
-  box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1);
-  border-radius: 0px 0px 8px 8px;
-}
-
-.widget-footer__text {
-  color: #326BFF !important;
-  font-size: 14px;
-}
-.widget-content{
-  padding: 16px;
-}
-
-.widget-content_gray{
-  background: #F8F9FB;
-}
-.scroll-area {
-  position: relative;
-  margin: auto;
-  min-height: 50px;
-  //max-height: 150px;
-  transition: 0.5s;
-
-}
-.scroll-area.show{
-  height: 100% !important;
-  max-height: 100% !important;
-  transition: 0.5s;
-}
-
-.widget__item{
-  background: #FFFFFF;
-  border-radius: 4px;
-  padding: 8px 10px;
-  display: flex;
-  align-items: center;
-
-}
-
-.hm-item-title{
-  font-size: 14px;
-}
-
-.event-item{
-  display: flex;
-  .avatars-block-text{
-    font-size: 12px;
-  }
-  .avatars-block-quant{
-    font-size: 12px;
-    color: #000;
-  }
-}
-
-.event-item__left{
-  @include width-flex(20%)
-}
-
-.event-item__title{
-  font-family: $FiraSansMedium;
-  margin-bottom: 6px;
-}
-
-.event-item__desc{
-  font-size: 12px;
-  margin-bottom: 6px;
-}
-
-.event-item__date{
-  font-size: 12px;
-}
-
-.widget-form{
-  padding: 24px 32px;
-  position: relative;
-  display: flex;
-  .drag-icon{
-    position: absolute;
-    left: 12px;
-    top: 18px;
-  }
-}
-
-.form-player__right{
-  @include width-flex(150px)
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.form-player__left{
-  padding-left: 26px;
-  @include width-flex(calc(100% - 150px))
-
-}
-
-.form-player__desc-block{
-  margin-bottom: 16px;
-}
-.form-player__desc-status{
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #798CBD;
-}
-
-.avatar-freind{
-  @include width-flex(64px)
-  height: 64px;
-  margin-right: 24px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-}
-
-.avatar-freind__block{
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.widget-award{
-  .widget-header{
-    box-shadow: none;
-  }
-}
-
-.award-item__img{
-  font-size: 36px;
-  @include width-flex(40px)
-  margin-right: 8px;
-}
-
-.award-item{
-  display: flex;
-  margin-bottom: 20px;
-}
-.award-item__desc{
-  margin-top: 5px;
-}
-
-.award-item-text{
-  font-size: 14px;
-  margin-bottom: 6px;
-}
-
-.award-item-date{
-  color: rgba(0, 0, 0, 0.5);
-  font-size: 14px;
-
-}
-
-.statistic-season__head{
-  padding-left: 10px;
-  padding-right: 10px;
-  .statistic-td.first{
-    color: #000;
-  }
-  .statistic-td{
-    color: #888888;
-  }
-}
-.statistic-season__head,
-.statistic-season__item{
-  display: flex;
-  align-items: center;
-}
-
-.widget-header__bottom{
-  margin-top: 16px;
-}
-
-.statistic-td.first{
-  @include width-flex(40%)
-}
-.statistic-td{
-  @include width-flex(15%)
-  font-size: 14px;
-
-}
-
-.statistic-td.first.total{
-  font-size: 14px;
-  font-family: $FiraSansBold;
-}
-
-
-
-.maps-goal{
-  width: 100%;
-
-}
-.maps-goal__wrap{
-  position: relative;
-  margin-top: 85px;
-  margin-bottom: 90px;
-}
-.point-goal{
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: #000;
-  border-radius: 50%;
-}
-
-.point-goal.red{
-  background: #DC1E34;
-
-}
-.goal-statistic{
-  font-size: 12px;
-  margin-right: 32px;
-  display: flex;
-  align-items: center;
-  span{
-    font-family: $FiraSansMedium;
-    margin-left: 10px;
-  }
-  &:before{
-    content: '';
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin-right: 5px;
-  }
-}
-
-.goal-complete{
-  &:before {
-    background: #000;
-  }
-}
-
-.goal-fail{
-  &:before {
-    background: #DC1E34;
-  }
-}
-
-.widget-team{
-  .statistic-td.first{
-    @include width-flex(30%)
-    text-align: left;
-  }
-  .statistic-td{
-    @include width-flex(14%)
-    font-size: 14px;
-    text-align: center;
-
-  }
-
-}
-
-.team-player__name{
- font-size: 12px;
-  color: $blue;
-}
-
-.avatar-player{
-  margin-right: 16px;
-}
-.widget-header__text{
-  span{
-    font-family: $FiraSansBold;
-
-  }
-}
-
-.nav-slider{
-  display: flex;
-  align-items: center;
-}
-
-.nav-slider__text{
-  font-size: 14px;
-  margin-left: 4px;
-  margin-right: 4px;
-}
-
-.nav-arrow{
-  &:hover{
-    cursor: pointer;
-  }
-}
-
-.discipline-num{
-  font-size: 12px;
-  font-family: $FiraSansBold;
-}
-
-
-
-::v-deep{
-  .ps__thumb-y{
-    width: 3px;
-  }
-}
-
-
-
-
-
-
-
-
-/**/
 
 </style>

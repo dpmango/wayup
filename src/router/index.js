@@ -136,7 +136,10 @@ const routes = [
     {
         path: '/account-sportsman',
         name: 'AccountSportsman',
-        meta: {layout: 'main'},
+        meta: {
+            layout: 'main',
+            userSettings:true
+        },
         component: () => import(/* webpackChunkName: "about" */ '../views/AccountSportsman')
     },
 

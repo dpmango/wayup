@@ -7,6 +7,10 @@ import VueDraggable from 'vue-draggable'
 import VueSimpleAccordion from 'vue-simple-accordion';
 import 'vue-simple-accordion/dist/vue-simple-accordion.css';
 import DropdownMenu from 'v-dropdown-menu'
+// import vueCustomScrollbar from 'vue-custom-scrollbar'
+// import "vue-custom-scrollbar/dist/vueScrollbar.css"
+
+
 // import VueAwesomeSwiper from 'vue-awesome-swiper'
 // import 'swiper/swiper-bundle.css'
 
@@ -36,6 +40,9 @@ Vue.use(DropdownMenu,{
 })
 
 Vue.use(VueDraggable)
+
+
+// Vue.use(vueCustomScrollbar)
 
 //
 // import SwiperCore, {

@@ -465,3 +465,174 @@
   align-items: center;
   justify-content: flex-end;
 }
+
+
+/* widgets */
+
+.widget {
+  width: 100%;
+  //background: #F8F9FB;
+  box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.widget-header {
+  //min-height: 48px;
+  //display: flex;
+  //align-items: center;
+  padding: 10px 16px;
+  background: #FFFFFF;
+  box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 8px 8px 0px 0px;
+}
+
+.widget-header__top {
+  align-items: center;
+  display: flex;
+  width: 100%;
+
+}
+
+.widget-header__title {
+  font-family: $FiraSansBold;
+}
+
+.widget-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  background: #FFFFFF;
+  box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 0px 0px 8px 8px;
+}
+
+.widget-footer__text {
+  color: #326BFF !important;
+  font-size: 14px;
+  &:hover{
+    cursor: pointer;
+  }
+}
+.widget-content{
+  padding: 16px;
+  background: #FFFFFF;
+}
+
+.widget-content_gray{
+  background: #F8F9FB;
+}
+.scroll-area {
+  position: relative;
+  margin: auto;
+  min-height: 50px;
+  //max-height: 150px;
+  transition: 0.5s;
+
+}
+.scroll-area.show{
+  height: 100% !important;
+  max-height: 100% !important;
+  transition: 0.5s;
+}
+
+.widget__item{
+  background: #FFFFFF;
+  border-radius: 4px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+
+}
+//
+//.hm-item-title{
+//  font-size: 14px;
+//}
+
+
+
+.statistic-season__head{
+  padding-left: 10px;
+  padding-right: 10px;
+  .statistic-td.first{
+    color: #000;
+  }
+  .statistic-td{
+    color: #888888;
+  }
+}
+.statistic-season__head,
+.statistic-season__item{
+  display: flex;
+  align-items: center;
+}
+
+.widget-header__bottom{
+  margin-top: 16px;
+}
+
+.statistic-td.first{
+  @include width-flex(40%)
+}
+.statistic-td{
+  @include width-flex(15%)
+  font-size: 14px;
+
+}
+
+.statistic-td.first.total{
+  font-size: 14px;
+  font-family: $FiraSansBold;
+}
+
+
+
+.widget-header__text{
+  span{
+    font-family: $FiraSansBold;
+
+  }
+}
+
+.nav-slider{
+  display: flex;
+  align-items: center;
+}
+
+.nav-slider__text{
+  font-size: 14px;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.nav-arrow{
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+
+
+::v-deep{
+  .ps__thumb-y{
+    width: 3px;
+  }
+}
+.widgets-wrapper{
+  min-height: 150px;
+}
+
+.drag-icon{
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+
+
+
+
+
+
+/**/
