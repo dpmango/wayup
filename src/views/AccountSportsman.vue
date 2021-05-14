@@ -249,6 +249,8 @@ import WidgetStatistic from "@/components/widgets/WidgetStatistic";
 import WidgetMapsGoal from "@/components/widgets/WidgetMapsGoal";
 import WidgetTeam from "@/components/widgets/WidgetTeam";
 import WidgetLearn from "@/components/widgets/WidgetLearn";
+import WidgetLevel from "@/components/widgets/WidgetLevel";
+import WidgetChartPolar from "@/components/widgets/WidgetChartPolar";
 import MusicPlayer from "@/components/elements/MusicPlayer";
 import AccordionExercises from "@/components/AccordionExercises";
 import InfoBlock from "@/components/elements/InfoBlock";
@@ -275,6 +277,8 @@ export default {
     WidgetFormPlayer,
     WidgetEvents,
     WidgetHomework,
+    WidgetLevel,
+    WidgetChartPolar,
     HmProgress,
     DotsMenu,
     SnackBar,
@@ -286,7 +290,6 @@ export default {
   },
 
   data: () => ({
-    // model: 'tab-2',
     isShowList: false,
     settings: {
       suppressScrollY: false,
@@ -304,11 +307,13 @@ export default {
       {id: 1, component: 'WidgetHomework'},
       {id: 2, component: 'WidgetEvents'},
       {id: 3, component: 'WidgetFormPlayer'},
+      {id: 4, component: 'WidgetLevel'},
     ],
     widgetsListTwo: [
       {id: 1, component: 'WidgetLearn'},
       {id: 2, component: 'WidgetMapsGoal'},
       {id: 3, component: 'WidgetTeam'},
+      {id: 4, component: 'WidgetChartPolar'},
     ],
 
 
