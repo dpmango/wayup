@@ -73,12 +73,12 @@ Vue.config.productionTip = false
 // Vue.component('base-button', () => import('./components/BaseButton.vue'));
 Vue.component('base-label', () => import('./components/BaseLabel.vue'));
 Vue.component('base-link', () => import('./components/BaseLink.vue'));
-Vue.component('base-select', () => import('./components/BaseSelect.vue'));
+// Vue.component('base-select', () => import('./components/BaseSelect.vue'));
 Vue.component('base-select-mini', () => import('./components/BaseSelectMini.vue'));
 
 
 
-Vue.component('base-select-new', () => import('./components/library/BaseSelect.vue'));
+Vue.component('base-select', () => import('./components/library/BaseSelect.vue'));
 Vue.component('base-input', () => import('./components/library/BaseInput.vue'));
 Vue.component('base-input-password', () => import('./components/library/BaseInputPassword'));
 Vue.component('base-badge', () => import('./components/library/BaseBadge'));

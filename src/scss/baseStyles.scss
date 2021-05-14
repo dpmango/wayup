@@ -559,8 +559,14 @@
 
 
 .statistic-season__head{
+  //margin-left: -26px;
+  //margin-right: -26px;
+  //padding-left: 36px;
+  //padding-right: 36px;
+  //margin-top: -16px;
   padding-left: 10px;
   padding-right: 10px;
+  background: #FFFFFF;
   .statistic-td.first{
     color: #000;
   }
@@ -578,18 +584,15 @@
   margin-top: 16px;
 }
 
-.statistic-td.first{
-  @include width-flex(40%)
-}
-.statistic-td{
-  @include width-flex(15%)
-  font-size: 14px;
-
-}
 
 .statistic-td.first.total{
   font-size: 14px;
   font-family: $FiraSansBold;
+}
+
+.statistic-td {
+  font-size: 14px;
+
 }
 
 .font-bold{

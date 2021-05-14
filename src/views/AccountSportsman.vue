@@ -201,6 +201,11 @@
           v-tab-item(
             transition="fade-transition"
           )
+            WidgetStatisticGame
+            IndicationStatistic
+
+
+
           v-tab-item(
             transition="fade-transition"
           )
@@ -251,11 +256,15 @@ import InfoBlock from "@/components/elements/InfoBlock";
 import AccordionEstimation from "@/components/AccordionEstimation";
 import MarksBlock from "@/components/elements/MarksBlock";
 import AccordionHomework from "@/components/AccordionHomework";
+import IndicationStatistic from "@/components/elements/IndicationStatistic";
+import WidgetStatisticGame from "@/components/widgets/WidgetStatisticGame";
 
 
 export default {
   name: "AccountSportsman",
   components: {
+    WidgetStatisticGame,
+    IndicationStatistic,
     AccordionHomework,
     MarksBlock,
     AccordionEstimation,

@@ -21,11 +21,11 @@
       .widget-header__bottom
         .statistic-season__head
           .statistic-td.first Игрок
-          .statistic-td
           .statistic-td GP↑
           .statistic-td GAA
           .statistic-td SV%
           .statistic-td
+
 
     .widget-content.widget-content_gray
       vue-custom-scrollbar(
@@ -44,8 +44,8 @@
                 img(src="@/assets/images/avatar.png")
               .team-player__name Даниил Брызгалов
 
-            .statistic-td
-              base-badge(
+
+              base-badge.ml-4(
                 label="#89"
                 background="#F1F3F9"
                 textColor="#000000"
@@ -53,7 +53,7 @@
             .statistic-td 30
             .statistic-td 2.43
             .statistic-td -
-            .statistic-td.text-right
+            .statistic-td
               dots-menu.dots-black.mt-0.position-static
 
 </template>
@@ -61,9 +61,11 @@
 <script>
 import vueCustomScrollbar from 'vue-custom-scrollbar'
 import "vue-custom-scrollbar/dist/vueScrollbar.css"
+import DotsMenu from "@/components/DotsMenu";
 export default {
   name: "WidgetTeam",
   components: {
+    DotsMenu,
     vueCustomScrollbar
   },
   data: () => ({
@@ -85,6 +87,15 @@ export default {
 
 .avatar-player{
   margin-right: 16px;
+}
+
+.statistic-td.first{
+  @include width-flex(48%)
+  text-align: left;
+}
+.statistic-td{
+  @include width-flex(13%)
+  text-align: center;
 }
 
 </style>
