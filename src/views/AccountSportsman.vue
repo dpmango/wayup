@@ -4,7 +4,7 @@
       v-model='snackbarSettings'
       :timeout='timeoutSettings'
       top='true'
-      )
+    )
       | Настройка рабочего стола
       template(v-slot:action='{ attrs }')
         base-button(
@@ -162,7 +162,7 @@
 
           v-tab-item(
             transition="fade-transition"
-            )
+          )
             v-row
               v-col(
                 md="8"
@@ -186,7 +186,7 @@
                         div 💬
           v-tab-item(
             transition="fade-transition"
-            )
+          )
             v-row
               v-col(
                 md="10"
@@ -220,12 +220,6 @@
                   )
 
             AccordionHomework
-
-
-
-
-
-
 
 
 </template>
@@ -449,13 +443,13 @@ export default {
   }
 }
 
-.snackbar-settings{
+.snackbar-settings {
   height: 56px;
 }
 
-.snackbar-settings{
-  ::v-deep{
-    .v-snack__wrapper{
+.snackbar-settings {
+  ::v-deep {
+    .v-snack__wrapper {
       max-width: 100%;
       margin: 0;
       background: #292C33;
@@ -465,10 +459,12 @@ export default {
       display: flex;
       align-items: center;
     }
-    .button-black{
+
+    .button-black {
       background: #383F4C;
     }
-    .v-snack__content{
+
+    .v-snack__content {
       color: #FFFFFF;
     }
   }

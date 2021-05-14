@@ -3,19 +3,25 @@
   width: 100%;
 }
 
-.icon-20 {
-  @include width-flex(20px)
-  height: 20px;
-}
+
 .icon-16 {
   @include width-flex(16px)
   height: 16px;
 }
 
+.icon-20 {
+  @include width-flex(20px)
+  height: 20px;
+}
+.icon-24 {
+  @include width-flex(24px)
+  height: 24px;
+}
 .icon-36 {
   @include width-flex(36px)
   height: 36px;
 }
+
 
 .emoji-36{
   font-size: 36px;

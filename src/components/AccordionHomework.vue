@@ -41,35 +41,44 @@
               .hm-head
                 .hm-head__title Задания:
                 .link-show__block
-                  .link-show(@click="all") развернуть все
-                  .link-hide(@click="none") свернуть все
+                  .link-show(@click="all" :class="!isShowAccordions ? 'm-show' : 'm-hide'") развернуть все
+                  .link-hide(@click="none" :class="isShowAccordions ? 'm-show' : 'm-hide'") свернуть все
 
               v-expansion-panels.acc-hm__panels_inner(v-model="panelLevelThree" multiple)
-                v-expansion-panel.acc-hm__panel_inner(v-for='(item,i) in items' :key='i')
+                v-expansion-panel.acc-hm__panel_inner.complete(v-for='(item,i) in items' :key='i')
                   v-expansion-panel-header.acc-hm__header_inner
-
                     .block-flex
                       .block-flex__left.d-flex.align-center
                         .acc-hm-num.mr-4 {{i + 1}}
-                        .acc-hm-title Развитие координационных способностей
-
-                      .block-flex__right.d-flex.align-center.ml-auto.pr-12
+                        .acc-hm__task-title Игры с теннисным мячом. Метание и ловля мяча отскочившего от стены
+                      .block-flex__right.d-flex.align-center.ml-auto.pr-4
+                        .complete-icon.mr-4
+                          | ✅
                         base-badge.mr-4(
                           label="в процессе"
-                          background="rgba(61, 197, 13, 0.15)"
-                          textColor="#1F7800"
+                          background="rgba(89, 87, 202, 0.15)"
+                          textColor="#413FBC"
                         )
-                        base-badge.mr-4(
-                          label="до 28 фев 2021"
-                          background="rgba(247, 239, 176, 0.5)"
-                          textColor="#676300"
+                  v-expansion-panel-content.acc-hm__content_inner
+                    .hm-report__block
+                      .hm-report__block-title Отчёт о выполнении:
+                      v-row
+                        v-col(
+                          md='5'
                         )
-                        a(href='#' @click.stop='onClick()')
-                          img.icon-20.mr-5(
-                            src="@/assets/images/svg/icon-message.svg"
-                          )
-                        dots-menu.mt-0.position-static.ml-2
-                  v-expansion-panel-content.acc-exercises__content_inner
+                          .hm-report__block-mess
+                            .hm-report__block-mess-icon.icon-24 💬
+                            base-textarea.ml-3(solo="true" name="test" label="" )
+                        v-col(
+                          md='2'
+                        )
+                          DropzoneBlock
+                base-button.mt-4.w-100(
+                  classAttr='button-default button-blue button-big'
+                  label="Отправить отчёт"
+                  disabled=true
+                )
+
 
 
 
@@ -79,16 +88,31 @@
 
 <script>
 import DotsMenu from "@/components/DotsMenu";
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+import DropzoneBlock from "@/components/elements/DropzoneBlock";
 export default {
   name: "AccordionHomework",
-  components: {DotsMenu},
+  components: {
+    DropzoneBlock,
+    DotsMenu,
+    vueDropzone: vue2Dropzone
+  },
+  isShowAccordions: false,
   data: () => ({
     items:5,
     panelLevelOne: [0],
     panelLevelTwo: [0],
-    panelLevelThree: [],
+    panelLevelThree: [0],
     disabled: false,
     readonly: false,
+    dropzoneOptions: {
+      url: 'https://httpbin.org/post',
+      thumbnailWidth: 150,
+      maxFilesize: 0.5,
+      headers: { "My-Awesome-Header": "header value" },
+      dictDefaultMessage:'Загрузить видео'
+    }
   }),
   methods: {
     onClick() {
@@ -99,11 +123,12 @@ export default {
     },
     all () {
       this.panelLevelThree = [...Array(this.items).keys()].map((k, i) => i)
-      console.log('rkbr')
+      this.isShowAccordions = true;
     },
     // Reset the panel
     none () {
       this.panelLevelThree = []
+      this.isShowAccordions = false;
     },
   },
 
@@ -162,6 +187,35 @@ export default {
       margin-top: 0;
       background: #F8F9FC;
 
+    }
+    .acc-hm__panels_inner{
+      .v-expansion-panel-content__wrap{
+        background: transparent;
+        padding: 16px 48px 16px;
+      }
+    }
+    .acc-hm__task-title{
+      //color: rgba(0, 0, 0, 0.56);
+
+    }
+    .hm-report__block-title{
+      color: rgba(0, 0, 0, 0.56);
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .acc-hm__panel_inner{
+      margin-top: 8px;
+      &:after{
+        border-color: transparent !important;
+      }
+      &:before{
+        box-shadow: none !important;
+      }
+    }
+
+    .acc-hm__panel_inner.complete{
+      background: rgba(61, 197, 13, 0.05);
     }
 
   }
@@ -284,6 +338,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 12px;
 }
 
 .hm-head__title{
@@ -292,5 +347,43 @@ export default {
   text-transform: uppercase;
   font-family: $FiraSansMedium;
 }
+
+
+
+.m-show{
+  display: block;
+}
+
+.m-hide{
+  display: none;
+}
+
+
+
+.hm-report__block-mess{
+  display: flex;
+}
+.complete-icon{
+  //padding: 4px 8px;
+  min-width: 28px;
+  min-height: 24px;
+  background: rgba(61, 197, 13, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 </style>

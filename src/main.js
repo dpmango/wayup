@@ -86,6 +86,7 @@ Vue.component('base-tag', () => import('./components/library/BaseTag'));
 Vue.component('base-checkbox', () => import('./components/library/BaseCheckbox'));
 Vue.component('base-button', () => import('./components/library/BaseButton'));
 Vue.component('base-segment', () => import('./components/library/BaseSegment'));
+Vue.component('base-textarea', () => import('./components/library/BaseTextarea'));
 
 
 new Vue({
