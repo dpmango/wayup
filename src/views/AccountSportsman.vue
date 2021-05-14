@@ -2,11 +2,21 @@
   div
     v-snackbar.snackbar-settings(
       v-model='snackbarSettings'
+      :timeout='timeoutSettings'
+      top='true'
       )
       | Настройка рабочего стола
       template(v-slot:action='{ attrs }')
-        v-btn(color='pink' text='' v-bind='attrs' @click='snackbarSettings = false')
-          | Close
+        base-button(
+          v-bind='attrs' @click='snackbarSettings = false'
+          classAttr='button-default button-blue button-small ml-3'
+          label="Завершить"
+        )
+        base-button(
+          v-bind='attrs' @click='snackbarSettings = false'
+          classAttr='button-default button-black button-small ml-3'
+          label="Отменить"
+        )
 
     v-snackbar(
       v-model='snackbar'
@@ -82,7 +92,6 @@
       )
         v-tabs()
           v-tab
-
             | Общая
           v-tab
             | Тесты
@@ -100,7 +109,9 @@
 
 
 
-          v-tab-item(transition="fade-transition")
+          v-tab-item(
+            transition="fade-transition"
+          )
             //v-row
             //  v-col(
             //    md="4"
@@ -149,6 +160,70 @@
                   )
                     component(:is="element.component")
 
+          v-tab-item(
+            transition="fade-transition"
+            )
+            v-row
+              v-col(
+                md="8"
+              )
+                .exercises__block.mb-8
+                  .h5.mb-4 Упражнения из Федерального стандарта
+                  AccordionExercises
+                .exercises__block.mb-8
+                  .h5.mb-4 Дополнительные упражнения
+                  AccordionExercises
+
+              v-col(
+                md="4"
+              )
+                info-block.align-start(
+                  text=`Вы хорошо поработали после предыдущей оценки. Обязательно проведите работу над ошибками, чтобы улучшить показатели к следующей оценке.
+                  <span class="d-block mt-5">Не забудьте отметить самочувствие.</span>`)
+                  slot
+                    template
+                      .target-icon
+                        div 💬
+          v-tab-item(
+            transition="fade-transition"
+            )
+            v-row
+              v-col(
+                md="10"
+              )
+                .exercises__block.mb-8
+                  AccordionEstimation
+
+              v-col(
+                md="2"
+              )
+                MarksBlock
+          v-tab-item(
+            transition="fade-transition"
+          )
+          v-tab-item(
+            transition="fade-transition"
+          )
+          v-tab-item(
+            transition="fade-transition"
+          )
+            v-item-group.d-flex.mb-6(mandatory)
+              each val in [`В процессе <span class="segment-mun">2</span>`, 'Предстоящие <span class="segment-mun">4</span>', 'Закрытые <span class="segment-mun">4</span>']
+                v-item(
+                  v-slot='{ active, toggle }'
+                )
+                  base-segment(
+                    classAttr='segment-default segment-big'
+                    label=val
+                    tag="div"
+                    @click='toggle'
+                  )
+
+            AccordionHomework
+
+
+
+
 
 
 
@@ -175,11 +250,21 @@ import WidgetMapsGoal from "@/components/widgets/WidgetMapsGoal";
 import WidgetTeam from "@/components/widgets/WidgetTeam";
 import WidgetLearn from "@/components/widgets/WidgetLearn";
 import MusicPlayer from "@/components/elements/MusicPlayer";
+import AccordionExercises from "@/components/AccordionExercises";
+import InfoBlock from "@/components/elements/InfoBlock";
+import AccordionEstimation from "@/components/AccordionEstimation";
+import MarksBlock from "@/components/elements/MarksBlock";
+import AccordionHomework from "@/components/AccordionHomework";
 
 
 export default {
   name: "AccountSportsman",
   components: {
+    AccordionHomework,
+    MarksBlock,
+    AccordionEstimation,
+    InfoBlock,
+    AccordionExercises,
     MusicPlayer,
     WidgetLearn,
     WidgetTeam,
@@ -201,6 +286,7 @@ export default {
   },
 
   data: () => ({
+    // model: 'tab-2',
     isShowList: false,
     settings: {
       suppressScrollY: false,
@@ -212,7 +298,8 @@ export default {
     snackbar: false,
     snackbarSettings: false,
     text: 'Выставлены оценки. Можно ознакомиться в разделе с оценками',
-    // timeout: 10000,
+    timeout: 10000,
+    timeoutSettings: -1,
     widgetsListOne: [
       {id: 1, component: 'WidgetHomework'},
       {id: 2, component: 'WidgetEvents'},
@@ -359,6 +446,27 @@ export default {
 
 .snackbar-settings{
   height: 56px;
+}
+
+.snackbar-settings{
+  ::v-deep{
+    .v-snack__wrapper{
+      max-width: 100%;
+      margin: 0;
+      background: #292C33;
+      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08), 0px 4px 4px rgba(0, 0, 0, 0.16);
+      border-radius: 0px 0px 12px 12px;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+    }
+    .button-black{
+      background: #383F4C;
+    }
+    .v-snack__content{
+      color: #FFFFFF;
+    }
+  }
 }
 
 

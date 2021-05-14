@@ -2,7 +2,7 @@
   .info-block
     .target-icon
       slot
-    .info-text {{text}}
+    .info-text(v-html='text')
 </template>
 
 <script>

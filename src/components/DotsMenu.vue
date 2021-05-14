@@ -1,5 +1,5 @@
 <template lang="pug">
-  .dropdown-menu__wrap(  @click.stop='onClick()')
+  .dropdown-menu__wrap(@click.stop='onClick()')
     dropdown-menu
       button(slot='trigger').dots-menu-buttton
         svg.dots-img(width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg')
@@ -39,8 +39,6 @@ export default {
     onClick() {
       /*this will toggle only by icon click. at the same time, will prevent toggle
       by clicking on header. */
-
-
       const curr = this.panel
       this.panel = curr === undefined ? 0 : undefined
     }
