@@ -109,7 +109,7 @@
 
             v-row
               v-col(
-                md="4"
+                md="6"
               )
 
                 draggable(
@@ -124,7 +124,7 @@
                     component(:is="element.component")
 
               v-col(
-                md="4"
+                md="6"
               )
                 draggable(
                   class='widgets-wrapper'
@@ -136,12 +136,6 @@
                     :key='element.id'
                   )
                     component(:is="element.component")
-
-              v-col(
-                  md="4"
-              )
-                WidgetLevel
-
 
 </template>
 
@@ -165,6 +159,7 @@ import WidgetMapsGoal from "@/components/widgets/WidgetMapsGoal";
 import WidgetTeam from "@/components/widgets/WidgetTeam";
 import WidgetLearn from "@/components/widgets/WidgetLearn";
 import WidgetLevel from "@/components/widgets/WidgetLevel";
+import WidgetChartPolar from "@/components/widgets/WidgetChartPolar";
 
 
 export default {
@@ -180,6 +175,7 @@ export default {
     WidgetEvents,
     WidgetHomework,
     WidgetLevel,
+    WidgetChartPolar,
     HmProgress,
     DotsMenu,
     SnackBar,
@@ -206,11 +202,13 @@ export default {
       {id: 1, component: 'WidgetHomework'},
       {id: 2, component: 'WidgetEvents'},
       {id: 3, component: 'WidgetFormPlayer'},
+      {id: 4, component: 'WidgetLevel'},
     ],
     widgetsListTwo: [
       {id: 1, component: 'WidgetLearn'},
       {id: 2, component: 'WidgetMapsGoal'},
       {id: 3, component: 'WidgetTeam'},
+      {id: 4, component: 'WidgetChartPolar'},
     ],
 
 

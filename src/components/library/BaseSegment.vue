@@ -35,6 +35,7 @@ export default {
   methods: {
     handleOnClick: function () {
       this.$emit("click");
+      this.$emit("select", this.label);
     }
   }
 }
