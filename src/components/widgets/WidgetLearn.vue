@@ -36,11 +36,11 @@
               .progress-quant 15
             dots-menu.dots-black.mt-0.position-static.d-flex.align-center.ml-2
 
-      .widget-footer
-        .widget-footer__text(
-          @click='toggleList'
-        )
-          |Развернуть список
+    .widget-footer
+      .widget-footer__text(
+        @click='toggleList'
+      )
+        |Развернуть список
 
 
 </template>

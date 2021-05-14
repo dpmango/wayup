@@ -1,5 +1,23 @@
 <template lang="pug">
   div
+    v-snackbar.snackbar-settings(
+      v-model='snackbarSettings'
+      :timeout='timeoutSettings'
+      top='true'
+      )
+      | Настройка рабочего стола
+      template(v-slot:action='{ attrs }')
+        base-button(
+          v-bind='attrs' @click='snackbarSettings = false'
+          classAttr='button-default button-blue button-small ml-3'
+          label="Завершить"
+        )
+        base-button(
+          v-bind='attrs' @click='snackbarSettings = false'
+          classAttr='button-default button-black button-small ml-3'
+          label="Отменить"
+        )
+
     v-snackbar(
       v-model='snackbar'
       :timeout='timeout'
@@ -19,11 +37,14 @@
     ScheduleHeader.mb-16(title='Личный кабинет')
       template(v-slot:header-block)
         LevelBlock.ml-10
+
       template(v-slot:header-right)
+        MusicPlayer
         .notificatiion-icon.mr-3(@click="snackbar = true")
           svg(width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg')
             path(fill-rule='evenodd' clip-rule='evenodd' d='M15.3762 15.951C15.7354 13.6758 17.6966 12 20 12C22.3035 12 24.2646 13.6758 24.6239 15.951L25.3343 20.4506C25.4439 21.1448 25.6746 21.8143 26.016 22.4287L27.1746 24.5143C27.5449 25.1809 27.0629 26 26.3005 26H13.6995C12.937 26 12.455 25.1809 12.8253 24.5143L13.9841 22.4287C14.3254 21.8143 14.5561 21.1448 14.6657 20.4506L15.3762 15.951ZM24.7047 23.1572L25.4507 24.5H14.5493L15.2953 23.1572C15.7219 22.3892 16.0103 21.5523 16.1474 20.6846L16.8578 16.185C17.102 14.6388 18.4347 13.5 20 13.5C21.5653 13.5 22.8981 14.6388 23.1422 16.185L23.8527 20.6846C23.9897 21.5523 24.2781 22.3892 24.7047 23.1572Z' fill='#326BFF')
             path(d='M20 29C21.1046 29 22 28.1046 22 27H18C18 28.1046 18.8955 29 20 29Z' fill='#326BFF')
+
 
         v-menu(
           bottom=''
@@ -53,11 +74,12 @@
                   rect(x='1' y='8' width='6' height='7' rx='1')
                 rect(x='1' y='8' width='6' height='7' rx='1' stroke='#326BFF' stroke-width='3' mask='url(#path-4-inside-4)')
               v-list-item-title.ml-2 Добавить виджеты
-            v-list-item(href='#')
+            v-list-item(href='#' @click='snackbarSettings = true')
               svg(width='16' height='16' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg')
                 path(fill-rule='evenodd' clip-rule='evenodd' d='M10 7C10 8.65685 8.65685 10 7 10C5.34315 10 4 8.65685 4 7C4 5.34315 5.34315 4 7 4C8.65685 4 10 5.34315 10 7ZM8.5 7C8.5 7.82843 7.82843 8.5 7 8.5C6.17157 8.5 5.5 7.82843 5.5 7C5.5 6.17157 6.17157 5.5 7 5.5C7.82843 5.5 8.5 6.17157 8.5 7Z' fill='#326BFF')
                 path(fill-rule='evenodd' clip-rule='evenodd' d='M10.5 1.05089C10.7676 1.04144 11.0383 1.13885 11.2426 1.34314L12.6568 2.75739C12.8611 2.96167 12.9586 3.23237 12.9491 3.5C12.9405 3.74395 12.8431 3.98535 12.6568 4.17157L11.8284 5H13C13.2634 5 13.5029 5.1018 13.6815 5.2682C13.8775 5.45075 14 5.71106 14 6V8C14 8.28893 13.8775 8.54924 13.6815 8.73179C13.5029 8.8982 13.2634 9 13 9H11.8284L12.6569 9.82843C12.8431 10.0146 12.9405 10.256 12.9491 10.5C12.9586 10.7676 12.8611 11.0383 12.6569 11.2426L11.2426 12.6569C11.0383 12.8611 10.7676 12.9586 10.5 12.9491C10.256 12.9405 10.0146 12.8431 9.82843 12.6569L9 11.8284V13C9 13.2634 8.89819 13.5029 8.73179 13.6815C8.54923 13.8775 8.28892 14 8 14H6C5.71108 14 5.45077 13.8775 5.26821 13.6815C5.10181 13.5029 5 13.2634 5 13V11.8284L4.17157 12.6569C3.98535 12.8431 3.74395 12.9405 3.5 12.9491C3.23236 12.9586 2.96165 12.8612 2.75735 12.6569L1.34314 11.2427C1.13884 11.0384 1.04141 10.7676 1.05087 10.5C1.05949 10.256 1.15691 10.0146 1.34314 9.82843L2.17157 9H1C0.73664 9 0.497056 8.8982 0.318459 8.73179C0.12253 8.54924 0 8.28893 0 8V6C0 5.71107 0.12253 5.45076 0.318459 5.26821C0.497056 5.1018 0.73664 5 1 5H2.17157L1.34314 4.17157C1.15691 3.98536 1.05949 3.74396 1.05087 3.5C1.04141 3.23236 1.13884 2.96164 1.34314 2.75732L2.75735 1.34314C2.96166 1.13885 3.23237 1.04143 3.5 1.05089C3.74395 1.05951 3.98534 1.15693 4.17157 1.34314L5 2.17157V1C5 0.736632 5.10181 0.497051 5.26821 0.318459C5.45077 0.122527 5.71108 0 6 0H8C8.28892 0 8.54923 0.122527 8.73179 0.318459C8.89819 0.497051 9 0.736632 9 1V2.17157L9.82843 1.34314C10.0146 1.15692 10.256 1.05951 10.5 1.05089ZM4.54718 3.84007C5.10044 3.40999 5.76965 3.12202 6.5 3.03095V1.5H7.5V3.03095C8.23035 3.12202 8.89956 3.40999 9.45282 3.84007L10.5355 2.75737L11.2426 3.46447L10.1599 4.54716C10.59 5.10043 10.878 5.76964 10.9691 6.5H12.5V7.5H10.9691C10.878 8.23035 10.59 8.89956 10.1599 9.45282L11.2426 10.5355L10.5355 11.2426L9.45282 10.1599C8.89956 10.59 8.23035 10.878 7.5 10.9691V12.5H6.5V10.9691C5.76965 10.878 5.10044 10.59 4.54718 10.1599L3.46446 11.2427L2.75734 10.5355L3.84007 9.45282C3.40999 8.89956 3.12202 8.23035 3.03095 7.5H1.5V6.5H3.03095C3.12202 5.76965 3.40999 5.10044 3.84007 4.54718L2.75734 3.46445L3.46446 2.75735L4.54718 3.84007Z' fill='#326BFF')
               v-list-item-title.ml-2 Настроить рабочий стол
+
 
 
     v-row
@@ -70,7 +92,6 @@
       )
         v-tabs()
           v-tab
-
             | Общая
           v-tab
             | Тесты
@@ -88,7 +109,9 @@
 
 
 
-          v-tab-item(transition="fade-transition")
+          v-tab-item(
+            transition="fade-transition"
+          )
             //v-row
             //  v-col(
             //    md="4"
@@ -137,6 +160,70 @@
                   )
                     component(:is="element.component")
 
+          v-tab-item(
+            transition="fade-transition"
+            )
+            v-row
+              v-col(
+                md="8"
+              )
+                .exercises__block.mb-8
+                  .h5.mb-4 Упражнения из Федерального стандарта
+                  AccordionExercises
+                .exercises__block.mb-8
+                  .h5.mb-4 Дополнительные упражнения
+                  AccordionExercises
+
+              v-col(
+                md="4"
+              )
+                info-block.align-start(
+                  text=`Вы хорошо поработали после предыдущей оценки. Обязательно проведите работу над ошибками, чтобы улучшить показатели к следующей оценке.
+                  <span class="d-block mt-5">Не забудьте отметить самочувствие.</span>`)
+                  slot
+                    template
+                      .target-icon
+                        div 💬
+          v-tab-item(
+            transition="fade-transition"
+            )
+            v-row
+              v-col(
+                md="10"
+              )
+                .exercises__block.mb-8
+                  AccordionEstimation
+
+              v-col(
+                md="2"
+              )
+                MarksBlock
+          v-tab-item(
+            transition="fade-transition"
+          )
+          v-tab-item(
+            transition="fade-transition"
+          )
+          v-tab-item(
+            transition="fade-transition"
+          )
+            v-item-group.d-flex.mb-6(mandatory)
+              each val in [`В процессе <span class="segment-mun">2</span>`, 'Предстоящие <span class="segment-mun">4</span>', 'Закрытые <span class="segment-mun">4</span>']
+                v-item(
+                  v-slot='{ active, toggle }'
+                )
+                  base-segment(
+                    classAttr='segment-default segment-big'
+                    label=val
+                    tag="div"
+                    @click='toggle'
+                  )
+
+            AccordionHomework
+
+
+
+
 
 
 
@@ -162,11 +249,23 @@ import WidgetStatistic from "@/components/widgets/WidgetStatistic";
 import WidgetMapsGoal from "@/components/widgets/WidgetMapsGoal";
 import WidgetTeam from "@/components/widgets/WidgetTeam";
 import WidgetLearn from "@/components/widgets/WidgetLearn";
+import MusicPlayer from "@/components/elements/MusicPlayer";
+import AccordionExercises from "@/components/AccordionExercises";
+import InfoBlock from "@/components/elements/InfoBlock";
+import AccordionEstimation from "@/components/AccordionEstimation";
+import MarksBlock from "@/components/elements/MarksBlock";
+import AccordionHomework from "@/components/AccordionHomework";
 
 
 export default {
   name: "AccountSportsman",
   components: {
+    AccordionHomework,
+    MarksBlock,
+    AccordionEstimation,
+    InfoBlock,
+    AccordionExercises,
+    MusicPlayer,
     WidgetLearn,
     WidgetTeam,
     WidgetMapsGoal,
@@ -187,6 +286,7 @@ export default {
   },
 
   data: () => ({
+    // model: 'tab-2',
     isShowList: false,
     settings: {
       suppressScrollY: false,
@@ -196,8 +296,10 @@ export default {
     interval: {},
     value: 100,
     snackbar: false,
+    snackbarSettings: false,
     text: 'Выставлены оценки. Можно ознакомиться в разделе с оценками',
     timeout: 10000,
+    timeoutSettings: -1,
     widgetsListOne: [
       {id: 1, component: 'WidgetHomework'},
       {id: 2, component: 'WidgetEvents'},
@@ -339,6 +441,31 @@ export default {
 
   .v-list-item__title {
     font-size: 16px;
+  }
+}
+
+.snackbar-settings{
+  height: 56px;
+}
+
+.snackbar-settings{
+  ::v-deep{
+    .v-snack__wrapper{
+      max-width: 100%;
+      margin: 0;
+      background: #292C33;
+      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08), 0px 4px 4px rgba(0, 0, 0, 0.16);
+      border-radius: 0px 0px 12px 12px;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+    }
+    .button-black{
+      background: #383F4C;
+    }
+    .v-snack__content{
+      color: #FFFFFF;
+    }
   }
 }
 

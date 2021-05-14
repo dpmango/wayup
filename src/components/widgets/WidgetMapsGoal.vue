@@ -47,6 +47,7 @@ export default {
 
 .maps-goal{
   width: 100%;
+  height: 400px;
 
 }
 .maps-goal__wrap{

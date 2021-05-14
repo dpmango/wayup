@@ -6,7 +6,7 @@
     @click="handleOnClick($event)"
     :disabled='disabled'
   )
-    | {{label}}
+    span(v-html='label')
 
 
 </template>
@@ -53,6 +53,8 @@ export default {
 }
 
 
+
+
 .segment-default {
   min-width: 0;
 
@@ -95,7 +97,6 @@ export default {
     color: $blue;
   }
 }
-
 
 .segments-block {
   display: flex;
