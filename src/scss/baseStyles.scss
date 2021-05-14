@@ -586,7 +586,9 @@
   font-family: $FiraSansBold;
 }
 
-
+.font-bold{
+  font-family: $FiraSansBold !important;
+}
 
 .widget-header__text{
   span{
@@ -629,7 +631,19 @@
   }
 }
 
+.segment-mun{
+  color: #888888;
+  font-family: $FiraSansRegular !important;
+}
 
+.link-show,
+.link-hide{
+  color: #326BFF;
+  font-size: 14px;
+  &:hover{
+    cursor: pointer;
+  }
+}
 
 
 

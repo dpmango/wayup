@@ -48,6 +48,7 @@ export default {
     font-family: $FiraSansMedium;
     text-transform: none;
     letter-spacing: normal;
+
   }
 
 }
@@ -249,7 +250,7 @@ export default {
   background-color: #F1F3F9 !important;
 
   ::v-deep .v-btn__content {
-    color: #000000;
+    color: #000000 ;
 
     svg {
       fill: #000000;

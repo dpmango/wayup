@@ -36,7 +36,7 @@
             .award-item-date сезон 2019-2020
     .widget-footer
       .widget-footer__text(
-        @click='toggleList'
+        @click="handleOnClick($event)"
       )
         | Все награды
 
@@ -59,9 +59,12 @@ export default {
     },
   }),
   methods: {
-    toggleList: function () {
+    handleOnClick: function () {
       this.isShowList = !this.isShowList;
-    },
+      this.$emit("toggle");
+    }
+
+
   },
 }
 </script>

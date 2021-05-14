@@ -7,7 +7,7 @@
   )
 
     slot(name='icon-left')
-    .chip-text {{label}}
+    .chip-text(v-html='label')
     slot(name='icon-right')
 
 
@@ -48,6 +48,7 @@ export default {
   padding: 0 rem(8px);
   font-size: rem(10px);
   text-transform: uppercase;
+  letter-spacing: 0.1em;
   ::v-deep .icon-badge{
     margin-bottom: rem(4px);
   }

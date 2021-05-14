@@ -20,6 +20,7 @@
     "vue-custom-scrollbar": "^1.4.0",
     "vue-draggable": "^2.0.6",
     "vue-jest": "^3.0.7",
+    "vue-muuri": "^0.1.2",
     "vue-router": "^3.2.0",
     "vue-simple-accordion": "^0.1.0",
     "vue-smooth-dnd": "^0.8.1",
