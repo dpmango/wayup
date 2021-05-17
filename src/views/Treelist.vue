@@ -136,7 +136,7 @@ import Accordion from "@/components/Accordion";
 
 
 export default {
-  name: 'ScheduleYear',
+  name: 'Treelist',
   components: {
     Accordion,
     AccordionCircle,

@@ -1,148 +1,129 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Schedule from "@/views/Schedule";
-import CalendarViewMonth from "@/components/CalendarViewMonth";
-import CalendarViewWeek from "@/components/CalendarViewWeek";
-// import TrainingPlan from "@/views/TrainingPlan";
-// import TrainingPlanGroup from "@/components/TrainingPlanGroup";
-// import TrainingPlanEvent from "@/components/TrainingPlanEvent";
-// import About from "@/views/About";
-
+import SportsmanChildren from './route-account-sportsmen'
+import TrainerChildren from './route-account-trainer'
 
 Vue.use(VueRouter)
 
 const routes = [
     {
-        path: '/',
-        name: 'Schedule',
-        meta: {layout: 'main'},
-        component: Schedule,
+        path: "/",
+        redirect: '/account-sportsman'
     },
+
+    // Календарь
     {
-        path: '/schedule',
-        name: 'Schedule',
-        meta: {layout: 'main'},
-        component: Schedule,
+        path: "/schedule",
+        name: "Schedule",
+        meta: { layout: "main", requiresAuth: true },
+        component: () => import("@/views/Schedule"),
         children: [
             {
-                path: 'month',
-                component: CalendarViewMonth,
-                meta: {layout: 'main'},
-                name: 'CalendarMonth'
+                path: "month",
+                component: () => import("@/components/CalendarViewMonth"),
+                meta: { layout: "main" },
+                name: "CalendarMonth",
             },
             {
-                path: 'week',
-                component: CalendarViewWeek,
-                meta: {layout: 'main'},
-            }
-        ]
+                path: "week",
+                component: () => import("@/components/CalendarViewWeek"),
+                meta: { layout: "main" },
+            },
+        ],
     },
+
+    // Кабинет спортсмена
     {
-        path: '/training',
-        name: 'Training',
-        meta: {layout: 'main'},
-
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '../views/Training')
-        // component: About
+        path: '/account-sportsman',
+        name: 'PersonalSportsman',
+        component: () => import('../views/AccountSportsman'),
+        redirect: '/account-sportsman/main',
+        children: SportsmanChildren,
     },
+
+    // Кабинет тренера
     {
-        path: '/training-plan',
-        name: 'TrainingPlan',
-        meta: {layout: 'main'},
-
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '../views/TrainingPlan')
-        // component: TrainingPlan,
-        // children: [
-        //     {
-        //         path: 'group',
-        //         component: TrainingPlanGroup,
-        //         meta: {layout: 'main'},
-        //         name: 'TrainingPlanGroup'
-        //     },
-        //     {
-        //         path: 'event',
-        //         component: TrainingPlanEvent,
-        //         meta: {layout: 'main'},
-        //         name: 'TrainingPlanEvent'
-        //
-        //     }
-        // ]
+        path: '/account-trainer',
+        name: 'PersonalTrainer',
+        component: () => import('../views/AccountTrainer'),
+        redirect: '/account-trainer/main',
+        children: TrainerChildren,
     },
 
-
+    // Индивидуальное занятие
     {
-        path: '/schedule-year',
-        name: 'ScheduleYear',
-        meta: {layout: 'main'},
-
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '../views/ScheduleYear')
-        // component: About
+        path: "/training",
+        name: "Training",
+        meta: { layout: "main", requiresAuth: true },
+        component: () => import("../views/Training"),
     },
+
+    // Wizard
     {
-        path: '/test1',
-        name: 'Test1',
-        meta: {layout: 'main'},
-
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '../views/Test1')
-        // component: About
+        path: "/wizard",
+        name: "Wizard",
+        meta: { layout: "main", requiresAuth: true },
+        component: () => import("../views/Wizard"),
     },
+
+    // Treelist
     {
-        path: '/test2',
-        name: 'Test2',
-        meta: {layout: 'main'},
-
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '../views/Test2')
-        // component: About
+        path: "/treelist",
+        name: "Treelist",
+        meta: { layout: "main", requiresAuth: true },
+        component: () => import("../views/Treelist"),
     },
+
+    // Команды и игроки
     {
-        path: '/components',
-        name: 'Components',
-        meta: {layout: 'main'},
-
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '../views/Components')
-        // component: About
+        path: "/commands",
+        name: "Commands",
+        meta: { layout: "main", requiresAuth: true },
+        component: () => import("../views/Commapnds"),
     },
 
+    // Медиа
+    {
+        path: "/media",
+        name: "Media",
+        meta: { layout: "main", requiresAuth: true },
+        component: () => import("../views/Media"),
+    },
+
+    // Чаты
+    {
+        path: "/chat",
+        name: "Chat",
+        meta: { layout: "main", requiresAuth: true },
+        component: () => import("../views/Chat"),
+    },
+
+    // Регистрация
     {
         path: '/registration',
         name: 'Registration',
         meta: {layout: 'empty'},
         component: () => import(/* webpackChunkName: "about" */ '../views/Registration')
     },
+
+    // Авторизация
     {
         path: '/login',
         name: 'Login',
         meta: {layout: 'empty'},
         component: () => import(/* webpackChunkName: "about" */ '../views/Login')
     },
+
+    // Библиотека компонентов
     {
-        path: '/account-sportsman',
-        name: 'AccountSportsman',
-        meta: {
-            layout: 'main',
-            userSettings:true
-        },
-        component: () => import(/* webpackChunkName: "about" */ '../views/AccountSportsman')
+        path: '/components',
+        name: 'Components',
+        meta: {layout: 'main'},
+        component: () => import('../views/Components')
+
     },
 
+    // Тестовые
     {
         path: '/demo2',
         name: 'Demo2',
@@ -155,10 +136,6 @@ const routes = [
         meta: {layout: 'main'},
         component: () => import(/* webpackChunkName: "about" */ '../views/Demo3')
     },
-
-
-
-
 
 ]
 

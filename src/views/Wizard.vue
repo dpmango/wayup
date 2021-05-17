@@ -120,7 +120,7 @@ import TrainingEventItem from "@/components/TrainingEventItem";
 // import BaseSelectOutline from "@/components/library/BaseSelectOutline";
 
 export default {
-  name: 'TrainingPlan',
+  name: 'Wizard',
   components: {
     TrainingEventItem,
     AddBlock,

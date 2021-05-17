@@ -14,6 +14,7 @@
           v-item(
             v-slot='{ active, toggle }'
             v-for="val in periods"
+              :key="val"
 
           )
 
