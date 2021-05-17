@@ -21,6 +21,10 @@ export default {
     }
   },
   props: {
+    color: {
+      type: String,
+      default: 'primary'
+    },
     label: {
       type: String,
       default: ''
@@ -29,15 +33,11 @@ export default {
       type: String,
       default: ''
     },
-    // readonly: {
-    //   type: Boolean,
-    //   default: false
-    // },
+
     value: {
       type: String,
       default: ''
     },
-
   },
 }
 </script>

@@ -1,0 +1,1 @@
+export const API_URL = "https://way-up.herokuapp.com";

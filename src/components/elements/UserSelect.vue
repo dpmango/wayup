@@ -39,8 +39,10 @@ export default {
   name: "select-user",
   components: {DotsMenu},
 
+
   data() {
     return {
+        selected: null,
       items: [
         {name: 'Даниил Брызгалов', image: 'https://cdn.vuetifyjs.com/images/john.jpg', email: 'dbryzgalov@gmail.io', id:1},
         {name: 'Даниил Брызгалов 1', image: 'https://cdn.vuetifyjs.com/images/john.jpg', email: 'dbryzgalov@gmail.io', id:2},

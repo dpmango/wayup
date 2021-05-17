@@ -1,8 +1,6 @@
 <template lang="pug">
   v-text-field(
-    v-model="password"
     :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-    :rules="[rules.required, rules.min]"
     :type="show1 ? 'text' : 'password'"
     :label='label'
     :class='classAttr'
@@ -11,9 +9,10 @@
     outlined
     clearable
     :readonly="readonly"
-    :value='value'
     :error="error"
     :disabled='disabled'
+      v-model="inputVal"
+      :error-messages="errors"
   )
     template(slot='prepend-inner')
       slot(name="icon")
@@ -27,16 +26,16 @@ export default {
   data () {
     return {
       show1: false,
-      password: 'Password',
-      rules: {
-        required: value => !!value || 'Обязательное поле.',
-        // counter: value => value.length <= 20 || 'Максимум 20 знаков',
-        min: v => v.length >= 8 || 'Минимум 8 знаков',
-        emailMatch: () => (`The email and password you entered don't match`),
-      },
     }
   },
   props: {
+      errors: {
+          type: Array
+      },
+      value: {
+          type: String,
+          default: ''
+      },
     label: {
       type: String,
       default: ''
@@ -48,10 +47,6 @@ export default {
     readonly: {
       type: Boolean,
       default: false
-    },
-    value: {
-      type: String,
-      default: ''
     },
     error: {
       type: Boolean,
@@ -66,6 +61,16 @@ export default {
       default: ''
     },
   },
+    computed: {
+        inputVal: {
+            get() {
+                return this.value;
+            },
+            set(val) {
+                this.$emit('input', val);
+            }
+        }
+    }
 }
 </script>
 

@@ -9,6 +9,7 @@ import 'vue-simple-accordion/dist/vue-simple-accordion.css';
 import DropdownMenu from 'v-dropdown-menu'
 import VueMuuri from 'vue-muuri'
 import 'vue-muuri/dist/vue-muuri.css'
+import Vuelidate from 'vuelidate'
 
 
 // import vueCustomScrollbar from 'vue-custom-scrollbar'
@@ -46,6 +47,8 @@ Vue.use(DropdownMenu,{
 Vue.use(VueDraggable)
 
 Vue.use(VueMuuri)
+
+Vue.use(Vuelidate)
 
 // Vue.use(vueCustomScrollbar)
 

@@ -1,15 +1,13 @@
 <template lang="pug">
   v-text-field(
-    v-model='model'
     :label='label'
     :class='classAttr'
-    :rules="rules"
     outlined
     clearable
     :readonly="readonly"
-    :value='value'
-    :error="error"
     :disabled='disabled'
+    v-model="inputVal"
+    :error-messages="errors"
   )
     template(slot='prepend-inner')
       slot(name="icon")
@@ -21,7 +19,7 @@
 export default {
   name: "BaseInput",
   props: {
-    model: {
+    value: {
       type: String,
       default: ''
     },
@@ -45,19 +43,28 @@ export default {
       type: Boolean,
       default: true
     },
-    value: {
-      type: String,
-      default: ''
-    },
     error: {
       type: Boolean,
       default: false
     },
+      errors: {
+          type: Array
+      },
     disabled: {
       type: Boolean,
       default: false
     }
   },
+    computed: {
+        inputVal: {
+            get() {
+                return this.value;
+            },
+            set(val) {
+                this.$emit('input', val);
+            }
+        }
+    }
 }
 </script>
 

@@ -26,9 +26,28 @@
               @select="changePeriod($event)"
             )
     .widget-content
-      .maps-goal__wrap
-        .chart-container
-          canvas(id="levelChart" width="400" height="400")
+        v-row
+            v-col(
+                md='3'
+            )
+                .chart-info
+                    .chart-info-label 1.01.21 — 7.01.21
+                    .chart-info-val 48–178
+                        span у.м.
+                .chart-info
+                    .chart-info-label Среднее
+                    .chart-info-val 74
+                        span у.м.
+                .chart-info
+                    .chart-info-label Последнее
+                    .chart-info-val 68
+                        span у.м.
+            v-col(
+                md='9'
+            )
+              .maps-goal__wrap
+                .chart-container
+                  canvas(id="levelChart" width="400" height="400")
 </template>
 
 <script>
@@ -212,5 +231,23 @@ export default {
 
 .widget-header {
   overflow: hidden;
+}
+
+.chart-info {
+    padding-bottom: 15px;
+    &-label {
+        color: rgba(0, 0, 0, 0.5);
+        font-size: rem(12px);
+        padding-bottom: 5px;
+    }
+    &-val {
+        font-family: "Fira Sans Bold";
+        font-size: rem(20px);
+        span {
+            font-family: 'Fira Sans Regular';
+            font-size: rem(12px);
+            padding-left: 5px;
+        }
+    }
 }
 </style>
