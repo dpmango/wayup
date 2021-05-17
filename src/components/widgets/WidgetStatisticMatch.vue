@@ -5,27 +5,23 @@
         img.drag-icon.mr-3(
           src="@/assets/images/svg/more-icon.svg"
         )
-        .widget-header__title Статистика сезона 2020-2021
-        base-select(
-          classAttr='select-default select-bg-gray ml-auto mr-4'
-          label="Regular season (Complete Stats)"
-          :items="selectItems"
-          solo=true
-        )
-        dots-menu.mt-0.position-static
+        .widget-header__title Матчи
+        dots-menu.mt-0.position-static.ml-auto
       .widget-header__bottom
         .statistic-season__head
-          .statistic-td.text-left S
-          .statistic-td.text-left(style="width:20%") Team
-          .statistic-td.text-left League
-          .statistic-td GP
-          .statistic-td GAA
-          .statistic-td SV%
-          .statistic-td GA
-          .statistic-td SV
-          .statistic-td SO
-          .statistic-td WLT
-          .statistic-td TOI
+          .statistic-td.text-left(style="width:10%") Соперник
+          .statistic-td.text-left Дата
+          .statistic-td В
+          .statistic-td П
+          .statistic-td Н
+          .statistic-td ПГ
+          .statistic-td ОБ
+          .statistic-td БР
+          .statistic-td %БР
+          .statistic-td И “0”
+          .statistic-td ИВ
+          .statistic-td ИС
+          .statistic-td ОТ
     .widget-content.widget-content_gray
 
 
@@ -41,10 +37,12 @@
           .widget__item.mb-1(
             v-for='(item,i) in 7' :key='i'
           )
-            .statistic-td.text-left 2020-2021
-            .statistic-td.text-left.text-blue(style="width:20%") 🇺🇸  Boston Hockey Academy 18U
-            .statistic-td.text-left.text-blue BEAST 18U
+            .statistic-td.text-left(style="width:10%") 2020-2021
+            .statistic-td.text-left.text-blue 12 фев 2021
+            .statistic-td 5
             .statistic-td 2
+            .statistic-td 5
+            .statistic-td 5
             .statistic-td 5
             .statistic-td 5
             .statistic-td 5
@@ -66,7 +64,7 @@ import "vue-custom-scrollbar/dist/vueScrollbar.css"
 import DotsMenu from "@/components/DotsMenu";
 
 export default {
-  name: "WidgetStatisticGame",
+  name: "WidgetStatisticMatch",
   components: {
     DotsMenu,
     vueCustomScrollbar
@@ -89,11 +87,10 @@ export default {
 
 <style scoped lang="scss">
 .statistic-td.first{
-  //@include width-flex(48%)
   text-align: left;
 }
 .statistic-td{
-  @include width-flex(8%)
+  @include width-flex(7.5%)
   text-align: center;
 }
 

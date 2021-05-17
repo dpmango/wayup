@@ -132,7 +132,7 @@
 
             v-row
               v-col(
-                md="4"
+                md="7"
               )
 
                 draggable(
@@ -147,7 +147,7 @@
                     component(:is="element.component")
 
               v-col(
-                md="4"
+                md="5"
               )
                 draggable(
                   class='widgets-wrapper'
@@ -204,6 +204,19 @@
             WidgetStatisticGame
             IndicationStatistic
 
+            v-row
+              v-col(
+                md='6'
+              )
+                WidgetMapsGoal
+              v-col(
+                md='6'
+              )
+                WidgetMapsGoalZone
+            WidgetStatisticMatch
+            WidgetStatisticTotal
+            WidgetStatisticAnalytics
+
 
 
           v-tab-item(
@@ -258,11 +271,19 @@ import MarksBlock from "@/components/elements/MarksBlock";
 import AccordionHomework from "@/components/AccordionHomework";
 import IndicationStatistic from "@/components/elements/IndicationStatistic";
 import WidgetStatisticGame from "@/components/widgets/WidgetStatisticGame";
+import WidgetStatisticTotal from "@/components/widgets/WidgetStatisticTotal";
+import WidgetStatisticMatch from "@/components/widgets/WidgetStatisticMatch";
+import WidgetStatisticAnalytics from "@/components/widgets/WidgetStatisticAnalytics";
+import WidgetMapsGoalZone from "@/components/widgets/WidgetMapsGoalZone";
 
 
 export default {
   name: "AccountSportsman",
   components: {
+    WidgetMapsGoalZone,
+    WidgetStatisticAnalytics,
+    WidgetStatisticMatch,
+    WidgetStatisticTotal,
     WidgetStatisticGame,
     IndicationStatistic,
     AccordionHomework,
@@ -308,15 +329,18 @@ export default {
     timeoutSettings: -1,
     widgetsListOne: [
       {id: 1, component: 'WidgetHomework'},
-      {id: 2, component: 'WidgetEvents'},
-      {id: 3, component: 'WidgetFormPlayer'},
-      {id: 4, component: 'WidgetLevel'},
+      {id: 2, component: 'WidgetTeam'},
+      {id: 3, component: 'WidgetMapsGoal'},
+      {id: 4, component: 'WidgetMapsGoalZone'},
+      {id: 5, component: 'WidgetLearn'},
     ],
     widgetsListTwo: [
-      {id: 1, component: 'WidgetLearn'},
-      {id: 2, component: 'WidgetMapsGoal'},
-      {id: 3, component: 'WidgetTeam'},
+      {id: 1, component: 'WidgetEvents'},
+      {id: 2, component: 'WidgetStatistic'},
+      {id: 3, component: 'WidgetLevel'},
       {id: 4, component: 'WidgetChartPolar'},
+      {id: 5, component: 'WidgetAwards'},
+      {id: 6, component: 'WidgetFormPlayer'},
     ],
 
 

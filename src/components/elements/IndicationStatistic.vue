@@ -1,5 +1,5 @@
 <template lang="pug">
-  .indication-statistic__block
+  .indication-statistic__block.mb-10.mt-10
     .is__items
       .is__item.is__item_quant
         .is__item-num 10

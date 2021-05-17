@@ -5,7 +5,7 @@
         img.drag-icon.mr-3(
           src="@/assets/images/svg/more-icon.svg"
         )
-        .widget-header__title Карта бросков и голов
+        .widget-header__title Броски в створ по зонам
         v-item-group.d-flex.ml-auto.mb-0(mandatory)
           each val in ['Все', 'Голы', 'Броски']
             v-item(
@@ -20,14 +20,14 @@
     .widget-content
       .maps-goal__wrap
         img.maps-goal(
-          src="@/assets/images/maps-goal.svg"
+          src="@/assets/images/maps-goal-zone.png"
         )
         .point-goal(style="left: 250px; top:50px")
         .point-goal.red(style="left: 150px; top:190px")
         .point-goal(style="left: 150px; top:150px")
         .point-goal(style="left: 250px; top:150px")
         .point-goal(style="left: 150px; top:250px")
-      .widget-bottom.d-flex
+      //.widget-bottom.d-flex
         .goal-statistic.goal-complete Отбитых <span>19</span>
         .goal-statistic.goal-fail Пропущенных <span>2</span>
 
@@ -38,7 +38,7 @@
 
 
 export default {
-  name: "WidgetMapsGoal",
+  name: "WidgetMapsGoalZone",
 
 }
 </script>
@@ -47,7 +47,7 @@ export default {
 
 .maps-goal{
   max-width: 100%;
-  height: 400px;
+  height: 413px;
 
 }
 .maps-goal__wrap{
