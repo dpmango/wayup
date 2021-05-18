@@ -111,7 +111,7 @@
 
 
 import ScheduleHeader from "@/components/ScheduleHeader";
-import BaseTimeline from "@/components/BaseTimeline";
+import BaseTimeline from "@/components/library/old/BaseTimeline";
 import TrainingGroupItem from "@/components/TrainingGroupItem";
 import FilterTrainingGroup from "@/components/FilterTrainingGroup";
 import InfoBlock from "@/components/elements/InfoBlock";

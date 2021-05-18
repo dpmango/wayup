@@ -21,14 +21,18 @@
                         .target-icon
                             div 💬
 
+
 </template>
 
 <script>
     import AccordionExercises from "@/components/AccordionExercises";
+    import InfoBlock from "@/components/elements/InfoBlock";
+
     export default {
         name: "Testing",
         components: {
-            AccordionExercises
+            AccordionExercises,
+            InfoBlock
         },
     }
 </script>

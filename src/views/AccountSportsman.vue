@@ -96,7 +96,7 @@
                     v-tab(to="/account-sportsman/testing")
                         | Тесты
                     v-tab(to="/account-sportsman/rating")
-                        v-badge(color='pink' dot='')
+                        v-badge(color='pink' dot='' inline='')
                             | Оценки
                     v-tab(to="/account-sportsman/stats")
                         | Статистика

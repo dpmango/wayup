@@ -31,6 +31,7 @@
 
 
 
+
 </template>
 
 <script>
@@ -60,7 +61,9 @@
     import AccordionEstimation from "@/components/AccordionEstimation";
     import MarksBlock from "@/components/elements/MarksBlock";
     import AccordionHomework from "@/components/AccordionHomework";
-
+    import WidgetChatMessage from "@/components/widgets/WidgetChatMessage";
+    import WidgetErrors from "@/components/widgets/WidgetErrors";
+    import WidgetMapsGoalZone from "@/components/widgets/WidgetMapsGoalZone";
 
     export default {
         name: "AccountSportsman",
@@ -89,7 +92,10 @@
             LevelBlock,
             ScheduleHeader,
             draggable,
-            vueCustomScrollbar
+            vueCustomScrollbar,
+            WidgetChatMessage,
+            WidgetErrors,
+            WidgetMapsGoalZone
         },
 
         data: () => ({
@@ -108,16 +114,22 @@
             timeoutSettings: -1,
             widgetsListOne: [
                 {id: 1, component: 'WidgetHomework'},
-                {id: 2, component: 'WidgetEvents'},
-                {id: 3, component: 'WidgetFormPlayer'},
-                {id: 4, component: 'WidgetLevel'},
+                {id: 2, component: 'WidgetTeam'},
+                {id: 3, component: 'WidgetMapsGoal'},
+                {id: 4, component: 'WidgetMapsGoalZone'},
+                {id: 5, component: 'WidgetLearn'},
             ],
             widgetsListTwo: [
-                {id: 1, component: 'WidgetLearn'},
-                {id: 2, component: 'WidgetMapsGoal'},
-                {id: 3, component: 'WidgetTeam'},
+                {id: 1, component: 'WidgetEvents'},
+                {id: 2, component: 'WidgetStatistic'},
+                {id: 3, component: 'WidgetLevel'},
                 {id: 4, component: 'WidgetChartPolar'},
+                {id: 5, component: 'WidgetAwards'},
+                {id: 6, component: 'WidgetFormPlayer'},
+                {id: 7, component: 'WidgetChatMessage'},
+                {id: 8, component: 'WidgetErrors'},
             ],
+
 
 
         }),

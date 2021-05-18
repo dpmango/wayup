@@ -73,12 +73,10 @@ Vue.use(VueSimpleAccordion, {
 
 Vue.config.productionTip = false
 
-// Vue.component('base-button', () => import('./components/BaseButton.vue'));
-Vue.component('base-label', () => import('./components/BaseLabel.vue'));
-Vue.component('base-link', () => import('./components/BaseLink.vue'));
-// Vue.component('base-select', () => import('./components/BaseSelect.vue'));
-Vue.component('base-select-mini', () => import('./components/BaseSelectMini.vue'));
 
+Vue.component('base-label', () => import('./components/library/old/BaseLabel.vue'));
+Vue.component('base-link', () => import('./components/library/old/BaseLink.vue'));
+Vue.component('base-select-mini', () => import('./components/library/old/BaseSelectMini.vue'));
 
 
 Vue.component('base-select', () => import('./components/library/BaseSelect.vue'));
