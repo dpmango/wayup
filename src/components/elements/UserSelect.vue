@@ -23,7 +23,7 @@
           .user-name {{ item.name }}
           .user-email {{ item.email }}
     template(v-slot:append-item)
-      .add-account
+      .add-account(@click="$router.push(\"/registration\");")
         img.add-account-img(
           src="@/assets/images/svg/icon-plus.svg"
         )
@@ -44,10 +44,7 @@ export default {
     return {
         selected: null,
       items: [
-        {name: 'Даниил Брызгалов', image: 'https://cdn.vuetifyjs.com/images/john.jpg', email: 'dbryzgalov@gmail.io', id:1},
-        {name: 'Даниил Брызгалов 1', image: 'https://cdn.vuetifyjs.com/images/john.jpg', email: 'dbryzgalov@gmail.io', id:2},
-        {name: 'Даниил Брызгалов 2', image: 'https://cdn.vuetifyjs.com/images/john.jpg', email: 'dbryzgalov@gmail.io', id:3},
-        {name: 'Даниил Брызгалов 3', image: 'https://cdn.vuetifyjs.com/images/john.jpg', email: 'dbryzgalov@gmail.io', id:4}
+        {name: 'Даниил Брызгалов', image: 'https://cdn.vuetifyjs.com/images/john.jpg', email: 'dbryzgalov@gmail.io', id:1}
       ]
     }
   },

@@ -1,9 +1,10 @@
 <template lang="pug">
   v-checkbox(
-    v-model="checkbox"
     :color='color'
-    :value='value'
     hide-details
+    v-model="inputVal"
+    :error-messages="errors"
+
   )
     template(v-slot:label)
       slot(name='label-custom')
@@ -35,10 +36,22 @@ export default {
     },
 
     value: {
-      type: String,
-      default: ''
+      type: Boolean
     },
+      errors: {
+          type: Array
+      },
   },
+    computed: {
+        inputVal: {
+            get() {
+                return this.value;
+            },
+            set(val) {
+                this.$emit('input', val);
+            }
+        }
+    }
 }
 </script>
 

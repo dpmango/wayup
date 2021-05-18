@@ -145,4 +145,22 @@ const router = new VueRouter({
     routes
 })
 
+// Провека авторизации пользователя
+router.beforeEach((to, from, next) => {
+  const publicPages = ["/login", "/registration"];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem("token");
+
+  if (authRequired && !loggedIn) {
+    next("/login");
+  } else {
+    next();
+  }
+
+  if(!authRequired && loggedIn) {
+      next("/");
+  }
+});
+
+
 export default router

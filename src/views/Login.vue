@@ -36,28 +36,31 @@
                     label="Войти"
                 )
 
+            div(v-if="rejectText" class="reject mt-4")
+              | {{ rejectText }}
+
+
 </template>
 
 <script>
     import SelectUser from "@/components/elements/UserSelect.vue";
-    import { validationMixin } from "vuelidate";
     import { required, email } from 'vuelidate/lib/validators';
     import { AuthApi } from '@/store/api';
 
 
     export default {
-  name: "Login",
-  components: {SelectUser},
-    mixins: [validationMixin],
+        name: "Login",
+        components: {SelectUser},
 
-  data () {
-    return {
-      email: '',
-        password: '',
-        showPassword: false,
-        rememberUser: false,
-    }
-  },
+        data () {
+            return {
+                email: '',
+                password: '',
+                showPassword: false,
+                rememberUser: false,
+                rejectText: ''
+            }
+        },
         validations: {
             email: {
                 required,
@@ -67,21 +70,24 @@
                 required,
             }
         },
-    methods: {
-        submitForm() {
+        methods: {
+            submitForm() {
+                this.rejectText = '';
+                this.$v.$touch();
+                if(!this.$v.$invalid) {
 
-            this.$v.$touch();
-            if(!this.$v.$invalid) {
+                    AuthApi.login({email:this.email, password: this.password}).then(response => {
+                        this.$store.dispatch('auth/login', response.data.data.user.authentication_token);
+                        this.$router.push("/");
+                    }, reason => {
+                        console.log('error');
+                        console.log(reason);
+                        this.rejectText = reason.data.status + ' ' + reason.data.error;
+                    });
 
-                AuthApi.login({email:'abc@example.com', password: 'password'}).then(response => {
-                    this.$store.dispatch('auth/login', response.data.data.user.authentication_token)
-                });
-
-            }
+                }
+            },
         },
-
-
-    },
         computed: {
             emailErrors() {
                 const errors = []
@@ -104,6 +110,10 @@
 </script>
 
 <style lang="scss">
+.reject {
+    color: #EC4865;
+}
+    
 .form-login {
   background: #FFFFFF;
   box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1), 0px 4px 5px rgba(50, 107, 255, 0.06);
