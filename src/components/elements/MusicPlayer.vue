@@ -13,32 +13,33 @@
           svg.icon-16(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
             path(d='M12 6L8 10L4 6' stroke='#326BFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
       v-list
-        .menu-music__title Подключить
-        v-list-item(href="#")
-          img.icon-16(
-            src="@/assets/images/svg/Icon-spotify.svg"
-          )
-          .menu-music__text Spotify
-        v-list-item(href="#")
-          img.icon-16(
-            src="@/assets/images/svg/icon-yandex_music.svg"
-          )
-          .menu-music__text Yandex music
-        v-list-item(href="#")
-          img.icon-16(
-            src="@/assets/images/svg/Icon-apple-music.svg"
-          )
-          .menu-music__text Apple music
-        v-list-item(href="#")
-          img.icon-16(
-            src="@/assets/images/svg/Icon-vk-music.svg"
-          )
-          .menu-music__text Vk music
-        v-list-item(href="#")
-          img.icon-16(
-            src="@/assets/images/svg/icon-deezer.svg"
-          )
-          .menu-music__text Deezer
+        v-list-item-group(v-model='selectedItem')
+          .menu-music__title Подключить
+          v-list-item(href="#")
+            img.icon-16(
+              src="@/assets/images/svg/Icon-spotify.svg"
+            )
+            .menu-music__text Spotify
+          v-list-item(href="#")
+            img.icon-16(
+              src="@/assets/images/svg/icon-yandex_music.svg"
+            )
+            .menu-music__text Yandex music
+          v-list-item(href="#")
+            img.icon-16(
+              src="@/assets/images/svg/Icon-apple-music.svg"
+            )
+            .menu-music__text Apple music
+          v-list-item(href="#")
+            img.icon-16(
+              src="@/assets/images/svg/Icon-vk-music.svg"
+            )
+            .menu-music__text Vk music
+          v-list-item(href="#")
+            img.icon-16(
+              src="@/assets/images/svg/icon-deezer.svg"
+            )
+            .menu-music__text Deezer
         a(href='#').menu-music__bottom
           img.icon-16(
             src="@/assets/images/svg/icon-upload.svg"
@@ -115,6 +116,21 @@ export default {
   margin-top: 6px;
   padding: 12px 16px;
 
+}
+
+.v-list-item--active{
+  display: flex;
+  align-items: center;
+  &:before{
+    background: transparent;
+  }
+  &:after{
+    content: '';
+    background-image:url('~@/assets/images/check-green-1.png');
+    position: static;
+    margin-left: auto;
+
+  }
 }
 
 </style>
