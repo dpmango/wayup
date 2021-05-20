@@ -1,6 +1,6 @@
 <template lang="pug">
   div(:class="open ? 'accordion-big open' : 'accordion-big'")
-    .accordion-big__header-wrap(@click="$emit('toggleOpen', index)")
+    .accordion-big__header-wrap(@click="$emit('SidebarWidgetsOpen', index)")
       slot(name='accord-header')
     .accordion-big__body
       slot(name='accord-body')

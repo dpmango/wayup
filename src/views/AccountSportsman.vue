@@ -1,5 +1,9 @@
 <template lang="pug">
   div
+    SidebarWidgets(
+      @sidebarWidgetsClose="sidebarWidgetsClose"
+      :class="isShowSidebarWidgets ? 'm-show' : 'm-hide'"
+    )
     v-snackbar.snackbar-settings(
       v-model='snackbarSettings'
       :timeout='timeoutSettings'
@@ -59,7 +63,12 @@
                 path(fill-rule='evenodd' clip-rule='evenodd' d='M20.75 13C20.75 12.5858 20.4142 12.25 20 12.25C19.5858 12.25 19.25 12.5858 19.25 13V20.0945C17.9561 20.4275 17 21.6021 17 23C17 24.3979 17.9561 25.5725 19.25 25.9055V27C19.25 27.4142 19.5858 27.75 20 27.75C20.4142 27.75 20.75 27.4142 20.75 27V25.9055C22.0439 25.5725 23 24.3979 23 23C23 21.6021 22.0439 20.4275 20.75 20.0945V13ZM21.5 23C21.5 23.8284 20.8284 24.5 20 24.5C19.1716 24.5 18.5 23.8284 18.5 23C18.5 22.1716 19.1716 21.5 20 21.5C20.8284 21.5 21.5 22.1716 21.5 23Z' fill='#326BFF')
                 path(fill-rule='evenodd' clip-rule='evenodd' d='M26.75 13C26.75 12.5858 26.4142 12.25 26 12.25C25.5858 12.25 25.25 12.5858 25.25 13V15.0945C23.9561 15.4275 23 16.6021 23 18C23 19.3979 23.9561 20.5725 25.25 20.9055V27C25.25 27.4142 25.5858 27.75 26 27.75C26.4142 27.75 26.75 27.4142 26.75 27V20.9055C28.0439 20.5725 29 19.3979 29 18C29 16.6021 28.0439 15.4275 26.75 15.0945V13ZM27.5 18C27.5 18.8284 26.8284 19.5 26 19.5C25.1716 19.5 24.5 18.8284 24.5 18C24.5 17.1716 25.1716 16.5 26 16.5C26.8284 16.5 27.5 17.1716 27.5 18Z' fill='#326BFF')
           v-list
-            v-list-item(href='#')
+
+            v-list-item(
+              href='#'
+              @click='sidebarWidgetsOpen'
+
+            )
               svg(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
                 mask#path-1-inside-1(fill='white')
                   rect(x='1' width='6' height='7' rx='1')
@@ -112,102 +121,111 @@
 </template>
 
 <script>
-  import ScheduleHeader from "@/components/ScheduleHeader";
-  import LevelBlock from "@/components/LevelBlock";
-  import UserSidebar from "@/components/UserSidebar";
-  import SnackBar from "@/components/elements/SnackBar";
-  import draggable from "vuedraggable";
-  import DotsMenu from "@/components/DotsMenu";
-  import vueCustomScrollbar from 'vue-custom-scrollbar'
-  import "vue-custom-scrollbar/dist/vueScrollbar.css"
-  import HmProgress from "@/components/elements/HmProgress";
-  import MusicPlayer from "@/components/elements/MusicPlayer";
-  import AccordionExercises from "@/components/AccordionExercises";
-  import InfoBlock from "@/components/elements/InfoBlock";
+	import ScheduleHeader from "@/components/ScheduleHeader";
+	import LevelBlock from "@/components/LevelBlock";
+	import UserSidebar from "@/components/UserSidebar";
+	import SnackBar from "@/components/elements/SnackBar";
+	import draggable from "vuedraggable";
+	import DotsMenu from "@/components/DotsMenu";
+	import vueCustomScrollbar from 'vue-custom-scrollbar'
+	import "vue-custom-scrollbar/dist/vueScrollbar.css"
+	import HmProgress from "@/components/elements/HmProgress";
+	import MusicPlayer from "@/components/elements/MusicPlayer";
+	import AccordionExercises from "@/components/AccordionExercises";
+	import InfoBlock from "@/components/elements/InfoBlock";
+	import SidebarWidgets from "@/components/SidebarWidgets";
 
-  export default {
-    name: "AccountSportsman",
-    components: {
-      InfoBlock,
-      AccordionExercises,
-      MusicPlayer,
-      HmProgress,
-      DotsMenu,
-      SnackBar,
-      UserSidebar,
-      LevelBlock,
-      ScheduleHeader,
-      draggable,
-      vueCustomScrollbar
-    },
+	export default {
+		name: "AccountSportsman",
+		selectedItem: 1,
+		components: {
+			SidebarWidgets,
+			InfoBlock,
+			AccordionExercises,
+			MusicPlayer,
+			HmProgress,
+			DotsMenu,
+			SnackBar,
+			UserSidebar,
+			LevelBlock,
+			ScheduleHeader,
+			draggable,
+			vueCustomScrollbar
+		},
 
-    data: () => ({
-      isShowList: false,
-      settings: {
-        suppressScrollY: false,
-        suppressScrollX: false,
-        wheelPropagation: false
-      },
-      interval: {},
-      value: 100,
-      snackbar: false,
-      snackbarSettings: false,
-      text: 'Выставлены оценки. Можно ознакомиться в разделе с оценками',
-      timeout: 10000,
-      timeoutSettings: -1,
-      widgetsListOne: [
-        {id: 1, component: 'WidgetHomework'},
-        {id: 2, component: 'WidgetTeam'},
-        {id: 3, component: 'WidgetMapsGoal'},
-        {id: 4, component: 'WidgetMapsGoalZone'},
-        {id: 5, component: 'WidgetLearn'},
-      ],
-      widgetsListTwo: [
-        {id: 1, component: 'WidgetEvents'},
-        {id: 2, component: 'WidgetStatistic'},
-        {id: 3, component: 'WidgetLevel'},
-        {id: 4, component: 'WidgetChartPolar'},
-        {id: 5, component: 'WidgetAwards'},
-        {id: 6, component: 'WidgetFormPlayer'},
-      ],
+		data: () => ({
+			isShowList: false,
+			isShowSidebarWidgets: false,
 
-
-    }),
-
-
-    beforeDestroy() {
-      clearInterval(this.interval)
-    },
-    methods: {
-      scrollHanle(evt) {
-        console.log(evt)
-      },
-      toggleList: function () {
-        this.isShowList = !this.isShowList;
-        console.log(this.isShowList)
-      },
-    },
-    mounted() {
+			settings: {
+				suppressScrollY: false,
+				suppressScrollX: false,
+				wheelPropagation: false
+			},
+			interval: {},
+			value: 100,
+			snackbar: false,
+			snackbarSettings: false,
+			text: 'Выставлены оценки. Можно ознакомиться в разделе с оценками',
+			timeout: 10000,
+			timeoutSettings: -1,
+			widgetsListOne: [
+				{id: 1, component: 'WidgetHomework'},
+				{id: 2, component: 'WidgetTeam'},
+				{id: 3, component: 'WidgetMapsGoal'},
+				{id: 4, component: 'WidgetMapsGoalZone'},
+				{id: 5, component: 'WidgetLearn'},
+			],
+			widgetsListTwo: [
+				{id: 1, component: 'WidgetEvents'},
+				{id: 2, component: 'WidgetStatistic'},
+				{id: 3, component: 'WidgetLevel'},
+				{id: 4, component: 'WidgetChartPolar'},
+				{id: 5, component: 'WidgetAwards'},
+				{id: 6, component: 'WidgetFormPlayer'},
+			],
 
 
-    },
-    watch: {
-      // openNotification: function (val) {
-      //   if(val) {
-      //     this.interval = setInterval(() => {
-      //       if (this.value === 0) {
-      //         return (this.value = 0)
-      //       }
-      //       this.value -= 10
-      //     }.bind(this), 1000)
-      //   }
-      //
-      //   else {
-      //
-      //   }
-      // },
-    }
-  }
+		}),
+
+
+		beforeDestroy() {
+			clearInterval(this.interval)
+		},
+		methods: {
+			toggleList: function () {
+				this.isShowList = !this.isShowList;
+			},
+			sidebarWidgetsClose: function () {
+				this.isShowSidebarWidgets = false;
+			},
+			sidebarWidgetsOpen: function () {
+				this.isShowSidebarWidgets = true;
+
+			},
+
+		},
+		mounted() {
+
+
+		},
+		watch: {
+			// openNotification: function (val) {
+			//   if(val) {
+			//     this.interval = setInterval(() => {
+			//       if (this.value === 0) {
+			//         return (this.value = 0)
+			//       }
+			//       this.value -= 10
+			//     }.bind(this), 1000)
+			//   }
+			//
+			//   else {
+			//
+			//   }
+			// },
+		}
+	}
 </script>
 
 <style scoped lang="scss">
