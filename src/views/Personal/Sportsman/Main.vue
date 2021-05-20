@@ -64,6 +64,7 @@
     import WidgetChatMessage from "@/components/widgets/WidgetChatMessage";
     import WidgetErrors from "@/components/widgets/WidgetErrors";
     import WidgetMapsGoalZone from "@/components/widgets/WidgetMapsGoalZone";
+    import { mapActions, mapState } from 'vuex';
 
     export default {
         name: "AccountSportsman",
@@ -129,27 +130,25 @@
                 {id: 7, component: 'WidgetChatMessage'},
                 {id: 8, component: 'WidgetErrors'},
             ],
-
-
-
         }),
-
 
         beforeDestroy() {
             clearInterval(this.interval)
         },
+        computed: {
+          /*...mapState({
+            widgetLevel: state => state.widgets.widgetLevel,
+          })*/
+          ...mapState('widgets', ['widgetLevel', 'widgetChartPolar'])
+        },
         methods: {
-            scrollHanle(evt) {
-                console.log(evt)
-            },
-            toggleList: function () {
-                this.isShowList = !this.isShowList;
-                console.log(this.isShowList)
-            },
+          toggleList: function () {
+              this.isShowList = !this.isShowList;
+          },
+          ...mapActions('widgets', ['loadWidgets' ]),
         },
         mounted() {
-            console.log(this.$route);
-
+          this.loadWidgets();
         },
         watch: {
 

@@ -11,6 +11,7 @@
                         v-item(
                             v-slot='{ active, toggle }'
                         )
+                          div
                             base-segment(
                                 classAttr='segment-default segment-small'
                                 label=val

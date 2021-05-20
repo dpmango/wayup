@@ -22,7 +22,7 @@ import Vuelidate from 'vuelidate'
 
 // import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
 // import { Draggable } from 'draggable-vue-directive'
- // Base style, required.
+// Base style, required.
 
 
 // import  SvgSprite  from 'vue-svg-sprite'
@@ -35,13 +35,10 @@ import Vuelidate from 'vuelidate'
 // Vue.prototype.moment = moment
 
 
-
-
-
-Vue.use(DropdownMenu,{
-    direction:'right',
-    overlay: false,
-    overlayBgColor:'transparent'
+Vue.use(DropdownMenu, {
+  direction: 'right',
+  overlay: false,
+  overlayBgColor: 'transparent'
 })
 
 Vue.use(VueDraggable)
@@ -61,14 +58,14 @@ Vue.use(Vuelidate)
 // SwiperCore.use([Scrollbar,Mousewheel]);
 
 Vue.use(VueSimpleAccordion, {
-    tags: {
-        // list: "ul",
-        // list__item: "div",
-        // item__heading: "div",
-        // heading__content: "div",
-        // heading__icon: "span",
-        // item__content: "div"
-    },
+  tags: {
+    // list: "ul",
+    // list__item: "div",
+    // item__heading: "div",
+    // heading__content: "div",
+    // heading__icon: "span",
+    // item__content: "div"
+  },
 });
 
 Vue.config.productionTip = false
@@ -91,15 +88,15 @@ Vue.component('base-textarea', () => import('./components/library/BaseTextarea')
 
 
 new Vue({
-    router,
-    store,
-    vuetify,
-    VueDraggable,
-    VueSimpleAccordion,
-    DropdownMenu,
+  router,
+  store,
+  vuetify,
+  VueDraggable,
+  VueSimpleAccordion,
+  DropdownMenu,
 
 // SvgSprite,
-    // moment,
+  // moment,
 
-    render: h => h(App)
+  render: h => h(App)
 }).$mount('#app')

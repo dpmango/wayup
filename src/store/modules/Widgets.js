@@ -1,7 +1,8 @@
 import {
-	GET_WIDGET_DATA,
+	SET_WIDGET_DATA,
 	RESET
 } from '../mutation-types';
+import { WidgetLevel } from '../fixture/widgets'
 /*
 |--------------------------------------------------------------------------
 | Начальное состояние - используется для сброса store
@@ -9,6 +10,7 @@ import {
 */
 const initialState = () => ({
 	widgetLevel: [],
+	widgetChartPolar: [],
 });
 
 /*
@@ -23,7 +25,7 @@ const state = initialState;
 |--------------------------------------------------------------------------
 */
 const mutations = {
-	[GET_WIDGET_DATA] (state, payload) {
+	[SET_WIDGET_DATA] (state, payload) {
 		state.widgetLevel = payload;
 	},
 	[RESET](state) {
@@ -48,8 +50,10 @@ const getters = {
 |--------------------------------------------------------------------------
 */
 const actions = {
-
-}
+	loadWidgets({commit}) {
+		commit(SET_WIDGET_DATA, WidgetLevel);
+	}
+};
 
 export default {
 	state,

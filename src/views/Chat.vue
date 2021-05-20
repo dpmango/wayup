@@ -1,11 +1,11 @@
 <template lang="pug">
-    div Чаты
+  div Чаты
 </template>
 
 <script>
-    export default {
-        name: "Chat"
-    }
+	export default {
+		name: "Chat"
+	}
 </script>
 
 <style scoped>
