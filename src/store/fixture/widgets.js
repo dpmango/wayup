@@ -284,42 +284,42 @@ export const WidgetListStat = [
 	},
 	{
 		widgetComponent: 'IndicationStatistic',
-		widgetPosition: 3,
+		widgetPosition: 2,
 		widgetCol: 12,
 		widgetTitle: 'Показатели',
 		widgetData: IndicationStatistic
 	},
 	{
 		widgetComponent: 'WidgetMapsGoal',
-		widgetPosition: 2,
+		widgetPosition: 3,
 		widgetCol: 6,
 		widgetTitle: 'Карта бросков и голов',
 		widgetData: WidgetMapsGoal
 	},
 	{
 		widgetComponent: 'WidgetMapsGoalZone',
-		widgetPosition: 3,
+		widgetPosition: 4,
 		widgetCol: 6,
 		widgetTitle: 'Броски в створ по зонам',
 		widgetData: WidgetMapsGoalZone
 	},
 	{
 		widgetComponent: 'WidgetStatisticMatch',
-		widgetPosition: 3,
+		widgetPosition: 5,
 		widgetCol: 12,
 		widgetTitle: 'Матчи',
 		widgetData: WidgetStatisticMatch
 	},
 	{
-		widgetComponent: 'WidgetStatisticTota',
-		widgetPosition: 3,
+		widgetComponent: 'WidgetStatisticTotal',
+		widgetPosition: 6,
 		widgetCol: 12,
 		widgetTitle: 'Общая статистика',
 		widgetData: WidgetStatisticTotal
 	},
 	{
 		widgetComponent: 'WidgetStatisticAnalytics',
-		widgetPosition: 3,
+		widgetPosition: 7,
 		widgetCol: 12,
 		widgetTitle: 'Аналитика',
 		widgetData: WidgetStatisticAnalytics

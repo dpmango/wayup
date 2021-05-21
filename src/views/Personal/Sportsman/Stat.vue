@@ -41,7 +41,7 @@
 		methods: {
 			...mapActions('widgets', ['loadWidgetsListStat']),
 		},
-		mounted() {
+		created() {
 			this.loadWidgetsListStat();
 		},
 

@@ -141,7 +141,7 @@
 			},
 			...mapActions('widgets', ['loadWidgetsListMain']),
 		},
-		mounted() {
+		created() {
 			this.loadWidgetsListMain();
 		},
 	}
