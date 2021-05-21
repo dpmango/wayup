@@ -1,4 +1,4 @@
-export const WidgetLevel = [
+const WidgetLevel = [
 	{
 		name: 'Ч',
 		total: [
@@ -160,6 +160,86 @@ export const WidgetLevel = [
 	}
 ];
 
-export const WidgetChartPolar = [
+export const WidgetStatistic = [
+		{
+			season: '2020-2021',
+			games:0,
+			goals:0,
+			skipped:0,
+			repulsed:6
+		},
+		{
+			season: '2021-2022',
+			games:1,
+			goals:41,
+			skipped:1,
+			repulsed:6
+		},
+		{
+			season: '2020-2021',
+			games:4,
+			goals:4,
+			skipped:4,
+			repulsed:6
+		},
+		{
+			season: '2020-2021',
+			games:4,
+			goals:4,
+			skipped:4,
+			repulsed:6
+		}
+];
 
+
+// Данные для виджета Аналитика
+const WidgetStatisticAnalytics = [
+	{
+		season: '2020-2021',
+		games:0,
+		goals:0,
+		skipped:0,
+		repulsed:6
+	},
+	{
+		season: '2020-2021',
+		games:1,
+		goals:1,
+		skipped:1,
+		repulsed:1
+	},
+];
+
+export const WidgetAll = [
+	{
+		widgetComponent: 'WidgetStatisticAnalytics',
+		widgetTitle: 'Аналитика',
+		widgetDate: WidgetStatisticAnalytics
+	},
+	{
+		widgetComponent: 'WidgetLevel',
+		widgetTitle: 'Уровень нагрузки',
+		widgetDate: WidgetLevel
+	},
+];
+
+export const WidgetList = [
+	{
+		widgetComponent: 'WidgetStatisticAnalytics',
+		widgetPosition: 1,
+		widgetTitle: 'Аналитика1111',
+		widgetData: WidgetStatisticAnalytics
+	},
+	{
+		widgetComponent: 'WidgetLevel',
+		widgetPosition: 2,
+		widgetTitle: 'Уровень нагрузки',
+		widgetData: WidgetLevel
+	},
+	{
+		widgetComponent: 'WidgetStatistic',
+		widgetPosition: 3,
+		widgetTitle: 'Статистика сезона 2020-2021',
+		widgetData: WidgetStatistic
+	},
 ];

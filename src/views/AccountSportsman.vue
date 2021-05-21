@@ -245,11 +245,6 @@
       height: 36px;
     }
 
-    .v-badge__wrapper {
-      left: 6px;
-      top: 9px;
-    }
-
     .v-tab--active {
       color: #000;
     }

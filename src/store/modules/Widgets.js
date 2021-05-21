@@ -1,8 +1,9 @@
 import {
-	SET_WIDGET_DATA,
+	SET_WIDGET_ALL,
+	SET_WIDGET_LIST,
 	RESET
 } from '../mutation-types';
-import { WidgetLevel } from '../fixture/widgets'
+import { WidgetAll, WidgetList  } from '../fixture/widgets'
 /*
 |--------------------------------------------------------------------------
 | Начальное состояние - используется для сброса store
@@ -11,6 +12,12 @@ import { WidgetLevel } from '../fixture/widgets'
 const initialState = () => ({
 	widgetLevel: [],
 	widgetChartPolar: [],
+
+	// Список всех виджетов доступных в холодильнике
+	WidgetAll: [],
+
+	// Список виджетов, расположенных на странице
+	WidgetList: []
 });
 
 /*
@@ -25,8 +32,11 @@ const state = initialState;
 |--------------------------------------------------------------------------
 */
 const mutations = {
-	[SET_WIDGET_DATA] (state, payload) {
-		state.widgetLevel = payload;
+	[SET_WIDGET_ALL] (state, payload) {
+		state.WidgetAll = payload;
+	},
+	[SET_WIDGET_LIST] (state, payload) {
+		state.WidgetList = payload;
 	},
 	[RESET](state) {
 		const newState = initialState();
@@ -50,8 +60,17 @@ const getters = {
 |--------------------------------------------------------------------------
 */
 const actions = {
-	loadWidgets({commit}) {
-		commit(SET_WIDGET_DATA, WidgetLevel);
+	loadWidgetsAll({commit}) {
+		// Получаем список виджетов по апи
+		//
+
+		commit(SET_WIDGET_ALL, WidgetAll);
+	},
+	loadWidgetsList({commit}) {
+		// Получаем список виджетов по апи
+		//
+
+		commit(SET_WIDGET_LIST, WidgetList);
 	}
 };
 
