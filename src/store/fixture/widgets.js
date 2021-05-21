@@ -365,54 +365,55 @@ const WidgetLevel = [
 	}
 ];
 
-export const WidgetStatistic = [
-		{
-			season: '2020-2021',
-			games:0,
-			goals:0,
-			skipped:0,
-			repulsed:6
-		},
-		{
-			season: '2021-2022',
-			games:1,
-			goals:41,
-			skipped:1,
-			repulsed:6
-		},
-		{
-			season: '2020-2021',
-			games:4,
-			goals:4,
-			skipped:4,
-			repulsed:6
-		},
-		{
-			season: '2020-2021',
-			games:4,
-			goals:4,
-			skipped:4,
-			repulsed:6
-		}
+export const WidgetStatisticSeason = [
+  {
+    season: '2020-2021',
+    games: 0,
+    goals: 0,
+    skipped: 0,
+    repulsed: 6
+  },
+  {
+    season: '2021-2022',
+    games: 1,
+    goals: 41,
+    skipped: 1,
+    repulsed: 6
+  },
+  {
+    season: '2020-2021',
+    games: 4,
+    goals: 4,
+    skipped: 4,
+    repulsed: 6
+  },
+  {
+    season: '2020-2021',
+    games: 4,
+    goals: 4,
+    skipped: 4,
+    repulsed: 6
+  }
 ];
+
 
 
 // Данные для виджета Аналитика
 const WidgetStatisticAnalytics = [
-	{
-		season: '2020-2021',
-		games:0,
-		goals:0,
-		skipped:0,
-		repulsed:6
-	},
-	{
-		season: '2020-2021',
-		games:1,
-		goals:1,
-		skipped:1,
-		repulsed:1
-	},
+  {
+    season: '2020-2021',
+    games: 0,
+    goals: 0,
+    skipped: 0,
+    repulsed: 6
+  },
+  {
+    season: '2020-2021',
+    games: 1,
+    goals: 1,
+    skipped: 1,
+    repulsed: 1
+  },
 ];
 
 const WidgetStatisticGame = [
@@ -428,6 +429,51 @@ const WidgetMapsGoalZone = [
 ];
 
 const WidgetStatisticMatch = [
+  {
+    opponent: '2020 - 2021',
+    date: '29 янв 2021',
+    v: 4,
+    p: 4,
+    n: 4,
+    pg: 6,
+    ob: 15,
+    br: 6,
+    brPercent: 6,
+    io: 6,
+    iv: 6,
+    is: 6,
+    ot: 6,
+  },
+  {
+    opponent: '2020 - 2021',
+    date: '29 янв 2021',
+    v: 4,
+    p: 4,
+    n: 4,
+    pg: 6,
+    ob: 6,
+    br: 6,
+    brPercent: 6,
+    io: 6,
+    iv: 6,
+    is: 6,
+    ot: 6,
+  },
+  {
+    opponent: '2020 - 2021',
+    date: '29 янв 2021',
+    v: 4,
+    p: 4,
+    n: 4,
+    pg: 6,
+    ob: 6,
+    br: 6,
+    brPercent: 6,
+    io: 6,
+    iv: 6,
+    is: 6,
+    ot: 6,
+  },
 
 ];
 
@@ -441,41 +487,39 @@ const IndicationStatistic = [
 
 // Виджеты для холодильника
 export const WidgetAll = [
-	{
-		widgetComponent: 'WidgetStatisticAnalytics',
-		widgetTitle: 'Аналитика',
-		widgetDate: WidgetStatisticAnalytics
-	},
-	{
-		widgetComponent: 'WidgetLevel',
-		widgetTitle: 'Уровень нагрузки',
-		widgetDate: WidgetLevel
-	},
+  {
+    widgetComponent: 'WidgetStatisticAnalytics',
+    widgetTitle: 'Аналитика',
+    widgetDate: WidgetStatisticAnalytics
+  },
+  {
+    widgetComponent: 'WidgetLevel',
+    widgetTitle: 'Уровень нагрузки',
+    widgetDate: WidgetLevel
+  },
 ];
 
 // Страница Общая спортсмена
 export const WidgetList = [
-	{
-		widgetComponent: 'WidgetStatisticAnalytics',
-		widgetPosition: 1,
-		widgetCol: 6,
-		widgetTitle: 'Аналитика1111',
-		widgetData: WidgetStatisticAnalytics
-	},
-	{
-		widgetComponent: 'WidgetLevel',
-		widgetPosition: 2,
-		widgetCol: 6,
-		widgetTitle: 'Уровень нагрузки',
-		widgetData: WidgetLevel
-	},
-	{
-		widgetComponent: 'WidgetStatistic',
-		widgetPosition: 3,
-		widgetCol: 6,
-		widgetTitle: 'Статистика сезона 2020-2021',
-		widgetData: WidgetStatistic
-	},
+  {
+    widgetComponent: 'WidgetStatisticAnalytics',
+    widgetPosition: 1,
+    widgetTitle: 'Аналитика1111',
+    widgetData: WidgetStatisticAnalytics
+  },
+  {
+    widgetComponent: 'WidgetLevel',
+    widgetPosition: 2,
+    widgetTitle: 'Уровень нагрузки',
+    widgetData: WidgetLevel
+  },
+  {
+    widgetComponent: 'WidgetStatisticSeason',
+    widgetPosition: 3,
+    widgetTitle: 'Статистика сезона 2020-2021',
+    widgetData: WidgetStatisticSeason
+  },
+
 ];
 
 // Страница Статистика спортсмена
