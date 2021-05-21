@@ -178,7 +178,7 @@
 			],
 			widgetsListTwo: [
 				{id: 1, component: 'WidgetEvents'},
-				{id: 2, component: 'WidgetStatistic'},
+				{id: 2, component: 'WidgetStatisticSeason'},
 				{id: 3, component: 'WidgetLevel'},
 				{id: 4, component: 'WidgetChartPolar'},
 				{id: 5, component: 'WidgetAwards'},

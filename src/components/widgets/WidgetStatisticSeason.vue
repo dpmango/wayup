@@ -45,44 +45,53 @@
 </template>
 
 <script>
-	import vueCustomScrollbar from 'vue-custom-scrollbar'
-	import "vue-custom-scrollbar/dist/vueScrollbar.css"
-	import DotsMenu from "@/components/DotsMenu";
+import vueCustomScrollbar from 'vue-custom-scrollbar'
+import "vue-custom-scrollbar/dist/vueScrollbar.css"
+import DotsMenu from "@/components/DotsMenu";
 
-	export default {
-		name: "WidgetStatistic",
-		components: {
-			DotsMenu,
-			vueCustomScrollbar
-		},
-		props: ['data', 'title'],
-		data: () => ({
-			isShowList: false,
-			settings: {
-				suppressScrollY: false,
-				suppressScrollX: false,
-				wheelPropagation: false
-			},
-		}),
-		methods: {
-			toggleList: function () {
-				this.isShowList = !this.isShowList;
-			},
-		},
-	}
+export default {
+  name: "WidgetStatisticSeason",
+  components: {
+    DotsMenu,
+    vueCustomScrollbar
+  },
+  props: {
+    data: {
+      type: Object,
+    },
+    title: {
+      type: [String],
+      default: ''
+    },
+  },
+
+  data: () => ({
+    isShowList: false,
+    settings: {
+      suppressScrollY: false,
+      suppressScrollX: false,
+      wheelPropagation: false
+    },
+  }),
+  methods: {
+    toggleList: function () {
+      this.isShowList = !this.isShowList;
+    },
+  },
+}
 </script>
 
 <style scoped lang="scss">
 
 
-  .statistic-td.first {
-    @include width-flex(40%)
-  }
+.statistic-td.first {
+  @include width-flex(40%)
+}
 
-  .statistic-td {
-    @include width-flex(15%)
-    font-size: 14px;
+.statistic-td {
+  @include width-flex(15%)
+  font-size: 14px;
 
-  }
+}
 
 </style>

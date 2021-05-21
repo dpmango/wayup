@@ -55,7 +55,7 @@
 	import WidgetFormPlayer from "@/components/widgets/WidgetFormPlayer";
 	import WidgetFriends from "@/components/widgets/WidgetFriends";
 	import WidgetAwards from "@/components/widgets/WidgetAwards";
-	import WidgetStatistic from "@/components/widgets/WidgetStatistic";
+	import WidgetStatisticSeason from "@/components/widgets/WidgetStatisticSeason";
 	import WidgetMapsGoal from "@/components/widgets/WidgetMapsGoal";
 	import WidgetTeam from "@/components/widgets/WidgetTeam";
 	import WidgetLearn from "@/components/widgets/WidgetLearn";
@@ -71,6 +71,7 @@
 	import WidgetErrors from "@/components/widgets/WidgetErrors";
 	import WidgetStatisticAnalytics from "@/components/widgets/WidgetStatisticAnalytics";
 	import WidgetMapsGoalZone from "@/components/widgets/WidgetMapsGoalZone";
+	import WidgetStatisticMatch from "@/components/widgets/WidgetStatisticMatch";
 	import {mapActions, mapState} from 'vuex';
 
 	export default {
@@ -85,7 +86,7 @@
 			WidgetLearn,
 			WidgetTeam,
 			WidgetMapsGoal,
-			WidgetStatistic,
+      WidgetStatisticSeason,
 			WidgetAwards,
 			WidgetFriends,
 			WidgetFormPlayer,
@@ -104,7 +105,8 @@
 			WidgetChatMessage,
 			WidgetErrors,
 			WidgetMapsGoalZone,
-			WidgetStatisticAnalytics
+			WidgetStatisticAnalytics,
+      WidgetStatisticMatch
 		},
 
 		data: () => ({
