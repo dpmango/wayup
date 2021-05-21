@@ -8,7 +8,6 @@
         .widget-header__title Уровень нагрузки
         v-item-group.d-flex.ml-4.mb-0(
           mandatory
-          v-model = "period"
         )
           v-item(
             v-slot='{ active, toggle }'
@@ -27,17 +26,17 @@
     .widget-content
       v-row
         v-col(sm="3")
-          .legend
+          .legend(v-if="maxMinValue")
             .legend-label 1.01.21 — 7.01.21
-            .legend-val 48–178
+            .legend-val {{ maxMinValue }}
               span У.М.
-          .legend
+          .legend(v-if="middleValue")
             .legend-label Среднее
-            .legend-val 74
+            .legend-val {{ middleValue }}
               span У.М.
-          .legend
+          .legend(v-if="lastValue")
             .legend-label Последнее
-            .legend-val 68
+            .legend-val {{ lastValue }}
               span У.М.
         v-col(sm="9")
           .maps-goal__wrap
@@ -54,10 +53,14 @@
 		name: "WidgetLevel",
 		data: () => ({
 			periods: ['Ч', 'Д', 'Н', 'М'],
-			period: [2],
-			currentPeriod: 'Н',
+			period: [0],
+			currentPeriod: 'Ч',
 			canvas: document.getElementById('levelChart'),
-			chart: null
+			chart: null,
+      maxMinValue: '',
+      middleValue: '',
+      lastValue: ''
+
 		}),
 		props: {
 			title: {
@@ -86,8 +89,13 @@
 
 		},
 		methods: {
-			getMinChartDate(chartDate) {
-        console.log([].concat(...chartDate));
+			getLegend(chartDate) {
+				let flatArray = [].concat(...chartDate);
+				let last = chartDate[chartDate.length - 1];
+				let sum = flatArray.reduce((accumulator, currentValue) => accumulator + currentValue);
+				this.maxMinValue =  Math.round(Math.min(...flatArray)) + '–' + Math.round(Math.max(...flatArray));
+        this.middleValue = Math.round(sum/flatArray.length);
+				this.lastValue = Math.round((last[0] + last[1])/2);
       },
 			changePeriod(period) {
 				this.currentPeriod = period;
@@ -111,6 +119,7 @@
 						labels = this.getLabelsMonth();
 						break;
 				}
+				this.getLegend(chartData);
 				this.period = [this.periods.indexOf(period)];
 				this.chart.data.labels = labels;
 				this.chart.data.datasets.data = chartData;
@@ -155,10 +164,10 @@
 		}
 		,
 		mounted() {
-			this.getMinChartDate(this.dataWeek.chartData);
 
 			let chartData = this.dataWeek.chartData;
-			let labels = this.getLabelsWeek(chartData);
+			this.getLegend(chartData);
+			let labels = this.getLabelsHour();
 			let curPeriod = this.currentPeriod;
 			let canvas = document.getElementById('levelChart');
 			let context = canvas.getContext("2d");
@@ -219,7 +228,7 @@
 											return '';
 										}
 									} else {
-										console.log(val);
+										//console.log(val);
 										return labels[index];
 									}
 								},
