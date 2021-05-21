@@ -90,13 +90,15 @@ export default {
   }
 }
 
+.v-item--active{
+  .segment-default {
+    background: #FFFFFF !important;
 
-.segment-default.v-item--active {
-  background: #FFFFFF !important;
-
-  ::v-deep .v-btn__content {
-    color: $blue;
+    ::v-deep .v-btn__content {
+      color: $blue;
+    }
   }
+
 }
 
 .segments-block {
