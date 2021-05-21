@@ -139,10 +139,10 @@
 			toggleList: function () {
 				this.isShowList = !this.isShowList;
 			},
-			...mapActions('widgets', ['loadWidgetsList']),
+			...mapActions('widgets', ['loadWidgetsListMain']),
 		},
 		mounted() {
-			this.loadWidgetsList();
+			this.loadWidgetsListMain();
 		},
 	}
 </script>

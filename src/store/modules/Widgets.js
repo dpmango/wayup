@@ -3,7 +3,7 @@ import {
 	SET_WIDGET_LIST,
 	RESET
 } from '../mutation-types';
-import { WidgetAll, WidgetList  } from '../fixture/widgets'
+import { WidgetAll, WidgetList, WidgetListStat  } from '../fixture/widgets'
 /*
 |--------------------------------------------------------------------------
 | Начальное состояние - используется для сброса store
@@ -66,11 +66,17 @@ const actions = {
 
 		commit(SET_WIDGET_ALL, WidgetAll);
 	},
-	loadWidgetsList({commit}) {
+	loadWidgetsListMain({commit}) {
 		// Получаем список виджетов по апи
 		//
 
 		commit(SET_WIDGET_LIST, WidgetList);
+	},
+	loadWidgetsListStat({commit}) {
+		// Получаем список виджетов по апи
+		//
+
+		commit(SET_WIDGET_LIST, WidgetListStat);
 	}
 };
 

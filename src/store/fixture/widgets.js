@@ -210,6 +210,31 @@ const WidgetStatisticAnalytics = [
 	},
 ];
 
+const WidgetStatisticGame = [
+
+];
+
+const WidgetMapsGoal = [
+
+];
+
+const WidgetMapsGoalZone = [
+
+];
+
+const WidgetStatisticMatch = [
+
+];
+
+const WidgetStatisticTotal = [
+
+];
+
+const IndicationStatistic = [
+
+];
+
+// Виджеты для холодильника
 export const WidgetAll = [
 	{
 		widgetComponent: 'WidgetStatisticAnalytics',
@@ -223,23 +248,80 @@ export const WidgetAll = [
 	},
 ];
 
+// Страница Общая спортсмена
 export const WidgetList = [
 	{
 		widgetComponent: 'WidgetStatisticAnalytics',
 		widgetPosition: 1,
+		widgetCol: 6,
 		widgetTitle: 'Аналитика1111',
 		widgetData: WidgetStatisticAnalytics
 	},
 	{
 		widgetComponent: 'WidgetLevel',
 		widgetPosition: 2,
+		widgetCol: 6,
 		widgetTitle: 'Уровень нагрузки',
 		widgetData: WidgetLevel
 	},
 	{
 		widgetComponent: 'WidgetStatistic',
 		widgetPosition: 3,
+		widgetCol: 6,
 		widgetTitle: 'Статистика сезона 2020-2021',
 		widgetData: WidgetStatistic
+	},
+];
+
+// Страница Статистика спортсмена
+export const WidgetListStat = [
+	{
+		widgetComponent: 'WidgetStatisticGame',
+		widgetPosition: 1,
+		widgetCol: 12,
+		widgetTitle: 'Статистика сезона 2020-2021',
+		widgetData: WidgetStatisticGame
+	},
+	{
+		widgetComponent: 'IndicationStatistic',
+		widgetPosition: 3,
+		widgetCol: 12,
+		widgetTitle: 'Показатели',
+		widgetData: IndicationStatistic
+	},
+	{
+		widgetComponent: 'WidgetMapsGoal',
+		widgetPosition: 2,
+		widgetCol: 6,
+		widgetTitle: 'Карта бросков и голов',
+		widgetData: WidgetMapsGoal
+	},
+	{
+		widgetComponent: 'WidgetMapsGoalZone',
+		widgetPosition: 3,
+		widgetCol: 6,
+		widgetTitle: 'Броски в створ по зонам',
+		widgetData: WidgetMapsGoalZone
+	},
+	{
+		widgetComponent: 'WidgetStatisticMatch',
+		widgetPosition: 3,
+		widgetCol: 12,
+		widgetTitle: 'Матчи',
+		widgetData: WidgetStatisticMatch
+	},
+	{
+		widgetComponent: 'WidgetStatisticTota',
+		widgetPosition: 3,
+		widgetCol: 12,
+		widgetTitle: 'Общая статистика',
+		widgetData: WidgetStatisticTotal
+	},
+	{
+		widgetComponent: 'WidgetStatisticAnalytics',
+		widgetPosition: 3,
+		widgetCol: 12,
+		widgetTitle: 'Аналитика',
+		widgetData: WidgetStatisticAnalytics
 	},
 ];

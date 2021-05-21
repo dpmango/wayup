@@ -52,7 +52,10 @@
 
 <script>
 export default {
-  name: "MusicPlayer"
+  name: "MusicPlayer",
+	data: () => ({
+		selectedItem: [],
+	}),
 }
 </script>
 
