@@ -5,9 +5,9 @@
         img.drag-icon.mr-3(
           src="@/assets/images/svg/more-icon.svg"
         )
-        .widget-header__title Статистика сезона 2020-2021
+        .widget-header__title {{ title }}
         base-select(
-          classAttr='select-default select-bg-gray ml-auto mr-4'
+          classAttr='select-default select-small select-bg-gray ml-auto mr-4'
           label="Regular season (Complete Stats)"
           :items="selectItems"
           solo=true
@@ -38,24 +38,25 @@
       )
         .statistic-season__body
           .widget__item.mb-1(
-            v-for='(item,i) in 7' :key='i'
+            v-for='(item,i) in data' :key='i'
           )
-            .statistic-td.text-left 2020-2021
-            .statistic-td.text-left.text-blue(style="width:20%") 🇺🇸  Boston Hockey Academy 18U
-            .statistic-td.text-left.text-blue BEAST 18U
-            .statistic-td 2
-            .statistic-td 5
-            .statistic-td 5
-            .statistic-td 5
-            .statistic-td 5
-            .statistic-td 5
-            .statistic-td 5
-            .statistic-td 5
+            .statistic-td.text-left {{ item.season }}
+            .statistic-td.text-left.text-blue(style="width:20%") {{ item.team }}
+            .statistic-td.text-left.text-blue {{ item.league }}
+            .statistic-td {{ item.gp }}
+            .statistic-td {{ item.gaa }}
+            .statistic-td {{ item.svPercent }}
+            .statistic-td {{ item.ga }}
+            .statistic-td {{ item.sv }}
+            .statistic-td {{ item.so }}
+            .statistic-td {{ item.wlt }}
+            .statistic-td {{ item.toi }}
     .widget-footer
       .widget-footer__text(
         @click='toggleList'
       )
-        | Развернуть
+        span.list-more(v-if='!isShowList') Развернуть
+        span.list-small(v-if='isShowList') Свернуть
 
 </template>
 
@@ -70,6 +71,15 @@
 			DotsMenu,
 			vueCustomScrollbar
 		},
+    props: {
+      data: {
+        type: Object,
+      },
+      title: {
+        type: [String],
+        default: ''
+      },
+    },
 		data: () => ({
 			isShowList: false,
 			settings: {

@@ -33,25 +33,27 @@
       )
         .statistic-season__body
           .widget__item.mb-1(
-            v-for='(item,i) in 7' :key='i'
+            v-for='(item,i) in data' :key='i'
           )
-            .statistic-td.text-left(style="width:17.5%") Дома
-            .statistic-td 5
-            .statistic-td 2
-            .statistic-td 5
-            .statistic-td 5
-            .statistic-td 5
-            .statistic-td 5
-            .statistic-td 5
-            .statistic-td 5
-            .statistic-td 5
-            .statistic-td 5
-            .statistic-td 5
+            .statistic-td.text-left(style="width:17.5%") {{ item.season }}
+            .statistic-td {{ item.i }}
+            .statistic-td {{ item.g }}
+            .statistic-td {{ item.p }}
+            .statistic-td {{ item.o }}
+            .statistic-td {{ item.plus }}
+            .statistic-td {{ item.sm }}
+            .statistic-td {{ item.gb }}
+            .statistic-td {{ item.ob }}
+            .statistic-td {{ item.gm }}
+            .statistic-td {{ item.om }}
+            .statistic-td {{ item.pg }}
     .widget-footer
       .widget-footer__text(
         @click='toggleList'
       )
-        | Развернуть
+        span.list-more(v-if='!isShowList') Развернуть
+        span.list-small(v-if='isShowList') Свернуть
+
 
 </template>
 
@@ -66,7 +68,15 @@
 			DotsMenu,
 			vueCustomScrollbar
 		},
-		props: ['data', 'title'],
+    props: {
+      data: {
+        type: Object,
+      },
+      title: {
+        type: [String],
+        default: ''
+      },
+    },
 		data: () => ({
 			isShowList: false,
 			settings: {

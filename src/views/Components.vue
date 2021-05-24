@@ -839,6 +839,25 @@
             template(#item-inner)
               |Группа С8 | 10-13
 
+      .library-row.align-end
+        .library-item.mr-10
+          .subtitle Default small
+          base-select(
+            classAttr='select-default select-small'
+            label="Год подготовки"
+            :items="selectItems"
+          )
+            template(#item-inner)
+              |Группа С8 | 10-13
+        .library-item.mr-10
+          .subtitle Default small
+          base-select(
+            classAttr='select-default select-small select-bg-gray'
+            label="Год подготовки"
+            :items="selectItems"
+          )
+            template(#item-inner)
+              |Группа С8 | 10-13
 
 
 

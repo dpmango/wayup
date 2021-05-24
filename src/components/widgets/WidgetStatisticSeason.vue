@@ -32,8 +32,8 @@
             .statistic-td {{ item.repulsed }}
           .widget__item.mb-1
             .statistic-td.first.total Всего
-            .statistic-td 4
-            .statistic-td 3
+            .statistic-td {{ summa.sumGames }}
+            .statistic-td {{ summa.sumGoals }}
             .statistic-td 2
             .statistic-td 5
     .widget-footer
@@ -78,6 +78,29 @@ export default {
       this.isShowList = !this.isShowList;
     },
   },
+  computed: {
+    summa() {
+      let data = this.data
+      let total = {
+        sumGames: function () {
+          let sum = 0;
+          data.forEach(function(item) {
+            sum += parseFloat(item.games);
+          });
+          return sum;
+        }(),
+        sumGoals: function () {
+          let sum = 0;
+          data.forEach(function(item) {
+            sum += parseFloat(item.goals);
+          });
+          return sum;
+        }()
+      };
+      return total
+
+    }
+  }
 }
 </script>
 
