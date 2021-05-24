@@ -34,13 +34,14 @@
             .statistic-td.first.total Всего
             .statistic-td {{ summa.sumGames }}
             .statistic-td {{ summa.sumGoals }}
-            .statistic-td 2
-            .statistic-td 5
+            .statistic-td {{ summa.sumSkipped }}
+            .statistic-td {{ summa.sumRepulsed }}
     .widget-footer
       .widget-footer__text(
         @click='toggleList'
       )
-        | Показать всю статистику
+        span.list-more(v-if='!isShowList') Показать всю статистику
+        span.list-small(v-if='isShowList') Скрыть
 
 </template>
 
@@ -93,6 +94,20 @@ export default {
           let sum = 0;
           data.forEach(function(item) {
             sum += parseFloat(item.goals);
+          });
+          return sum;
+        }(),
+        sumSkipped: function () {
+          let sum = 0;
+          data.forEach(function(item) {
+            sum += parseFloat(item.skipped);
+          });
+          return sum;
+        }(),
+        sumRepulsed: function () {
+          let sum = 0;
+          data.forEach(function(item) {
+            sum += parseFloat(item.repulsed);
           });
           return sum;
         }()

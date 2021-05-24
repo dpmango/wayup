@@ -536,11 +536,15 @@
 .scroll-area {
   position: relative;
   margin: auto;
-  min-height: 50px;
   //max-height: 150px;
-  transition: 0.5s;
+
 
 }
+//.scroll-area.hide{
+//  min-height: 50px;
+//
+//  transition: 0.5s;
+//}
 .scroll-area.show{
   height: 100% !important;
   max-height: 100% !important;
