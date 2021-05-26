@@ -53,10 +53,11 @@ export default {
 
 .select-default {
   ::v-deep .v-select__slot {
-    input{
+    input {
       font-size: rem(16px);
     }
   }
+
   ::v-deep .v-input__slot {
     min-height: rem(40px) !important;
     padding: 0 rem(16px) !important;
@@ -140,7 +141,7 @@ export default {
 
 .select-default.v-text-field--solo.error--text,
 .select-default.error--text {
-  ::v-deep .v-label{
+  ::v-deep .v-label {
     color: #EC4865 !important;
     caret-color: #EC4865 !important;
   }
@@ -240,7 +241,8 @@ export default {
     background: #F1F3F9;
 
   }
-  ::v-deep .v-input__control{
+
+  ::v-deep .v-input__control {
     min-height: rem(40px);
   }
 
@@ -252,6 +254,32 @@ export default {
     ::v-deep fieldset {
 
       background: #D9DBE0;
+    }
+  }
+}
+
+
+.select-default.select-small {
+  ::v-deep {
+
+    .v-input__slot {
+      min-height: rem(24px) !important;
+    }
+
+    .v-label {
+      top: 5px;
+    }
+    .v-input__append-inner{
+      margin-top: 5px;
+    }
+  }
+}
+
+.select-default.v-input--is-label-active,
+.select-default.v-input--is-focused{
+  ::v-deep {
+    .v-label {
+      top: 17px;
     }
   }
 }

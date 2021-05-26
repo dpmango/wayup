@@ -32,15 +32,16 @@
             .statistic-td {{ item.repulsed }}
           .widget__item.mb-1
             .statistic-td.first.total Всего
-            .statistic-td 4
-            .statistic-td 3
-            .statistic-td 2
-            .statistic-td 5
+            .statistic-td {{ summa.sumGames }}
+            .statistic-td {{ summa.sumGoals }}
+            .statistic-td {{ summa.sumSkipped }}
+            .statistic-td {{ summa.sumRepulsed }}
     .widget-footer
       .widget-footer__text(
         @click='toggleList'
       )
-        | Показать всю статистику
+        span.list-more(v-if='!isShowList') Показать всю статистику
+        span.list-small(v-if='isShowList') Скрыть
 
 </template>
 
@@ -57,7 +58,7 @@ export default {
   },
   props: {
     data: {
-      type: Object,
+      type: Array,
     },
     title: {
       type: [String],
@@ -78,6 +79,43 @@ export default {
       this.isShowList = !this.isShowList;
     },
   },
+  computed: {
+    summa() {
+      let data = this.data
+      let total = {
+        sumGames: function () {
+          let sum = 0;
+          data.forEach(function(item) {
+            sum += parseFloat(item.games);
+          });
+          return sum;
+        }(),
+        sumGoals: function () {
+          let sum = 0;
+          data.forEach(function(item) {
+            sum += parseFloat(item.goals);
+          });
+          return sum;
+        }(),
+        sumSkipped: function () {
+          let sum = 0;
+          data.forEach(function(item) {
+            sum += parseFloat(item.skipped);
+          });
+          return sum;
+        }(),
+        sumRepulsed: function () {
+          let sum = 0;
+          data.forEach(function(item) {
+            sum += parseFloat(item.repulsed);
+          });
+          return sum;
+        }()
+      };
+      return total
+
+    }
+  }
 }
 </script>
 
