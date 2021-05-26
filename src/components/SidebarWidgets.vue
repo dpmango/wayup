@@ -17,19 +17,17 @@
       vue-custom-scrollbar.scroll-area(
         :settings="settings"
       )
-        WidgetStatisticAnalytics
-        WidgetStatisticAnalytics
-        WidgetStatisticAnalytics
-        WidgetStatisticAnalytics
-        WidgetStatisticAnalytics
-        WidgetStatisticAnalytics
-        WidgetStatisticAnalytics
-        WidgetStatisticAnalytics
-        WidgetStatisticAnalytics
-        WidgetStatisticAnalytics
-        WidgetStatisticAnalytics
-        WidgetStatisticAnalytics
-        WidgetStatisticAnalytics
+        .widgets-block
+          .widgets-item(
+            v-for='(element, index) in WidgetAll'
+            :key='element.widgetPosition'
+          )
+            component(
+              :is="element.widgetComponent"
+              :data="element.widgetData"
+              :title="element.widgetTitle"
+            )
+
 
 
 </template>
@@ -40,6 +38,11 @@
 	import WidgetStatisticMatch from "@/components/widgets/WidgetStatisticMatch";
 	import WidgetStatisticTotal from "@/components/widgets/WidgetStatisticTotal";
 	import WidgetStatisticAnalytics from "@/components/widgets/WidgetStatisticAnalytics";
+  import WidgetLevel from "@/components/widgets/WidgetLevel";
+  import WidgetStatisticSeason from "@/components/widgets/WidgetStatisticSeason";
+
+
+  import {mapActions, mapState} from "vuex";
 
 	export default {
 		name: "SidebarWidgets",
@@ -47,17 +50,27 @@
 			WidgetStatisticAnalytics,
 			WidgetStatisticTotal,
 			WidgetStatisticMatch,
-			vueCustomScrollbar
+      WidgetLevel,
+			vueCustomScrollbar,
+      WidgetStatisticSeason
 		},
 		data: () => ({
 			settings: {
 				suppressScrollY: false,
 				suppressScrollX: false,
 				wheelPropagation: false,
-				selectItems: ['Группа С8 | 10-13', 'Группа С8 | 10-14', 'Группа С8 | 10-15'],
 			},
 			selectItems: ['Группа С8 | 10-13', 'Группа С8 | 10-14', 'Группа С8 | 10-15'],
 		}),
+    computed: {
+      ...mapState('widgets', ['WidgetAll'])
+    },
+    methods: {
+      ...mapActions('widgets', ['loadWidgetsAll']),
+    },
+    created() {
+      this.loadWidgetsAll();
+    },
 	}
 </script>
 
@@ -112,5 +125,12 @@
     margin-bottom: 8px;
   }
 
+  .widgets-block{
+    //overflow: hidden;
+  }
+
+  .widgets-item{
+    //width: 1000px;
+  }
 
 </style>

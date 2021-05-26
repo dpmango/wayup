@@ -5,7 +5,7 @@
         img.drag-icon.mr-3(
           src="@/assets/images/svg/more-icon.svg"
         )
-        .widget-header__title Уровень нагрузки
+        .widget-header__title {{ title }}
         v-item-group.d-flex.ml-4.mb-0(
           mandatory
         )

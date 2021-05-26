@@ -595,38 +595,64 @@ const WidgetTeam = [
   {
     avatar: 'https://cdn.vuetifyjs.com/images/john.png',
     name: 'Даниил Брызгалов Вратарь',
-    hash:'#89',
-    gp:'30',
-    gaa:'2.46',
-    sv:'-',
-    position:'goalkeeper'
+    hash: '#15',
+    gp: '30',
+    gaa: '2.46',
+    sv: '-',
+    position: 'goalkeeper'
+  },
+  {
+    avatar: 'https://cdn.vuetifyjs.com/images/john.png',
+    name: 'Даниил Брызгалов Вратарь',
+    hash: '#89',
+    gp: '30',
+    gaa: '2.46',
+    sv: '-',
+    position: 'goalkeeper'
+  }, {
+    avatar: 'https://cdn.vuetifyjs.com/images/john.png',
+    name: 'Даниил Брызгалов Вратарь',
+    hash: '#89',
+    gp: '30',
+    gaa: '2.46',
+    sv: '-',
+    position: 'goalkeeper'
+  },
+  {
+    avatar: 'https://cdn.vuetifyjs.com/images/john.png',
+    name: 'Даниил Брызгалов Вратарь',
+    hash: '#89',
+    gp: '30',
+    gaa: '2.46',
+    sv: '-',
+    position: 'goalkeeper'
   },
   {
     avatar: 'https://cdn.vuetifyjs.com/images/john.png',
     name: 'Даниил Брызгалов Нападающий',
-    hash:'#89',
-    gp:'30',
-    gaa:'2.46',
-    sv:'-',
-    position:'forward'
+    hash: '#89',
+    gp: '30',
+    gaa: '2.46',
+    sv: '-',
+    position: 'forward'
   },
   {
     avatar: 'https://cdn.vuetifyjs.com/images/john.png',
     name: 'Даниил Брызгалов Защитник',
-    hash:'#89',
-    gp:'30',
-    gaa:'2.46',
-    sv:'-',
-    position:'defender'
+    hash: '#89',
+    gp: '30',
+    gaa: '2.46',
+    sv: '-',
+    position: 'defender'
   },
   {
     avatar: 'https://cdn.vuetifyjs.com/images/john.png',
-    name: 'Даниил Брызгалов Защитник',
-    hash:'#89',
-    gp:'30',
-    gaa:'2.46',
-    sv:'-',
-    position:'defender'
+    name: 'Даниил Брызгалов Друзья',
+    hash: '#89',
+    gp: '30',
+    gaa: '2.46',
+    sv: '-',
+    position: 'friend'
   }
 ];
 
@@ -667,13 +693,109 @@ const WidgetAwards = [
 ];
 
 
-const WidgetFormPlayer = [];
-const WidgetLearn = [];
-const WidgetEvents = [];
+const WidgetFormPlayer =
+  {
+    name: 'Bryzgalov',
+    num: '89',
+    position: 'Вратарь',
+    grip: 'Л',
+    status: 'Goaltender',
+    club: 'Boston Hockey Academy (USA)'
+
+  };
+const WidgetLearn = [
+  {
+    object:'Основы специальной педагогики и психологии 1',
+    ratio:'4.2',
+    semester:'1'
+
+  },
+  {
+    object:'Основы специальной педагогики и психологии 1',
+    ratio:'4.2',
+    semester:'1'
+
+  },
+  {
+    object:'Основы специальной педагогики и психологии 1',
+    ratio:'4.2',
+    semester:'2'
+
+  },
+  {
+    object:'Основы специальной педагогики и психологии 1',
+    ratio:'4.2',
+    semester:'3'
+
+  },
+  {
+    object:'Основы специальной педагогики и психологии 1',
+    ratio:'4.2',
+    semester:'4'
+
+  },
+];
+
+
+const WidgetEvents = [
+  {
+    date: '14 мар 2021',
+    title: 'Лёд, Одинцово',
+    description: 'Собираемся размяться, забронировали лёд. Берите снарягу, горячий чай и друзей. ',
+    images: [
+      'https://cdn.vuetifyjs.com/images/john.png',
+      'https://cdn.vuetifyjs.com/images/john.png',
+      'https://cdn.vuetifyjs.com/images/john.png',
+      'https://cdn.vuetifyjs.com/images/john.png',
+    ],
+    quantImg:'5'
+
+  },
+  {
+    date: '14 мар 2021',
+    title: 'Лёд, Одинцово',
+    description: 'Собираемся размяться, забронировали лёд. Берите снарягу, горячий чай и друзей. ',
+    images: [
+      'https://cdn.vuetifyjs.com/images/john.png',
+      'https://cdn.vuetifyjs.com/images/john.png',
+      'https://cdn.vuetifyjs.com/images/john.png',
+      'https://cdn.vuetifyjs.com/images/john.png',
+    ],
+    quantImg:'5'
+
+  },
+  {
+    date: '14 мар 2021',
+    title: 'Лёд, Одинцово',
+    description: 'Собираемся размяться, забронировали лёд. Берите снарягу, горячий чай и друзей. ',
+    images: [
+      'https://cdn.vuetifyjs.com/images/john.png',
+      'https://cdn.vuetifyjs.com/images/john.png',
+      'https://cdn.vuetifyjs.com/images/john.png',
+      'https://cdn.vuetifyjs.com/images/john.png',
+    ],
+    quantImg:'5'
+
+  },
+  {
+    date: '14 мар 2021',
+    title: 'Лёд, Одинцово',
+    description: 'Собираемся размяться, забронировали лёд. Берите снарягу, горячий чай и друзей. ',
+    images: [
+      'https://cdn.vuetifyjs.com/images/john.png',
+      'https://cdn.vuetifyjs.com/images/john.png',
+      'https://cdn.vuetifyjs.com/images/john.png',
+      'https://cdn.vuetifyjs.com/images/john.png',
+    ],
+    quantImg:'5'
+
+  },
+
+];
 
 const WidgetStatisticMatch = [
   {
-    opponent: '2020 - 2021',
+    opponent: 'Авангард',
     date: '29 янв 2021',
     v: 4,
     p: 4,
@@ -688,7 +810,7 @@ const WidgetStatisticMatch = [
     ot: 6,
   },
   {
-    opponent: '2020 - 2021',
+    opponent: 'Авангард',
     date: '29 янв 2021',
     v: 4,
     p: 4,
@@ -703,7 +825,7 @@ const WidgetStatisticMatch = [
     ot: 6,
   },
   {
-    opponent: '2020 - 2021',
+    opponent: 'Авангард',
     date: '29 янв 2021',
     v: 4,
     p: 4,
@@ -719,7 +841,7 @@ const WidgetStatisticMatch = [
   },
 
   {
-    opponent: '2020 - 2021',
+    opponent: 'Авангард 2021',
     date: '29 янв 2021',
     v: 4,
     p: 4,
@@ -734,7 +856,7 @@ const WidgetStatisticMatch = [
     ot: 6,
   },
   {
-    opponent: '2020 - 2021',
+    opponent: 'Авангард',
     date: '29 янв 2021',
     v: 4,
     p: 4,
@@ -749,7 +871,7 @@ const WidgetStatisticMatch = [
     ot: 6,
   },
   {
-    opponent: '2020 - 2021',
+    opponent: 'Авангард',
     date: '29 янв 2021',
     v: 4,
     p: 4,
@@ -834,13 +956,23 @@ const WidgetStatisticTotal = [
 export const WidgetAll = [
   {
     widgetComponent: 'WidgetStatisticAnalytics',
+    widgetPosition: 1,
     widgetTitle: 'Аналитика',
-    widgetDate: WidgetStatisticAnalytics
+    widgetData: WidgetStatisticAnalytics
+  },
+
+  {
+    widgetComponent: 'WidgetStatisticSeason',
+    widgetPosition: 3,
+    widgetTitle: 'Статистика сезона 2020-2021',
+    widgetData: WidgetStatisticSeason
   },
   {
-    widgetComponent: 'WidgetLevel',
-    widgetTitle: 'Уровень нагрузки',
-    widgetDate: WidgetLevel
+    widgetComponent: 'WidgetStatisticMatch',
+    widgetPosition: 5,
+    widgetCol: 12,
+    widgetTitle: 'Матчи',
+    widgetData: WidgetStatisticMatch
   },
 ];
 
@@ -902,27 +1034,27 @@ export const WidgetList = [
   },
   {
     widgetComponent: 'WidgetFormPlayer',
-    widgetPosition: 9,
+    widgetPosition: 10,
     widgetCol: 6,
     widgetData: WidgetFormPlayer
   },
   {
     widgetComponent: 'WidgetMapsGoalZone',
-    widgetPosition: 4,
+    widgetPosition: 11,
     widgetCol: 6,
     widgetTitle: 'Броски в створ по зонам',
     widgetData: WidgetMapsGoalZone
   },
   {
     widgetComponent: 'WidgetLearn',
-    widgetPosition: 4,
+    widgetPosition: 12,
     widgetCol: 6,
     widgetTitle: 'Учёба',
     widgetData: WidgetLearn
   },
   {
     widgetComponent: 'WidgetEvents',
-    widgetPosition: 4,
+    widgetPosition: 13,
     widgetCol: 6,
     widgetTitle: 'Предстоящие события',
     widgetData: WidgetEvents

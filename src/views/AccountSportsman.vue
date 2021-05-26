@@ -156,7 +156,6 @@
 		data: () => ({
 			isShowList: false,
 			isShowSidebarWidgets: false,
-
 			settings: {
 				suppressScrollY: false,
 				suppressScrollX: false,

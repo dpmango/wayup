@@ -9,16 +9,17 @@
         v-item-group.d-flex.ml-4(mandatory)
           v-item(
             v-slot='{ active, toggle }'
-            v-for='(button,i) in buttons' :key='i'
+            v-for='val in gamers'
+            :key='val'
 
           )
             div
-              | {{ button.text }}
               base-segment(
                 classAttr='segment-default segment-small'
-                label=''
+                :label="val"
                 tag="div"
                 @click='toggle'
+                @select="changeGamer($event)"
               )
         DotsMenu.mt-0.position-static.ml-auto
       .widget-header__bottom
@@ -39,18 +40,18 @@
       )
         .statistic-season__body
           .widget__item.mb-1(
-            v-for='(item,i) in data' :key='i'
+            v-for='(item,i) in playerList' :key='i'
           )
             .statistic-td.first.d-flex.align-center
               v-avatar.avatar-player(
                 size='32'
               )
                 img(:src='item.avatar')
-              .team-player__name Даниил Брызгалов
+              .team-player__name {{ item.name }}
 
 
               base-badge.ml-4(
-                label="#89"
+                :label='item.hash'
                 background="#F1F3F9"
                 textColor="#000000"
               )
@@ -79,12 +80,13 @@ export default {
 
   props: {
     data: {
-      type: Object,
+      type: Array,
     },
     title: {
       type: [String],
       default: ''
     },
+
   },
   components: {
     DotsMenu,
@@ -92,24 +94,44 @@ export default {
   },
   data: () => ({
     isShowList: false,
-
-    buttons: [
-      {text: 'Вратари'},
-      {text: 'Защитники'},
-      {text: 'Нападающие'},
-      {text: 'Друзья'}
-    ],
+    gamers: ['Вратари', 'Защитники', 'Нападающие', 'Друзья'],
+    playerList: null,
     settings: {
       suppressScrollY: false,
       suppressScrollX: false,
       wheelPropagation: false
     },
   }),
+  computed: {
+
+
+  },
   methods: {
     toggleList: function () {
       this.isShowList = !this.isShowList;
     },
+    changeGamer(gamer) {
+      this.currentGamer = gamer;
+      switch (gamer) {
+        case 'Вратари':
+          this.playerList = this.data.filter(item => item.position == "goalkeeper");
+          break;
+        case 'Защитники':
+          this.playerList = this.data.filter(item => item.position == "defender");
+          break;
+        case 'Нападающие':
+          this.playerList = this.data.filter(item => item.position == "forward");
+          break;
+        case 'Друзья':
+          this.playerList = this.data.filter(item => item.position == "friend");
+          break;
+      }
+    }
   },
+  mounted() {
+    this.playerList = this.data.filter(item => item.position == "goalkeeper")
+  }
+
 }
 </script>
 
