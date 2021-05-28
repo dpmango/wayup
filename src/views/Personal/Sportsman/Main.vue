@@ -72,6 +72,7 @@ import WidgetErrors from "@/components/widgets/WidgetErrors";
 import WidgetStatisticAnalytics from "@/components/widgets/WidgetStatisticAnalytics";
 import WidgetMapsGoalZone from "@/components/widgets/WidgetMapsGoalZone";
 import WidgetStatisticMatch from "@/components/widgets/WidgetStatisticMatch";
+import WidgetStatisticGame from "@/components/widgets/WidgetStatisticGame";
 import {mapActions, mapState} from 'vuex';
 
 export default {
@@ -106,7 +107,8 @@ export default {
     WidgetErrors,
     WidgetMapsGoalZone,
     WidgetStatisticAnalytics,
-    WidgetStatisticMatch
+    WidgetStatisticMatch,
+    WidgetStatisticGame
   },
 
   data: () => ({

@@ -40,7 +40,7 @@
 
     ScheduleHeader.mb-16(title='Личный кабинет')
       template(v-slot:header-block)
-        LevelBlock.ml-10
+        //LevelBlock.ml-10
 
       template(v-slot:header-right)
         MusicPlayer

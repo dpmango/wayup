@@ -585,11 +585,51 @@ const WidgetStatisticGame = [
 
 ];
 
-const WidgetMapsGoal = [];
+const WidgetMapsGoal = {
+  stop: '2'
+};
 
 const WidgetMapsGoalZone = [];
 
-const WidgetHomework = [];
+const WidgetHomework = [
+  {
+    task: 'Ожимания 4 по 30',
+    labelText: '2 дня назад',
+    labelColor: '#A12238',
+    labelBg: 'rgba(236, 72, 101, 0.2)',
+  },
+  {
+    task: 'Бег 1 км',
+    labelText: 'ЗАВЕРШЕНО',
+    labelColor: '#1F7800',
+    labelBg: 'rgba(61, 197, 13, 0.15)',
+  },
+  {
+    task: 'Ожимания 4 по 30',
+    labelText: '2 дня назад',
+    labelColor: '#A12238',
+    labelBg: 'rgba(236, 72, 101, 0.2)',
+  },
+  {
+    task: 'Бег 1 км',
+    labelText: 'ЗАВЕРШЕНО',
+    labelColor: '#1F7800',
+    labelBg: 'rgba(61, 197, 13, 0.15)',
+  },
+  {
+    task: 'Ожимания 4 по 30',
+    labelText: '2 дня назад',
+    labelColor: '#A12238',
+    labelBg: 'rgba(236, 72, 101, 0.2)',
+  },
+  {
+    task: 'Бег 1 км',
+    labelText: 'ЗАВЕРШЕНО',
+    labelColor: '#1F7800',
+    labelBg: 'rgba(61, 197, 13, 0.15)',
+  },
+
+];
 
 const WidgetTeam = [
   {
@@ -656,7 +696,17 @@ const WidgetTeam = [
   }
 ];
 
-const WidgetChartPolar = [];
+const WidgetChartPolar =
+  {
+    'И': 40,
+    'В': 58,
+    'П': 18,
+    '%ОБ': 92.7,
+    'КН': 40,
+    'И’’0’’': 30,
+    'ВП': 49
+  };
+
 
 const WidgetAwards = [
   {
@@ -700,38 +750,38 @@ const WidgetFormPlayer =
     position: 'Вратарь',
     grip: 'Л',
     status: 'Goaltender',
-    club: 'Boston Hockey Academy (USA)'
-
+    club: 'Boston Hockey Academy (USA)',
+    img:"https://i.ibb.co/svRtFSL/form-img.jpg"
   };
 const WidgetLearn = [
   {
-    object:'Основы специальной педагогики и психологии 1',
-    ratio:'4.2',
-    semester:'1'
+    object: 'Основы специальной педагогики и психологии 1',
+    ratio: '4.3',
+    semester: 1
 
   },
   {
-    object:'Основы специальной педагогики и психологии 1',
-    ratio:'4.2',
-    semester:'1'
+    object: 'Основы специальной педагогики и психологии 1',
+    ratio: '4.2',
+    semester: 1
 
   },
   {
-    object:'Основы специальной педагогики и психологии 1',
-    ratio:'4.2',
-    semester:'2'
+    object: 'Основы специальной педагогики и психологии 2',
+    ratio: '4.2',
+    semester: 2
 
   },
   {
-    object:'Основы специальной педагогики и психологии 1',
-    ratio:'4.2',
-    semester:'3'
+    object: 'Основы специальной педагогики и психологии 3',
+    ratio: '4.5',
+    semester: 3
 
   },
   {
-    object:'Основы специальной педагогики и психологии 1',
-    ratio:'4.2',
-    semester:'4'
+    object: 'Основы специальной педагогики и психологии 4',
+    ratio: '4.2',
+    semester: 4
 
   },
 ];
@@ -748,7 +798,7 @@ const WidgetEvents = [
       'https://cdn.vuetifyjs.com/images/john.png',
       'https://cdn.vuetifyjs.com/images/john.png',
     ],
-    quantImg:'5'
+    quantImg: '5'
 
   },
   {
@@ -761,7 +811,7 @@ const WidgetEvents = [
       'https://cdn.vuetifyjs.com/images/john.png',
       'https://cdn.vuetifyjs.com/images/john.png',
     ],
-    quantImg:'5'
+    quantImg: '5'
 
   },
   {
@@ -774,7 +824,7 @@ const WidgetEvents = [
       'https://cdn.vuetifyjs.com/images/john.png',
       'https://cdn.vuetifyjs.com/images/john.png',
     ],
-    quantImg:'5'
+    quantImg: '5'
 
   },
   {
@@ -787,7 +837,7 @@ const WidgetEvents = [
       'https://cdn.vuetifyjs.com/images/john.png',
       'https://cdn.vuetifyjs.com/images/john.png',
     ],
-    quantImg:'5'
+    quantImg: '5'
 
   },
 
@@ -974,10 +1024,6 @@ export const WidgetAll = [
     widgetTitle: 'Матчи',
     widgetData: WidgetStatisticMatch
   },
-];
-
-// Страница Общая спортсмена
-export const WidgetList = [
   {
     widgetComponent: 'WidgetStatisticAnalytics',
     widgetPosition: 1,
@@ -990,19 +1036,12 @@ export const WidgetList = [
     widgetTitle: 'Уровень нагрузки',
     widgetData: WidgetLevel
   },
+
   {
     widgetComponent: 'WidgetStatisticSeason',
     widgetPosition: 3,
     widgetTitle: 'Статистика сезона 2020-2021',
     widgetData: WidgetStatisticSeason
-  },
-
-  {
-    widgetComponent: 'WidgetHomework',
-    widgetPosition: 4,
-    widgetCol: 8,
-    widgetTitle: 'Выполнение ДЗ',
-    widgetData: WidgetHomework
   },
   {
     widgetComponent: 'WidgetTeam',
@@ -1011,25 +1050,45 @@ export const WidgetList = [
     widgetTitle: 'Команда',
     widgetData: WidgetTeam
   },
+];
+
+// Страница Общая спортсмена
+export const WidgetList = [
+  {
+    widgetComponent: 'WidgetStatisticGame',
+    widgetPosition: 20,
+    widgetCol: 8,
+    widgetTitle: 'Игровая статистика + -',
+    widgetData: WidgetStatisticGame
+  },
+
+  {
+    widgetComponent: 'WidgetHomework',
+    widgetPosition: 4,
+    widgetCol: 8,
+    widgetTitle: 'Домашние задания +',
+    widgetData: WidgetHomework
+  },
+
   {
     widgetComponent: 'WidgetMapsGoal',
     widgetPosition: 7,
     widgetCol: 6,
-    widgetTitle: 'Карта бросков и голов',
+    widgetTitle: 'Карта бросков и голов -',
     widgetData: WidgetMapsGoal
   },
   {
     widgetComponent: 'WidgetChartPolar',
-    widgetPosition: 8,
+    widgetPosition: 15,
     widgetCol: 6,
-    widgetTitle: 'Отражённых бросков',
+    widgetTitle: 'Отражённых бросков +',
     widgetData: WidgetChartPolar
   },
   {
     widgetComponent: 'WidgetAwards',
     widgetPosition: 9,
     widgetCol: 6,
-    widgetTitle: 'Мои награды',
+    widgetTitle: 'Мои награды +',
     widgetData: WidgetAwards
   },
   {
@@ -1042,21 +1101,21 @@ export const WidgetList = [
     widgetComponent: 'WidgetMapsGoalZone',
     widgetPosition: 11,
     widgetCol: 6,
-    widgetTitle: 'Броски в створ по зонам',
+    widgetTitle: 'Броски в створ по зонам -',
     widgetData: WidgetMapsGoalZone
   },
   {
     widgetComponent: 'WidgetLearn',
     widgetPosition: 12,
     widgetCol: 6,
-    widgetTitle: 'Учёба',
+    widgetTitle: 'Учёба + -',
     widgetData: WidgetLearn
   },
   {
     widgetComponent: 'WidgetEvents',
     widgetPosition: 13,
     widgetCol: 6,
-    widgetTitle: 'Предстоящие события',
+    widgetTitle: 'Предстоящие события +',
     widgetData: WidgetEvents
   },
 
@@ -1071,13 +1130,7 @@ export const WidgetListStat = [
     widgetTitle: 'Статистика сезона 2020-2021',
     widgetData: WidgetStatisticGame
   },
-  // {
-  // 	widgetComponent: 'IndicationStatistic',
-  // 	widgetPosition: 2,
-  // 	widgetCol: 12,
-  // 	widgetTitle: 'Показатели',
-  // 	widgetData: IndicationStatistic
-  // },
+
   {
     widgetComponent: 'WidgetMapsGoal',
     widgetPosition: 3,

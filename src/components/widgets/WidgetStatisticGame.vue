@@ -7,12 +7,12 @@
         )
         .widget-header__title {{ title }}
         base-select(
-          classAttr='select-default select-small select-bg-gray ml-auto mr-4'
-          label="Regular season (Complete Stats)"
+          classAttr='select-default select-small select-bg-gray ml-8'
+          label="Реулярный сезон"
           :items="selectItems"
           solo=true
         )
-        DotsMenu.mt-0.position-static
+        DotsMenu.mt-0.ml-auto.position-static
       .widget-header__bottom
         .statistic-season__head
           .statistic-td.text-left S
