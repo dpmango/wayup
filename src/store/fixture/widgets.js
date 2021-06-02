@@ -365,6 +365,8 @@ const WidgetLevel = [
   }
 ];
 
+const WidgetLevelWeek = []
+
 const WidgetStatisticSeason = [
   {
     season: '2020-2021',
@@ -786,6 +788,7 @@ const WidgetLearn = [
   },
 ];
 
+const WidgetTargetPeriod = []
 
 const WidgetEvents = [
   {
@@ -1117,6 +1120,22 @@ export const WidgetList = [
     widgetCol: 6,
     widgetTitle: 'Предстоящие события +',
     widgetData: WidgetEvents
+  },
+
+  {
+    widgetComponent: 'WidgetTargetPeriod',
+    widgetPosition: 17,
+    widgetCol: 6,
+    widgetTitle: 'Цели на подготовительный период',
+    widgetData: WidgetTargetPeriod
+  },
+
+  {
+    widgetComponent: 'WidgetLevelWeek',
+    widgetPosition: 18,
+    widgetCol: 12,
+    widgetTitle: 'Нагрузка',
+    widgetData: WidgetLevelWeek
   },
 
 ];
