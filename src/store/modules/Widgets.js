@@ -61,19 +61,19 @@ const getters = {
 */
 const actions = {
 	loadWidgetsAll({commit}) {
-		// Получаем список виджетов по апи
+		// TODO Получаем список виджетов по апи
 		//
 
 		commit(SET_WIDGET_ALL, WidgetAll);
 	},
 	loadWidgetsListMain({commit}) {
-		// Получаем список виджетов по апи
+		// TODO Получаем список виджетов по апи
 		//
 
 		commit(SET_WIDGET_LIST, WidgetList);
 	},
 	loadWidgetsListStat({commit}) {
-		// Получаем список виджетов по апи
+		// TODO Получаем список виджетов по апи
 		//
 
 		commit(SET_WIDGET_LIST, WidgetListStat);
