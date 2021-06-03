@@ -1,6 +1,11 @@
 <template lang="pug">
   v-row
     v-col(
+      md="12"
+      sm="12"
+    )
+      general-progress
+    v-col(
       md="7"
     )
 
@@ -59,7 +64,6 @@ import WidgetStatisticSeason from "@/components/widgets/WidgetStatisticSeason";
 import WidgetMapsGoal from "@/components/widgets/WidgetMapsGoal";
 import WidgetTeam from "@/components/widgets/WidgetTeam";
 import WidgetLearn from "@/components/widgets/WidgetLearn";
-import WidgetLevel from "@/components/widgets/WidgetLevel";
 import WidgetChartPolar from "@/components/widgets/WidgetChartPolar";
 import MusicPlayer from "@/components/elements/MusicPlayer";
 import AccordionExercises from "@/components/AccordionExercises";
@@ -72,6 +76,7 @@ import WidgetErrors from "@/components/widgets/WidgetErrors";
 import WidgetStatisticAnalytics from "@/components/widgets/WidgetStatisticAnalytics";
 import WidgetMapsGoalZone from "@/components/widgets/WidgetMapsGoalZone";
 import WidgetStatisticMatch from "@/components/widgets/WidgetStatisticMatch";
+import GeneralProgress from "@/components/personal/GeneralProgress";
 import {mapActions, mapState} from 'vuex';
 
 export default {
@@ -92,7 +97,6 @@ export default {
     WidgetFormPlayer,
     WidgetEvents,
     WidgetHomework,
-    WidgetLevel,
     WidgetChartPolar,
     HmProgress,
     DotsMenu,
@@ -106,7 +110,8 @@ export default {
     WidgetErrors,
     WidgetMapsGoalZone,
     WidgetStatisticAnalytics,
-    WidgetStatisticMatch
+    WidgetStatisticMatch,
+    GeneralProgress
   },
 
   data: () => ({
