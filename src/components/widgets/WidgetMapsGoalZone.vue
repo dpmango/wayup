@@ -7,17 +7,21 @@
         )
         .widget-header__title {{ title }}
         v-item-group.d-flex.ml-auto.mb-0(mandatory)
-          each val in ['Все', 'Голы', 'Броски']
-            v-item(
-              v-slot='{ active, toggle }'
-            )
-              div
-                base-segment(
-                  classAttr='segment-default segment-small'
-                  label=val
-                  tag="div"
-                  @click='toggle'
-                )
+
+          v-item(
+            v-slot='{ active, toggle }'
+            v-for='val in resultButtons'
+            :key='val'
+          )
+            div
+              base-segment(
+                classAttr='segment-default segment-small'
+                :label='val'
+                tag="div"
+                @click='toggle'
+                @select="changeResult($event)"
+              )
+
     .widget-content
       .maps-goal__wrap
         .maps-goal__block
@@ -31,16 +35,20 @@
             .point-goal(style="left: 150px; top:150px;")
             .point-goal(style="left: 250px; top:150px;")
             .point-goal(style="left: 150px; top:250px;")
+
           .maps-goal__right(v-if='widgetBig')
+            .maps-goal__indication.mb-6.mt-7
+              .maps-goal__indication-item(v-for='(item,i) in 3' :key='i')
+                .maps-goal__indication-key КН
+                .maps-goal__indication-value 1.22
+
             .goal-statistic__panel
-              .goal-statistic Остановка клюшкой <span>2</span>
-              .goal-statistic Игра ловушкой <span>2</span>
-              .goal-statistic Игра клюшкой <span>2</span>
-              .goal-statistic Игра блином <span>2</span>
-              .goal-statistic Корпус <span>2</span>
-              .goal-statistic__panel-bottom
-                .goal-statistic.goal-label.goal-complete Отбитых <span>19</span>
-                .goal-statistic.goal-label.goal-fail Пропущенных <span>2</span>
+              .goal-statistic-title.mb-3 Игры: 5
+              .goal-statistic Steam-factor <span>4 : 3</span>
+              .goal-statistic Весёлые дьяволы <span>0 : 1</span>
+              .goal-statistic Трактор <span>0 : 7</span>
+              .goal-statistic ХК «Бурундуки» <span>4 : 3</span>
+              .goal-statistic ХК «Олимпик» <span>4 : 3</span>
 
 
 </template>
@@ -51,7 +59,9 @@
 export default {
   name: "WidgetMapsGoalZone",
   data: () => ({
-    widgetBig: true
+    resultButtons: ['Все', '<span class="circle red-circle">Голы</span>', '<span class="circle black-circle">Броски</span>'],
+    widgetBig: true,
+    resultList: null
   }),
   props: {
     data: {
@@ -62,6 +72,22 @@ export default {
       default: ''
     },
 
+  },
+  methods: {
+    changeResult(result) {
+      this.currentResult = result;
+      switch (result) {
+        case 'Все':
+          this.resultList = this.data.filter(item => item.position == "goalkeeper");
+          break;
+        case 'Голы':
+          this.resultList = this.data.filter(item => item.position == "defender");
+          break;
+        case 'Броски':
+          this.resultList = this.data.filter(item => item.position == "forward");
+          break;
+      }
+    }
   },
 }
 </script>
@@ -143,8 +169,15 @@ export default {
   span {
     font-family: $FiraSansMedium;
     margin-left: 10px;
+    white-space: nowrap;
+
   }
 
+}
+
+.goal-statistic-title {
+  font-family: $FiraSansMedium;
+  font-size: 14px;
 }
 
 .goal-label {
@@ -169,19 +202,51 @@ export default {
   }
 }
 
-.widget-team {
-  .statistic-td.first {
-    @include width-flex(30%)
-    text-align: left;
+.maps-goal__indication{
+  display: flex;
+}
+
+.maps-goal__indication-item{
+  @include width-flex(33.3%)
+  border-left: 2px solid rgba(0, 0, 0, 0.1);
+  padding: 3px 10px 5px 10px;
+}
+.maps-goal__indication-key{
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.5);
+  margin-bottom: 5px;
+}
+.maps-goal__indication-value{
+  font-family: $FiraSansMedium;
+  font-size: 14px;
+}
+
+
+::v-deep {
+  .circle {
+    display: flex;
+    align-items: center;
+    &:before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 5px;
+
+    }
   }
-
-  .statistic-td {
-    @include width-flex(14%)
-    font-size: 14px;
-    text-align: center;
-
+  .red-circle {
+    &:before {
+      background: #EC4865;
+    }
+  }
+  .black-circle {
+    &:before {
+      background: #000000;
+    }
   }
 
 }
+
 
 </style>

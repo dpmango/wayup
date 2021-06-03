@@ -7,7 +7,6 @@
         )
         .widget-header__title {{ title }}
         v-item-group.d-flex.ml-auto.mb-0(mandatory)
-
           v-item(
             v-slot='{ active, toggle }'
             v-for='val in resultButtons'
@@ -35,18 +34,15 @@
             .point-goal(style="left: 250px; top:150px;")
             .point-goal(style="left: 150px; top:250px;")
           .maps-goal__right(v-if='widgetBig')
+            .goal-statistic__panel.mb-6
+              .goal-statistic-title Голы: 2
             .goal-statistic__panel
+              .goal-statistic-title.mb-3 Отбитые броски: 19
               .goal-statistic Остановка клюшкой <span>2</span>
               .goal-statistic Игра ловушкой <span>2</span>
               .goal-statistic Игра клюшкой <span>2</span>
               .goal-statistic Игра блином <span>2</span>
               .goal-statistic Корпус <span>2</span>
-              .goal-statistic__panel-bottom
-                .goal-statistic.goal-label.goal-complete Отбитых <span>19</span>
-                .goal-statistic.goal-label.goal-fail Пропущенных <span>2</span>
-        .widget-bottom.d-flex.mt-10(v-if='!widgetBig')
-          .goal-statistic.goal-label.goal-complete Отбитых <span>19</span>
-          .goal-statistic.goal-label.goal-fail Пропущенных <span>2</span>
 
 </template>
 
@@ -56,7 +52,7 @@
 export default {
   name: "WidgetMapsGoal",
   data: () => ({
-    resultButtons: ['Все', 'Голы', 'Броски'],
+    resultButtons: ['Все', '<span class="circle red-circle">Голы</span>', '<span class="circle black-circle">Броски</span>'],
     widgetBig: true,
     resultList:null
   }),
@@ -167,6 +163,7 @@ export default {
   span {
     font-family: $FiraSansMedium;
     margin-left: 10px;
+    white-space: nowrap;
   }
 
 }
@@ -193,19 +190,38 @@ export default {
   }
 }
 
-.widget-team {
-  .statistic-td.first {
-    @include width-flex(30%)
-    text-align: left;
+.goal-statistic-title{
+  font-family: $FiraSansMedium;
+  font-size: 14px;
+}
+
+
+::v-deep {
+  .circle {
+    display: flex;
+    align-items: center;
+    &:before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 5px;
+
+    }
   }
-
-  .statistic-td {
-    @include width-flex(14%)
-    font-size: 14px;
-    text-align: center;
-
+  .red-circle {
+    &:before {
+      background: #EC4865;
+    }
+  }
+  .black-circle {
+    &:before {
+      background: #000000;
+    }
   }
 
 }
+
+
 
 </style>

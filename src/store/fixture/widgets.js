@@ -1061,7 +1061,7 @@ export const WidgetList = [
     widgetComponent: 'WidgetStatisticGame',
     widgetPosition: 20,
     widgetCol: 8,
-    widgetTitle: 'Игровая статистика + -',
+    widgetTitle: 'Игровая статистика',
     widgetData: WidgetStatisticGame
   },
 
@@ -1069,29 +1069,29 @@ export const WidgetList = [
     widgetComponent: 'WidgetHomework',
     widgetPosition: 4,
     widgetCol: 8,
-    widgetTitle: 'Домашние задания +',
+    widgetTitle: 'Домашние задания',
     widgetData: WidgetHomework
   },
 
   {
     widgetComponent: 'WidgetMapsGoal',
-    widgetPosition: 7,
+    widgetPosition: 22,
     widgetCol: 6,
-    widgetTitle: 'Карта бросков и голов -',
+    widgetTitle: 'Карта бросков и голов',
     widgetData: WidgetMapsGoal
   },
   {
     widgetComponent: 'WidgetChartPolar',
     widgetPosition: 15,
     widgetCol: 6,
-    widgetTitle: 'Отражённых бросков +',
+    widgetTitle: 'Отражённых бросков',
     widgetData: WidgetChartPolar
   },
   {
     widgetComponent: 'WidgetAwards',
     widgetPosition: 9,
     widgetCol: 6,
-    widgetTitle: 'Мои награды +',
+    widgetTitle: 'Мои награды',
     widgetData: WidgetAwards
   },
   {
@@ -1102,23 +1102,23 @@ export const WidgetList = [
   },
   {
     widgetComponent: 'WidgetMapsGoalZone',
-    widgetPosition: 11,
+    widgetPosition: 20,
     widgetCol: 6,
-    widgetTitle: 'Броски в створ по зонам -',
+    widgetTitle: 'Броски в створ по зонам',
     widgetData: WidgetMapsGoalZone
   },
   {
     widgetComponent: 'WidgetLearn',
     widgetPosition: 12,
     widgetCol: 6,
-    widgetTitle: 'Учёба + -',
+    widgetTitle: 'Учёба',
     widgetData: WidgetLearn
   },
   {
     widgetComponent: 'WidgetEvents',
     widgetPosition: 13,
     widgetCol: 6,
-    widgetTitle: 'Предстоящие события +',
+    widgetTitle: 'Предстоящие события',
     widgetData: WidgetEvents
   },
 
