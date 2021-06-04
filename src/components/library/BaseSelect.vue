@@ -10,8 +10,8 @@
     :disabled='disabled'
 
   )
-    template(slot='item' slot-scope='data')
-      slot(name="item-inner")
+    //template(slot='item' slot-scope='data')
+    //  slot(name="item-inner")
 
 
 </template>
@@ -67,6 +67,7 @@ export default {
   ::v-deep .v-label {
     top: rem(10px);
     font-size: rem(16px);
+    color: #000;
   }
 
 
@@ -265,12 +266,17 @@ export default {
     .v-input__slot {
       min-height: rem(24px) !important;
     }
+    .v-input__control{
+      min-height: rem(24px) !important;
+
+    }
 
     .v-label {
       top: 5px;
+      font-size: 14px;
     }
     .v-input__append-inner{
-      margin-top: 5px;
+      //margin-top: 5px;
     }
   }
 }

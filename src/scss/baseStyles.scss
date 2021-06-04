@@ -281,17 +281,17 @@
 
 }
 
-.v-list-item--active {
-  &:after {
-    content: '';
-    @include background-contain('check-icon.svg')
-    width: 16px;
-    height: 16px;
-    position: absolute;
-    left: 10px;
-    top: 0;
-  }
-}
+//.v-list-item--active {
+//  &:after {
+//    content: '';
+//    @include background-contain('check-icon.svg')
+//    width: 16px;
+//    height: 16px;
+//    position: absolute;
+//    left: 10px;
+//    top: 0;
+//  }
+//}
 
 
 .v-list-item--link:before {
@@ -600,7 +600,8 @@
 
 .statistic-td {
   font-size: 14px;
-
+  padding-left: 2px;
+  padding-right: 2px;
 }
 
 .font-bold{
@@ -623,9 +624,26 @@
   font-size: 14px;
   margin-left: 4px;
   margin-right: 4px;
+  background: #F1F3F9;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-family: $FiraSansMedium;
+  padding: 4px 16px;
+
 }
 
 .nav-arrow{
+  background: #F1F3F9;
+  @include width-flex(24px)
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 4px;
   &:hover{
     cursor: pointer;
   }

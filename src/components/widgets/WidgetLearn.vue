@@ -8,11 +8,15 @@
         .widget-header__title.mr-2 {{ title }}
         .widget-header__text средний балл  <span class='ml-1'>3,5</span>
         .nav-slider.ml-auto
-          svg.nav-arrow(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
-            path(d='M9 4L5 8L9 12' stroke='#326BFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
-          .nav-slider__text 2 семестр
-          svg.nav-arrow(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
-            path(d='M7 4L11 8L7 12' stroke='#326BFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
+          .nav-arrow(@click='prev')
+            svg(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
+              path(d='M9 4L5 8L9 12' stroke='#000000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
+          .nav-slider__text(
+            v-text='currentLabel'
+          )
+          .nav-arrow(@click='next')
+            svg(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
+              path(d='M7 4L11 8L7 12' stroke='#000000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
         DotsMenu.mt-0.position-static.ml-5
     .widget-content.widget-content_gray
       vue-custom-scrollbar(
@@ -23,11 +27,11 @@
       )
 
         .widget__item.mb-1(
-          v-for='(item,i) in data' :key='i'
+          v-for='(item,i) in filterLearnList' :key='i'
         )
           .text-small {{ item.object }}
           .widget__item-right.d-flex.align-center.ml-auto
-            .discipline-num 4,2
+            .discipline-num {{ item.ratio }}
               <!-- при отрицательном результате 'green-result' заменить на 'red-result' -->
             .progress-quant__block.green-result
               svg.progress-indication(width='8' height='5' viewBox='0 0 8 5' fill='none' xmlns='http://www.w3.org/2000/svg')
@@ -68,6 +72,9 @@ export default {
   },
   data: () => ({
     isShowList: false,
+    learnList: null,
+    semesters: ['1 семестр', '2 семестр', '3 семестр', '4 семестр'],
+    currentIndex: 0,
     settings: {
       suppressScrollY: false,
       suppressScrollX: false,
@@ -78,7 +85,35 @@ export default {
     toggleList: function () {
       this.isShowList = !this.isShowList;
     },
+
+    prev: function (){
+      if(this.currentIndex < 1 ){
+        return false
+      }
+      else{
+        this.currentIndex --
+      }
+    },
+    next: function (){
+      if(this.currentIndex < (this.semesters.length - 1) ){
+        this.currentIndex ++
+      }
+      else{
+        return false
+      }
+    }
   },
+  mounted() {
+    this.learnList = this.data.filter(item => item.semester == "1")
+  },
+  computed:{
+    currentLabel: function (){
+      return this.semesters[this.currentIndex]
+    },
+    filterLearnList: function (){
+      return this.data.filter(item => item.semester == this.currentIndex + 1);
+    }
+  }
 }
 </script>
 

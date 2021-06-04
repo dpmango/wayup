@@ -77,6 +77,9 @@ import WidgetStatisticAnalytics from "@/components/widgets/WidgetStatisticAnalyt
 import WidgetMapsGoalZone from "@/components/widgets/WidgetMapsGoalZone";
 import WidgetStatisticMatch from "@/components/widgets/WidgetStatisticMatch";
 import GeneralProgress from "@/components/personal/GeneralProgress";
+import WidgetStatisticGame from "@/components/widgets/WidgetStatisticGame";
+import WidgetTargetPeriod from "@/components/widgets/WidgetTargetPeriod";
+import WidgetLevelWeek from "@/components/widgets/WidgetLevelWeek";
 import {mapActions, mapState} from 'vuex';
 
 export default {
@@ -111,6 +114,9 @@ export default {
     WidgetMapsGoalZone,
     WidgetStatisticAnalytics,
     WidgetStatisticMatch,
+    WidgetStatisticGame,
+    WidgetTargetPeriod,
+    WidgetLevelWeek,
     GeneralProgress
   },
 
