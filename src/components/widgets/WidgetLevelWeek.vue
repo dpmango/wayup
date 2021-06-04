@@ -6,9 +6,9 @@
           src="@/assets/images/svg/more-icon.svg"
         )
         .widget-header__title {{ title }}
-        //--base-switch.ml-11(
-        //-- label='Среднее за неделю'
-        //--)
+        base-switch.ml-11(
+          label='Среднее за неделю'
+        )
 
         .nav-slider.ml-auto
           .nav-arrow()

@@ -1058,33 +1058,52 @@ export const WidgetAll = [
 export const WidgetList = [
   {
     widgetComponent: 'WidgetStatisticGame',
-    widgetPosition: 20,
+    widgetPosition: 2,
     widgetCol: 8,
     widgetTitle: 'Игровая статистика',
     widgetData: WidgetStatisticGame
   },
-
+  {
+    widgetComponent: 'WidgetChartPolar',
+    widgetPosition: 3,
+    widgetCol: 6,
+    widgetTitle: 'Отражённых бросков',
+    widgetData: WidgetChartPolar
+  },
+  {
+    widgetComponent: 'WidgetLevelWeek',
+    widgetPosition: 4,
+    widgetCol: 12,
+    widgetTitle: 'Нагрузка',
+    widgetData: WidgetLevelWeek
+  },
+  {
+    widgetComponent: 'WidgetTargetPeriod',
+    widgetPosition: 5,
+    widgetCol: 6,
+    widgetTitle: 'Цели на подготовительный период',
+    widgetData: WidgetTargetPeriod
+  },
   {
     widgetComponent: 'WidgetHomework',
-    widgetPosition: 4,
+    widgetPosition: 6,
     widgetCol: 8,
     widgetTitle: 'Домашние задания',
     widgetData: WidgetHomework
   },
-
+  {
+    widgetComponent: 'WidgetEvents',
+    widgetPosition: 7,
+    widgetCol: 6,
+    widgetTitle: 'Предстоящие события',
+    widgetData: WidgetEvents
+  },
   {
     widgetComponent: 'WidgetMapsGoal',
-    widgetPosition: 22,
+    widgetPosition: 8,
     widgetCol: 6,
     widgetTitle: 'Карта бросков и голов',
     widgetData: WidgetMapsGoal
-  },
-  {
-    widgetComponent: 'WidgetChartPolar',
-    widgetPosition: 15,
-    widgetCol: 6,
-    widgetTitle: 'Отражённых бросков',
-    widgetData: WidgetChartPolar
   },
   {
     widgetComponent: 'WidgetAwards',
@@ -1094,17 +1113,17 @@ export const WidgetList = [
     widgetData: WidgetAwards
   },
   {
-    widgetComponent: 'WidgetFormPlayer',
-    widgetPosition: 10,
-    widgetCol: 6,
-    widgetData: WidgetFormPlayer
-  },
-  {
     widgetComponent: 'WidgetMapsGoalZone',
-    widgetPosition: 20,
+    widgetPosition: 10,
     widgetCol: 6,
     widgetTitle: 'Броски в створ по зонам',
     widgetData: WidgetMapsGoalZone
+  },
+  {
+    widgetComponent: 'WidgetFormPlayer',
+    widgetPosition: 11,
+    widgetCol: 6,
+    widgetData: WidgetFormPlayer
   },
   {
     widgetComponent: 'WidgetLearn',
@@ -1113,29 +1132,7 @@ export const WidgetList = [
     widgetTitle: 'Учёба',
     widgetData: WidgetLearn
   },
-  {
-    widgetComponent: 'WidgetEvents',
-    widgetPosition: 13,
-    widgetCol: 6,
-    widgetTitle: 'Предстоящие события',
-    widgetData: WidgetEvents
-  },
 
-  {
-    widgetComponent: 'WidgetTargetPeriod',
-    widgetPosition: 17,
-    widgetCol: 6,
-    widgetTitle: 'Цели на подготовительный период',
-    widgetData: WidgetTargetPeriod
-  },
-
-  {
-    widgetComponent: 'WidgetLevelWeek',
-    widgetPosition: 18,
-    widgetCol: 12,
-    widgetTitle: 'Нагрузка',
-    widgetData: WidgetLevelWeek
-  },
 
 ];
 
