@@ -5,7 +5,7 @@
     )
     .form-player__left
       img.form-player__img.mb-6(
-        src="@/assets/images/form-img.jpeg"
+        :src="data.img"
       )
       base-button(
         classAttr='button-default button-gray button-small'

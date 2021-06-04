@@ -863,8 +863,19 @@
 
     .library-block
       .library-title Snackbar
+
     .library-block
       .library-title Switch
+      .library-row.align-end
+      .library-item.mr-10
+        .subtitle Default
+        base-switch(
+          label='Текст'
+        )
+
+
+
+
     .library-block
       .library-title Tags
 

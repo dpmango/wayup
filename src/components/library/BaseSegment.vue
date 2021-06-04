@@ -42,12 +42,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
 .button-active {
   .segment-default {
     background: #FFFFFF !important;
 
     ::v-deep .v-btn__content {
       color: $blue;
+
     }
   }
 
@@ -68,6 +70,10 @@ export default {
     font-size: rem(16px);
     letter-spacing: normal;
     color: #000;
+    span{
+      font-family: $FiraSansMedium ;
+
+    }
   }
   &:hover{
     cursor: pointer;

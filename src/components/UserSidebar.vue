@@ -16,7 +16,7 @@
         .title-small.mb-1 Позиция
         .user-desc__text Вратарь
       .user-desc__block
-        .title-small.mb-1 Кровь
+        .title-small.mb-1 Группа крови
         .user-desc__text II (+)
 
 
