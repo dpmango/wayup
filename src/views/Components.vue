@@ -867,14 +867,16 @@
     .library-block
       .library-title Switch
       .library-row.align-end
-      .library-item.mr-10
-        .subtitle Default
-        base-switch(
-          label='Текст'
-        )
-
-
-
+        .library-item.mr-10
+          .subtitle Big
+          base-switch.switch-big(
+            label='Текст'
+          )
+        .library-item.mr-10
+          .subtitle Small
+          base-switch.switch-small(
+            label='Текст'
+          )
 
     .library-block
       .library-title Tags
