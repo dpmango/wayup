@@ -272,11 +272,11 @@ export default {
     }
 
     .v-label {
-      top: 5px;
-      font-size: 14px;
+      top: rem(5px);
+      font-size: rem(14px);
     }
     .v-input__append-inner{
-      //margin-top: 5px;
+      margin-top: rem(4px);
     }
   }
 }

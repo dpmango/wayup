@@ -1,5 +1,19 @@
 <template lang="pug">
-    div Общая информация
+    div
+      h1.title-big Мой профиль
+      v-row
+        v-col(
+          md='3'
+        )
+          .trainer-photo
+            img.trainer-photo__img(
+              src="@/assets/images/svg/drag-icon.svg"
+            )
+
+        v-col(
+          md='9'
+        )
+
 </template>
 
 <script>
@@ -8,6 +22,13 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.trainer-photo{
+  width: 100%;
+}
+
+.trainer-photo__img{
+
+}
 
 </style>

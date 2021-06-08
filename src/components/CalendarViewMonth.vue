@@ -4,7 +4,7 @@
       .calendar-title
         .month-title {{ thisMonth }}
         .year-title {{ thisYear }}
-      .circle-block
+      //.circle-block
         .circle-item
           .circle-title Макроцикл
           base-select-mini(label='Выбрать цикл' classAttr='select-base custom-select_mini')

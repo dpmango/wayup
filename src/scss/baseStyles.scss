@@ -105,6 +105,10 @@
   font-size: 32px;
 }
 
+.title-big{
+  font-size: 40px;
+}
+
 .title-blue{
   font-size: 16px;
   color: #326BFF;
@@ -684,7 +688,32 @@
 
 }
 
+/* tabs */
 
+.v-tab {
+  text-transform: none;
+  font-family: $FiraSansRegular;
+  letter-spacing: normal;
+  min-width: 0;
+  max-width: none;
+  padding: 0;
+  margin: 0 16px;
+}
 
+::v-deep {
+  .v-tabs-bar {
+    height: 36px;
+  }
+
+  .v-tab--active {
+    color: #000;
+  }
+
+  .v-tabs-items {
+    padding: 30px 3px 60px;
+  }
+}
+
+/**/
 
 /**/
