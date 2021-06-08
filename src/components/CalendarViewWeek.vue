@@ -29,7 +29,7 @@
           .hours-time
             .hours-time-item(v-for="m in 12") {{ 7 + m }}.00
           .hours-col(v-for="n in 7" :class="{ hoursDisable: (n == 6 || n == 7) }")
-            .hours-item(v-for="m in 12"  @mouseleave="hideAddBtn")
+            .hours-item(v-for="m in 12"  @mouseover="showAddBtn" @mouseleave="hideAddBtn")
               base-button(label=''
                 classAttr='button-default button-gray button-big-icon add-event'
               )
@@ -266,6 +266,16 @@ export default {
     //   }
     //
     // },
+
+    showAddBtn(event) {
+      if(!this.dragEvent) {
+       if (event.target.firstChild.tagName == 'BUTTON') {
+          event.target.firstChild.style.display = 'block';
+        }
+      }
+
+    },
+
     hideAddBtn(event) {
       event.target.firstChild.style.display = 'none';
     },

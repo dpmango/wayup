@@ -41,6 +41,9 @@ export default {
     props: {
         initDay: {
           type: Date
+      },
+      events: {
+        type: [Array, Object]
       }
     },
   data: function () {
