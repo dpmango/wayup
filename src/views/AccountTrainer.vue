@@ -57,9 +57,13 @@
 
     v-row
       v-col(
-        md='10'
+        md='12'
       )
         v-tabs.ml-n4.mb-12
+          v-tab(to="/account-trainer/profile")
+            | Профиль
+          v-tab(to="/account-trainer/profile-complete")
+            | Профиль (заполненный)
           v-tab(to="/account-trainer/main")
             | Общая информация
           v-tab(to="/account-trainer/stat")
@@ -70,10 +74,11 @@
 
 <script>
 import ScheduleHeader from "@/components/ScheduleHeader";
+import DropzonePhotoBlock from "@/components/elements/DropzonePhotoBlock";
 
 export default {
   name: "AccountTrainer",
-  components: {ScheduleHeader}
+  components: {DropzonePhotoBlock, ScheduleHeader}
 }
 </script>
 

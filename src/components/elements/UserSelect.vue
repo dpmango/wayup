@@ -6,7 +6,6 @@
     height=56
     hide-details
     solo
-
   )
     template(v-slot:selection='{ item, index }')
       .user-info__wrap
@@ -30,11 +29,11 @@
         | Добавить аккаунт
 
 
-
 </template>
 
 <script>
 import DotsMenu from "@/components/DotsMenu";
+
 export default {
   name: "select-user",
   components: {DotsMenu},
@@ -42,9 +41,14 @@ export default {
 
   data() {
     return {
-        selected: null,
+      selected: null,
       items: [
-        {name: 'Даниил Брызгалов', image: 'https://cdn.vuetifyjs.com/images/john.jpg', email: 'dbryzgalov@gmail.io', id:1}
+        {
+          name: 'Даниил Брызгалов',
+          image: 'https://cdn.vuetifyjs.com/images/john.jpg',
+          email: 'dbryzgalov@gmail.io',
+          id: 1
+        },
       ]
     }
   },
@@ -67,20 +71,22 @@ export default {
   }
 
   .v-list-item,
-  .add-account{
+  .add-account {
     padding: 10px 15px !important;
   }
 
-  .add-account{
+  .add-account {
     display: flex;
     align-items: center;
     color: #000;
-    &:hover{
+
+    &:hover {
       cursor: pointer;
     }
 
   }
-  .add-account-img{
+
+  .add-account-img {
     @include width-flex(40px)
     height: 40px;
     margin-right: 12px;
@@ -112,19 +118,22 @@ export default {
   }
 
 
-  .dots-img{
+  .dots-img {
     stroke: #000000;
   }
-  .v-list-item{
+
+  .v-list-item {
     position: relative;
-    .dropdown-menu__wrap{
+
+    .dropdown-menu__wrap {
       right: 19px;
       top: 19px;
     }
   }
 
 }
-.v-autocomplete.v-select.v-input--is-focused ::v-deep input{
+
+.v-autocomplete.v-select.v-input--is-focused ::v-deep input {
   display: none;
 }
 
@@ -148,7 +157,8 @@ export default {
 
 .v-menu__content {
   max-width: 342px !important;
-  ::v-deep{
+
+  ::v-deep {
     max-width: 330px;
   }
 }
@@ -163,7 +173,7 @@ export default {
   color: #666666;
 }
 
-.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat)>::v-deep .v-input__control>.v-input__slot{
+.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > ::v-deep .v-input__control > .v-input__slot {
   box-shadow: none;
   background: #F1F3F9;
   border-radius: 8px;
