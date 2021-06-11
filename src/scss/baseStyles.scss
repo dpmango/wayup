@@ -500,11 +500,11 @@
 /* widgets */
 
 .widget {
-  width: 100%;
+  width: 99%;
+  margin: 4px 4px 16px;
   //background: #F8F9FB;
   box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  margin-bottom: 16px;
 }
 
 .widget-header {

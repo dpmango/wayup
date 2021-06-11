@@ -67,7 +67,7 @@
           v-tab(to="/account-trainer/main")
             | Общая информация
           v-tab(to="/account-trainer/stat")
-            | Статистика
+            | Индивидуальное занятие
         v-tabs-items
           router-view
 </template>

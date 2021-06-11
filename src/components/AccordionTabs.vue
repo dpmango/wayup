@@ -10,7 +10,7 @@
     v-tab Видео и описание
     v-tab Методические указания
     v-tab Инвентарь
-    -for(var i=0; i<3; i++)
+    -for (var i = 0; i < 3; i++)
       v-tab-item
 
         img.img-trainig_big(
@@ -26,17 +26,17 @@
 
 <script>
 export default {
-name: "AccordionTabs"
+  name: "AccordionTabs"
 }
 </script>
 
 <style lang="scss">
-.accordion-tabs{
-  .v-item-group{
+.accordion-tabs {
+  .v-item-group {
     margin-bottom: 12px;
   }
 
-  .v-tab{
+  .v-tab {
     font-size: 14px;
     text-transform: none;
     letter-spacing: normal;
@@ -47,25 +47,27 @@ name: "AccordionTabs"
   }
 
   .accordion-tab-active,
-  .v-tabs-bar .v-tab:not(.v-tab--active){
+  .v-tabs-bar .v-tab:not(.v-tab--active) {
     color: #000 !important;
   }
-  .img-trainig_big{
+
+  .img-trainig_big {
     max-width: 100%;
     width: 512px;
     height: 186px;
     margin-bottom: 20px;
   }
-  .training-desc--inner{
+
+  .training-desc--inner {
     font-size: 14px;
-    p{
+
+    p {
       margin-bottom: 0;
       line-height: 20px;
     }
   }
 
 }
-
 
 
 </style>
