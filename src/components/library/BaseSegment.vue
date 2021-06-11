@@ -114,18 +114,17 @@ export default {
   .segments-item {
     &:first-child {
 
-        .segment-default {
-          border-radius: rem(8px) rem(2px) rem(2px) rem(8px);
-        }
+      .segment-default {
+        border-radius: rem(8px) rem(2px) rem(2px) rem(8px);
       }
     }
 
     &:last-child {
-        .segment-default {
-          border-radius: rem(2px) rem(8px) rem(8px) rem(2px);
-        }
+      .segment-default {
+        border-radius: rem(2px) rem(8px) rem(8px) rem(2px);
       }
-
+    }
+  }
 }
 
 
