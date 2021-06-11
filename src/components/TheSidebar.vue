@@ -71,12 +71,17 @@
                 size='40'
                 v-bind='attrs' v-on='on'
               )
-                img(src="@/assets/images/avatar.png")
+                img(src="@/assets/images/photo-trainer-empty.png")
 
+            //v-list
+            //  v-list-item(v-for='(item, index) in items' :key='index')
+            //    .user-settings-icon {{ item.icon }}
+            //    v-list-item-title.ml-4 {{ item.title }}
             v-list
-              v-list-item(v-for='(item, index) in items' :key='index')
-                .user-settings-icon {{ item.icon }}
-                v-list-item-title.ml-4 {{ item.title }}
+              v-list-item
+                v-list-item-title.ml-4 Профиль
+              v-list-item.item-exit
+                v-list-item-title.ml-4 Выйти из системы
 
 
 
@@ -86,24 +91,24 @@
 export default {
   name: "TheSidebar",
   data: () => ({
-    items: [
-      {
-        icon:'🛒',
-        title: ' Прокачать'
-      },
-      {
-        icon:'💬',
-        title: 'Попросить подсказать'
-      },
-      {
-        icon:'👤',
-        title: 'Профиль'
-      },
-      {
-        icon:'👀 ',
-        title: 'Не показывать'
-      },
-    ],
+    // items: [
+    //   {
+    //     icon:'🛒',
+    //     title: ' Прокачать'
+    //   },
+    //   {
+    //     icon:'💬',
+    //     title: 'Попросить подсказать'
+    //   },
+    //   {
+    //     icon:'👤',
+    //     title: 'Профиль'
+    //   },
+    //   {
+    //     icon:'👀 ',
+    //     title: 'Не показывать'
+    //   },
+    // ],
     offset: true,
   }),
 }
@@ -123,6 +128,7 @@ export default {
   top: 0;
   bottom: 0;
   height: 100vh;
+  z-index: 100;
 }
 
 .img-logo {
@@ -197,8 +203,9 @@ export default {
   margin-left: auto;
   margin-right: auto;
   .v-list-item{
-    padding-left: 16px;
     padding-right: 16px;
+    padding-left: 16px;
+    min-height: 39px;
     &:hover{
       cursor: pointer;
     }
@@ -206,7 +213,13 @@ export default {
   .v-menu__content{
     width: 271px;
   }
+
+  .item-exit{
+    background: #E4E8F2;
+  }
 }
+
+
 
 
 </style>

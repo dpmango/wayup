@@ -4,6 +4,16 @@
       .calendar-title
         .month-title {{ thisMonth }}
         .year-title {{ thisYear }}
+      .circle-block
+        .circle-item
+          .circle-title Макроцикл
+          base-select-mini(label='Выбрать цикл' classAttr='select-base custom-select_mini')
+        .circle-item
+          .circle-title Мезоцикл
+          base-select-mini(label='Выбрать цикл' classAttr='select-base custom-select_mini')
+        .circle-item
+          .circle-title Макроцикл
+          base-select-mini(label='Выбрать цикл' classAttr='select-base custom-select_mini')
     .calendar
       .weeks
         .week-day(v-for='weekDay in weekDays' :key='weekDay')
@@ -14,7 +24,6 @@
             :key="n"
             :day="getDay(n)"
             :series="series"
-            :events="getDayEvents(n)"
         )
         .base-line(:style="baseLineStyle" v-if="isShowBaseline")
             .base-line-label(@mouseover="hoverChildren" @mouseleave="leaveChildren") {{ baseLineTitle }} {{ baseLineLabel }}
@@ -33,10 +42,7 @@ export default {
     props: {
         initDay: {
           type: Date
-      },
-        events: {
-            type: [Array, Object]
-        }
+      }
     },
   data: function () {
     return {

@@ -20,7 +20,7 @@
         .widgets-block
           .widgets-item(
             v-for='(element, index) in WidgetAll'
-            :key='element.widgetPosition'
+            :key='index'
           )
             component(
               :is="element.widgetComponent"

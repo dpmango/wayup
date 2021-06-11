@@ -8,20 +8,26 @@
     :solo="solo"
     :error="error"
     :disabled='disabled'
-    v-bind="$attrs"
-    v-model="selected"
-
 
   )
-    //template(slot='item' slot-scope='data')
-    //  slot(name="item-inner")
+    template(v-slot:selection='{ item, index }')
+      .user-info__wrap
+        .user-info-menu
+          .user-name {{ item.name }}
+
+    template(v-slot:item='{ item }')
+      .user-info__wrap
+        img.user-logo(:src='item.image')
+        .user-info
+          .user-name {{ item.name }}
+        .checkbox
 
 
 </template>
 
 <script>
 export default {
-  name: "BaseSelect",
+  name: "BaseSelectTest",
   props: {
     items: {
       type: [Array, Object],
@@ -48,24 +54,49 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      // selected: null,
 
-  computed: {
-    selected: {
-      get() {
-        return this.value;
-      },
-      set(val) {
-        this.$emit('input', val);
-      }
     }
-  }
-
+  },
 
 }
 </script>
 
 <style scoped lang="scss">
+.user-info__wrap {
+  display: flex;
+  align-items: center;
+  max-width: 80%;
+  overflow: hidden;
 
+}
+::v-deep {
+  .v-list-item--active:after,
+  .v-list-item--active:before {
+    display: none !important;
+  }
+
+  .v-list-item,
+  .add-account {
+    padding: 10px 15px !important;
+  }
+
+  .v-input__control > .v-input__slot:before {
+    &:before {
+      border-color: transparent;
+    }
+  }
+}
+
+.user-logo {
+  @include width-flex(32px)
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 12px;
+}
 .select-default {
   ::v-deep .v-select__slot {
     input {
@@ -243,13 +274,15 @@ export default {
 
     fieldset {
       border-color: #CCCCCC;
+      background: #FFFFFF;
+
 
     }
 
     &:focus,
     &:hover {
       fieldset {
-        border-color: transparent;
+        //border-color: transparent;
       }
     }
 
@@ -273,7 +306,7 @@ export default {
 
 .select-default.v-text-field--solo {
   ::v-deep fieldset {
-    background: #F1F3F9;
+    //background: #F1F3F9;
 
   }
 
@@ -288,7 +321,7 @@ export default {
   &:hover {
     ::v-deep fieldset {
 
-      background: #D9DBE0;
+      //background: #D9DBE0;
     }
   }
 }
