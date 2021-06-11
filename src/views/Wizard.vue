@@ -112,11 +112,11 @@
 
 import ScheduleHeader from "@/components/ScheduleHeader";
 import BaseTimeline from "@/components/library/old/BaseTimeline";
-import TrainingGroupItem from "@/components/TrainingGroupItem";
+import TrainingGroupItem from "@/components/Training/TrainingGroupItem";
 import FilterTrainingGroup from "@/components/FilterTrainingGroup";
 import InfoBlock from "@/components/elements/InfoBlock";
 import AddBlock from "@/components/elements/addBlock";
-import TrainingEventItem from "@/components/TrainingEventItem";
+import TrainingEventItem from "@/components/Training/TrainingEventItem";
 // import BaseSelectOutline from "@/components/library/BaseSelectOutline";
 
 export default {

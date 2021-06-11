@@ -29,7 +29,7 @@
             path(d='M9.16675 3.3335H3.33341C2.89139 3.3335 2.46746 3.50909 2.1549 3.82165C1.84234 4.13421 1.66675 4.55814 1.66675 5.00016V16.6668C1.66675 17.1089 1.84234 17.5328 2.1549 17.8453C2.46746 18.1579 2.89139 18.3335 3.33341 18.3335H15.0001C15.4421 18.3335 15.866 18.1579 16.1786 17.8453C16.4912 17.5328 16.6667 17.1089 16.6667 16.6668V10.8335'  stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
             path(d='M15.4167 2.0832C15.7483 1.75168 16.1979 1.56543 16.6667 1.56543C17.1356 1.56543 17.5852 1.75168 17.9167 2.0832C18.2483 2.41472 18.4345 2.86436 18.4345 3.3332C18.4345 3.80204 18.2483 4.25168 17.9167 4.5832L10.0001 12.4999L6.66675 13.3332L7.50008 9.99986L15.4167 2.0832Z'  stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
       li.sidebar__item
-        router-link.sidebar-link(to='/schedule' active-class='sidebar-link-active')
+        router-link.sidebar-link(to='/schedule/week' active-class='sidebar-link-active')
           svg.sidebar-link-icon(width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg')
             path(d='M15.8333 3.3335H4.16667C3.24619 3.3335 2.5 4.07969 2.5 5.00016V16.6668C2.5 17.5873 3.24619 18.3335 4.16667 18.3335H15.8333C16.7538 18.3335 17.5 17.5873 17.5 16.6668V5.00016C17.5 4.07969 16.7538 3.3335 15.8333 3.3335Z'  stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
             path(d='M13.3333 1.6665V4.99984' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
@@ -71,12 +71,17 @@
                 size='40'
                 v-bind='attrs' v-on='on'
               )
-                img(src="@/assets/images/avatar.png")
+                img(src="@/assets/images/photo-trainer-empty.png")
 
+            //v-list
+            //  v-list-item(v-for='(item, index) in items' :key='index')
+            //    .user-settings-icon {{ item.icon }}
+            //    v-list-item-title.ml-4 {{ item.title }}
             v-list
-              v-list-item(v-for='(item, index) in items' :key='index')
-                .user-settings-icon {{ item.icon }}
-                v-list-item-title.ml-4 {{ item.title }}
+              v-list-item
+                v-list-item-title.ml-4 Профиль
+              v-list-item.item-exit
+                v-list-item-title.ml-4 Выйти из системы
 
 
 
@@ -86,24 +91,24 @@
 export default {
   name: "TheSidebar",
   data: () => ({
-    items: [
-      {
-        icon:'🛒',
-        title: ' Прокачать'
-      },
-      {
-        icon:'💬',
-        title: 'Попросить подсказать'
-      },
-      {
-        icon:'👤',
-        title: 'Профиль'
-      },
-      {
-        icon:'👀 ',
-        title: 'Не показывать'
-      },
-    ],
+    // items: [
+    //   {
+    //     icon:'🛒',
+    //     title: ' Прокачать'
+    //   },
+    //   {
+    //     icon:'💬',
+    //     title: 'Попросить подсказать'
+    //   },
+    //   {
+    //     icon:'👤',
+    //     title: 'Профиль'
+    //   },
+    //   {
+    //     icon:'👀 ',
+    //     title: 'Не показывать'
+    //   },
+    // ],
     offset: true,
   }),
 }
@@ -123,6 +128,7 @@ export default {
   top: 0;
   bottom: 0;
   height: 100vh;
+  z-index: 100;
 }
 
 .img-logo {
@@ -197,8 +203,9 @@ export default {
   margin-left: auto;
   margin-right: auto;
   .v-list-item{
-    padding-left: 16px;
     padding-right: 16px;
+    padding-left: 16px;
+    min-height: 39px;
     &:hover{
       cursor: pointer;
     }
@@ -206,7 +213,13 @@ export default {
   .v-menu__content{
     width: 271px;
   }
+
+  .item-exit{
+    background: #E4E8F2;
+  }
 }
+
+
 
 
 </style>

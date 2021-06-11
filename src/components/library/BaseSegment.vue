@@ -56,8 +56,6 @@ export default {
 }
 
 
-
-
 .segment-default {
   min-width: 0;
 
@@ -70,12 +68,14 @@ export default {
     font-size: rem(16px);
     letter-spacing: normal;
     color: #000;
-    span{
-      font-family: $FiraSansMedium ;
+
+    span {
+      font-family: $FiraSansMedium;
 
     }
   }
-  &:hover{
+
+  &:hover {
     cursor: pointer;
   }
 
@@ -89,16 +89,17 @@ export default {
 .segment-small {
   min-height: rem(24px);
   height: 24px !important;
-  ::v-deep{
-    .v-btn__content{
+
+  ::v-deep {
+    .v-btn__content {
       font-size: 12px;
     }
   }
 }
 
-.v-item--active{
+.v-item--active {
   .segment-default {
-    background: #FFFFFF !important;
+    background: transparent !important;
 
     ::v-deep .v-btn__content {
       color: $blue;
@@ -110,8 +111,9 @@ export default {
 .segments-block {
   display: flex;
 
-  a {
+  .segments-item {
     &:first-child {
+
       .segment-default {
         border-radius: rem(8px) rem(2px) rem(2px) rem(8px);
       }

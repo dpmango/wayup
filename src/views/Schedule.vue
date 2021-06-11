@@ -21,13 +21,13 @@
 
 <script>
 
-import ScheduleHeader from "@/components/ScheduleHeader";
-import Calendar from "@/components/Calendar";
+  import ScheduleHeader from "@/components/ScheduleHeader";
+  import Calendar from "@/components/Calendar/Calendar";
 
-export default {
-  name: 'Schedule',
-  components: {Calendar, ScheduleHeader}
-}
+  export default {
+    name: 'Schedule',
+    components: {Calendar, ScheduleHeader}
+  }
 </script>
 
 <style lang="scss" scoped>

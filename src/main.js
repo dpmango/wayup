@@ -10,29 +10,17 @@ import DropdownMenu from 'v-dropdown-menu'
 import VueMuuri from 'vue-muuri'
 import 'vue-muuri/dist/vue-muuri.css'
 import Vuelidate from 'vuelidate'
+import { VueMaskDirective } from 'v-mask'
+import VueDatePicker from '@mathieustan/vue-datepicker';
+import '@mathieustan/vue-datepicker/dist/vue-datepicker.min.css';
 
 
-// import vueCustomScrollbar from 'vue-custom-scrollbar'
-// import "vue-custom-scrollbar/dist/vueScrollbar.css"
 
+Vue.use(VueDatePicker, {
+  lang: 'ru'
+});
 
-// import VueAwesomeSwiper from 'vue-awesome-swiper'
-// import 'swiper/swiper-bundle.css'
-
-
-// import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
-// import { Draggable } from 'draggable-vue-directive'
-// Base style, required.
-
-
-// import  SvgSprite  from 'vue-svg-sprite'
-// import moment from 'moment'
-// import '@/scss/app.scss'
-// Vue.use(SvgSprite, {
-//     url: '@/assets/images/svg/sprite.svg',
-// class: 'svg-icon',
-// } /* options */)
-// Vue.prototype.moment = moment
+Vue.directive('mask', VueMaskDirective);
 
 
 Vue.use(DropdownMenu, {
@@ -47,24 +35,10 @@ Vue.use(VueMuuri)
 
 Vue.use(Vuelidate)
 
-// Vue.use(vueCustomScrollbar)
-
-//
-// import SwiperCore, {
-//     Scrollbar,Mousewheel
-// } from 'swiper/core';
-
-// Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
-// SwiperCore.use([Scrollbar,Mousewheel]);
 
 Vue.use(VueSimpleAccordion, {
   tags: {
-    // list: "ul",
-    // list__item: "div",
-    // item__heading: "div",
-    // heading__content: "div",
-    // heading__icon: "span",
-    // item__content: "div"
+
   },
 });
 
@@ -86,6 +60,9 @@ Vue.component('base-button', () => import('./components/library/BaseButton'));
 Vue.component('base-segment', () => import('./components/library/BaseSegment'));
 Vue.component('base-textarea', () => import('./components/library/BaseTextarea'));
 Vue.component('base-switch', () => import('./components/library/BaseSwitch'));
+Vue.component('base-radio-button', () => import('./components/library/BaseRadioButton'));
+
+
 
 
 new Vue({
@@ -95,6 +72,9 @@ new Vue({
   VueDraggable,
   VueSimpleAccordion,
   DropdownMenu,
+  VueDatePicker,
+  VueMaskDirective,
+
 
 // SvgSprite,
   // moment,

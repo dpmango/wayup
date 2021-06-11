@@ -46,7 +46,7 @@
 }
 
 @mixin background-cover($url){
-  background-image:url('../img/' + $url);
+  background-image:url('~@/assets/images/' + $url);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

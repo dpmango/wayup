@@ -8,6 +8,9 @@
     :disabled='disabled'
     v-model="inputVal"
     :error-messages="errors"
+    v-mask="mask"
+    :placeholder='placeholder'
+
   )
     template(slot='prepend-inner')
       slot(name="icon")
@@ -16,6 +19,7 @@
 </template>
 
 <script>
+
 export default {
   name: "BaseInput",
   props: {
@@ -47,37 +51,44 @@ export default {
       type: Boolean,
       default: false
     },
-      errors: {
-          type: Array
-      },
+    errors: {
+      type: Array
+    },
     disabled: {
       type: Boolean,
       default: false
-    }
+    },
+    mask: {
+      type: String,
+      default: ''
+    },
+    placeholder: {
+      type: String,
+      default: ''
+    },
   },
-    computed: {
-        inputVal: {
-            get() {
-                return this.value;
-            },
-            set(val) {
-                this.$emit('input', val);
-            }
-        }
+  computed: {
+    inputVal: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit('input', val);
+      }
     }
+  }
 }
 </script>
 
 <style scoped lang="scss">
 
 .input-default {
-
-
   ::v-deep .v-input__slot {
     margin-bottom: 0;
 
     fieldset {
       border-color: #CCCCCC;
+      background: #FFFFFF;
     }
 
     &:hover {
@@ -94,6 +105,7 @@ export default {
     padding-top: 10px;
     padding-left: 25px;
     margin-bottom: 0;
+
     &:before {
       position: absolute;
       left: 0;
@@ -161,7 +173,8 @@ export default {
   }
 
   ::v-deep .theme--light.v-label {
-    color: #000;
+    //color: #000;
+    color: #999999;
   }
 
   ::v-deep .v-input__prepend-inner {
@@ -183,6 +196,10 @@ export default {
   ::v-deep fieldset {
     padding-left: rem(17px);
   }
+}
+
+.text-gray::v-deep .theme--light.v-label {
+  color: #999999;
 }
 
 .input-small {
