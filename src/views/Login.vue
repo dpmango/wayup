@@ -85,6 +85,16 @@ export default {
           this.rejectText = reason.data.status + ' ' + reason.data.error;
         });
 
+        /*AuthApi.grafLogin({email: this.email, password: this.password}).then(response => {
+          console.log(response);
+          //this.$store.dispatch('auth/login', response.data.access);
+          this.$router.push("/");
+        }, reason => {
+          console.log('error');
+          console.log(reason);
+          this.rejectText = reason.data.status + ' ' + reason.data.error;
+        });*/
+
       }
     },
   },

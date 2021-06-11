@@ -8,7 +8,7 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: "/",
-        redirect: '/account-sportsman'
+        redirect: '/account-trainer/profile'
     },
 
     // Календарь

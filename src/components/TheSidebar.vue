@@ -79,15 +79,17 @@
             //    v-list-item-title.ml-4 {{ item.title }}
             v-list
               v-list-item
-                v-list-item-title.ml-4 Профиль
+                v-list-item-title.ml-4
+                  router-link(to='/account-trainer/profile') Профиль
               v-list-item.item-exit
-                v-list-item-title.ml-4 Выйти из системы
+                v-list-item-title.ml-4(@click="logout") Выйти из системы
 
 
 
 </template>
 
 <script>
+
 export default {
   name: "TheSidebar",
   data: () => ({
@@ -111,6 +113,12 @@ export default {
     // ],
     offset: true,
   }),
+  methods: {
+    logout() {
+      this.$store.dispatch('auth/logout');
+      window.location.href = '/';
+    }
+  }
 }
 </script>
 

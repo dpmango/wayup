@@ -1,3 +1,8 @@
+// Авторизация
+export const SET_TOKEN = 'SET_TOKEN';
+export const SET_ACCESS = 'SET_ACCESS';
+
+// Кабинет спортсмена
 export const SET_WIDGET_LIST = 'SET_WIDGET_LIST';
 export const SET_WIDGET_ALL = 'SET_WIDGET_ALL';
 export const RESET = 'RESET';
