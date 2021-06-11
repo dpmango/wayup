@@ -1,7 +1,6 @@
 <template lang="pug">
   .info-block
-    .target-icon
-      slot
+    slot
     .info-text(v-html='text')
 </template>
 
@@ -38,6 +37,10 @@ export default {
   padding: 12px 20px;
 
   margin-bottom: 20px;
+}
+
+.info-block_blue{
+  background: rgba(50, 107, 255, 0.1)
 }
 
 .info-text {
