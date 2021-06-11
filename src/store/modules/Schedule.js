@@ -1,10 +1,13 @@
 import {
   SET_PLANS,
   RESET,
-  SET_GROUPS
+  SET_GROUPS,
+  SET_SINGLE_PLAN,
+  SET_EXER,
+  SET_PARTS
 } from '../mutation-types';
 import moment from 'moment-timezone';
-import { PlanResource, GroupResource} from '../api.js';
+import { PlanResource, GroupResource, ExerResource } from '../api.js';
 /*
 |--------------------------------------------------------------------------
 | Начальное состояние - используется для сброса store
@@ -36,6 +39,15 @@ const mutations = {
   },
   [SET_GROUPS](state, payload) {
     state.groups = payload;
+  },
+  [SET_SINGLE_PLAN](state, payload) {
+    state.plan = payload;
+  },
+  [SET_EXER](state, payload) {
+    state.exer = payload;
+  },
+  [SET_PARTS](state, payload) {
+    state.plan_parts = payload;
   },
   [RESET](state) {
     const newState = initialState();
@@ -102,7 +114,37 @@ const actions = {
       console.log(err);
       throw err.response;
     });
-  }
+  },
+
+  async loadPlan({commit}, payload) {
+    await PlanResource.single(payload).then(response => {
+      commit(SET_SINGLE_PLAN, response.data);
+    }).catch(err => {
+      console.log(err);
+      throw err.response;
+    });
+  },
+
+  async loadExer({commit}) {
+    await ExerResource.get().then(response => {
+      commit(SET_EXER, response.data);
+    }).catch(err => {
+      console.log(err);
+      throw err.response;
+    });
+  },
+
+  async loadParts({commit}) {
+    await PlanResource.parts().then(response => {
+      commit(SET_PARTS, response.data);
+    }).catch(err => {
+      console.log(err);
+      throw err.response;
+    });
+  },
+
+
+
 };
 
 export default {

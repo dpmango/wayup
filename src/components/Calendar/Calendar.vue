@@ -60,25 +60,6 @@ export default {
   created() {
     this.loadPlans();
   },
-    mounted() {
 
-        /*this.$store.dispatch('schedule/loadPlans').then(() => {
-            let plans = this.$store.state.plans;
-
-            plans.map(item => {
-                let diffMin = moment(item.end_time).diff(moment(item.start_time), 'minutes');
-                let dataEvent = {
-                    id: item.id,
-                    start_time: item.start_time,
-                    duration: parseFloat((diffMin/60).toFixed(1)),
-                    name: item.name,
-                    type_of_preparation: item.type_of_preparation,
-                    rating: '5 / 10',
-                }
-                this.events.push(dataEvent);
-            });
-        });*/
-
-    }
 }
 </script>

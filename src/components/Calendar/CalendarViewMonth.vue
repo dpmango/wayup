@@ -24,6 +24,7 @@
             :key="n"
             :day="getDay(n)"
             :series="series"
+            :events="getDayEvents(n)"
         )
         .base-line(:style="baseLineStyle" v-if="isShowBaseline")
             .base-line-label(@mouseover="hoverChildren" @mouseleave="leaveChildren") {{ baseLineTitle }} {{ baseLineLabel }}
@@ -42,7 +43,11 @@ export default {
     props: {
         initDay: {
           type: Date
+      },
+      events: {
+        type: [Array, Object]
       }
+
     },
   data: function () {
     return {

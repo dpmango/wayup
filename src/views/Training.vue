@@ -152,7 +152,7 @@ import Accordion from "@/components/Accordion";
 //import AccordionTest from "@/components/AccordionTest";
 import AccordionBig from "@/components/AccordionBig";
 //import BaseLabel from "@/components/BaseLabel";
-import TrainingAside from "@/components/TrainingAside";
+import TrainingAside from "@/components/Training/TrainingAside";
 import ModalSummaryPlan from "@/components/ModalSummaryPlan";
 import {Draggable} from 'draggable-vue-directive';
 

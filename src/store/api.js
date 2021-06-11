@@ -45,8 +45,8 @@ export const PlanResource = {
 };
 
 export const ExerResource = {
-    get(token) {
-        return HTTP.get('/exercises.json', { headers: {"Authorization" : 'bearer ' + token} });
+    get() {
+        return HTTP.get('/exercises.json');
     },
 };
 

@@ -120,11 +120,12 @@ import Accordion from "@/components/Accordion";
 //import AccordionTest from "@/components/AccordionTest";
 import AccordionBig from "@/components/AccordionBig";
 //import BaseLabel from "@/components/BaseLabel";
-import TrainingAside from "@/components/TrainingAside";
+import TrainingAside from "@/components/Training/TrainingAside";
 import ModalSummaryPlan from "@/components/ModalSummaryPlan";
 import {Draggable} from 'draggable-vue-directive';
 import moment from 'moment';
 import axios from "axios";
+import {mapActions} from 'vuex';
 
 export default {
   name: 'Training',
@@ -296,51 +297,52 @@ export default {
         return loadLabel[load]
       },
 
-
+      ...mapActions('schedule', ['loadPlan', 'loadExer', 'loadParts']),
   },
-    mounted () {
+
+  created() {
     if(this.$route.params.id) {
+      this.loadPlan(this.$route.params.id).then(() => {
+        this.plan = this.$store.state.schedule.plan;
+        // Получаем микроцикл, мезоцикл, макроцикл
+        var self = this;
+        axios.get('https://way-up.herokuapp.com/microcycles/' + this.plan.microcycle_id + '.json').then(function (response) {
+          self.microcycle = response.data.title;
 
-        this.$store.dispatch('plan', {token: this.$store.state.token, id:this.$route.params.id}).then(() => {
-            this.plan = this.$store.state.plan
-            // Получаем микроцикл, мезоцикл, макроцикл
-            var self = this;
-            axios.get('https://way-up.herokuapp.com/microcycles/'+ this.plan.microcycle_id +'.json').then(function (response) {
-                self.microcycle = response.data.title;
+          axios.get('https://way-up.herokuapp.com/mesocycles/' + response.data.mesocycle_id + '.json').then(function (response) {
+            self.mesocycle = response.data.title;
 
-                axios.get('https://way-up.herokuapp.com/mesocycles/'+ response.data.mesocycle_id +'.json').then(function (response) {
-                    self.mesocycle = response.data.title;
-
-                    axios.get('https://way-up.herokuapp.com/macrocycles/'+ response.data.macrocycle_id +'.json').then(function (response) {
-                        self.macrocycle = response.data.title;
-                    })
-                })
+            axios.get('https://way-up.herokuapp.com/macrocycles/' + response.data.macrocycle_id + '.json').then(function (response) {
+              self.macrocycle = response.data.title;
             })
-        });
-
+          })
+        })
+      });
     }
-        this.$store.dispatch('exer', this.$store.state.token).then(() => {
-            this.dataExer = this.$store.state.exer;
 
-            this.$store.dispatch('parts', this.$store.state.token).then(() => {
+    this.loadExer().then(() => {
+      this.dataExer = this.$store.state.schedule.exer;
+      this.loadParts().then(() => {
+        let groupParts = {};
+        let curParts = this.$store.state.schedule.plan_parts.filter(item => item.plan_id == this.$route.params.id );
 
-                let groupParts = {};
-                let curParts = this.$store.state.plan_parts.filter(item => item.plan_id == this.$route.params.id );
-
-                curParts.map(item => {
-                    if(!groupParts[item.plan_part_type]) groupParts[item.plan_part_type] = [];
-                    groupParts[item.plan_part_type].push(item);
-                });
-
-                this.parts = groupParts;
-
-                this.accordionBigItems.push(this.getAccardionBigItem('Подготовительная часть'));
-                this.accordionBigItems.push(this.getAccardionBigItem('Основная часть'));
-                this.accordionBigItems.push(this.getAccardionBigItem('Заключительная часть'));
-            });
+        curParts.map(item => {
+          if(!groupParts[item.plan_part_type]) groupParts[item.plan_part_type] = [];
+          groupParts[item.plan_part_type].push(item);
         });
 
-        this.$store.dispatch('plans', this.$store.state.token)
+        this.parts = groupParts;
+
+        this.accordionBigItems.push(this.getAccardionBigItem('Подготовительная часть'));
+        this.accordionBigItems.push(this.getAccardionBigItem('Основная часть'));
+        this.accordionBigItems.push(this.getAccardionBigItem('Заключительная часть'));
+      })
+    })
+  },
+
+    mounted () {
+
+        //this.$store.dispatch('plans', this.$store.state.token)
 
   }
 

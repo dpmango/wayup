@@ -33,6 +33,15 @@ const routes = [
         ]
     },
 
+    // Индивидуальное занятие
+    {
+        path: '/plan/:id',
+        name: 'Plan',
+        meta: {layout: 'main'},
+        component: () => import('@/components/Calendar/CalendarPlan'),
+    },
+
+
 
     // Кабинет спортсмена
     {
