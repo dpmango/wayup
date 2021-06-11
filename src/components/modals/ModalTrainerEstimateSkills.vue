@@ -133,6 +133,7 @@
               .selected-estimate__text — упражнение выполняется не полностью. Отсутствует мотивация
 
 
+            AccordionSkills
 
       .modal-footer
         .d-flex.align-center.justify-end
@@ -157,8 +158,11 @@
 </template>
 
 <script>
+import AccordionEstimation from "@/components/AccordionEstimation";
+import AccordionSkills from "@/components/AccordionSkills";
 export default {
   name: "ModalTrainerEstimateSkills",
+  components: {AccordionSkills, AccordionEstimation},
   data() {
     return {
       dialog: true,
