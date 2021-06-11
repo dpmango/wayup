@@ -24,6 +24,7 @@
 
         WidgetTrainerSportsmanWork
     ModalTrainerSportsmanWork
+    ModalTrainerEstimateSkills
 
 
 </template>
@@ -33,13 +34,15 @@ import TrainerSidebar from "@/components/TrainerSidebar";
 import ModalTrainerSportsmanWork from "@/components/modals/ModalTrainerSportsmanWork";
 import WidgetTrainerSportsmanWork from "@/components/widgets/WidgetTrainerSportsmanWork";
 import SidebarNewExercise from "@/components/SidebarNewExercise";
+import ModalTrainerEstimateSkills from "@/components/modals/ModalTrainerEstimateSkills";
 
 export default {
   name: "ProfileComplete",
   data: () => ({
-    isShowSidebarWidgets: true,
+    isShowSidebarWidgets: false,
   }),
   components: {
+    ModalTrainerEstimateSkills,
     SidebarNewExercise,
     WidgetTrainerSportsmanWork,
     ModalTrainerSportsmanWork,

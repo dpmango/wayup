@@ -61,7 +61,7 @@
         )
         .radio-block.mb-4
           .radio-block__title.text-small.text-gray Период подготовки
-          v-radio-group(v-model='radioGroup' mandatory)
+          v-radio-group( mandatory)
             base-radio-button(
               label="Подготовительный"
               value="Подготовительный"
@@ -76,7 +76,7 @@
             )
         .radio-block.mb-4
           .radio-block__title.text-small.text-gray Этап периода подготовки
-          v-radio-group(v-model='radioGroup' mandatory)
+          v-radio-group( mandatory)
             base-radio-button(
               label="Общеподготовительный"
               value="Общеподготовительный"
@@ -126,7 +126,7 @@
 
         .radio-block.mb-4
           .radio-block__title.text-small.text-gray Этап периода подготовки
-          v-radio-group(v-model='radioGroup' mandatory)
+          v-radio-group( mandatory)
             base-radio-button(
               label="Индивидуальная"
               value="Индивидуальная"
@@ -150,7 +150,7 @@
         )
         .radio-block.mb-2
           .radio-block__title.text-small.text-gray Часть тренировки
-          v-radio-group(v-model='radioGroup' mandatory)
+          v-radio-group( mandatory)
             base-radio-button(
               label="Подготовительная"
               value="Подготовительная"
