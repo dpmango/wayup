@@ -13,24 +13,26 @@ const routes = [
 
     // Календарь
     {
-        path: "/schedule",
-        name: "Schedule",
-        meta: { layout: "main", requiresAuth: true },
-        component: () => import("@/views/Schedule"),
+        path: '/schedule',
+        name: 'Schedule',
+        meta: {layout: 'main'},
+        component: () => import('../views/Schedule'),
         children: [
             {
-                path: "month",
-                component: () => import("@/components/CalendarViewMonth"),
-                meta: { layout: "main" },
-                name: "CalendarMonth",
+                path: 'month',
+                component: () => import('@/components/Calendar/CalendarViewMonth'),
+                meta: {layout: 'main'},
+                name: 'CalendarMonth'
             },
             {
-                path: "week",
-                component: () => import("@/components/CalendarViewWeek"),
-                meta: { layout: "main" },
-            },
-        ],
+                path: 'week',
+                component: () => import('@/components/Calendar/CalendarViewWeek'),
+                meta: {layout: 'main'},
+                name: 'CalendarWeek'
+            }
+        ]
     },
+
 
     // Кабинет спортсмена
     {

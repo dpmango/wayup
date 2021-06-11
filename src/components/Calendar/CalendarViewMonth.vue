@@ -4,16 +4,6 @@
       .calendar-title
         .month-title {{ thisMonth }}
         .year-title {{ thisYear }}
-      .circle-block
-        .circle-item
-          .circle-title Макроцикл
-          base-select-mini(label='Выбрать цикл' classAttr='select-base custom-select_mini')
-        .circle-item
-          .circle-title Мезоцикл
-          base-select-mini(label='Выбрать цикл' classAttr='select-base custom-select_mini')
-        .circle-item
-          .circle-title Макроцикл
-          base-select-mini(label='Выбрать цикл' classAttr='select-base custom-select_mini')
     .calendar
       .weeks
         .week-day(v-for='weekDay in weekDays' :key='weekDay')
@@ -24,16 +14,18 @@
             :key="n"
             :day="getDay(n)"
             :series="series"
+            :events="getDayEvents(n)"
         )
         .base-line(:style="baseLineStyle" v-if="isShowBaseline")
-            .base-line-label(@mouseover="hoverChildren" @mouseleave="leaveChildren") Базовый 8 15 фев - 13 марта, 2021
-            .base-line-label-big Базовый 8 15 фев - 13 марта, 2021
+            .base-line-label(@mouseover="hoverChildren" @mouseleave="leaveChildren") {{ baseLineTitle }} {{ baseLineLabel }}
+            .base-line-label-big {{ baseLineTitle }} {{ baseLineLabel }}
 </template>
 
 <script>
 import moment from 'moment'
 import 'moment/locale/ru'
-import CalendarDay from "@/components/CalendarDay";
+import CalendarDay from "@/components/Calendar/CalendarDay";
+import axios from "axios";
 
 export default {
   name: "CalendarViewMonth",
@@ -41,35 +33,49 @@ export default {
     props: {
         initDay: {
           type: Date
-      }
+      },
+        events: {
+            type: [Array, Object]
+        }
     },
   data: function () {
     return {
     dataInitDay: this.initDay,
     weekDays: moment.weekdaysShort(true),
     series: ['29 03 2021','30 03 2021', '31 03 2021', '01 04 2021', '02 04 2021', '03 04 2021', '04 04 2021'
-          , '05 04 2021', '06 04 2021', '07 04 2021', '08 04 2021', '09 04 2021', '10 04 2021']
-  }},
+          , '05 04 2021', '06 04 2021', '07 04 2021', '08 04 2021', '09 04 2021', '10 04 2021'],
+        baseLineTitle: ''
+  }
+  },
   methods: {
       getDay: function (n) {
           return moment(this.startWeek.toDate()).add(n-1, 'd');
       },
+      getDayEvents(n) {
+          let date = this.getDay(n);
+          return this.events.filter(item => {
+              return date.isSame(item.start_time, 'day');
+          });
+      },
       hoverChildren: function () {
-          this.$children.forEach(child => {
+          /*this.$children.forEach(child => {
               if(child.$options.name === "CalendarDay") {
                   child.backlightDay();
               }
-          });
+          });*/
       },
       leaveChildren: function () {
-          this.$children.forEach(child => {
+          /*this.$children.forEach(child => {
               if(child.$options.name === "CalendarDay") {
                   child.notBacklightDay();
               }
-          });
+          });*/
       }
   },
     computed: {
+        baseLineLabel: function () {
+            return moment(this.initDay).startOf('week').format('D MMM') + ' - ' + moment(this.initDay).endOf('week').format('D MMM') + ', ' + moment(this.initDay).format('YYYY');
+        },
         thisMonth: function () {
             return moment(this.initDay).format("MMMM");
         },
@@ -104,22 +110,28 @@ export default {
     created: function () {
         moment.locale('ru');
     },
+    mounted: function () {
+      // Определяем текущий микроцикл
+        axios.get('https://way-up.herokuapp.com/microcycles.json').then(function (response) {
+            console.log(response);
+        })
+    }
 }
 </script>
 
 <style lang="scss" scoped>
     .month-title{
-      font-size: 24px;
+      font-size: rem(24px);
       font-family: $FiraSansMedium;
-      margin-right: 10px;
+      margin-right: rem(10px);
         text-transform: capitalize;
     }
     .year-title{
-      font-size: 24px;
+      font-size: rem(24px);
     }
 
     .head-calendar{
-      padding-bottom: 5px;
+      padding-bottom: rem(5px);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -128,15 +140,15 @@ export default {
     .circle-item{
       display: flex;
       align-items: center;
-      margin-right: 20px;
+      margin-right: rem(20px);
       &:after{
         content: '';
         @include background-contain('arrow-down.svg')
         opacity: 0.56;
-        width: 14px;
-        height: 14px;
+        width: rem(14px);
+        height: rem(14px);
         transform: rotate(-90deg);
-        margin-left: 4px;
+        margin-left: rem(4px);
       }
       &:last-child{
         margin-right: 0;
@@ -149,11 +161,11 @@ export default {
     .circle-block{
       display: flex;
       align-items: center;
-      margin-right: -12px;
+      margin-right: rem(-12px);
     }
     .circle-title {
-      margin-right: 4px;
-      font-size: 14px;
+      margin-right: rem(4px);
+      font-size: rem(14px);
       color: $gray;
     }
     .calendar-title{
@@ -163,7 +175,7 @@ export default {
     }
     .head-calendar{
       border-bottom: 2px solid rgba(34, 34, 34, 0.16);
-      margin-bottom: 22px;
+      margin-bottom: rem(22px);
     }
 
     .calendar {
@@ -171,7 +183,7 @@ export default {
     }
 
     .month {
-      padding: 20px;
+      padding: rem(20px);
       text-align: center;
       font-size: 1.5rem;
     }
@@ -183,11 +195,11 @@ export default {
     }
 
     .week-day {
-        width: 100px;
+        width: rem(100px);
         flex-grow: 1;
-        padding: 10px;
+        padding: rem(10px);
         text-align: left;
-        font-size: 14px;
+        font-size: rem(14px);
     }
 
     .days {
@@ -198,21 +210,21 @@ export default {
     }
     .base-line {
         position: absolute;
-        top: 340px;
+        top: rem(340px);
         width: 100%;
         display: flex;
         justify-content: center;
         transform: translateY(-50%);
         &-label {
-            padding: 6px 8px 5px;
+            padding: rem(6px) rem(8px) rem(5px);
             background: linear-gradient(0deg, rgba(236, 72, 101, 0.2), rgba(236, 72, 101, 0.2)), #FFFFFF;
             border: 1px solid #EC4865;
             box-sizing: border-box;
-            border-radius: 4px;
-            letter-spacing: 1px;
+            border-radius: rem(4px);
+            letter-spacing: rem(1px);
             text-transform: uppercase;
             color: #A12238;
-            font-size: 10px;
+            font-size: rem(10px);
             position: relative;
             z-index: 1;
             cursor: pointer;
@@ -231,17 +243,17 @@ export default {
         }
         &-label-big {
             position: absolute;
-            top: -6px;
+            top: rem(-6px);
             background: #FFFFFF;
             border: 1px solid #EC4865;
             box-sizing: border-box;
-            border-radius: 4px;
-            font-size: 14px;
+            border-radius: rem(4px);
+            font-size: rem(14px);
             letter-spacing: 1px;
             text-transform: uppercase;
             color: #A12238;
-            padding: 0 8px;
-            height: 29px;
+            padding: 0 rem(8px);
+            height: rem(29px);
             line-height: 1;
             align-items: center;
             cursor: default;

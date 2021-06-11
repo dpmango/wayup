@@ -32,3 +32,34 @@ export const AuthApi = {
     },
 };
 
+export const PlanResource = {
+    get() {
+        return HTTP.get('/plans.json');
+    },
+    single(id) {
+        return HTTP.get(`/plans/${id}.json`);
+    },
+    parts() {
+        return HTTP.get('/plan_parts.json');
+    }
+};
+
+export const ExerResource = {
+    get(token) {
+        return HTTP.get('/exercises.json', { headers: {"Authorization" : 'bearer ' + token} });
+    },
+};
+
+export const GroupResource = {
+    get() {
+        return HTTP.get('/groups.json');
+    },
+};
+
+export const ProfileResource = {
+    get(token) {
+        return HTTP.get('/api/v1/profiles', { headers: {"Authorization" : 'bearer ' + token} });
+    },
+};
+
+

@@ -8,6 +8,9 @@
     :solo="solo"
     :error="error"
     :disabled='disabled'
+    v-bind="$attrs"
+    v-model="selected"
+
 
   )
     //template(slot='item' slot-scope='data')
@@ -45,6 +48,18 @@ export default {
       default: false
     }
   },
+
+  computed: {
+    selected: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit('input', val);
+      }
+    }
+  }
+
 
 }
 </script>
