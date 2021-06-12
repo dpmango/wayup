@@ -1,62 +1,68 @@
 <template lang="pug">
-  v-expansion-panels.accordion-training
-    draggable.accordion-group(
-      :list='groupt'
-      :group={name: 'test', pull: 'clone'}
-    )
-      v-expansion-panel.accordion-panel(
-        v-for='(element, index) in groupt'
-        :key='element.id'
+  div
+    AccordionItemEstimate
+    v-expansion-panels.accordion-training
+      .accordion-group(
+        :list='groupt'
+        :group={name: 'test', pull: 'clone'}
       )
+        v-expansion-panel.accordion-panel(
+          v-for='(element, index) in groupt'
+          :key='element.id'
+        )
+          v-expansion-panel-header.accordion-panel__header
+            .panel-num 2
+            .img-wrap.img-wrap_left.mr-4
+              img(
+                src="@/assets/images/img-traning.png"
+              )
+            .accordion-panel__header-desc
+              .accordion-panel__header-desc_left
+                .accordion-panel__title
+                  | {{element.title}}
+                .labels.mb-3
+                  base-badge.mr-2.mb-2(
+                    v-if="element.recommended_duration"
+                    :label="element.recommended_duration"
+                    background='rgba(241, 243, 249, 1)'
+                    textColor="#000"
+                  )
+                  base-badge.mr-2.mb-2(
+                    v-if="element.type_of_exercise"
+                    :label="element.type_of_exercise"
+                    background='rgba(241, 243, 249, 1)'
+                    textColor="#000"
+                  )
+                  base-badge.mr-2.mb-2(
+                    v-if="element.location"
+                    :label="element.location"
+                    background='rgba(241, 243, 249, 1)'
+                    textColor="#000"
+                  )
+                  base-badge.mr-2.mb-2(
+                    v-if="element.load_value"
+                    :label="getLoadLabel(element.load_value)"
+                    :background='getLoadBg(element.load_value)'
+                    :textColor="getLoadText(element.load_value)"
+                  )
+                .training-desc {{ element.purpose }}
+              .accordion-panel__header-desc_right
+                base-button(
+                  classAttr='button-default button-blue button-big ml-auto'
+                  label="Оценить"
+                  @click="$emit(stop.noClickPanel)"
+                )
 
-        v-expansion-panel-header.accordion-panel__header
-          .panel-num {{index + 1 }}
-          img.icon-20.more-icon(
-            src="@/assets/images/svg/more-icon.svg"
-          )
-          .img-wrap.img-wrap_left.mr-4
-            img(
-              src="@/assets/images/img-traning.png"
-            )
-          .accordion-panel__header-desc
-            .accordion-panel__title
-              | {{element.title}}
-            .labels.mb-3
-              base-badge.mr-2.mb-2(
-                v-if="element.recommended_duration"
-                :label="element.recommended_duration"
-                background='rgba(241, 243, 249, 1)'
-                textColor="#000"
-              )
-              base-badge.mr-2.mb-2(
-                v-if="element.type_of_exercise"
-                :label="element.type_of_exercise"
-                background='rgba(241, 243, 249, 1)'
-                textColor="#000"
-              )
-              base-badge.mr-2.mb-2(
-                v-if="element.location"
-                :label="element.location"
-                background='rgba(241, 243, 249, 1)'
-                textColor="#000"
-              )
-              base-badge.mr-2.mb-2(
-                v-if="element.load_value"
-                :label="getLoadLabel(element.load_value)"
-                :background='getLoadBg(element.load_value)'
-                :textColor="getLoadText(element.load_value)"
-              )
-            .training-desc {{ element.purpose }}
-        v-expansion-panel-content.accordion-panel__content
-          AccordionTabs(:elem="element")
+          v-expansion-panel-content.accordion-panel__content
+            AccordionTabs(:elem="element")
 
 </template>
 
 <script>
-import draggable from 'vuedraggable'
 import AccordionTabs from "@/components/AccordionTabs";
 import DotsMenu from "@/components/DotsMenu";
 import AddBlock from "@/components/elements/addBlock";
+import AccordionItemEstimate from "@/components/AccordionItemEstimate";
 
 export default {
 
@@ -101,10 +107,10 @@ export default {
     items: ['Группа С8 | 10-13', 'Группа С8 | 10-14', 'Группа С8 | 10-15'],
   }),
   components: {
+    AccordionItemEstimate,
     AddBlock,
     DotsMenu,
     AccordionTabs,
-    draggable,
   },
 
   name: "AccordionTrainerLesson",
@@ -136,6 +142,12 @@ export default {
         'maximal': 'rgba(161, 34, 56, 1)'
       };
       return loadLabel[load]
+    },
+    noClickPanel() {
+      /*this will toggle only by icon click. at the same time, will prevent toggle
+      by clicking on header. */
+      const curr = this.panel
+      this.panel = curr === undefined ? 0 : undefined
     }
   }
 
@@ -157,7 +169,7 @@ export default {
 .accordion-training {
   .accordion-panel__header {
     min-height: rem(128px);
-    padding-left: rem(36px);
+    padding-left: rem(12px);
     padding-right: rem(24px);
 
   }
@@ -236,7 +248,9 @@ export default {
 }
 
 .accordion-panel__header-desc {
-  @include width-flex(70%)
+  @include width-flex(85%)
+  display: flex;
+  justify-content: space-between;
 }
 
 
