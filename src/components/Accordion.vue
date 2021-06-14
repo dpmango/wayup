@@ -129,6 +129,9 @@
       padding-right: rem(24px);
 
     }
+    .accordion-panel__header-desc{
+      flex-direction: column;
+    }
   }
 
   .accordion-panel{

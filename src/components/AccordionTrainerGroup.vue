@@ -62,6 +62,9 @@ export default {
 
 <style lang="scss" scoped>
 ::v-deep {
+  .v-expansion-panel-header>:not(.v-expansion-panel-header__icon){
+    flex: 1 1 auto;
+  }
   .v-expansion-panel {
     border-radius: 12px;
   }

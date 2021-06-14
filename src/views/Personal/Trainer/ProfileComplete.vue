@@ -39,7 +39,7 @@ import ModalTrainerEstimateSkills from "@/components/modals/ModalTrainerEstimate
 export default {
   name: "ProfileComplete",
   data: () => ({
-    isShowSidebarWidgets: false,
+    isShowSidebarWidgets: true,
   }),
   components: {
     ModalTrainerEstimateSkills,

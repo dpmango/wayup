@@ -27,6 +27,10 @@ name: "AccordionItemEstimate"
 .accordion-item-estimate{
   position: relative;
 }
+.item-estimate{
+  position: relative;
+
+}
 .estimate-num{
   font-family: $FiraSansMedium;
 }

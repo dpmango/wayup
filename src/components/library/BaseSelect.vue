@@ -245,6 +245,9 @@ export default {
       border-color: #CCCCCC;
 
     }
+    .v-label{
+      color: #999999;
+    }
 
     &:focus,
     &:hover {

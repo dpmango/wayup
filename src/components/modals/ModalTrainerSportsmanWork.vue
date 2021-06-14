@@ -30,7 +30,7 @@ export default {
   components: {SelectUser, SportsmanSelect},
   data() {
     return {
-      dialog: false,
+      dialog: true,
       selectItems: [
         {
           name: 'Даниил Брызгалов 1',
