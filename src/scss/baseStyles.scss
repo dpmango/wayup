@@ -80,6 +80,10 @@
   color: rgba(0, 0, 0, 0.5);
 }
 
+.title-medium{
+  font-family: $FiraSansMedium !important;
+}
+
 .h1{
   font-size: 40px;
   font-family: $FiraSansBold;
@@ -114,6 +118,13 @@
   border-radius: 50px !important;
 }
 
+.block-white{
+  background: #FFFFFF;
+  box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+}
+
 
 .span-title{
   font-family: $FiraSansRegular;
@@ -138,6 +149,14 @@
 
 .text-blue{
   color: $blue !important;
+}
+
+.text-red{
+  color: $red !important;
+}
+
+.text-green{
+  color: $green !important;
 }
 
 .border-bottom-dotted-blue{
@@ -329,45 +348,6 @@
 
 
 
-/* select custom end*/
-
-
-/* custom button start*/
-
-//.custom-button {
-//
-//  min-width: 0;
-//
-//  font-family: $FiraSansMedium;
-//  height: 40px;
-//  text-transform: none;
-//
-//  .v-btn__content {
-//    font-size: 16px;
-//    letter-spacing: normal;
-//  }
-//}
-//
-//.button-icon {
-//  min-width: 40px !important;
-//  width: 40px !important;
-//}
-//
-//.button-active {
-//  .custom-button {
-//    background: transparent !important;
-//
-//  }
-//
-//  .v-btn__content {
-//    color: $blue;
-//
-//  }
-//}
-
-
-/* custom button end */
-
 
 /* card  start */
 
@@ -500,11 +480,11 @@
 /* widgets */
 
 .widget {
-  width: 100%;
+  width: 99%;
+  margin: 4px 4px 16px;
   //background: #F8F9FB;
   box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  margin-bottom: 16px;
 }
 
 .widget-header {

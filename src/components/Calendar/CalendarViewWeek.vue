@@ -20,9 +20,14 @@
             .hours-time-item(v-for="m in 12") {{ 7 + m }}.00
           .hours-col(v-for="n in 7" :class="{ hoursDisable: (n == 6 || n == 7) }")
             .hours-item(v-for="m in 12" @mouseover="showAddBtn" @mouseleave="hideAddBtn")
-              base-button(label='+' classAttr='custom-button button-icon add-event'
+              base-button(label='' classAttr='button-default button-big-icon add-event'
                 @click="createEvent(getDate(n), (6 + m) + '.00')"
               )
+                template(#icon-left)
+                  svg.icon-16(width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg')
+                    path(d='M7 1V13M1 7H13' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
+
+
             template(v-for="event in groupSchedule[n]")
               CalendarEvent(:event="event" :base="heightHourCeil")
           CalendarDragEvent(

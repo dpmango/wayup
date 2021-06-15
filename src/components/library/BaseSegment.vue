@@ -111,6 +111,7 @@ export default {
 .segments-block {
   display: flex;
 
+  a,
   .segments-item {
     &:first-child {
 

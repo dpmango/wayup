@@ -40,7 +40,10 @@ export default {
 }
 
 .info-block_blue{
-  background: rgba(50, 107, 255, 0.1)
+  background: rgba(50, 107, 255, 0.1);
+}
+.info-block_gray{
+  background: rgba(186, 186, 186, 0.2);
 }
 
 .info-text {

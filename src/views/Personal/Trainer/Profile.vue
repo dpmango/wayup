@@ -118,7 +118,7 @@
                       .d-flex.align-center
                         .profile-title.mr-4 Резус фактор
                         .segments-block
-                          v-item-group.d-flex(mandatory)
+                          v-item-group.d-flex.mb-0(mandatory)
                             v-item(
                               v-for="val in rhesusList"
                               :key="val"

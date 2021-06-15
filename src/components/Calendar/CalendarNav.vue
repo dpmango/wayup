@@ -9,19 +9,20 @@
       )
     .buttons-right
       .segments-block
-        v-item-group(mandatory).mb-0
+        v-item-group.d-flex(mandatory).mb-0
           v-item(
             v-slot='{ active, toggle }'
           )
             router-link(
               to="/schedule/month"
             )
-              base-segment(
-                classAttr='segment-default segment-big'
-                label="Месяц"
-                tag="div"
-                @click='toggle'
-              )
+              .segment-item
+                base-segment(
+                  classAttr='segment-default segment-big'
+                  label="Месяц"
+                  tag="div"
+                  @click='toggle'
+                )
 
           v-item(
             v-slot='{ active, toggle }'
@@ -29,12 +30,13 @@
             router-link(
               to="/schedule/week"
             )
-              base-segment(
-                classAttr='segment-default segment-big'
-                label="Неделя"
-                tag="div"
-                @click='toggle'
-              )
+              .segment-item
+                base-segment(
+                  classAttr='segment-default segment-big'
+                  label="Неделя"
+                  tag="div"
+                  @click='toggle'
+                )
 
 
       //base-link(
