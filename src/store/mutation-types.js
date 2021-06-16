@@ -1,6 +1,6 @@
 // Авторизация
-export const SET_TOKEN = 'SET_TOKEN';
 export const SET_ACCESS = 'SET_ACCESS';
+export const REMOVE_ACCESS = 'REMOVE_ACCESS';
 
 // Кабинет спортсмена
 export const SET_WIDGET_LIST = 'SET_WIDGET_LIST';
