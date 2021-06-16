@@ -10,7 +10,8 @@
         .user-name Даниил Сергеевич Брызгалов
       .user-desc__block.mb-4
         .title-small.mb-1 Личные данные
-        a(href='#').text-small.text-blue Редактировать
+        router-link(to="/profile")
+          a(href='#').text-small.text-blue Редактировать
 
 
 

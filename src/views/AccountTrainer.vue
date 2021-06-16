@@ -1,10 +1,8 @@
 <template lang="pug">
   div
-
     ScheduleHeader.mb-0(title='Личный кабинет тренера')
       template(v-slot:header-block)
         //LevelBlock.ml-10
-
       template(v-slot:header-right)
         MusicPlayer
         .notificatiion-icon.mr-3(@click="snackbar = true")
@@ -60,10 +58,10 @@
         md='12'
       )
         v-tabs.ml-n4.mb-12
-          v-tab(to="/account-trainer/profile")
-            | Профиль
-          v-tab(to="/account-trainer/profile-complete")
-            | Профиль (заполненный)
+          //v-tab(to="/account-trainer/profile")
+          //  | Профиль
+          //v-tab(to="/account-trainer/profile-complete")
+          //  | Профиль (заполненный)
           v-tab(to="/account-trainer/main")
             | Общая информация
           v-tab(to="/account-trainer/stat")

@@ -125,6 +125,44 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/Login')
     },
 
+    // Профиль тренера
+
+    {
+        path: '/profile',
+        name: 'Profile',
+        meta: {layout: 'main', userSettings: true},
+        component: () => import(/* webpackChunkName: "about" */ '../views/Personal/Trainer/Profile')
+    },
+
+    // Профиль тренера (заполненный)
+
+    {
+        path: '/profile-complete',
+        name: 'ProfileComplete',
+        meta: {layout: 'main', userSettings: true},
+        component: () => import(/* webpackChunkName: "about" */ '../views/Personal/Trainer/ProfileComplete')
+    },
+
+
+    // Общая информация (тренер)
+
+    {
+        path: '/information',
+        name: 'Information',
+        meta: {layout: 'main', userSettings: true},
+        component: () => import(/* webpackChunkName: "about" */ '../views/Personal/Trainer/Information')
+    },
+
+
+    // Общая информация (тренер)
+
+    {
+        path: '/individual-lesson',
+        name: 'IndividualLesson',
+        meta: {layout: 'main', userSettings: true},
+        component: () => import(/* webpackChunkName: "about" */ '../views/Personal/Trainer/IndividualLesson')
+    },
+
     // Библиотека компонентов
     {
         path: '/components',

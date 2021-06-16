@@ -80,7 +80,7 @@
             v-list
               v-list-item
                 v-list-item-title.ml-4
-                  router-link(to='/account-trainer/profile') Профиль
+                  router-link(to='/profile') Профиль
               v-list-item.item-exit
                 v-list-item-title.ml-4(@click="logout") Выйти из системы
 

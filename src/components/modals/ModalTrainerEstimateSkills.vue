@@ -165,7 +165,7 @@ export default {
   components: {AccordionSkills, AccordionEstimation},
   data() {
     return {
-      dialog: true,
+      dialog: false,
       exercises_numbers: undefined,
       exercises_estimate: undefined,
       show:true

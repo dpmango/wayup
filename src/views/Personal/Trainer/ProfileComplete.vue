@@ -1,31 +1,38 @@
 <template lang="pug">
   div
-    SidebarNewExercise(
-      @sidebarWidgetsClose="sidebarWidgetsClose"
-      :class="isShowSidebarWidgets ? 'm-show' : 'm-hide'"
-    )
+    HeaderTrainerAccount
     v-row
       v-col(
-        md='2'
+        md='12'
       )
-        TrainerSidebar
+        .link-profile__block
+          router-link.link-profile(to="/information") Общая информация
+        h1.title-big.mb-5 Мой профиль
+        SidebarNewExercise(
+          @sidebarWidgetsClose="sidebarWidgetsClose"
+          :class="isShowSidebarWidgets ? 'm-show' : 'm-hide'"
+        )
+        v-row
+          v-col(
+            md='2'
+          )
+            TrainerSidebar
 
-      v-col(
-        md='10'
-      )
-        base-button(label='Скачать резюме'  classAttr='button-default button-blue button-big mb-6')
-        .widget
-          .widget-header
-            .widget-header__top
-              .widget-header__title Спортсмены, с которыми сейчас работаю
-          .widget-content.pb-16
-            .text-small.mt-5.mb-10 Расскажите о своем опыте
-            base-button(label='Заполнить'  classAttr='button-default button-blue button-big mb-16')
-
-        WidgetTrainerSportsmanWork
-    ModalTrainerSportsmanWork
-    ModalTrainerEstimateSkills
-    ModalTrainerNewEvent
+          v-col(
+            md='10'
+          )
+            base-button(label='Скачать резюме'  classAttr='button-default button-blue button-big mb-6')
+            .widget
+              .widget-header
+                .widget-header__top
+                  .widget-header__title Спортсмены, с которыми сейчас работаю
+              .widget-content.pb-16
+                .text-small.mt-5.mb-10 Расскажите о своем опыте
+                base-button(label='Заполнить'  classAttr='button-default button-blue button-big mb-16')
+            WidgetTrainerSportsmanWork
+        ModalTrainerSportsmanWork
+        ModalTrainerEstimateSkills
+        ModalTrainerNewEvent
 
 
 </template>
@@ -37,13 +44,17 @@ import WidgetTrainerSportsmanWork from "@/components/widgets/WidgetTrainerSports
 import SidebarNewExercise from "@/components/SidebarNewExercise";
 import ModalTrainerEstimateSkills from "@/components/modals/ModalTrainerEstimateSkills";
 import ModalTrainerNewEvent from "@/components/modals/ModalTrainerNewEvent";
+import ScheduleHeader from "@/components/ScheduleHeader";
+import HeaderTrainerAccount from "@/components/elements/HeaderTrainerAccount";
 
 export default {
   name: "ProfileComplete",
   data: () => ({
-    isShowSidebarWidgets: true,
+    isShowSidebarWidgets: false,
   }),
   components: {
+    HeaderTrainerAccount,
+    ScheduleHeader,
     ModalTrainerNewEvent,
     ModalTrainerEstimateSkills,
     SidebarNewExercise,
