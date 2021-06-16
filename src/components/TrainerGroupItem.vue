@@ -57,7 +57,7 @@
           svg.progress-indication(width='8' height='5' viewBox='0 0 8 5' fill='none' xmlns='http://www.w3.org/2000/svg')
             path(d='M4 0L8 5H0L4 0Z' )
           .progress-quant 0.5
-    d-block.ml-auto
+    .d-block.ml-auto
       v-menu(
         v-model='menu'
         :close-on-content-click='false'
@@ -75,7 +75,7 @@
               label="Оценить"
               disabled=true
             )
-        .block-white.v-application
+        .block-white.popup-block.v-application
           .close-button(@click='menu = false')
             svg.icon-16(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
               path(d='M3 13L13 3M13 13L3 3' stroke='#326BFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
@@ -194,35 +194,31 @@ export default {
   border-radius: 12px !important;
 }
 
-.menu-tooltip-estimate {
-  overflow: visible;
-  contain: none;
-  box-shadow: none;
-}
-.close-button{
-  position: absolute;
-  top: 20px;
-  right: 20px;
-}
-
-.block-white{
-  box-shadow: 0px 4px 24px rgba(218, 224, 232, 0.6);
+.block-white.popup-block {
   padding: 30px 60px 58px 20px;
   height: 206px;
-  overflow: visible;
-  &:after{
-    content: '';
-    width: 35px;
-    height: 35px;
-    transform: rotate(45deg);
-    left: 25px;
-    bottom: -20px;
-    z-index: -1;
-    position: absolute;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 24px rgba(218, 224, 232, 0.6);
-  }
+
+
 }
+
+//.block-white{
+//  box-shadow: 0px 4px 24px rgba(218, 224, 232, 0.6);
+//  padding: 30px 60px 58px 20px;
+//  height: 206px;
+//  overflow: visible;
+//  &:after{
+//    content: '';
+//    width: 35px;
+//    height: 35px;
+//    transform: rotate(45deg);
+//    left: 25px;
+//    bottom: -20px;
+//    z-index: -1;
+//    position: absolute;
+//    background: #FFFFFF;
+//    box-shadow: 0px 4px 24px rgba(218, 224, 232, 0.6);
+//  }
+//}
 
 
 </style>

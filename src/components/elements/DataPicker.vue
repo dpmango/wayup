@@ -5,7 +5,7 @@
     min-date="1900-01-01"
     @onOpen="menu = true"
     @onClose="menu = false"
-    placeholder="дд мес гггг"
+    :placeholder="placeholder"
     format-header="dddd, DD MMMM"
     format="DD-MM-YYYY"
   )
@@ -24,6 +24,14 @@
 
 export default {
   name: "DataPicker",
+  props: {
+    placeholder: {
+      type: String,
+      default: 'дд мес гггг'
+    },
+
+  },
+
   data: () => ({
     date: null,
     menu: false,

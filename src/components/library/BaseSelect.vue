@@ -10,6 +10,7 @@
     :disabled='disabled'
     v-bind="$attrs"
     v-model="selected"
+    :multiple='multiple'
 
 
   )
@@ -44,6 +45,10 @@ export default {
       default: false
     },
     disabled: {
+      type: Boolean,
+      default: false
+    },
+    multiple: {
       type: Boolean,
       default: false
     }
@@ -124,10 +129,13 @@ export default {
     }
 
   }
+  ::v-deep .v-select__selections{
+    padding: 0 !important;
+  }
 
 }
 
-.select-default.v-input--is-label-active,
+.select-default.v-select--is-menu-active,
 .select-default.v-input--is-focused {
   ::v-deep fieldset {
     box-shadow: 0px 0px 0px 4px rgba(50, 107, 255, 0.4);
@@ -142,7 +150,7 @@ export default {
   }
 }
 
-.select-default.v-input--is-label-active {
+.select-default.v-select--is-menu-active {
   ::v-deep fieldset {
     border-color: #123FB2;
   }
@@ -252,7 +260,7 @@ export default {
     &:focus,
     &:hover {
       fieldset {
-        border-color: transparent;
+        border-color: #CCCCCC;
       }
     }
 

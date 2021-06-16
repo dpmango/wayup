@@ -136,7 +136,8 @@ export default {
       margin-bottom: 16px;
     }
     .panel-num,
-    .add-training{
+    .add-training,
+    .training-edit{
       display: none;
     }
   }

@@ -4,6 +4,7 @@
       :list='groupt'
       :group={name: 'test', pull: 'clone'}
     )
+
       v-expansion-panel.accordion-panel(
         v-for='(element, index) in groupt'
         :key='element.id'
@@ -49,6 +50,10 @@
             .training-desc {{ element.purpose }}
         v-expansion-panel-content.accordion-panel__content
           AccordionTabs(:elem="element")
+        TrainingEditBlock
+
+
+
 
 </template>
 
@@ -57,6 +62,7 @@
   import AccordionTabs from "@/components/AccordionTabs";
   import DotsMenu from "@/components/DotsMenu";
   import AddBlock from "@/components/elements/addBlock";
+  import TrainingEditBlock from "@/components/elements/TrainingEditBlock";
 
   export default {
 
@@ -69,6 +75,7 @@
       items: ['Группа С8 | 10-13', 'Группа С8 | 10-14', 'Группа С8 | 10-15'],
     }),
     components: {
+      TrainingEditBlock,
       AddBlock,
       DotsMenu,
       AccordionTabs,

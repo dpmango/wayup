@@ -245,7 +245,7 @@ export default {
 
 .input-default.v-input--is-label-active {
   ::v-deep fieldset {
-    border-color: #123FB2;
+    //border-color: #123FB2;
   }
 }
 
@@ -256,7 +256,7 @@ export default {
   }
 }
 
-.input-default.v-input--is-label-active,
+//.input-default.v-input--is-label-active,
 .input-default.v-input--is-focused {
   ::v-deep fieldset {
     box-shadow: 0px 0px 0px 4px rgba(50, 107, 255, 0.4);
@@ -270,6 +270,20 @@ export default {
     top: rem(16px);
   }
 }
+
+.input-default.v-input--is-label-active {
+  ::v-deep fieldset {
+    padding-left: rem(17px);
+
+  }
+
+  ::v-deep .v-label {
+    padding: 0 rem(2px);
+    top: rem(18px);
+
+  }
+}
+
 
 .input-default.error--text {
   ::v-deep .v-label {
