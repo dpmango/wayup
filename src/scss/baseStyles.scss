@@ -764,6 +764,40 @@
   margin-left: 10px;
 }
 
+.popup-block{
+  .close-button{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+}
+
+.block-white.popup-block{
+  box-shadow: 0px 4px 24px rgba(218, 224, 232, 0.6);
+  //padding: 30px 60px 58px 20px;
+  //height: 206px;
+  overflow: visible;
+  &:after{
+    content: '';
+    width: 35px;
+    height: 35px;
+    transform: rotate(45deg);
+    left: 25px;
+    bottom: -20px;
+    z-index: -1;
+    position: absolute;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 24px rgba(218, 224, 232, 0.6);
+  }
+}
+
+
+.menu-tooltip-estimate {
+  overflow: visible;
+  contain: none;
+  box-shadow: none;
+}
+
 
 
 

@@ -49,23 +49,23 @@
 
                 .summury-plan__block
                   .summury-plan__block
-                      template(v-for="item in accordionBigItems")
-                          .summury-plan__block-title {{ item.name }}
-                          ul.summury-plan__list
-                              li.summury-plan__item(v-for="(child, index) in item.children")
-                                  .summury-plan__num {{ index + 1 }}
-                                  .summury-plan__desc {{ child.title }}
-                                  .labels
-                                      base-label(
-                                          :label='getMinuteLabel(child.recommended_duration)'
-                                          color='#F1F3F9'
-                                          textColor="#000000"
-                                      )
-                                      base-label(
-                                          :label='getLoadShortLabel(child.load_value)'
-                                          color='rgba(61, 197, 13, 0.2)'
-                                          textColor="#1F7800"
-                                      )
+                    template(v-for="item in accordionBigItems")
+                      .summury-plan__block-title {{ item.name }}
+                      ul.summury-plan__list
+                        li.summury-plan__item(v-for="(child, index) in item.children")
+                          .summury-plan__num {{ index + 1 }}
+                          .summury-plan__desc {{ child.title }}
+                          .labels
+                            base-label(
+                              :label='getMinuteLabel(child.recommended_duration)'
+                              color='#F1F3F9'
+                              textColor="#000000"
+                            )
+                            base-label(
+                              :label='getLoadShortLabel(child.load_value)'
+                              color='rgba(61, 197, 13, 0.2)'
+                              textColor="#1F7800"
+                            )
 
         v-row
           v-col(
@@ -154,9 +154,9 @@ export default {
     plan: {},
     dataExer: [],
     parts: [],
-      microcycle: '',
-      mesocycle: '',
-     macrocycle: ''
+    microcycle: '',
+    mesocycle: '',
+    macrocycle: ''
 
   }),
   computed: {
@@ -201,41 +201,41 @@ export default {
     },
 
     editTraining: function () {
-          if(this.isActiveEdit) {
-              // Созадем часть плана
-              /*axios.post('https://way-up.herokuapp.com/plan_parts.json', {
-                  "exercise_id": 12,
-                  "plan_id": 17,
-                  "plan_part_type": "Основная часть",
-                  "created_at": "2021-03-26T21:32:17.417Z",
-                  "updated_at": "2021-03-26T21:32:17.417Z",
-                  "url": "https://way-up.herokuapp.com/plan_parts/27.json"
-              })
-              .then(function (response) {
-                  console.log(response);
-              })*/
+      if (this.isActiveEdit) {
+        // Созадем часть плана
+        /*axios.post('https://way-up.herokuapp.com/plan_parts.json', {
+            "exercise_id": 12,
+            "plan_id": 17,
+            "plan_part_type": "Основная часть",
+            "created_at": "2021-03-26T21:32:17.417Z",
+            "updated_at": "2021-03-26T21:32:17.417Z",
+            "url": "https://way-up.herokuapp.com/plan_parts/27.json"
+        })
+        .then(function (response) {
+            console.log(response);
+        })*/
 
-              // Удаляем тренировку
-              /*axios.delete('https://way-up.herokuapp.com/plan_parts/31.json').then(function (response) {
-                  console.log(response);
-              })*/
+        // Удаляем тренировку
+        /*axios.delete('https://way-up.herokuapp.com/plan_parts/31.json').then(function (response) {
+            console.log(response);
+        })*/
 
-              // Редактируем тренировку
-              /*axios.put('https://way-up.herokuapp.com/plan_parts/34.json', {
-                  "exercise_id": null,
-                  "plan_id": 17,
-                  "plan_part_type": "Заключительная часть",
-                  "created_at": "2021-04-29T06:11:20.896Z",
-                  "updated_at": "2021-04-29T06:11:20.896Z",
-                  "url": "https://way-up.herokuapp.com/plan_parts/34.json",
-                  "exercise_name": [
-                      "Квадрат из приставных шагов",
-                      "Квадрат из T-образных и приставных шагов",
-                  ]
-              }).then(function (response) {
-                  console.log(response);
-              })*/
-          }
+        // Редактируем тренировку
+        /*axios.put('https://way-up.herokuapp.com/plan_parts/34.json', {
+            "exercise_id": null,
+            "plan_id": 17,
+            "plan_part_type": "Заключительная часть",
+            "created_at": "2021-04-29T06:11:20.896Z",
+            "updated_at": "2021-04-29T06:11:20.896Z",
+            "url": "https://way-up.herokuapp.com/plan_parts/34.json",
+            "exercise_name": [
+                "Квадрат из приставных шагов",
+                "Квадрат из T-образных и приставных шагов",
+            ]
+        }).then(function (response) {
+            console.log(response);
+        })*/
+      }
       this.isActiveEdit = !this.isActiveEdit;
     },
 
@@ -243,65 +243,65 @@ export default {
       this.isActiveModal = !this.isActiveModal;
     },
 
-      getAccardionBigItem(part) {
-          let parts1 = {
-              name: part,
-              open: true
-          };
-          let part1Children = [];
-          if(this.parts[parts1.name]) {
-              for(let i=0; i < this.parts[parts1.name].length; i++) {
-                  let part = this.parts[parts1.name][i];
+    getAccardionBigItem(part) {
+      let parts1 = {
+        name: part,
+        open: true
+      };
+      let part1Children = [];
+      if (this.parts[parts1.name]) {
+        for (let i = 0; i < this.parts[parts1.name].length; i++) {
+          let part = this.parts[parts1.name][i];
 
-                  for(let j=0; j < part['exercise_name'].length; j++) {
+          for (let j = 0; j < part['exercise_name'].length; j++) {
 
-                      let ex = this.dataExer.filter(item => item.title == part['exercise_name'][j])[0];
+            let ex = this.dataExer.filter(item => item.title == part['exercise_name'][j])[0];
 
-                      if(ex) {
-                          let pt = ex;
-                          pt.plan_part_id = part.id;
-                          part1Children.push(pt);
-                      }
-                  }
-
-
-              }
+            if (ex) {
+              let pt = ex;
+              pt.plan_part_id = part.id;
+              part1Children.push(pt);
+            }
           }
 
-          parts1.children = part1Children;
-          return parts1;
-      },
 
-      getLabelPart(children) {
-          let min = 0;
-          children.map(item => {
-              let t = item.recommended_duration.split(' ');
-              if(t[0]) min += parseFloat(t[0]);
+        }
+      }
 
-          });
+      parts1.children = part1Children;
+      return parts1;
+    },
 
-        return children.length + ' упражнений, ' + min + ' мин' ;
-      },
+    getLabelPart(children) {
+      let min = 0;
+      children.map(item => {
+        let t = item.recommended_duration.split(' ');
+        if (t[0]) min += parseFloat(t[0]);
 
-      getMinuteLabel(duration) {
-        return duration.replace('минуты', 'мин').replace('минута', 'мин').replace('минут', 'мин')
-      },
+      });
 
-      getLoadShortLabel(load) {
-        let loadLabel = {
-            'minimal' : 'Y',
-            'normal' : 'Б' ,
-            'submax' : 'С',
-            'maximal' : 'М'
-        };
-        return loadLabel[load]
-      },
+      return children.length + ' упражнений, ' + min + ' мин';
+    },
 
-      ...mapActions('schedule', ['loadPlan', 'loadExer', 'loadParts']),
+    getMinuteLabel(duration) {
+      return duration.replace('минуты', 'мин').replace('минута', 'мин').replace('минут', 'мин')
+    },
+
+    getLoadShortLabel(load) {
+      let loadLabel = {
+        'minimal': 'Y',
+        'normal': 'Б',
+        'submax': 'С',
+        'maximal': 'М'
+      };
+      return loadLabel[load]
+    },
+
+    ...mapActions('schedule', ['loadPlan', 'loadExer', 'loadParts']),
   },
 
   created() {
-    if(this.$route.params.id) {
+    if (this.$route.params.id) {
       this.loadPlan(this.$route.params.id).then(() => {
         this.plan = this.$store.state.schedule.plan;
         // Получаем микроцикл, мезоцикл, макроцикл
@@ -324,10 +324,10 @@ export default {
       this.dataExer = this.$store.state.schedule.exer;
       this.loadParts().then(() => {
         let groupParts = {};
-        let curParts = this.$store.state.schedule.plan_parts.filter(item => item.plan_id == this.$route.params.id );
+        let curParts = this.$store.state.schedule.plan_parts.filter(item => item.plan_id == this.$route.params.id);
 
         curParts.map(item => {
-          if(!groupParts[item.plan_part_type]) groupParts[item.plan_part_type] = [];
+          if (!groupParts[item.plan_part_type]) groupParts[item.plan_part_type] = [];
           groupParts[item.plan_part_type].push(item);
         });
 
@@ -340,9 +340,9 @@ export default {
     })
   },
 
-    mounted () {
+  mounted() {
 
-        //this.$store.dispatch('plans', this.$store.state.token)
+    //this.$store.dispatch('plans', this.$store.state.token)
 
   }
 
@@ -454,17 +454,20 @@ export default {
 
 }
 
-.training-aside{
-  .img-wrap_left{
+.training-aside {
+  .img-wrap_left {
     display: none;
   }
-  .accordion-tabs .img-trainig_big{
+
+  .accordion-tabs .img-trainig_big {
     height: 114px;
   }
-  .accordion-panel__header-desc{
+
+  .accordion-panel__header-desc {
     @include width-flex(100%)
   }
-  .accordion-panel__title{
+
+  .accordion-panel__title {
     padding-right: 40%;
   }
 }
