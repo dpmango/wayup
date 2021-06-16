@@ -160,7 +160,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const publicPages = ["/login", "/registration"];
   const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem("token");
+  const loggedIn = localStorage.getItem("access");
 
   if (authRequired && !loggedIn) {
     next("/login");

@@ -28,17 +28,8 @@ HTTP.interceptors.response.use(
 
 export const AuthApi = {
     login(data) {
-        return HTTP.post('/api/v1/sign_in', data);
-    },
-    registration(data) {
-        let user = {
-            'user' : data
-        };
-        return HTTP.post('/api/v1/sign_up', user);
-    },
-    grafLogin(data) {
         return HTTP_GRAF.post('/auth/users/login/', data);
-    }
+    },
 };
 
 export const PlanResource = {

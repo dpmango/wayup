@@ -46,6 +46,7 @@
 import SelectUser from "@/components/elements/UserSelect.vue";
 import {required, email} from 'vuelidate/lib/validators';
 import {AuthApi} from '@/store/api';
+//import {mapActions} from 'vuex';
 
 
 export default {
@@ -71,29 +72,20 @@ export default {
     }
   },
   methods: {
+    //...mapActions('auth', ['login']),
     submitForm() {
       this.rejectText = '';
       this.$v.$touch();
       if (!this.$v.$invalid) {
 
         AuthApi.login({email: this.email, password: this.password}).then(response => {
-          this.$store.dispatch('auth/login', response.data.data.user.authentication_token);
+          this.$store.dispatch('auth/login', response.data.access);
           this.$router.push("/");
         }, reason => {
           console.log('error');
           console.log(reason);
           this.rejectText = reason.data.status + ' ' + reason.data.error;
         });
-
-        /*AuthApi.grafLogin({email: this.email, password: this.password}).then(response => {
-          console.log(response);
-          //this.$store.dispatch('auth/login', response.data.access);
-          this.$router.push("/");
-        }, reason => {
-          console.log('error');
-          console.log(reason);
-          this.rejectText = reason.data.status + ' ' + reason.data.error;
-        });*/
 
       }
     },
