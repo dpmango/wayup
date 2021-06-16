@@ -1,5 +1,9 @@
 <template lang="pug">
   div
+    .d-flex.align-center.justify-space-between.mb-12
+      .title-wrap.mb-0
+        .page-title Индивидуальное занятие, ССМ-2, план 12
+      HeaderRightTrainerAccount
     v-row
       v-col(md="12")
         .widget.widget-empty
@@ -116,10 +120,14 @@
 import InfoBlock from "@/components/elements/InfoBlock";
 import AccordionBig from "@/components/AccordionBig";
 import AccordionTrainerLesson from "@/components/AccordionTrainerLesson";
+import HeaderTrainerAccount from "@/components/elements/HeaderTrainerAccount";
+import HeaderRightTrainerAccount from "@/components/elements/HeaderRightTrainerAccount";
 
 export default {
-  name: "Stat",
+  name: "IndividualLesson",
   components: {
+    HeaderRightTrainerAccount,
+    HeaderTrainerAccount,
     AccordionTrainerLesson,
     AccordionBig,
     InfoBlock

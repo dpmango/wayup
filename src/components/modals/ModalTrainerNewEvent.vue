@@ -1,7 +1,10 @@
 <template lang="pug">
-  v-dialog(v-model='dialog' max-width='468px')
+  v-dialog(
+    v-model='show'
+    max-width='468px'
+    )
     .v-application.v-application--is-ltr
-      .modal-close(@click='dialog = false')
+      .modal-close( @click.stop="show=false")
       .modal-header
         .modal-title Новое событие
       .modal-body
@@ -67,15 +70,8 @@
               label="Напомнить"
               :items="selectNotif"
             )
-
-
-
     .modal-footer
-        base-button(label='Сохранить'  classAttr='button-default button-blue button-big w-100')
-
-
-
-
+      base-button(label='Сохранить'  classAttr='button-default button-blue button-big w-100')
 
 
 </template>
@@ -84,29 +80,43 @@
 import SportsmanSelect from "@/components/elements/SportsmanSelect";
 import SelectUser from "@/components/elements/UserSelect";
 import DataPicker from "@/components/elements/DataPicker";
+
 export default {
   name: "ModalTrainerNewEvent",
   components: {DataPicker, SelectUser, SportsmanSelect},
+
   data() {
     return {
-      dialog: true,
       selectItems: ['Тест 1', 'Тест 2', 'Тест 3'],
-      selectTimeStart: ['8:00', '9:00', '10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00'],
-      selectTimeEnd: ['9:00', '10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00', '19:00'],
-      selectNotif: ['Нет', 'За 10 минут','За 30 минут','За 1 час','За 2 час','За 3 час','За 1 день' ],
+      selectTimeStart: ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],
+      selectTimeEnd: ['9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'],
+      selectNotif: ['Нет', 'За 10 минут', 'За 30 минут', 'За 1 час', 'За 2 час', 'За 3 час', 'За 1 день'],
     }
   },
+  props: ['visible'],
+  computed: {
+    show: {
+      get () {
+        return this.visible
+      },
+      set (value) {
+        if (!value) {
+          this.$emit('close')
+        }
+      }
+    }
+  }
 }
 </script>
 
 <style scoped lang="scss">
 
-.modal-header{
+.modal-header {
   padding: 27px 100px 13px 24px;
   //box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
 }
 
-.modal-body{
+.modal-body {
   padding: 24px 24px 40px 24px;
   //display: flex;
   //align-items: center;
@@ -114,10 +124,9 @@ export default {
 
 }
 
-.modal-footer{
+.modal-footer {
   padding: 16px 24px;
 }
-
 
 
 </style>

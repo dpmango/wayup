@@ -47,11 +47,11 @@
                   )
                 .training-desc {{ element.purpose }}
               .accordion-panel__header-desc_right
-                base-button(
-                  classAttr='button-default button-blue button-big ml-auto'
-                  label="Оценить"
-                  @click="$emit(stop.noClickPanel)"
-                )
+                div(@click.stop='onClick()')
+                  base-button(
+                    classAttr='button-default button-blue button-big ml-auto'
+                    label="Оценить"
+                  )
 
           v-expansion-panel-content.accordion-panel__content
             AccordionTabs(:elem="element")

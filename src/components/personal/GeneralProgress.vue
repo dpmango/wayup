@@ -26,7 +26,7 @@
       v-row(v-if="dataChart && dataChart.length")
         v-col(sm="9")
           .chart-container
-            #generalProgressChart( style="width:100%; height:200px;")
+            #generalProgressChart( style="height:200px;")
         v-col(sm="3")
           .legend
             .legend-round(:style="{ background: currentColor}")
@@ -205,6 +205,7 @@
         this.chart = Highcharts.chart('generalProgressChart', {
           title: false,
           legend: false,
+          margin: 0,
           xAxis: {
             categories: labels,
             labels: {
@@ -241,6 +242,13 @@
 <style scoped lang="scss">
   .widget {
     position: relative;
+  }
+  .chart-container{
+    width: 100% !important;
+  }
+
+  .highcharts-series-group{
+    width: 100% !important;
   }
   .widget-empty-image {
     background-image: url("~@/assets/images/general_progress_empty.jpg");
@@ -298,4 +306,16 @@
       font-size: 12px;
     }
   }
+  ::v-deep {
+    .highcharts-axis-labels > span{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .xAxis_up{
+      left: -3px;
+    }
+  }
+
+
 </style>

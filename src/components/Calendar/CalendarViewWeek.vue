@@ -19,9 +19,14 @@
           .hours-time
             .hours-time-item(v-for="m in 12") {{ 7 + m }}.00
           .hours-col(v-for="n in 7" :class="{ hoursDisable: (n == 6 || n == 7) }")
+
             .hours-item(v-for="m in 12" @mouseover="showAddBtn" @mouseleave="hideAddBtn")
+              //base-button(label='' classAttr='button-default button-big-icon add-event'
+              //  @click="createEvent(getDate(n), (6 + m) + '.00')"
+              //)
+
               base-button(label='' classAttr='button-default button-big-icon add-event'
-                @click="createEvent(getDate(n), (6 + m) + '.00')"
+                @click='dialogEvent = true'
               )
                 template(#icon-left)
                   svg.icon-16(width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg')
@@ -36,6 +41,7 @@
             :base="heightHourCeil"
             :width="dragEventWidth"
           )
+          ModalTrainerNewEvent(:visible='dialogEvent' @close="dialogEvent=false")
 </template>
 
 <script>
@@ -43,6 +49,7 @@
   import CalendarEvent from "@/components/Calendar/CalendarEvent"
   import CalendarDragEvent from "@/components/Calendar/CalendarDragEvent"
   import axios from "axios"
+  import ModalTrainerNewEvent from "@/components/modals/ModalTrainerNewEvent";
 
   export default {
     name: "CalendarViewWeek",
@@ -54,8 +61,9 @@
         type: [Array, Object]
       }
     },
-    components: {CalendarEvent, CalendarDragEvent},
+    components: {ModalTrainerNewEvent, CalendarEvent, CalendarDragEvent},
     data: function () {
+
       return {
         weekDays: moment.weekdaysShort(true),
         heightHourCeil: 64,
@@ -65,7 +73,8 @@
         dragEventWidth: null,
         dragDiff: 0,
         dragEl: null,
-        offsetMinuteMin: 15 // Минимальное смещение в минутах при drag-and-drop
+        offsetMinuteMin: 15, // Минимальное смещение в минутах при drag-and-drop
+        dialogEvent:false
       }
     },
     watch: {
@@ -214,7 +223,7 @@
         for (let child in this.$children) {
           if (this.$children[child].$el.contains(event.target)) {
             let eventTarget = this.$children[child];
-            console.log(eventTarget);
+            console.log('eventTarget', eventTarget);
             if (eventTarget.event) {
               this.$router.push({name: 'Plan', params: {id: eventTarget.event.id}});
             }

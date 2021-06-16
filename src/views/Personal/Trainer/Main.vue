@@ -1,25 +1,25 @@
-<template lang="pug">
-  div
-    v-row
-      v-col(md="7")
-        WidgetTrainerGroup
+<!--<template lang="pug">-->
+<!--  div-->
+<!--    v-row-->
+<!--      v-col(md="7")-->
+<!--        WidgetTrainerGroup-->
 
 
-</template>
+<!--</template>-->
 
-<script>
-
-
-import WidgetTrainerGroup from "@/components/widgets/WidgetTrainerGroup";
-export default {
-  name: "Main",
-  components: {WidgetTrainerGroup},
-}
-
-</script>
-
-<style scoped lang="scss">
+<!--<script>-->
 
 
+<!--import WidgetTrainerGroup from "@/components/widgets/WidgetTrainerGroup";-->
+<!--export default {-->
+<!--  name: "Main",-->
+<!--  components: {WidgetTrainerGroup},-->
+<!--}-->
 
-</style>
+<!--</script>-->
+
+<!--<style scoped lang="scss">-->
+
+
+
+<!--</style>-->
