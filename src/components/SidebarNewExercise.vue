@@ -125,7 +125,7 @@
         )
 
         .radio-block.mb-4
-          .radio-block__title.text-small.text-gray Этап периода подготовки
+          .radio-block__title.text-small.text-gray Форма организации
           v-radio-group( mandatory)
             base-radio-button(
               label="Индивидуальная"
