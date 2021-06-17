@@ -1,17 +1,16 @@
 import {
-  SET_ACCESS, RESET, REMOVE_ACCESS, SET_PROFILE, SET_ROLE
+  RESET, SET_EVENT, ADD_EX
 } from '../mutation-types';
-import { ProfileResource } from '../api.js';
 
+import { EventResource } from '../api.js';
 /*
 |--------------------------------------------------------------------------
 | Начальное состояние - используется для сброса store
 |--------------------------------------------------------------------------
 */
 const initialState = () => ({
-  access: localStorage.getItem("access") || "",
-  profile: {},
-  role: localStorage.getItem("role") || "",
+  event: {},
+  exersiceList: []
 });
 
 /*
@@ -26,17 +25,11 @@ const state = initialState;
 |--------------------------------------------------------------------------
 */
 const mutations = {
-  [SET_ACCESS](state, payload) {
-    state.access = payload;
+  [SET_EVENT](state, payload) {
+    state.event = payload;
   },
-  [SET_ROLE](state, payload) {
-    state.role = payload;
-  },
-  [SET_PROFILE](state, payload) {
-    state.profile = payload;
-  },
-  [REMOVE_ACCESS](state) {
-    state.access = '';
+  [ADD_EX](state, payload) {
+    state.exersiceList.push(payload);
   },
   [RESET](state) {
     const newState = initialState();
@@ -60,31 +53,15 @@ const getters = {
 |--------------------------------------------------------------------------
 */
 const actions = {
+  async createEvent({commit}) {
 
-  async  login({commit}, payload) {
-    commit(SET_ACCESS, payload);
-    localStorage.setItem("access", payload);
-  },
-
-  role({commit}, payload) {
-    commit(SET_ROLE, payload);
-    localStorage.setItem("role", payload);
-  },
-
-  logout({commit}) {
-    commit(REMOVE_ACCESS);
-    localStorage.removeItem("access");
-  },
-
-  async loadProfile({commit}) {
-    await ProfileResource.get().then(response => {
-      console.log(response);
-      commit(SET_PROFILE, response.data);
+    await EventResource.create(data).then(response => {
+      commit(SET_EVENT, response.data);
     }).catch(err => {
       console.log(err);
       throw err.response;
     });
-  }
+  },
 
 
 };

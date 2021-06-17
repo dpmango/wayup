@@ -80,6 +80,8 @@ export default {
 
         AuthApi.login({email: this.email, password: this.password}).then(response => {
           this.$store.dispatch('auth/login', response.data.access);
+          this.$store.dispatch('auth/role', response.data.userRole);
+          this.$store.dispatch('auth/loadProfile');
           this.$router.push("/");
         }, reason => {
           console.log('error');
