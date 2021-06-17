@@ -1,13 +1,15 @@
 <template lang="pug">
   VueDatePicker(
+    v-bind="$attrs"
     v-model="date"
     ref="menu"
-    min-date="1900-01-01"
+    :min-date="minDate"
     @onOpen="menu = true"
     @onClose="menu = false"
     :placeholder="placeholder"
     format-header="dddd, DD MMMM"
     format="DD-MM-YYYY"
+    :visibleYearsNumber="2"
   )
     template(#input-icon='')
       svg(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
@@ -21,7 +23,7 @@
 
 <script>
 
-
+  import moment from 'moment'
 export default {
   name: "DataPicker",
   props: {
@@ -29,13 +31,15 @@ export default {
       type: String,
       default: 'дд мес гггг'
     },
-
+    value: {
+      type: String,
+      default: null
+    },
   },
 
   data: () => ({
-    date: null,
     menu: false,
-
+    minDate: moment().format('YYYY') + '01-01',
   }),
   watch: {
     menu (val) {
@@ -46,6 +50,16 @@ export default {
     save(date) {
       this.$refs.menu.save(date)
     },
+  },
+  computed: {
+    date: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit('input', val);
+      }
+    }
   }
 
 }

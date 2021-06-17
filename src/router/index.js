@@ -8,7 +8,7 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: "/",
-        redirect: '/account-trainer/profile'
+        redirect: '/profile'
     },
 
     // Календарь
@@ -198,7 +198,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const publicPages = ["/login", "/registration"];
   const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem("token");
+  const loggedIn = localStorage.getItem("access");
 
   if (authRequired && !loggedIn) {
     next("/login");
