@@ -61,7 +61,7 @@ const getters = {
 */
 const actions = {
 
-  async  login({commit}, payload) {
+  async login({commit}, payload) {
     commit(SET_ACCESS, payload);
     localStorage.setItem("access", payload);
   },
@@ -72,13 +72,12 @@ const actions = {
   },
 
   logout({commit}) {
-    commit(REMOVE_ACCESS);
+    commit(RESET);
     localStorage.removeItem("access");
   },
 
   async loadProfile({commit}) {
     await ProfileResource.get().then(response => {
-      console.log(response);
       commit(SET_PROFILE, response.data);
     }).catch(err => {
       console.log(err);

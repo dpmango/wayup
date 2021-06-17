@@ -10,15 +10,21 @@ const HTTP = axios.create({
 
 const HTTP_GRAF = axios.create({
     baseURL: API_URL_GRAF,
+    headers: {'Authorization': access ? `Bearer ${access}` : '' , 'Content-Type': 'application/json; charset=utf-8'}
 });
 
 if (token) {
     HTTP.headers = {'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json; charset=utf-8'};
 }
 
-if (access) {
-    HTTP_GRAF.headers = {'Authorization': `Bearer ${access}`, 'Content-Type': 'application/json; charset=utf-8'};
-}
+HTTP_GRAF.interceptors.response.use(
+  response => {
+      return response;
+  },
+  error => {
+      return Promise.reject(error.response);
+  }
+);
 
 HTTP.interceptors.response.use(
     response => {
@@ -38,13 +44,13 @@ export const AuthApi = {
 
 export const EventResource = {
     create() {
-        return HTTP_GRAF.post('/events');
+        return HTTP_GRAF.post('/events/');
     }
 };
 
 export const ProfileResource = {
     get() {
-        return HTTP_GRAF.get('/coaches');
+        return HTTP_GRAF.get('/coaches/');
     }
 };
 

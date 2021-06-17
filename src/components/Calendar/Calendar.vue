@@ -59,7 +59,7 @@ export default {
     },
   created() {
     this.loadPlans();
-  },
+  }
 
 }
 </script>

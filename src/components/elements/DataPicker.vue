@@ -3,12 +3,13 @@
     v-bind="$attrs"
     v-model="date"
     ref="menu"
-    min-date="1900-01-01"
+    :min-date="minDate"
     @onOpen="menu = true"
     @onClose="menu = false"
     :placeholder="placeholder"
     format-header="dddd, DD MMMM"
     format="DD-MM-YYYY"
+    :visibleYearsNumber="2"
   )
     template(#input-icon='')
       svg(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
@@ -22,7 +23,7 @@
 
 <script>
 
-
+  import moment from 'moment'
 export default {
   name: "DataPicker",
   props: {
@@ -38,6 +39,7 @@ export default {
 
   data: () => ({
     menu: false,
+    minDate: moment().format('YYYY') + '01-01',
   }),
   watch: {
     menu (val) {

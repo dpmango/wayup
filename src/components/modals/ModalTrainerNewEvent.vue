@@ -30,7 +30,8 @@
           base-select(
             classAttr='select-default select-bg-white mb-6'
             label="Выбрать спортсмена"
-            :items="selectItems"
+            :items="sportsmanList"
+            v-model="sportsman"
           )
           v-row.mb-6
             v-col(md="5")
@@ -43,11 +44,13 @@
             label="Место проведения"
             :items="locationList"
             v-model="location"
+            @change="clearPlayground"
           )
           base-select(
             classAttr='select-default select-bg-white mb-6'
             label="Площадка"
-            :items="selectItems"
+            :items="playgroundList"
+            v-model="playground"
           )
           v-row.mb-1
             v-col(md="5")
@@ -56,6 +59,7 @@
                 label="Время с"
                 :items="timeStartList"
                 v-model="timeStart"
+                @change="calcPeriod"
               )
             v-col(md="5")
               base-select(
@@ -63,11 +67,12 @@
                 label="Время по"
                 :items="timeEndList"
                 v-model="timeEnd"
+                @change="calcPeriod"
               )
-          .d-flex.align-center.mb-6
+          .d-flex.align-center.mb-6(v-if="timePeriodLabel.length")
             svg.icon-16(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
               path(fill-rule='evenodd' clip-rule='evenodd' d='M8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2ZM8.75 4.75C8.75 4.33579 8.41421 4 8 4C7.58579 4 7.25 4.33579 7.25 4.75V8.25C7.25 8.66421 7.58579 9 8 9C8.41421 9 8.75 8.66421 8.75 8.25V4.75ZM8 12C8.55228 12 9 11.5523 9 11C9 10.4477 8.55228 10 8 10C7.44772 10 7 10.4477 7 11C7 11.5523 7.44772 12 8 12Z' fill='#808080')
-            .text-gray.text-small.ml-2 Время тренировки 2 часа
+            .text-gray.text-small.ml-2 {{ timePeriodLabel }}
           v-row
             v-col(md="7")
               base-select(
@@ -86,7 +91,10 @@
 import SportsmanSelect from "@/components/elements/SportsmanSelect";
 import SelectUser from "@/components/elements/UserSelect";
 import DataPicker from "@/components/elements/DataPicker";
-//import moment from 'moment';
+import { mapState } from 'vuex';
+import axios from "axios";
+import { API_URL_GRAF } from "@/config/api";
+import moment from 'moment'
 
 export default {
   name: "ModalTrainerNewEvent",
@@ -97,25 +105,23 @@ export default {
       title: '',
       typeOfPreparation: '',
       positionType: '',
-      sportsman: 0,
+      sportsman: '',
       dateStart: null,
       location: '',
-      playground: '',
+      playground:{text: 'Не выбрано', value: 0},
       timeStart: '',
       timeEnd: '',
       reminder: '',
-      typePreparationList: [{text:'Индивидуальная тренировка', value: 1}, {text:'Групповая тренировка', value: 1}],
-      positionList: [{text:'Нападающий', value: 1}, {text:'Вратарь', value: 1}],
-      locationList: [{text:'Ледовый Дворец', value: 1}, {text:'Арена', value: 1}, {text:'Стадион', value: 1}],
-      playgroundList: [{text:'Футбольное поле', value: 1}, {text:'Лед', value: 1}, {text:'Манеж', value: 1}],
+      typePreparationList: [],
+      positionList: [],
       reminderList: ['Нет', 'За 10 минут', 'За 30 минут', 'За 1 час', 'За 2 часа', 'За 3 часа', 'За 1 день'],
       timeStartList: ['07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00'],
       timeEndList: ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00'],
 
-      selectItems: ['Тест 1', 'Тест 2', 'Тест 3'],
-      selectTimeStart: ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],
-      selectTimeEnd: ['9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'],
-      selectNotif: ['Нет', 'За 10 минут', 'За 30 минут', 'За 1 час', 'За 2 час', 'За 3 час', 'За 1 день'],
+      locations: [],
+
+      timePeriodLabel: ''
+
     }
   },
   props: ['visible'],
@@ -129,9 +135,68 @@ export default {
           this.$emit('close')
         }
       }
-    }
+    },
+    sportsmanList: function () {
+        let list = [];
+        if(this.profile.sportsmans) {
+          this.profile.sportsmans.map(item => {
+            list.push({text: item.user.firstName + ' ' + item.user.lastName, value: item.user.id});
+          });
+        }
+
+        return list;
+    },
+
+    locationList: function () {
+      let list = [];
+      if(this.locations) {
+        this.locations.map(item => {
+          list.push({text: item.name, value: item.id});
+        });
+      }
+
+      return list;
+    },
+
+    playgroundList: function () {
+      let locs =  this.locations.filter(item => {
+        return (item.id == this.location.value)
+      });
+      let loc = locs[0];
+      let list = [];
+      if(loc) {
+        loc.playgrounds.map(item => {
+          list.push({text: item.name, value: item.id});
+        });
+      }
+      return list;
+    },
+    ...mapState('auth', ['profile'])
   },
   methods: {
+    calcPeriod() {
+      this.timePeriodLabel = '';
+      if(this.timeStart.length && this.timeEnd.length) {
+          let start = moment().hours(this.timeStart.slice(0, 2));
+          let end = moment().hours(this.timeEnd.slice(0, 2));
+          let diff = end.diff(start, 'hours');
+          if(diff > 0)  this.timePeriodLabel = 'Время тренировки '+ diff +' часа';
+      }
+
+    },
+    createList(list, name) {
+      let listNormal = [];
+      if(list) {
+        list.map(item => {
+          listNormal.push({text: item[name], value: item.id});
+        });
+      }
+
+      return listNormal;
+    },
+    clearPlayground() {
+      this.playground = null;
+    },
     submitForm() {
 
       let requestData = {
@@ -147,13 +212,28 @@ export default {
         "typeLesson": 1,
         "positionType": this.positionType.value,
         "group": 1,
-        "coach": 0,
+        "coach": this.profile.id,
         "attenders": [
-          0
+          this.sportsman.value
         ]
       };
-      console.log(requestData);
+
+      this.$store.dispatch('events/createEvent', requestData);
+      //console.log(requestData);
     }
+  },
+  mounted() {
+    let self = this;
+
+    axios.get(API_URL_GRAF + '/events/utils/', {headers: {'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '' , 'Content-Type': 'application/json; charset=utf-8'}})
+      .then(function ( response) {
+        self.locations = response.data.locations;
+        self.typePreparationList = self.createList(response.data.eventTypes, 'title');
+        self.positionList =  self.createList(response.data.positionTypes, 'title');
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
   }
 }
 </script>

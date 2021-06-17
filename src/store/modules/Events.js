@@ -53,9 +53,10 @@ const getters = {
 |--------------------------------------------------------------------------
 */
 const actions = {
-  async createEvent({commit}) {
-
+  async createEvent({commit},data) {
+    console.log(data);
     await EventResource.create(data).then(response => {
+      console.log(response);
       commit(SET_EVENT, response.data);
     }).catch(err => {
       console.log(err);
