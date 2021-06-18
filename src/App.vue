@@ -8,6 +8,7 @@
 <script>
 import EmptyLayout from '@/layouts/layout-empty'
 import MainLayout from '@/layouts/layout'
+
 export default {
   computed:{
     layout(){
@@ -17,6 +18,11 @@ export default {
   components:{
     MainLayout,
     EmptyLayout
+  },
+  mounted() {
+    if(this.$store.state.auth.access) {
+      this.$store.dispatch('auth/loadProfile');
+    }
   }
 }
 </script>

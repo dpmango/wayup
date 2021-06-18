@@ -21,10 +21,6 @@
           .hours-col(v-for="n in 7" :class="{ hoursDisable: (n == 6 || n == 7) }")
 
             .hours-item(v-for="m in 12" @mouseover="showAddBtn" @mouseleave="hideAddBtn")
-              //base-button(label='' classAttr='button-default button-big-icon add-event'
-              //  @click="createEvent(getDate(n), (6 + m) + '.00')"
-              //)
-
               base-button(label='' classAttr='button-default button-big-icon add-event'
                 @click='dialogEvent = true'
               )
@@ -42,6 +38,8 @@
             :width="dragEventWidth"
           )
           ModalTrainerNewEvent(:visible='dialogEvent' @close="dialogEvent=false")
+          ModalTrainerEstimateSkills(:visible='dialogEventSkills' @close="dialogEventSkills=false")
+
 </template>
 
 <script>
@@ -50,6 +48,7 @@
   import CalendarDragEvent from "@/components/Calendar/CalendarDragEvent"
   import axios from "axios"
   import ModalTrainerNewEvent from "@/components/modals/ModalTrainerNewEvent";
+  import ModalTrainerEstimateSkills from "../modals/ModalTrainerEstimateSkills";
 
   export default {
     name: "CalendarViewWeek",
@@ -61,7 +60,7 @@
         type: [Array, Object]
       }
     },
-    components: {ModalTrainerNewEvent, CalendarEvent, CalendarDragEvent},
+    components: {ModalTrainerEstimateSkills, ModalTrainerNewEvent, CalendarEvent, CalendarDragEvent},
     data: function () {
 
       return {
@@ -74,7 +73,8 @@
         dragDiff: 0,
         dragEl: null,
         offsetMinuteMin: 15, // Минимальное смещение в минутах при drag-and-drop
-        dialogEvent:false
+        dialogEvent:false,
+        dialogEventSkills: false,
       }
     },
     watch: {
@@ -223,9 +223,24 @@
         for (let child in this.$children) {
           if (this.$children[child].$el.contains(event.target)) {
             let eventTarget = this.$children[child];
-            console.log('eventTarget', eventTarget);
+
             if (eventTarget.event) {
-              this.$router.push({name: 'Plan', params: {id: eventTarget.event.id}});
+
+              if(moment(moment()).isAfter(moment( eventTarget.event.start_time))) {
+                // Если событие уже прошло
+                // Показываем модалку оценки
+                this.dialogEventSkills = true;
+
+              } else {
+
+                // Если событие не неступило
+                // Переходим в редактирование
+
+                this.$router.push({name: 'Plan', params: {id: eventTarget.event.id}});
+
+              }
+
+
             }
 
           }

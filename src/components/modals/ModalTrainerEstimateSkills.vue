@@ -1,7 +1,7 @@
 <template lang="pug">
-  v-dialog(v-model='dialog' max-width='900px')
+  v-dialog(v-model='showSkills' max-width='900px')
     .v-application.v-application--is-ltr
-      .modal-close(@click='dialog = false')
+      .modal-close( @click.stop="showSkills=false")
       .modal-body
         .d-flex.align-center.mb-8
           v-avatar.avatar-player(
@@ -165,12 +165,23 @@ export default {
   components: {AccordionSkills, AccordionEstimation},
   data() {
     return {
-      dialog: false,
       exercises_numbers: undefined,
       exercises_estimate: undefined,
-      show:true
     }
   },
+  props: ['visible'],
+  computed: {
+    showSkills: {
+      get () {
+        return this.visible
+      },
+      set (value) {
+        if (!value) {
+          this.$emit('close')
+        }
+      }
+    }
+  }
 }
 </script>
 

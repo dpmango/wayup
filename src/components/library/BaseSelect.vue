@@ -11,11 +11,10 @@
     v-bind="$attrs"
     v-model="selected"
     :multiple='multiple'
-
-
+    @change="handleChange"
   )
-    //template(slot='item' slot-scope='data')
-    //  slot(name="item-inner")
+</template>
+
 
 
 </template>
@@ -51,7 +50,7 @@ export default {
     multiple: {
       type: Boolean,
       default: false
-    }
+    },
   },
 
   computed: {
@@ -62,6 +61,12 @@ export default {
       set(val) {
         this.$emit('input', val);
       }
+    }
+  },
+  methods: {
+    handleChange(val) {
+
+      this.$emit('change', val);
     }
   }
 
