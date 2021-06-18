@@ -10,6 +10,7 @@
     :error-messages="errors"
     v-mask="mask"
     :placeholder='placeholder'
+    :rules="rules"
 
   )
     template(slot='prepend-inner')

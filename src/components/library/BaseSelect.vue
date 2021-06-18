@@ -12,12 +12,12 @@
     v-model="selected"
     :multiple='multiple'
     @change="handleChange"
+    :rules="rules"
   )
 </template>
 
 
 
-</template>
 
 <script>
 export default {

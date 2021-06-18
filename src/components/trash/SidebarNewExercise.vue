@@ -4,10 +4,7 @@
       .sidebar-widgets__close(@click="$emit('sidebarWidgetsClose', index)")
         svg.icon-24(width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg')
           path(d='M7 17L17 7M17 17L7 7' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
-
       .sidebar-widgets__title Новое упражнение
-
-
     .new-exercise__content
       vue-custom-scrollbar.scroll-area(
         :settings="settings"
@@ -215,8 +212,6 @@
 	import "vue-custom-scrollbar/dist/vueScrollbar.css"
   import DropzoneBlock from "@/components/elements/DropzoneBlock";
 
-
-
 	export default {
 		name: "SidebarNewExercise",
 		components: {
@@ -230,7 +225,32 @@
 				wheelPropagation: false,
 			},
 			selectItems: ['Тест 1', 'Тест 2', 'Тест 3'],
-		}),
+
+      title: '',
+      purpose:'',
+      description:'',
+      guidelines:'',
+      duration:'',
+      participantsNumber:'',
+      sportType:'',
+      age:'',
+      preparationPeriod:['Подготовительный', 'Соревновательный', 'Переходный'],
+      preparationStagePeriod:['Общеподготовительный', 'Специально-подготовительный', 'Соревновательный', 'Переходный'],
+      mesocycle:'',
+      microcycle:'',
+      educationStage:'',
+      trainingMethods:'',
+      organizationForm:['Индивидуальная', 'Групповая', 'Командная', 'Домашнее задание'],
+      mainResource:'',
+      eventPart:['Подготовительная', 'Основная', 'Заключительная'],
+      loadIntensity:'',
+      positionType:'',
+      mainSkills:'',
+      extraSkills:'',
+      playground:'',
+      equipment:'',
+
+    }),
 
 	}
 </script>

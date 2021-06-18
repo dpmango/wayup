@@ -8,13 +8,16 @@
   //  auto-grow
   //)
   v-textarea(
-
     :label='label'
     auto-grow=''
     outlined=''
     :row='row'
     row-height='15'
     hide-details
+    :solo="solo"
+    v-model="inputVal"
+    :error-messages="errors"
+    :rules="rules"
   )
 </template>
 
@@ -42,7 +45,21 @@ export default {
       type: String,
       default: ''
     },
+    error: {
+      type: Boolean,
+      default: false
+    },
   },
+  computed: {
+    inputVal: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit('input', val);
+      }
+    }
+  }
 }
 </script>
 

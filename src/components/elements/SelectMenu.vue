@@ -5,9 +5,9 @@
     :close-on-content-click="closeOnContentClick"
   )
     template(v-slot:activator='{ on, attrs }')
-      .select-menu.mt-4(v-bind='attrs' v-on='on') Заменить видео
+      .select-menu.mt-4(v-bind='attrs' v-on='on') Загрузить видео
     .select-menu__content.v-application
-      ul.select-menu__list
+      //ul.select-menu__list
         li.select-menu__item
           a(href="#").select-menu__link С компьютера
         li.select-menu__item
@@ -21,7 +21,7 @@
         )
         base-button(
           classAttr='button-default button-gray button-big mt-3 w-100'
-          label="Заменить"
+          label="Загрузить"
           @click='menu = false'
         )
 

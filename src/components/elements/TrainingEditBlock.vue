@@ -53,7 +53,7 @@
       .training-edit__left
         .text-middle Описание
       .training-edit__right
-        base-textarea(solo="true" name="test" label="" )
+        base-textarea(solo=true name="test" label="" )
     .training-edit__row.mb-4.align-start
       .training-edit__left
         .text-middle Видео
@@ -72,7 +72,7 @@
       .training-edit__left
         .text-middle Методические указания
       .training-edit__right
-        base-textarea(solo="true" name="test" label="" )
+        base-textarea(solo=true name="test" label="" )
 
     .training-edit__row.mb-4
       .training-edit__left
@@ -104,8 +104,8 @@
             v-model='menu'
             :close-on-content-click='false'
             :nudge-width='385'
-            top='true'
-            open-on-click="true"
+            top=true
+            open-on-click=true
             nudge-top="70"
             content-class="menu-tooltip-estimate"
           )
@@ -153,8 +153,9 @@ import SelectMenu from "@/components/elements/SelectMenu";
 export default {
   name: "TrainingEditBlock",
   components: {SelectMenu},
-  selectItems: ['Тест 1', 'Тест 2', 'Тест 3'],
   data: () => ({
+    selectItems: ['Тест 1', 'Тест 2', 'Тест 3'],
+
     fav: true,
     menu: false,
     message: false,
@@ -190,13 +191,7 @@ export default {
 
 }
 
-.video-link{
-  @include width-flex(90%)
-}
 
-.video-link_del{
-  @include width-flex(10%)
-}
 .block-white.popup-block{
   padding: 30px 60px 20px 20px;
   height: 172px;

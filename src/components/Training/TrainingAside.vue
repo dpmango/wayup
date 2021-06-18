@@ -1,5 +1,6 @@
 <template lang="pug">
   .training-aside
+    ModalTrainerNewExercise(:visible='dialogExercise' @close="dialogExercise=false")
     TrainingAsideFilter(
       :exercises="exercises"
       @filter="filter"
@@ -8,20 +9,28 @@
       @showAll="showAll"
       @sort="sortEx"
     )
+    base-button(
+      classAttr='button-default button-gray button-big w-100 mb-10'
+      label="Добавить новое упражнение"
+      @click='dialogExercise = true'
+    )
     template(v-for="(group, key) in groupEx")
       .training-aside__head
         .training-aside__title {{ key }}
       Accordion(:groupt="group")
+
 </template>
 
 <script>
 import Accordion from "@/components/Accordion";
 import TrainingAsideFilter from "@/components/Training/TrainingAsideFilter";
 import moment from 'moment';
+import ModalTrainerNewExercise from "@/components/modals/ModalTrainerNewExercise";
 
 export default {
   name: "TrainingAside",
   components: {
+    ModalTrainerNewExercise,
     TrainingAsideFilter,
     Accordion
   },
@@ -30,6 +39,7 @@ export default {
   },
   data: function () {
     return {
+      dialogExercise:true,
       dataEexercises: this.exercises,
       location: '',
       type: ''

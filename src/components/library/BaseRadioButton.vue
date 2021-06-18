@@ -2,6 +2,8 @@
     v-radio(
       :label='label'
       :value='value'
+      v-bind="$attrs"
+      v-model="radio"
     )
 
 </template>
@@ -15,10 +17,25 @@ export default {
       default: ''
     },
     value: {
-      type: String,
-      default: ''
+      type: [String, Number],
     },
   },
+  computed: {
+    radio: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit('input', val);
+      }
+    }
+  },
+  methods: {
+    handleChange(val) {
+
+      this.$emit('change', val);
+    }
+  }
 }
 </script>
 
