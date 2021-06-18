@@ -10,7 +10,7 @@
     :error-messages="errors"
     v-mask="mask"
     :placeholder='placeholder'
-
+    :rules="rules"
   )
     template(slot='prepend-inner')
       slot(name="icon")
@@ -32,7 +32,7 @@ export default {
       default: ''
     },
     rules: {
-      type: String,
+      type: [String, Array, Object],
       default: ''
     },
     classAttr: {

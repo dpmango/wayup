@@ -6,6 +6,7 @@
         :labelNav="todayLabel"
         @today="today($event)"
     )
+
     router-view(:initDay="initDay" :events="events")
 </template>
 
@@ -15,12 +16,14 @@ import CalendarNav from "@/components/Calendar/CalendarNav";
 import CalendarViewMonth from "@/components/Calendar/CalendarViewMonth";
 import CalendarViewWeek from "@/components/Calendar/CalendarViewMonth";
 import {mapActions, mapGetters} from 'vuex';
+import ModalTrainerNewEvent from "@/components/modals/ModalTrainerNewEvent";
 
 export default {
     name: "Calendar",
-    components: { CalendarViewMonth, CalendarNav, CalendarViewWeek},
+    components: { CalendarViewMonth, CalendarNav, CalendarViewWeek, ModalTrainerNewEvent},
     data: () => ({
         initDay: moment().toDate(),
+        dialogEvent:false,
         //events: []
     }),
     computed: {
@@ -30,7 +33,8 @@ export default {
             }
             return 'Сегодня';
         },
-      ...mapGetters('schedule', ['events'])
+      //...mapGetters('schedule', ['events']),
+      ...mapGetters('events', ['events']),
     },
     methods: {
         next: function () {
@@ -56,9 +60,11 @@ export default {
             }
         },
       ...mapActions('schedule', ['loadPlans']),
+      ...mapActions('events', ['loadEvents']),
     },
   created() {
     this.loadPlans();
+    this.loadEvents();
   }
 
 }

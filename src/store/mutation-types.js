@@ -19,3 +19,5 @@ export const SET_PARTS = 'SET_PARTS';
 // События и упражнения
 export const SET_EVENT = 'SET_EVENT';
 export const ADD_EX = 'ADD_EX';
+export const SET_EVENT_LIST = 'SET_EVENT_LIST';
+export const SET_UTILS = 'SET_UTILS';

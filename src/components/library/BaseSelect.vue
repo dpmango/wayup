@@ -12,6 +12,8 @@
     v-model="selected"
     :multiple='multiple'
     @change="handleChange"
+    :rules="rules"
+    :error-messages="errors"
   )
 </template>
 
@@ -51,6 +53,10 @@ export default {
       type: Boolean,
       default: false
     },
+    errors: {
+      type: Array
+    },
+    rules: [String, Array, Object],
   },
 
   computed: {
