@@ -1,7 +1,11 @@
 <template lang="pug">
   .buttons-wrap.justify-space-between.mb-8
     .buttons-left
-      base-button(label='Добавить занятие'  classAttr='button-default button-gray button-big mr-6')
+      base-button(
+        label='Добавить занятие'
+        classAttr='button-default button-gray button-big mr-6'
+        @click="dialogEvent = true"
+        )
       base-select(
         classAttr='select-default select-big select-bg-gray'
         label="Выберите группу"
@@ -77,6 +81,8 @@
       //      path(d='M2 14H18' stroke='black' stroke-width='1.5' stroke-linecap='round')
       //      circle(cx='6' cy='6' r='2' fill='#F1F3F9' stroke='black' stroke-width='1.5' stroke-linecap='round')
       //      circle(cx='14' cy='14' r='2' fill='#F1F3F9' stroke='black' stroke-width='1.5' stroke-linecap='round')
+
+      ModalTrainerNewEvent(:visible='dialogEvent' @close="dialogEvent=false")
 </template>
 
 
@@ -84,9 +90,11 @@
   import moment from 'moment';
   import axios from "axios";
   import {mapActions, mapGetters} from 'vuex';
+  import ModalTrainerNewEvent from "@/components/modals/ModalTrainerNewEvent";
 
   export default {
     name: "CalendarNav",
+    components: { ModalTrainerNewEvent },
     props: {
       labelNav: {
         type: String,
@@ -98,6 +106,7 @@
         id: 0,
         name: 'ССМ-5'
       }],
+      dialogEvent:false,
       //groupList: []
     }),
     methods: {

@@ -7,12 +7,13 @@
       .modal-close( @click.stop="show=false")
       .modal-header
         .modal-title Новое событие
-      v-form(@submit.prevent="submitForm" ref="form")
+      v-form(@submit.prevent="submitForm" ref="createEventform")
         .modal-body
           base-input(
             label="Название/Тема"
             classAttr="input-default input-big w-100 mb-6"
             v-model="title"
+            :rules="rules.required"
           )
           base-select(
             classAttr='select-default select-bg-white mb-6'
@@ -20,18 +21,21 @@
             :items="typePreparationList"
             :value="typeOfPreparation"
             v-model="typeOfPreparation"
+            :rules="rules.required"
           )
           base-select(
             classAttr='select-default select-bg-white mb-6'
             label="Позиция"
             :items="positionList"
             v-model="positionType"
+            :rules="rules.required"
           )
           base-select(
             classAttr='select-default select-bg-white mb-6'
             label="Выбрать спортсмена"
             :items="sportsmanList"
             v-model="sportsman"
+            :rules="rules.required"
           )
           v-row.mb-6
             v-col(md="5")
@@ -45,12 +49,14 @@
             :items="locationList"
             v-model="location"
             @change="clearPlayground"
+            :rules="rules.required"
           )
           base-select(
             classAttr='select-default select-bg-white mb-6'
             label="Площадка"
             :items="playgroundList"
             v-model="playground"
+            :rules="rules.required"
           )
           v-row.mb-1
             v-col(md="5")
@@ -60,6 +66,7 @@
                 :items="timeStartList"
                 v-model="timeStart"
                 @change="calcPeriod"
+                :rules="rules.required"
               )
             v-col(md="5")
               base-select(
@@ -68,6 +75,7 @@
                 :items="timeEndList"
                 v-model="timeEnd"
                 @change="calcPeriod"
+                :rules="rules.required"
               )
           .d-flex.align-center.mb-6(v-if="timePeriodLabel.length")
             svg.icon-16(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
@@ -80,6 +88,7 @@
                 label="Напомнить"
                 :items="reminderList"
                  v-model="reminder"
+                :rules="rules.required"
               )
         .modal-footer
           base-button(label='Сохранить' type="submit" classAttr='button-default button-blue button-big w-100')
@@ -99,16 +108,33 @@ import moment from 'moment'
 export default {
   name: "ModalTrainerNewEvent",
   components: {DataPicker, SelectUser, SportsmanSelect},
-
+  props: {
+    visible: {
+      type: Boolean,
+      default: false
+    },
+    inDate: {
+      type: String,
+      default: null
+    },
+    inTimeStart: {
+      type: String,
+      default: ''
+    },
+    inTimeEnd: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
       title: '',
       typeOfPreparation: '',
       positionType: '',
       sportsman: '',
-      dateStart: null,
+      dateStart: new Date(),
       location: '',
-      playground:{text: 'Не выбрано', value: 0},
+      playground: '',
       timeStart: '',
       timeEnd: '',
       reminder: '',
@@ -120,11 +146,13 @@ export default {
 
       locations: [],
 
-      timePeriodLabel: ''
-
+      timePeriodLabel: '',
+      rules: {
+        required: [value => !!value || "Поле обязательно"]
+      }
     }
   },
-  props: ['visible'],
+
   computed: {
     show: {
       get () {
@@ -171,7 +199,8 @@ export default {
       }
       return list;
     },
-    ...mapState('auth', ['profile'])
+    ...mapState('auth', ['profile']),
+    ...mapState('events', ['event'])
   },
   methods: {
     calcPeriod() {
@@ -199,30 +228,40 @@ export default {
     },
     submitForm() {
 
-      let requestData = {
-        "title": this.title,
-        "description": "-",
-        "dateFrom": this.dateStart + 'T' + this.timeStart + ':00.144Z',
-        "dateTo": this.dateStart + 'T' + this.timeEnd + ':00.144Z',
-        "purposeLesson": "-",
-        "typeOfPreparation": this.typeOfPreparation.value,
-        "location": this.location.value,
-        "playground": this.playground.value,
-        "reminder": this.reminder.value,
-        "typeLesson": 1,
-        "positionType": this.positionType.value,
-        "group": 1,
-        "coach": this.profile.id,
-        "attenders": [
-          this.sportsman.value
-        ]
-      };
+      if(this.$refs.createEventform.validate()) {
+        let timestart = moment(this.dateStart).set('hour', parseInt(this.timeStart.slice(0, 2))).set('minute', 0).set('second', 0).toDate();
+        let timeend = moment(this.dateStart).set('hour', parseInt(this.timeEnd.slice(0, 2))).set('minute', 0).set('second', 0).toDate();
+        let requestData = {
+          "title": this.title,
+          "description": "-",
+          "dateFrom": moment(timestart).utc(),
+          "dateTo": moment(timeend).utc(),
+          "purposeLesson": "-",
+          "typeOfPreparation": this.typeOfPreparation.value,
+          "location": this.location.value,
+          "playground": this.playground.value,
+          "reminder": this.reminder.value,
+          "typeLesson": 1,
+          "positionType": this.positionType.value,
+          "group": 1,
+          "coach": this.profile.id,
+          "attenders": [
+            this.sportsman.value
+          ]
+        };
 
-      this.$store.dispatch('events/createEvent', requestData);
-      //console.log(requestData);
+        this.$store.dispatch('events/createEvent', requestData).then(() => {
+          // Переходим на страницу события
+          //this.$router.push({name: 'Plan', params: {id: this.event.id}});
+
+          window.location.reload();
+        });
+      }
+
     }
   },
   mounted() {
+
     let self = this;
 
     axios.get(API_URL_GRAF + '/events/utils/', {headers: {'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '' , 'Content-Type': 'application/json; charset=utf-8'}})
@@ -230,6 +269,7 @@ export default {
         self.locations = response.data.locations;
         self.typePreparationList = self.createList(response.data.eventTypes, 'title');
         self.positionList =  self.createList(response.data.positionTypes, 'title');
+
       })
       .catch(function (error) {
         console.log(error);

@@ -21,13 +21,13 @@ const routes = [
             {
                 path: 'month',
                 component: () => import('@/components/Calendar/CalendarViewMonth'),
-                meta: {layout: 'main'},
+                meta: {layout: 'main', userSettings: true},
                 name: 'CalendarMonth'
             },
             {
                 path: 'week',
                 component: () => import('@/components/Calendar/CalendarViewWeek'),
-                meta: {layout: 'main'},
+                meta: {layout: 'main', userSettings: true},
                 name: 'CalendarWeek'
             }
         ]
@@ -37,7 +37,7 @@ const routes = [
     {
         path: '/plan/:id',
         name: 'Plan',
-        meta: {layout: 'main'},
+        meta: {layout: 'main', userSettings: true},
         component: () => import('@/components/Calendar/CalendarPlan'),
     },
 

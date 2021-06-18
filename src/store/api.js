@@ -43,8 +43,17 @@ export const AuthApi = {
 };
 
 export const EventResource = {
-    create() {
-        return HTTP_GRAF.post('/events/');
+    create(data) {
+        return HTTP_GRAF.post('/events/', data);
+    },
+    list() {
+        return HTTP_GRAF.get('/events/coach/');
+    },
+    utils() {
+        return HTTP_GRAF.get('/events/utils/');
+    },
+    update(id, data) {
+        return HTTP_GRAF.put(`/events/coach/${id}/`, data);
     }
 };
 
