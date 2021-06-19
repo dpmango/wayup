@@ -351,7 +351,7 @@ export default {
 
 
         };
-        console.log('test', requestData)
+        console.log('requestData Exercise', requestData)
 
       }
       // this.$store.dispatch('events/createEvent', requestData);
@@ -393,7 +393,7 @@ export default {
           self.eventPartList = self.createList(response.data.eventParts, 'name');
           self.typeOfPreparationList = self.createList(response.data.exerciseCategories, 'name');
 
-          console.log('response utils', response)
+          // console.log('response utils', response)
 
         })
         .catch(function (error) {

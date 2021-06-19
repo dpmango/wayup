@@ -10,7 +10,20 @@
         :key='element.id'
       )
 
-        v-expansion-panel-header.accordion-panel__header
+        v-expansion-panel-header.accordion-panel__header(:class="!editExercise ? 'd-flex' : 'd-none'")
+          DotsMenu
+            template(#dots-menu-content)
+              li.dots-menu__item( )
+                a(href='#' @click='editExcercise').dots-menu__link
+                  svg.dots-menu-icon(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
+                    path(d='M11.3334 2.00004C11.5085 1.82494 11.7163 1.68605 11.9451 1.59129C12.1739 1.49653 12.4191 1.44775 12.6667 1.44775C12.9143 1.44775 13.1595 1.49653 13.3883 1.59129C13.6171 1.68605 13.8249 1.82494 14 2.00004C14.1751 2.17513 14.314 2.383 14.4088 2.61178C14.5036 2.84055 14.5523 3.08575 14.5523 3.33337C14.5523 3.58099 14.5036 3.82619 14.4088 4.05497C14.314 4.28374 14.1751 4.49161 14 4.66671L5.00004 13.6667L1.33337 14.6667L2.33337 11L11.3334 2.00004Z'  stroke-opacity='0.8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
+                  | Редактировать
+              li.dots-menu__item
+                a(href='#').dots-menu__link
+                  svg.dots-menu-icon(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
+                    path(d='M12.6667 4.00016V13.3335C12.6667 13.6871 12.5262 14.0263 12.2762 14.2763C12.0261 14.5264 11.687 14.6668 11.3334 14.6668H4.66671C4.31309 14.6668 3.97395 14.5264 3.7239 14.2763C3.47385 14.0263 3.33337 13.6871 3.33337 13.3335V4.00016M12.6667 4.00016H3.33337M12.6667 4.00016H14M3.33337 4.00016H2M5.33337 4.00016V2.66683C5.33337 2.31321 5.47385 1.97407 5.7239 1.72402C5.97395 1.47397 6.31309 1.3335 6.66671 1.3335H9.33337C9.687 1.3335 10.0261 1.47397 10.2762 1.72402C10.5262 1.97407 10.6667 2.31321 10.6667 2.66683V4.00016'  stroke-opacity='0.8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
+                  | Удалить
+
           .panel-num {{index + 1 }}
           img.icon-20.more-icon(
             src="@/assets/images/svg/more-icon.svg"
@@ -50,7 +63,8 @@
             .training-desc {{ element.purpose }}
         v-expansion-panel-content.accordion-panel__content
           AccordionTabs(:elem="element")
-        TrainingEditBlock
+        div(:class="!editExercise ? 'd-none' : 'd-block'")
+          TrainingEditBlock
 
 
 
@@ -71,7 +85,7 @@
       groupName: String
     },
     data: () => ({
-
+      editExercise:false,
       items: ['Группа С8 | 10-13', 'Группа С8 | 10-14', 'Группа С8 | 10-15'],
     }),
     components: {
@@ -85,6 +99,10 @@
     name: "Accordion",
 
     methods: {
+      editExcercise: function () {
+        this.editExercise = !this.editExercise;
+
+      },
       getLoadLabel: function (load) {
         let loadLabel = {
           'minimal' : 'Умеренная',
@@ -181,17 +199,8 @@
   .v-expansion-panel-content__wrap{
     padding: rem(10px) rem(24px) rem(24px) rem(36px);
   }
-  .v-expansion-panel--active>.v-expansion-panel-header{
-    //min-height: 128px;
-  }
 
 
-  //.accordion-panel{
-  //  background: #FFFFFF;
-  //  box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1);
-  //  border-radius: 12px;
-  //  margin-bottom: 20px;
-  //}
 
   .more-icon{
     position: absolute;
