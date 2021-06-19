@@ -6,23 +6,23 @@
         :labelNav="todayLabel"
         @today="today($event)"
     )
-
-    router-view(:initDay="initDay" :events="events")
+    span.dev-console {{JSON.stringify(events)}}
+    span.dev-console {{initDay}}
 </template>
 
 <script>
 import moment from 'moment-timezone'
 import CalendarNav from "@/components/Calendar/CalendarNav";
-import CalendarViewMonth from "@/components/Calendar/CalendarViewMonth";
-import CalendarViewWeek from "@/components/Calendar/CalendarViewMonth";
+// import CalendarViewMonth from "@/components/Calendar/CalendarViewMonth";
+// import CalendarViewWeek from "@/components/Calendar/CalendarViewMonth";
 import {mapActions, mapGetters} from 'vuex';
-import ModalTrainerNewEvent from "@/components/modals/ModalTrainerNewEvent";
 
 export default {
     name: "Calendar",
-    components: { CalendarViewMonth, CalendarNav, CalendarViewWeek, ModalTrainerNewEvent},
+    components: { CalendarNav},
     data: () => ({
         initDay: moment().toDate(),
+
     }),
     computed: {
         todayLabel: function () {
@@ -61,6 +61,7 @@ export default {
       ...mapActions('events', ['loadEvents']),
     },
   created() {
+    console.log('created widget calendar')
     this.loadPlans();
     this.loadEvents();
   }

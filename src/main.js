@@ -2,47 +2,14 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import vuetify from '@/plugins/vuetify'
-import VueDraggable from 'vue-draggable'
-import VueSimpleAccordion from 'vue-simple-accordion';
-import 'vue-simple-accordion/dist/vue-simple-accordion.css';
-import DropdownMenu from 'v-dropdown-menu'
-import VueMuuri from 'vue-muuri'
-import 'vue-muuri/dist/vue-muuri.css'
-import Vuelidate from 'vuelidate'
-import { VueMaskDirective } from 'v-mask'
-import VueDatePicker from '@mathieustan/vue-datepicker';
-import '@mathieustan/vue-datepicker/dist/vue-datepicker.min.css';
 
+import registerPlugins from '@/plugins'
+import * as components from '@/components'
 
-
-Vue.use(VueDatePicker, {
-  lang: 'ru'
-});
-
-Vue.directive('mask', VueMaskDirective);
-
-
-Vue.use(DropdownMenu, {
-  direction: 'right',
-  overlay: false,
-  overlayBgColor: 'transparent'
-})
-
-Vue.use(VueDraggable)
-
-Vue.use(VueMuuri)
-
-Vue.use(Vuelidate)
-
-
-Vue.use(VueSimpleAccordion, {
-  tags: {
-
-  },
-});
 
 Vue.config.productionTip = false
+
+registerPlugins(Vue)
 
 
 Vue.component('base-label', () => import('./components/library/old/BaseLabel.vue'));
@@ -64,20 +31,14 @@ Vue.component('base-radio-button', () => import('./components/library/BaseRadioB
 
 
 
+for (const name in components) {
+  Vue.component(name, components[name])
+}
+
 
 new Vue({
   router,
   store,
-  vuetify,
-  VueDraggable,
-  VueSimpleAccordion,
-  DropdownMenu,
-  VueDatePicker,
-  VueMaskDirective,
-
-
-// SvgSprite,
-  // moment,
 
   render: h => h(App)
 }).$mount('#app')

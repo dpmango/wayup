@@ -15,7 +15,6 @@
     template(slot='prepend-inner')
       slot(name="icon")
 
-
 </template>
 
 <script>
