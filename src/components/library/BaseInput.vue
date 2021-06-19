@@ -31,10 +31,7 @@ export default {
       type: String,
       default: ''
     },
-    rules: {
-      type: [String, Array, Object],
-      default: ''
-    },
+    rules: [String, Array, Object],
     classAttr: {
       type: String,
       default: 'input-default'
@@ -66,6 +63,7 @@ export default {
       type: String,
       default: ''
     },
+
   },
   computed: {
     inputVal: {

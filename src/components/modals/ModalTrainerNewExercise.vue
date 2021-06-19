@@ -7,7 +7,7 @@
       .modal-close( @click.stop="show=false")
       .modal-header
         .modal-title Новое упражнение
-      v-form(@submit.prevent="submitForm" ref="form")
+      v-form(@submit.prevent="submitForm" ref="createExerciseform")
         .modal-body
           base-input(
             label="Название упражнения"
@@ -56,21 +56,21 @@
                 label="Участников"
                 classAttr="input-default input-big mt-2 ml-1 mr-1 mb-6"
                 v-model="participantsNumber"
-
+                :rules="rules.required"
               )
           base-select(
             classAttr='select-default select-bg-white mt-2 ml-1 mr-1 mb-6'
             label="Вид спорта"
             :items="sportTypeList"
             v-model="sportType"
-
+            :rules="rules.required"
           )
           base-select(
             classAttr='select-default select-bg-white mt-2 ml-1 mr-1 mb-6'
             label="Этап спортивной подготовки / возраст"
             :items="ageList"
             v-model="age"
-
+            :rules="rules.required"
           )
           .radio-block.mb-4
             .radio-block__title.text-small.text-gray Период подготовки
@@ -96,34 +96,33 @@
 
               )
 
-          //base-select(
-          //  classAttr='select-default select-bg-white mt-2 ml-1 mr-1 mb-6'
-          //  label="Мезоцикл"
-          //  :items="selectItems"
-          //)
           base-select(
             classAttr='select-default select-bg-white mt-2 ml-1 mr-1 mb-6'
             label="Мезоцикл"
             :items="mesocycleList"
             v-model="mesocycle"
+            :rules="rules.required"
           )
           base-select(
             classAttr='select-default select-bg-white mt-2 ml-1 mr-1 mb-6'
             label="Микроцикл"
             :items="microcycleList"
             v-model="microcycle"
+            :rules="rules.required"
           )
           base-select(
             classAttr='select-default select-bg-white mt-2 ml-1 mr-1 mb-6'
             label="Вид подготовки"
             :items="typeOfPreparationList"
             v-model="typeOfPreparation"
+            :rules="rules.required"
           )
           base-select(
             classAttr='select-default select-bg-white mt-2 ml-1 mr-1 mb-6'
             label="Этап обучения"
             :items="educationStageList"
             v-model="educationStage"
+            :rules="rules.required"
 
           )
           base-select(
@@ -131,6 +130,7 @@
             label="Основные методы тренировки"
             :items="trainingMethodsList"
             v-model="trainingMethods"
+            :rules="rules.required"
           )
 
           .radio-block.mb-4
@@ -149,6 +149,7 @@
             label="Основные средства физического упражнения"
             :items="mainResourceList"
             v-model="mainResource"
+            :rules="[requiredMultiple]"
           )
           .radio-block.mb-2
             .radio-block__title.text-small.text-gray Часть тренировки
@@ -162,24 +163,12 @@
                 :value="eventPartListItem.value"
               )
 
-            //v-radio-group( mandatory)
-            //  base-radio-button(
-            //    label="Подготовительная"
-            //    value="Подготовительная"
-            //  )
-            //  base-radio-button(
-            //    label="Основная"
-            //    value="Основная"
-            //  )
-            //  base-radio-button(
-            //    label="Заключительная"
-            //    value="Заключительная"
-            //  )
           base-select(
             classAttr='select-default select-bg-white mt-2 ml-1 mr-1 mb-6'
             label="Интенсивность упражнения"
             :items="loadIntensityList"
             v-model="loadIntensity"
+            :rules="rules.required"
           )
           base-select(
             classAttr='select-default select-bg-white mt-2 ml-1 mr-1 mb-6'
@@ -193,6 +182,7 @@
             :items="mainSkillsList"
             v-model="mainSkills"
             multiple=true
+            :rules="[requiredMultiple]"
           )
           base-select(
             classAttr='select-default select-bg-white mt-2 ml-1 mr-1 mb-6'
@@ -210,20 +200,28 @@
           )
 
           //DropzoneBlock.mb-6
-          .d-block.mb-6
-            .video-links.d-flex.align-center
-              .video-link.text-middle.text-blue https://www.youtube.com/watch?v=7IrugipPZRw&ab_channel=%D0%90%D0%B7%D0%B0%D0%BC%D0%B0
-              a(href='#').video-link_del.text-right
-                img(
-                  src="@/assets/images/svg/icon-close.svg"
-                )
-
-            SelectMenu
+          base-input(
+            label="Ссылка на видео"
+            classAttr="input-default input-big mt-2 ml-1 mr-1 mb-6"
+            v-model="videoUrl"
+            :rules="rules.required"
+          )
+          //.d-block.mb-6
+          //  .video-links.d-flex.align-center
+          //    .video-link.text-middle.text-blue https://www.youtube.com/watch?v=7IrugipPZRw&ab_channel=%D0%90%D0%B7%D0%B0%D0%BC%D0%B0
+          //    a(href='#').video-link_del.text-right
+          //      img(
+          //        src="@/assets/images/svg/icon-close.svg"
+          //      )
+          //
+          //  SelectMenu
           base-select(
             classAttr='select-default select-bg-white mt-2 ml-1 mr-1 mb-6'
             label="Инвентарь"
             :items="equipmentList"
             v-model="equipment"
+            :rules="rules.required"
+
           )
           base-button(
             classAttr='button-default button-gray button-small mb-6'
@@ -263,8 +261,6 @@ export default {
       required: [value => !!value || "Поле обязательно"]
     },
 
-
-
     title: '',
     purpose: '',
     description: '',
@@ -279,15 +275,14 @@ export default {
     ageList: [],
     preparationPeriod: 1,
     preparationPeriodList: [],
-    preparationStagePeriod: '',
+    preparationStagePeriod: 1,
     preparationStagePeriodList: [],
     mesocycle: '',
     mesocycleList: [],
     microcycle: '',
     microcycleList: [],
-    // TODO
     typeOfPreparation: '',
-    typeOfPreparationList: [{text: 'Нет данных', value: '1'}],
+    typeOfPreparationList: [],
     educationStage: '',
     educationStageList: [],
     trainingMethods: '',
@@ -302,7 +297,7 @@ export default {
     loadIntensityList: ['Малая', 'Средняя', 'Большая', 'Субмаксимальная', 'Максимальная'],
     positionType: '',
     positionTypeList: [],
-    mainSkills: '',
+    mainSkills: null,
     mainSkillsList: [],
     extraSkills: '',
     extraSkillsList: [],
@@ -315,45 +310,51 @@ export default {
   }),
   props: ['visible'],
   methods: {
+    requiredMultiple(value) {
+      if (value instanceof Array && value.length == 0) {
+        return 'Поле обязательно';
+      }
+      return !!value || 'Поле обязательно';
+    },
+
     submitForm() {
-      let requestData = {
-        "title": this.title,
-        "purpose": this.purpose,
-        "description": this.description,
-        "guidelines": this.guidelines,
-        "duration": this.duration,
-        "participantsNumber": this.participantsNumber,
-        "age": this.age.value,
-        "preparationPeriod": this.preparationPeriod,
-
-        "macrocycle": "string",
-
-        "mesocycle": this.mesocycle.value,
-        "microcycle": this.microcycle.value,
-        "educationPeriod": this.educationStage.value,
-        "trainingMethods": this.trainingMethods.value,
-        "organizationForm": this.organizationForm,
-        "mainResource": this.mainResource.value,
-        "equipment": this.equipment.value,
-        "loadIntensity": this.loadIntensity,
-        "videoUrl": this.videoUrl,
-        "playground": this.playground.value,
-        "typeOfPreparation": this.typeOfPreparation.value,
-        "sportType": this.sportType.value,
-        "eventPart": this.eventPart,
-        "positionType": this.positionType.value,
-        "mainSkills": [
-          this.mainSkills
-        ],
-        "extraSkills": [
-          this.extraSkills.value
-        ]
+      if(this.$refs.createExerciseform.validate()) {
+        let requestData = {
+          "title": this.title,
+          "purpose": this.purpose,
+          "description": this.description,
+          "guidelines": this.guidelines,
+          "duration": this.duration,
+          "participantsNumber": this.participantsNumber,
+          "age": this.age.value,
+          "preparationPeriod": this.preparationPeriod,
+          "mesocycle": this.mesocycle.value,
+          "microcycle": this.microcycle.value,
+          "educationPeriod": this.educationStage.value,
+          "trainingMethods": this.trainingMethods.value,
+          "organizationForm": this.organizationForm,
+          "mainResource": this.mainResource.value,
+          "equipment": this.equipment.value,
+          "loadIntensity": this.loadIntensity,
+          "videoUrl": this.videoUrl,
+          "playground": this.playground.value,
+          "typeOfPreparation": this.typeOfPreparation.value,
+          "sportType": this.sportType.value,
+          "eventPart": this.eventPart,
+          "positionType": this.positionType.value,
+          "mainSkills": [
+            this.mainSkills
+          ],
+          "extraSkills": [
+            this.extraSkills
+          ]
 
 
+        };
+        console.log('test', requestData)
 
-      };
+      }
       // this.$store.dispatch('events/createEvent', requestData);
-      console.log('test', requestData)
     },
     createList(list, name) {
       let listNormal = [];
@@ -390,6 +391,7 @@ export default {
           self.preparationPeriodList = self.createList(response.data.preparationPeriods, 'name');
           self.preparationStagePeriodList = self.createList(response.data.macrocycles, 'name');
           self.eventPartList = self.createList(response.data.eventParts, 'name');
+          self.typeOfPreparationList = self.createList(response.data.exerciseCategories, 'name');
 
           console.log('response utils', response)
 
@@ -407,6 +409,7 @@ export default {
     })
         .then(function (response) {
           self.mainSkillsList = self.createList(response.data, 'name');
+          self.extraSkillsList = self.createList(response.data, 'name');
 
           console.log('response skills', response)
 

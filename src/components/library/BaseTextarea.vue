@@ -1,19 +1,10 @@
 <template lang="pug">
-  //v-textarea(
-  //  :height='height'
-  //  solo='solo'
-  //  name='nameText'
-  //  :label='label'
-  //  hide-details
-  //  auto-grow
-  //)
   v-textarea(
     :label='label'
     auto-grow=''
     outlined=''
     :row='row'
     row-height='15'
-    hide-details
     :solo="solo"
     v-model="inputVal"
     :error-messages="errors"
@@ -49,6 +40,10 @@ export default {
       type: Boolean,
       default: false
     },
+    rules: [String, Array, Object],
+    errors: {
+      type: Array
+    },
   },
   computed: {
     inputVal: {
@@ -78,11 +73,12 @@ export default {
 
 ::v-deep {
   .v-text-field__slot {
-
     box-shadow: none !important;
 
   }
-
+  .v-input__slot{
+    margin-bottom: 0;
+  }
   fieldset {
     border: 1px solid #CCCCCC;
     background: #FFFFFF;
@@ -116,6 +112,34 @@ export default {
     padding: 0 rem(2px);
     color: #123FB2;
     top: rem(16px);
+  }
+}
+
+::v-deep .v-text-field__details {
+  position: relative;
+  display: none;
+  padding-top: 10px !important;
+  padding-left: 25px !important;
+  margin-bottom: 0 !important;
+
+  &:before {
+    position: absolute;
+    left: 0;
+    top: 7px;
+    display: block;
+    content: '';
+    background-image: url('~@/assets/images/svg/Icon-Error.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    @include width-flex(16px)
+    height: 16px;
+  }
+}
+
+.error--text {
+  ::v-deep .v-text-field__details {
+    display: block;
   }
 }
 

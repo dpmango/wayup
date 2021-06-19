@@ -4,7 +4,7 @@
     :class='classAttr'
     :items="items"
     :label='label'
-    hide-details
+
     :solo="solo"
     :error="error"
     :disabled='disabled'
@@ -92,6 +92,8 @@ export default {
     min-height: rem(40px) !important;
     padding: 0 rem(16px) !important;
     border-radius: rem(8px);
+    margin-bottom: 0;
+
   }
 
   ::v-deep .v-label {
@@ -142,9 +144,46 @@ export default {
   ::v-deep .v-select__selections{
     padding: 0 !important;
   }
+  //::v-deep{
+  //  .v-input__control{
+  //    position: relative;
+  //  }
+  //  .v-text-field__details{
+  //    position: absolute;
+  //    top: 16px;
+  //    left: 0;
+  //  }
+  //}
 
 }
 
+::v-deep .v-text-field__details {
+  position: relative;
+  display: none;
+  padding-top: 10px !important;
+  padding-left: 25px !important;
+  margin-bottom: 0 !important;
+
+  &:before {
+    position: absolute;
+    left: 0;
+    top: 7px;
+    display: block;
+    content: '';
+    background-image: url('~@/assets/images/svg/Icon-Error.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    @include width-flex(16px)
+    height: 16px;
+  }
+}
+
+.error--text {
+  ::v-deep .v-text-field__details {
+    display: block;
+  }
+}
 .select-default.v-select--is-menu-active,
 .select-default.v-input--is-focused {
   ::v-deep fieldset {

@@ -39,7 +39,7 @@ export default {
   },
   data: function () {
     return {
-      dialogExercise:true,
+      dialogExercise:false,
       dataEexercises: this.exercises,
       location: '',
       type: ''
