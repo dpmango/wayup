@@ -1,6 +1,5 @@
 <template lang="pug">
   VueDatePicker(
-    v-bind="$attrs"
     v-model="date"
     ref="menu"
     :min-date="minDate"
@@ -32,7 +31,7 @@ export default {
       default: 'дд мес гггг'
     },
     value: {
-      type: String,
+      type: Date,
       default: null
     },
   },
@@ -60,7 +59,7 @@ export default {
         this.$emit('input', val);
       }
     }
-  }
+  },
 
 }
 </script>

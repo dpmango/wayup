@@ -22,7 +22,7 @@
 
             .hours-item(v-for="m in 12" @mouseover="showAddBtn" @mouseleave="hideAddBtn")
               base-button(label='' classAttr='button-default button-big-icon add-event'
-                @click='dialogEvent = true'
+                @click="createEvent(getDate(n), (6 + m))"
               )
                 template(#icon-left)
                   svg.icon-16(width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg')
@@ -37,7 +37,14 @@
             :base="heightHourCeil"
             :width="dragEventWidth"
           )
-          ModalTrainerNewEvent(:visible='dialogEvent' @close="dialogEvent=false")
+          ModalTrainerNewEvent(
+            :inDate="createDate"
+            :inTimeStart="createTimeStart"
+            :inTimeEnd="createTimeEnd"
+            :visible='dialogEvent'
+            @close="dialogEvent=false"
+
+          )
           ModalTrainerEstimateSkills(:visible='dialogEventSkills' @close="dialogEventSkills=false")
 
 </template>
@@ -46,7 +53,6 @@
   import moment from 'moment'
   import CalendarEvent from "@/components/Calendar/CalendarEvent"
   import CalendarDragEvent from "@/components/Calendar/CalendarDragEvent"
-  import axios from "axios"
   import ModalTrainerNewEvent from "@/components/modals/ModalTrainerNewEvent";
   import ModalTrainerEstimateSkills from "../modals/ModalTrainerEstimateSkills";
 
@@ -75,6 +81,11 @@
         offsetMinuteMin: 15, // Минимальное смещение в минутах при drag-and-drop
         dialogEvent:false,
         dialogEventSkills: false,
+
+        // Время начала - окончания события для модалки
+        createTimeStart: '',
+        createTimeEnd: '',
+        createDate: null,
       }
     },
     watch: {
@@ -226,7 +237,7 @@
 
             if (eventTarget.event) {
 
-              if(moment(moment()).isAfter(moment( eventTarget.event.start_time))) {
+              if(moment(moment()).isAfter(moment( eventTarget.event.start_time).add(eventTarget.event.duration, 'h'))) {
                 // Если событие уже прошло
                 // Показываем модалку оценки
                 this.dialogEventSkills = true;
@@ -252,10 +263,10 @@
 
           this.$set(this.dragEl.$options.propsData.event, 'start_time', this.dragEvent.start_time);
           // Редактируем занятие
-          axios.put('https://way-up.herokuapp.com/plans/' + this.dragEvent.id + '.json', {
-            "start_time": moment.utc(this.dragEvent.start_time).format("YYYY-MM-DDTHH:mm:ss") + '.000Z',
-            "end_time": moment.utc(this.dragEvent.start_time).add(this.dragEvent.duration, 'hours').format("YYYY-MM-DDTHH:mm:ss") + '.000Z',
-          });
+          this.$store.dispatch('events/updateEvent', {id: this.dragEvent.id, data: {
+              "dateFrom":moment.utc(this.dragEvent.start_time).format("YYYY-MM-DDTHH:mm:ss") + '.000Z',
+              "dateTo": moment.utc(this.dragEvent.start_time).add(this.dragEvent.duration, 'hours').format("YYYY-MM-DDTHH:mm:ss") + '.000Z',
+            }});
 
           this.groupEvent();
           this.dragEl.isDraggable = false;
@@ -361,36 +372,12 @@
       },
 
       createEvent(date, time) {
-        let start = moment(date + ' ' + time, 'DD-MM-YYYY HH:mm');
-
-        let plan = {
-          "name": "Индивидуальное занятие",
-          "start_time": start.toDate(),
-          "end_time": start.add(1, 'hours').toDate(),
-          "microcycle_id": 850,
-          "purpose_lesson": "Улучшение игры ловушкой",
-          "type_lesson": "Индивидуальное",
-          "type_of_preparation": "Лед",
-          "qualities": [],
-          "location": "Одинцово",
-          "created_at": "2021-03-03T14:53:10.397Z",
-          "updated_at": "2021-04-21T11:17:40.172Z",
-          "start": start.toDate(),
-          "end": start.add(1, 'hours').toDate(),
-          "className": "bg-primary",
-          "url": "https://way-up.herokuapp.com/plans/10.html"
-        }
-
-        let self = this;
-        axios.post('https://way-up.herokuapp.com/plans.json', plan)
-          .then(function (response) {
-            if (response.data.id) {
-              self.$router.push({path: '/plan/' + response.data.id})
-            }
-
-
-          })
+        this.createTimeStart = time + ':00';
+        this.createTimeEnd = (time + 1) + ':00';
+        this.createDate = date;
+        this.dialogEvent = true;
       }
+
 
     },
     mounted() {
