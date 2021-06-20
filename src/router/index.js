@@ -41,8 +41,6 @@ const routes = [
         component: () => import('@/components/Calendar/CalendarPlan'),
     },
 
-
-
     // Кабинет спортсмена
     {
         path: '/account-sportsman',

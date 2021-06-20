@@ -8,15 +8,16 @@
         .training-head
           TheBreadcrumbs(:micro="microcycle" :meso="mesocycle" :macro="macrocycle")
           .title-wrap
-            .page-title {{ plan.name }},
+            .page-title {{ plan.title }},
             span.span-title {{ dayWeek }},
             span.span-title {{ monthDay }},
             span.span-title {{ timePeriod }}
+
           TagsTraining(
+            :group="group"
             :location="plan.location",
-            :purpose_lesson="plan.purpose_lesson",
-            :type_lesson="plan.type_lesson",
-            :type_of_preparation="plan.type_of_preparation",
+             :utils="utils"
+              :plan="plan"
           )
 
           .buttons-wrap(data-app)
@@ -77,20 +78,20 @@
                   md='12'
                 )
                   AccordionBig(
-                    v-for="(accordionBigItem, i) in accordionBigItems"
+                    v-for="(accordionBigItem, i) in plan.eventParts"
                     :classAttr="accordionBigItem"
                     :index="i"
                     :key="i"
-                    :open="accordionBigItem.open"
+                    :open="accordionBigItem.exercisesEvent.length"
                     @toggleOpen="toggleOpen"
                   )
                     template(v-slot:accord-header)
                       .accordion-big__head
-                        .accordion-subtitle {{ getLabelPart(accordionBigItem.children) }}
+                        .accordion-subtitle {{ getLabelPart(accordionBigItem.exercisesEvent) }}
                         .accordion-big__header
                           .accordion-big__header-title {{ accordionBigItem.name }}
                     template(v-slot:accord-body)
-                      Accordion(:groupt="accordionBigItem.children")
+                      Accordion(:groupt="accordionBigItem.exercisesEvent")
               v-row
                 v-col(
                   md='6'
@@ -109,10 +110,8 @@
 
 
 <script>
-
-
 import TheBreadcrumbs from "@/components/TheBreadcrumbs";
-import TagsTraining from "@/components/TagsTraining";
+import TagsTraining from "@/components/Training/TagsTraining";
 import CardIndications from "@/components/CardIndications";
 import AccordionItem from "@/components/AccordionItem";
 // import draggable from 'vuedraggable'
@@ -125,7 +124,12 @@ import ModalSummaryPlan from "@/components/ModalSummaryPlan";
 import {Draggable} from 'draggable-vue-directive';
 import moment from 'moment';
 import axios from "axios";
-import {mapActions} from 'vuex';
+import {mapActions, mapState} from 'vuex';
+//import { EventResource } from '@/store/api.js';
+import 'moment/locale/ru'
+import {API_URL_GRAF} from "../../config/api";
+import CalendarPlanEdit from "@/components/Calendar/CalendarPlanEdit";
+import CalendarPlanCompleted from "@/components/Calendar/CalendarPlanCompleted";
 
 export default {
   name: 'Training',
@@ -143,6 +147,8 @@ export default {
     CardIndications,
     TagsTraining,
     TheBreadcrumbs,
+    CalendarPlanEdit,
+    CalendarPlanCompleted
     // draggable
   },
   data: () => ({
@@ -156,19 +162,22 @@ export default {
     parts: [],
     microcycle: '',
     mesocycle: '',
-    macrocycle: ''
+    macrocycle: '',
+    group: '',
 
+    componentCalendar: ''
   }),
   computed: {
     dayWeek: function () {
-      return moment(this.plan.start_time).format('dddd');
+      return moment(this.plan.dateFrom).format('dddd');
     },
     monthDay: function () {
-      return moment(this.plan.start_time).format('DD MMMM');
+      return moment(this.plan.dateFrom).format('DD MMMM');
     },
     timePeriod: function () {
-      return moment(this.plan.start_time).format('HH:mm') + ' — ' + moment(this.plan.end_time).format('HH:mm');
-    }
+      return moment(this.plan.dateFrom).format('HH:mm') + ' — ' + moment(this.plan.dateTo).format('HH:mm');
+    },
+    ...mapState('events', ['utils'])
   },
   methods: {
     add: function () {
@@ -273,14 +282,8 @@ export default {
     },
 
     getLabelPart(children) {
-      let min = 0;
-      children.map(item => {
-        let t = item.recommended_duration.split(' ');
-        if (t[0]) min += parseFloat(t[0]);
 
-      });
-
-      return children.length + ' упражнений, ' + min + ' мин';
+      return children.length + ' упражнений';
     },
 
     getMinuteLabel(duration) {
@@ -298,15 +301,29 @@ export default {
     },
 
     ...mapActions('schedule', ['loadPlan', 'loadExer', 'loadParts']),
+    ...mapActions('events', ['loadUtils']),
   },
 
   created() {
     if (this.$route.params.id) {
-      this.loadPlan(this.$route.params.id).then(() => {
-        this.plan = this.$store.state.schedule.plan;
+      // Событие
+      var self = this;
+
+      axios.get(API_URL_GRAF + '/events/coach/' + this.$route.params.id, {headers: {'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '' , 'Content-Type': 'application/json; charset=utf-8'}}).then(function (response) {
+        self.plan = response.data;
+        axios.get(API_URL_GRAF + '/groups/', {headers: {'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '' , 'Content-Type': 'application/json; charset=utf-8'}}).then(function (response) {
+          self.group = response.data.filter((item) => {
+            return item.id == self.plan.group
+          })[0];
+        });
+        self.loadUtils();
+      });
+
+      //this.loadPlan(this.$route.params.id).then(() => {
+        //this.plan = this.$store.state.schedule.plan;
         // Получаем микроцикл, мезоцикл, макроцикл
-        var self = this;
-        axios.get('https://way-up.herokuapp.com/microcycles/' + this.plan.microcycle_id + '.json').then(function (response) {
+        //var self = this;
+        /*axios.get('https://way-up.herokuapp.com/microcycles/' + this.plan.microcycle_id + '.json').then(function (response) {
           self.microcycle = response.data.title;
 
           axios.get('https://way-up.herokuapp.com/mesocycles/' + response.data.mesocycle_id + '.json').then(function (response) {
@@ -316,8 +333,8 @@ export default {
               self.macrocycle = response.data.title;
             })
           })
-        })
-      });
+        })*/
+      //});
     }
 
     this.loadExer().then(() => {

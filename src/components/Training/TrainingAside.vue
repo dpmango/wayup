@@ -47,8 +47,8 @@ export default {
   },
   watch: {
     exercises: function (val) {
-      console.log('dataEexercises');
-      console.log(val);
+      //console.log('dataEexercises');
+      //console.log(val);
       this.dataEexercises = val;
     },
   },
