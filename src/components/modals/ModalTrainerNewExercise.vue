@@ -243,139 +243,141 @@
 
 <script>
 
-import DropzoneBlock from "@/components/elements/DropzoneBlock";
-import axios from "axios";
-import {API_URL_GRAF} from "@/config/api";
-import SelectMenu from "@/components/elements/SelectMenu";
+  import DropzoneBlock from "@/components/elements/DropzoneBlock";
+  import axios from "axios";
+  import {API_URL_GRAF} from "@/config/api";
+  import SelectMenu from "@/components/elements/SelectMenu";
 
-export default {
-  name: "ModalTrainerNewExercise",
-  components: {
-    SelectMenu,
-    DropzoneBlock,
-  },
-
-  data: () => ({
-
-    rules: {
-      required: [value => !!value || "Поле обязательно"]
+  export default {
+    name: "ModalTrainerNewExercise",
+    components: {
+      SelectMenu,
+      DropzoneBlock,
     },
 
-    title: '',
-    purpose: '',
-    description: '',
-    guidelines: '',
-    duration: '',
-    units: '',
-    unitsList: ['Минуты', 'Круги', 'Повторения', 'Подходы'],
-    participantsNumber: '',
-    sportType: '',
-    sportTypeList: [],
-    age: '',
-    ageList: [],
-    preparationPeriod: 1,
-    preparationPeriodList: [],
-    preparationStagePeriod: 1,
-    preparationStagePeriodList: [],
-    mesocycle: '',
-    mesocycleList: [],
-    microcycle: '',
-    microcycleList: [],
-    typeOfPreparation: '',
-    typeOfPreparationList: [],
-    educationStage: '',
-    educationStageList: [],
-    trainingMethods: '',
-    trainingMethodsList: [],
-    organizationForm: 1,
-    organizationFormList: [],
-    mainResource: '',
-    mainResourceList: [],
-    eventPart: 1,
-    eventPartList: [],
-    loadIntensity: '',
-    loadIntensityList: ['Малая', 'Средняя', 'Большая', 'Субмаксимальная', 'Максимальная'],
-    positionType: '',
-    positionTypeList: [],
-    mainSkills: null,
-    mainSkillsList: [],
-    extraSkills: '',
-    extraSkillsList: [],
-    playground: '',
-    playgroundList: [],
-    videoUrl: '',
-    equipment: '',
-    equipmentList: [],
+    data: () => ({
 
-  }),
-  props: ['visible'],
-  methods: {
-    requiredMultiple(value) {
-      if (value instanceof Array && value.length == 0) {
-        return 'Поле обязательно';
-      }
-      return !!value || 'Поле обязательно';
+      rules: {
+        required: [value => !!value || "Поле обязательно"]
+      },
+
+      title: '',
+      purpose: '',
+      description: '',
+      guidelines: '',
+      duration: '',
+      units: '',
+      unitsList: ['Минуты', 'Круги', 'Повторения', 'Подходы'],
+      participantsNumber: '',
+      sportType: '',
+      sportTypeList: [],
+      age: '',
+      ageList: [],
+      preparationPeriod: 1,
+      preparationPeriodList: [],
+      preparationStagePeriod: 1,
+      preparationStagePeriodList: [],
+      mesocycle: '',
+      mesocycleList: [],
+      microcycle: '',
+      microcycleList: [],
+      typeOfPreparation: '',
+      typeOfPreparationList: [],
+      educationStage: '',
+      educationStageList: [],
+      trainingMethods: '',
+      trainingMethodsList: [],
+      organizationForm: 1,
+      organizationFormList: [],
+      mainResource: '',
+      mainResourceList: [],
+      eventPart: 1,
+      eventPartList: [],
+      loadIntensity: '',
+      loadIntensityList: ['Малая', 'Средняя', 'Большая', 'Субмаксимальная', 'Максимальная'],
+      positionType: '',
+      positionTypeList: [],
+      mainSkills: null,
+      mainSkillsList: [],
+      extraSkills: '',
+      extraSkillsList: [],
+      playground: '',
+      playgroundList: [],
+      videoUrl: '',
+      equipment: '',
+      equipmentList: [],
+
+    }),
+    props: ['visible'],
+    methods: {
+      requiredMultiple(value) {
+        if (value instanceof Array && value.length == 0) {
+          return 'Поле обязательно';
+        }
+        return !!value || 'Поле обязательно';
+      },
+
+      submitForm() {
+        if (this.$refs.createExerciseform.validate()) {
+          let requestData = {
+            "title": this.title,
+            "purpose": this.purpose,
+            "description": this.description,
+            "guidelines": this.guidelines,
+            "duration": this.duration,
+            "participantsNumber": this.participantsNumber,
+            "age": this.age.value,
+            "preparationPeriod": this.preparationPeriod,
+            "mesocycle": this.mesocycle.value,
+            "microcycle": this.microcycle.value,
+            "educationPeriod": this.educationStage.value,
+            "trainingMethods": this.trainingMethods.value,
+            "organizationForm": this.organizationForm,
+            "mainResource": this.mainResource.value,
+            "equipment": this.equipment.value,
+            "loadIntensity": this.loadIntensity,
+            "videoUrl": this.videoUrl,
+            "playground": this.playground.value,
+            "typeOfPreparation": this.typeOfPreparation.value,
+            "sportType": this.sportType.value,
+            "eventPart": this.eventPart,
+            "positionType": this.positionType.value,
+            "mainSkills": [
+              this.mainSkills
+            ],
+            "extraSkills": [
+              this.extraSkills
+            ]
+          };
+
+          // Отправляем форму
+          this.$store.dispatch('events/createExercise', requestData).then(() => {
+
+          });
+
+        }
+        // this.$store.dispatch('events/createEvent', requestData);
+      },
+      createList(list, name) {
+        let listNormal = [];
+        if (list) {
+          list.map(item => {
+            listNormal.push({text: item[name], value: item.id});
+          });
+        }
+
+        return listNormal;
+      },
     },
+    mounted() {
+      let self = this;
 
-    submitForm() {
-      if(this.$refs.createExerciseform.validate()) {
-        let requestData = {
-          "title": this.title,
-          "purpose": this.purpose,
-          "description": this.description,
-          "guidelines": this.guidelines,
-          "duration": this.duration,
-          "participantsNumber": this.participantsNumber,
-          "age": this.age.value,
-          "preparationPeriod": this.preparationPeriod,
-          "mesocycle": this.mesocycle.value,
-          "microcycle": this.microcycle.value,
-          "educationPeriod": this.educationStage.value,
-          "trainingMethods": this.trainingMethods.value,
-          "organizationForm": this.organizationForm,
-          "mainResource": this.mainResource.value,
-          "equipment": this.equipment.value,
-          "loadIntensity": this.loadIntensity,
-          "videoUrl": this.videoUrl,
-          "playground": this.playground.value,
-          "typeOfPreparation": this.typeOfPreparation.value,
-          "sportType": this.sportType.value,
-          "eventPart": this.eventPart,
-          "positionType": this.positionType.value,
-          "mainSkills": [
-            this.mainSkills
-          ],
-          "extraSkills": [
-            this.extraSkills
-          ]
-
-
-        };
-        console.log('requestData Exercise', requestData)
-
-      }
-      // this.$store.dispatch('events/createEvent', requestData);
-    },
-    createList(list, name) {
-      let listNormal = [];
-      if (list) {
-        list.map(item => {
-          listNormal.push({text: item[name], value: item.id});
-        });
-      }
-
-      return listNormal;
-    },
-  },
-  mounted() {
-    let self = this;
-
-    axios.get(API_URL_GRAF + '/events/utils/', {
-      headers: {
-        'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
-        'Content-Type': 'application/json; charset=utf-8'
-      }
-    })
+      axios.get(API_URL_GRAF + '/events/utils/', {
+        headers: {
+          'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
+          'Content-Type': 'application/json; charset=utf-8'
+        }
+      })
         .then(function (response) {
           self.mesocycleList = self.createList(response.data.mesocycles, 'name');
           self.sportTypeList = self.createList(response.data.sportTypes, 'title');
@@ -401,58 +403,47 @@ export default {
         })
 
 
-    axios.get(API_URL_GRAF + '/skills/', {
-      headers: {
-        'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
-        'Content-Type': 'application/json; charset=utf-8'
-      }
-    })
+      axios.get(API_URL_GRAF + '/skills/', {
+        headers: {
+          'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
+          'Content-Type': 'application/json; charset=utf-8'
+        }
+      })
         .then(function (response) {
           self.mainSkillsList = self.createList(response.data, 'name');
           self.extraSkillsList = self.createList(response.data, 'name');
-
-          console.log('response skills', response)
-
         })
         .catch(function (error) {
           console.log(error);
         })
 
-  },
-  computed: {
-    show: {
-      get() {
-        return this.visible
-      },
-      set(value) {
-        if (!value) {
-          this.$emit('close')
-        }
-      }
     },
-  }
+    computed: {
+      show: {
+        get() {
+          return this.visible
+        },
+        set(value) {
+          if (!value) {
+            this.$emit('close')
+          }
+        }
+      },
+    }
 
-}
+  }
 </script>
 
 <style scoped lang="scss">
+  .modal-header {
+    padding: 27px 100px 13px 24px;
+  }
 
-.modal-header {
-  padding: 27px 100px 13px 24px;
-  //box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
-}
+  .modal-body {
+    padding: 24px 24px 40px 24px;
+  }
 
-.modal-body {
-  padding: 24px 24px 40px 24px;
-  //display: flex;
-  //align-items: center;
-  //box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
-
-}
-
-.modal-footer {
-  padding: 16px 24px;
-}
-
-
+  .modal-footer {
+    padding: 16px 24px;
+  }
 </style>

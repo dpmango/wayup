@@ -2,7 +2,7 @@ import {
   RESET, SET_EVENT, ADD_EX, SET_EVENT_LIST, SET_UTILS
 } from '../mutation-types';
 
-import { EventResource } from '../api.js';
+import { EventResource, ExerciseResource } from '../api.js';
 import moment from "moment-timezone";
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +84,15 @@ const actions = {
   async createEvent({commit},data) {
     await EventResource.create(data).then(response => {
       commit(SET_EVENT, response.data);
+    }).catch(err => {
+      console.log(err);
+      throw err.response;
+    });
+  },
+
+  async createExercise(store,data) {
+    await ExerciseResource.create(data).then(response => {
+      console.log(response);
     }).catch(err => {
       console.log(err);
       throw err.response;

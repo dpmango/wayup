@@ -91,7 +91,7 @@
                         .accordion-big__header
                           .accordion-big__header-title {{ accordionBigItem.name }}
                     template(v-slot:accord-body)
-                      Accordion(:groupt="accordionBigItem.exercisesEvent")
+                      TrainingAccardion(:groupt="accordionBigItem.exercisesEvent")
               v-row
                 v-col(
                   md='6'
@@ -114,22 +114,19 @@ import TheBreadcrumbs from "@/components/TheBreadcrumbs";
 import TagsTraining from "@/components/Training/TagsTraining";
 import CardIndications from "@/components/CardIndications";
 import AccordionItem from "@/components/AccordionItem";
-// import draggable from 'vuedraggable'
 import Accordion from "@/components/Accordion";
-//import AccordionTest from "@/components/AccordionTest";
 import AccordionBig from "@/components/AccordionBig";
-//import BaseLabel from "@/components/BaseLabel";
 import TrainingAside from "@/components/Training/TrainingAside";
 import ModalSummaryPlan from "@/components/ModalSummaryPlan";
 import {Draggable} from 'draggable-vue-directive';
 import moment from 'moment';
 import axios from "axios";
 import {mapActions, mapState} from 'vuex';
-//import { EventResource } from '@/store/api.js';
 import 'moment/locale/ru'
 import {API_URL_GRAF} from "../../config/api";
 import CalendarPlanEdit from "@/components/Calendar/CalendarPlanEdit";
 import CalendarPlanCompleted from "@/components/Calendar/CalendarPlanCompleted";
+import TrainingAccardion from "@/components/Training/TrainingAccardion";
 
 export default {
   name: 'Training',
@@ -148,7 +145,8 @@ export default {
     TagsTraining,
     TheBreadcrumbs,
     CalendarPlanEdit,
-    CalendarPlanCompleted
+    CalendarPlanCompleted,
+    TrainingAccardion
     // draggable
   },
   data: () => ({

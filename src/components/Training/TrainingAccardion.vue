@@ -67,7 +67,6 @@
           TrainingEditBlock
 
 
-
 </template>
 
 <script>
@@ -84,7 +83,7 @@
       groupName: String
     },
     data: () => ({
-      editExercise:false,
+      editExercise: false,
       items: ['Группа С8 | 10-13', 'Группа С8 | 10-14', 'Группа С8 | 10-15'],
     }),
     components: {
@@ -95,7 +94,7 @@
       draggable,
     },
 
-    name: "Accordion",
+    name: "TrainingAccordion",
 
     methods: {
       editExcercise: function () {
@@ -104,28 +103,28 @@
       },
       getLoadLabel: function (load) {
         let loadLabel = {
-          'minimal' : 'Умеренная',
-          'normal' : 'Большая' ,
-          'submax' : 'Субмаксимальная',
-          'maximal' : 'Максимальная'
+          'minimal': 'Умеренная',
+          'normal': 'Большая',
+          'submax': 'Субмаксимальная',
+          'maximal': 'Максимальная'
         };
         return loadLabel[load]
       },
       getLoadBg: function (load) {
         let loadLabel = {
-          'minimal' : 'rgba(61, 197, 13, .2)',
-          'normal' : 'rgba(235, 173, 16, .2)' ,
-          'submax' : 'rgba(235, 173, 16, .2)',
-          'maximal' : 'rgba(236, 72, 101, .2)'
+          'minimal': 'rgba(61, 197, 13, .2)',
+          'normal': 'rgba(235, 173, 16, .2)',
+          'submax': 'rgba(235, 173, 16, .2)',
+          'maximal': 'rgba(236, 72, 101, .2)'
         };
         return loadLabel[load]
       },
       getLoadText: function (load) {
         let loadLabel = {
-          'minimal' : 'rgba(31, 120, 0, 1)',
-          'normal' : 'rgba(158, 114, 0, 1)' ,
-          'submax' : 'rgba(158, 114, 0, 1)',
-          'maximal' : 'rgba(161, 34, 56, 1)'
+          'minimal': 'rgba(31, 120, 0, 1)',
+          'normal': 'rgba(158, 114, 0, 1)',
+          'submax': 'rgba(158, 114, 0, 1)',
+          'maximal': 'rgba(161, 34, 56, 1)'
         };
         return loadLabel[load]
       }
@@ -149,33 +148,35 @@
     margin-bottom: rem(25px);
   }
 
-  .accordion-training{
+  .accordion-training {
     .accordion-panel__header {
       min-height: rem(128px);
       padding-left: rem(36px);
       padding-right: rem(24px);
 
     }
-    .accordion-panel__header-desc{
+
+    .accordion-panel__header-desc {
       flex-direction: column;
     }
   }
 
-  .accordion-panel{
+  .accordion-panel {
     margin-left: rem(2px);
     margin-right: rem(2px);
   }
 
-  .accordion-panel__header{
-
+  .accordion-panel__header {
     position: relative;
     align-items: flex-start;
-    .img-wrap{
+
+    .img-wrap {
       @include width-flex(rem(100px))
       height: rem(100px);
       border-radius: rem(4px);
       overflow: hidden;
-      img{
+
+      img {
         width: 100%;
         height: 100%;
       }
@@ -183,10 +184,7 @@
 
   }
 
-
-
-
-  .accordion-panel__title{
+  .accordion-panel__title {
     font-size: rem(16px);
     font-family: $FiraSansMedium;
     margin-bottom: rem(8px);
@@ -194,44 +192,45 @@
   }
 
 
-
-  .v-expansion-panel-header{
+  .v-expansion-panel-header {
 
   }
-  .v-expansion-panel-content__wrap{
+
+  .v-expansion-panel-content__wrap {
     padding: rem(10px) rem(24px) rem(24px) rem(36px);
   }
 
 
-
-  .more-icon{
+  .more-icon {
     position: absolute;
     left: rem(8px);
     top: rem(12px);
   }
 
-  .v-expansion-panel:before{
+  .v-expansion-panel:before {
     box-shadow: none;
   }
-  .v-expansion-panel:not(:first-child):after{
+
+  .v-expansion-panel:not(:first-child):after {
     border: none;
   }
 
 
-  .v-expansion-panel-header>:not(.v-expansion-panel-header__icon) {
+  .v-expansion-panel-header > :not(.v-expansion-panel-header__icon) {
     flex: inherit;
   }
 
-  .accordion-panel__header-desc{
+  .accordion-panel__header-desc {
     @include width-flex(70%)
   }
 
 
-  .training-desc{
+  .training-desc {
     font-size: rem(14px);
     color: rgba(0, 0, 0, .56);
   }
-  .panel-num{
+
+  .panel-num {
     position: absolute;
     left: rem(-32px);
     top: rem(14px);
@@ -240,7 +239,7 @@
   }
 
 
-  .v-expansion-panels>:last-child{
+  .v-expansion-panels > :last-child {
     border-radius: rem(12px);
   }
 
