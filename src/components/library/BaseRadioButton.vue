@@ -2,6 +2,8 @@
     v-radio(
       :label='label'
       :value='value'
+      v-bind="$attrs"
+      v-model="radio"
     )
 
 </template>
@@ -15,10 +17,25 @@ export default {
       default: ''
     },
     value: {
-      type: String,
-      default: ''
+      type: [String, Number],
     },
   },
+  computed: {
+    radio: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit('input', val);
+      }
+    }
+  },
+  methods: {
+    handleChange(val) {
+
+      this.$emit('change', val);
+    }
+  }
 }
 </script>
 
@@ -30,7 +47,6 @@ export default {
   ::v-deep{
     .v-input--selection-controls__ripple{
       background-image:url('~@/assets/images/svg/radio_selected.svg');
-
     }
   }
 }
@@ -42,7 +58,7 @@ export default {
   margin-bottom: 0 !important;
   ::v-deep{
     .v-input--selection-controls__ripple{
-      position: static;
+      position: static !important;
       background-image:url('~@/assets/images/svg/radio_empty.svg');
       background-position: center;
       background-repeat: no-repeat;

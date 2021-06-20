@@ -31,7 +31,7 @@ export default {
       type: String,
       default: ''
     },
-    rules:  [String, Array, Object],
+    rules: [String, Array, Object],
     classAttr: {
       type: String,
       default: 'input-default'

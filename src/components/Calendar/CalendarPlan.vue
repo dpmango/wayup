@@ -152,7 +152,7 @@ export default {
     // draggable
   },
   data: () => ({
-    isActiveEdit: false,
+    isActiveEdit: true,
     isActiveModal: false,
     dialog: false,
     items: ['Группа С8 | 10-13', 'Группа С8 | 10-14', 'Группа С8 | 10-15'],

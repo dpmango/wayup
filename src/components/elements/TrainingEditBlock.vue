@@ -155,6 +155,7 @@ export default {
   components: {SelectMenu},
   data: () => ({
     selectItems: ['Тест 1', 'Тест 2', 'Тест 3'],
+
     fav: true,
     menu: false,
     message: false,
@@ -190,13 +191,7 @@ export default {
 
 }
 
-.video-link{
-  @include width-flex(90%)
-}
 
-.video-link_del{
-  @include width-flex(10%)
-}
 .block-white.popup-block{
   padding: 30px 60px 20px 20px;
   height: 172px;

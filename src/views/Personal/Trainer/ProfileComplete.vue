@@ -8,10 +8,10 @@
         .link-profile__block
           router-link.link-profile(to="/information") Общая информация
         h1.title-big.mb-5 Мой профиль
-        SidebarNewExercise(
-          @sidebarWidgetsClose="sidebarWidgetsClose"
-          :class="isShowSidebarWidgets ? 'm-show' : 'm-hide'"
-        )
+        //SidebarNewExercise(
+        //  @sidebarWidgetsClose="sidebarWidgetsClose"
+        //  :class="isShowSidebarWidgets ? 'm-show' : 'm-hide'"
+        //)
         v-row
           v-col(
             md='2'
@@ -41,7 +41,7 @@
 import TrainerSidebar from "@/components/TrainerSidebar";
 import ModalTrainerSportsmanWork from "@/components/modals/ModalTrainerSportsmanWork";
 import WidgetTrainerSportsmanWork from "@/components/widgets/WidgetTrainerSportsmanWork";
-import SidebarNewExercise from "@/components/SidebarNewExercise";
+// import SidebarNewExercise from "@/components/SidebarNewExercise";
 import ModalTrainerEstimateSkills from "@/components/modals/ModalTrainerEstimateSkills";
 import ModalTrainerNewEvent from "@/components/modals/ModalTrainerNewEvent";
 import ScheduleHeader from "@/components/ScheduleHeader";
@@ -57,7 +57,7 @@ export default {
     ScheduleHeader,
     ModalTrainerNewEvent,
     ModalTrainerEstimateSkills,
-    SidebarNewExercise,
+    // SidebarNewExercise,
     WidgetTrainerSportsmanWork,
     ModalTrainerSportsmanWork,
     TrainerSidebar

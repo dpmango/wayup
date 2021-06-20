@@ -807,4 +807,13 @@
   margin-bottom: 42px;
 }
 
+.video-link{
+  @include width-flex(90%)
+  overflow: hidden;
+}
+
+.video-link_del{
+  @include width-flex(10%)
+}
+
 /**/
