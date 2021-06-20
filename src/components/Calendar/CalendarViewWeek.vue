@@ -240,8 +240,8 @@
               if(moment(moment()).isAfter(moment( eventTarget.event.start_time).add(eventTarget.event.duration, 'h'))) {
                 // Если событие уже прошло
                 // Показываем модалку оценки
-                this.dialogEventSkills = true;
-
+                //this.dialogEventSkills = true;
+                this.$router.push({name: 'IndividualLesson'});
               } else {
 
                 // Если событие не неступило

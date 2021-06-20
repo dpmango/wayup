@@ -82,7 +82,7 @@ export default {
           this.$store.dispatch('auth/login', response.data.access).then(() => {
             this.$store.dispatch('auth/role', response.data.userRole);
             this.$store.dispatch('auth/loadProfile');
-            this.$router.push("/");
+            window.location.reload();
           });
 
         }, reason => {

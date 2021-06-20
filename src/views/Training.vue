@@ -144,7 +144,7 @@
 
 
 import TheBreadcrumbs from "@/components/TheBreadcrumbs";
-import TagsTraining from "@/components/TagsTraining";
+import TagsTraining from "@/components/Training/TagsTraining";
 import CardIndications from "@/components/CardIndications";
 import AccordionItem from "@/components/AccordionItem";
 // import draggable from 'vuedraggable'
