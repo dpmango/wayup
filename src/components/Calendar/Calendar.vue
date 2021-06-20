@@ -23,8 +23,7 @@ export default {
     components: { CalendarViewMonth, CalendarNav, CalendarViewWeek, ModalTrainerNewEvent},
     data: () => ({
         initDay: moment().toDate(),
-        dialogEvent:false,
-        //events: []
+        dialogEvent:false
     }),
     computed: {
         todayLabel: function () {
@@ -33,7 +32,6 @@ export default {
             }
             return 'Сегодня';
         },
-      //...mapGetters('schedule', ['events']),
       ...mapGetters('events', ['events']),
     },
     methods: {
@@ -59,11 +57,9 @@ export default {
                 this.initDay = moment().toDate()
             }
         },
-      ...mapActions('schedule', ['loadPlans']),
       ...mapActions('events', ['loadEvents']),
     },
   created() {
-    this.loadPlans();
     this.loadEvents();
   }
 

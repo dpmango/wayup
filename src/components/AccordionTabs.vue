@@ -10,23 +10,38 @@
     v-tab Видео и описание
     v-tab Методические указания
     v-tab Инвентарь
-    -for (var i = 0; i < 3; i++)
-      v-tab-item
 
-        img.img-trainig_big(
-          src="@/assets/images/img-traning-big.png"
-        )
-        .training-desc--inner
-          p И.п. — лежа на льду на животе; руки подняты, на клюшке; локти на льду.
-          p 1. Подтягиваясь с помощью локтей, встать на колени
-          p 2. Встать в основную стойку
+    v-tab-item
+      img.img-trainig_big(
+        src="@/assets/images/img-traning-big.png"
+      )
+      .training-desc--inner
+        | {{ elem.guidelines }}
+
+
+    v-tab-item
+
+      .training-desc--inner
+        p И.п. — лежа на льду на животе; руки подняты, на клюшке; локти на льду.
+        p 1. Подтягиваясь с помощью локтей, встать на колени
+        p 2. Встать в основную стойку
+
+    v-tab-item
+
+      .training-desc--inner
+        p И.п. — лежа на льду на животе; руки подняты, на клюшке; локти на льду.
+        p 1. Подтягиваясь с помощью локтей, встать на колени
+        p 2. Встать в основную стойку
 
 
 </template>
 
 <script>
 export default {
-  name: "AccordionTabs"
+  name: "AccordionTabs",
+  props: {
+    elem: Object
+  }
 }
 </script>
 

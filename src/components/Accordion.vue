@@ -21,7 +21,7 @@
             )
           .accordion-panel__header-desc
             .accordion-panel__title
-              | {{element.title}}
+              | {{ element.exercise.title }}
             .labels.mb-3
               base-badge.mr-2.mb-2(
                 v-if="element.recommended_duration"
@@ -47,9 +47,9 @@
                 :background='getLoadBg(element.load_value)'
                 :textColor="getLoadText(element.load_value)"
               )
-            .training-desc {{ element.purpose }}
+            .training-desc {{  element.exercise.description }}
         v-expansion-panel-content.accordion-panel__content
-          AccordionTabs(:elem="element")
+          AccordionTabs(:elem="element.exercise")
         TrainingEditBlock
 
 

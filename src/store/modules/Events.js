@@ -90,9 +90,9 @@ const actions = {
     });
   },
 
-  loadEvents(store) {
-    store.dispatch('loadUtils').then(() => {
-      EventResource.list().then(response => {
+  async loadEvents(store) {
+    await store.dispatch('loadUtils').then(() => {
+     EventResource.list().then(response => {
         store.commit(SET_EVENT_LIST, response.data);
       }).catch(err => {
         console.log(err);
