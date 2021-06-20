@@ -117,85 +117,78 @@
 </template>
 
 <script>
-  import InfoBlock from "@/components/elements/InfoBlock";
-  import AccordionBig from "@/components/AccordionBig";
-  import AccordionTrainerLesson from "@/components/AccordionTrainerLesson";
-  import HeaderTrainerAccount from "@/components/elements/HeaderTrainerAccount";
-  import HeaderRightTrainerAccount from "@/components/elements/HeaderRightTrainerAccount";
+import InfoBlock from '@/components/elements/InfoBlock'
+import AccordionBig from '@/components/AccordionBig'
+import AccordionTrainerLesson from '@/components/AccordionTrainerLesson'
+import HeaderTrainerAccount from '@/components/elements/HeaderTrainerAccount'
+import HeaderRightTrainerAccount from '@/components/elements/HeaderRightTrainerAccount'
 
-  export default {
-    name: "IndividualLesson",
-    components: {
-      HeaderRightTrainerAccount,
-      HeaderTrainerAccount,
-      AccordionTrainerLesson,
-      AccordionBig,
-      InfoBlock
-    },
-    data: () => ({
-      accordionBigItems: [
-        {
-          open: true,
-          children: [
-            {name: "Баланс в основной стойке", id: 1},
-            {name: "Подъем в основную стойку из положения лежа на животе", id: 2},
-
-          ]
-        },
-        {
-          open: false,
-          children: [
-            {name: "5 х 4  Большинство", id: 5},
-            {name: "3 х 5 Меньшинство", id: 6},
-            {name: "Розыгрыш", id: 7}
-
-          ]
-        },
-        {
-          open: false,
-          children: [
-            {name: "Свободная игра 1", id: 8},
-            {name: "Свободная игра 2", id: 9},
-            {name: "Свободная игра 3", id: 10}
-
-          ]
-        },
-        {
-          open: false,
-          children: [
-            {name: "Свободная игра 123", id: 8},
-            {name: "Свободная игра 2232", id: 9},
-            {name: "Свободная игра 3323", id: 10}
-
-
-          ]
-        },
-
-      ],
-    }),
-    methods: {
-      toggleOpen: function (index) {
-        this.accordionBigItems = this.accordionBigItems.map((accordionBigItem, i) => {
-          if (index === i) {
-            accordionBigItem.open = !accordionBigItem.open;
-          } else {
-            accordionBigItem.open = false;
-          }
-          return accordionBigItem;
-        });
+export default {
+  name: 'IndividualLesson',
+  components: {
+    HeaderRightTrainerAccount,
+    HeaderTrainerAccount,
+    AccordionTrainerLesson,
+    AccordionBig,
+    InfoBlock,
+  },
+  data: () => ({
+    accordionBigItems: [
+      {
+        open: true,
+        children: [
+          { name: 'Баланс в основной стойке', id: 1 },
+          { name: 'Подъем в основную стойку из положения лежа на животе', id: 2 },
+        ],
       },
-    }
-  }
+      {
+        open: false,
+        children: [
+          { name: '5 х 4  Большинство', id: 5 },
+          { name: '3 х 5 Меньшинство', id: 6 },
+          { name: 'Розыгрыш', id: 7 },
+        ],
+      },
+      {
+        open: false,
+        children: [
+          { name: 'Свободная игра 1', id: 8 },
+          { name: 'Свободная игра 2', id: 9 },
+          { name: 'Свободная игра 3', id: 10 },
+        ],
+      },
+      {
+        open: false,
+        children: [
+          { name: 'Свободная игра 123', id: 8 },
+          { name: 'Свободная игра 2232', id: 9 },
+          { name: 'Свободная игра 3323', id: 10 },
+        ],
+      },
+    ],
+  }),
+  methods: {
+    toggleOpen: function (index) {
+      this.accordionBigItems = this.accordionBigItems.map((accordionBigItem, i) => {
+        if (index === i) {
+          accordionBigItem.open = !accordionBigItem.open
+        } else {
+          accordionBigItem.open = false
+        }
+        return accordionBigItem
+      })
+    },
+  },
+}
 </script>
 
 <style scoped lang="scss">
-  .widget-empty {
-    .widget-content {
-      height: 302px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
+.widget-empty {
+  .widget-content {
+    height: 302px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+}
 </style>

@@ -85,95 +85,93 @@
       ModalTrainerNewEvent(:visible='dialogEvent' @close="dialogEvent=false")
 </template>
 
-
 <script>
-  import moment from 'moment';
-  import axios from "axios";
-  import {mapActions, mapGetters} from 'vuex';
-  import ModalTrainerNewEvent from "@/components/modals/ModalTrainerNewEvent";
+import moment from 'moment'
+import axios from 'axios'
+import { mapActions, mapGetters } from 'vuex'
+import ModalTrainerNewEvent from '@/components/modals/ModalTrainerNewEvent'
 
-  export default {
-    name: "CalendarNav",
-    components: { ModalTrainerNewEvent },
-    props: {
-      labelNav: {
-        type: String,
-        default: 'Сегодня'
-      }
+export default {
+  name: 'CalendarNav',
+  components: { ModalTrainerNewEvent },
+  props: {
+    labelNav: {
+      type: String,
+      default: 'Сегодня',
     },
-    data: () => ({
-      selectItems: [{
+  },
+  data: () => ({
+    selectItems: [
+      {
         id: 0,
-        name: 'ССМ-5'
-      }],
-      dialogEvent:false,
-      //groupList: []
-    }),
-    methods: {
-      handleNext: function () {
-        this.$emit("next");
+        name: 'ССМ-5',
       },
-      handlePrev: function () {
-        this.$emit("prev");
-      },
-      handleToday: function () {
-        this.$emit("today");
-      },
-      createEvent(date, time) {
-        let start = moment(date + ' ' + time, 'DD-MM-YYYY HH:mm');
+    ],
+    dialogEvent: false,
+    //groupList: []
+  }),
+  methods: {
+    handleNext: function () {
+      this.$emit('next')
+    },
+    handlePrev: function () {
+      this.$emit('prev')
+    },
+    handleToday: function () {
+      this.$emit('today')
+    },
+    createEvent(date, time) {
+      let start = moment(date + ' ' + time, 'DD-MM-YYYY HH:mm')
 
-        let plan = {
-          "name": "Индивидуальное занятие",
-          "start_time": start.toDate(),
-          "end_time": start.add(1, 'hours').toDate(),
-          "microcycle_id": 850,
-          "purpose_lesson": "Улучшение игры ловушкой",
-          "type_lesson": "Индивидуальное",
-          "type_of_preparation": "Лед",
-          "qualities": [],
-          "location": "Одинцово",
-          "created_at": "2021-03-03T14:53:10.397Z",
-          "updated_at": "2021-04-21T11:17:40.172Z",
-          "start": start.toDate(),
-          "end": start.add(1, 'hours').toDate(),
-          "className": "bg-primary",
-          "url": "https://way-up.herokuapp.com/plans/10.html"
+      let plan = {
+        name: 'Индивидуальное занятие',
+        start_time: start.toDate(),
+        end_time: start.add(1, 'hours').toDate(),
+        microcycle_id: 850,
+        purpose_lesson: 'Улучшение игры ловушкой',
+        type_lesson: 'Индивидуальное',
+        type_of_preparation: 'Лед',
+        qualities: [],
+        location: 'Одинцово',
+        created_at: '2021-03-03T14:53:10.397Z',
+        updated_at: '2021-04-21T11:17:40.172Z',
+        start: start.toDate(),
+        end: start.add(1, 'hours').toDate(),
+        className: 'bg-primary',
+        url: 'https://way-up.herokuapp.com/plans/10.html',
+      }
+
+      let self = this
+      axios.post('https://way-up.herokuapp.com/plans.json', plan).then(function (response) {
+        console.log(response)
+
+        if (response.data.id) {
+          self.$router.push({ path: '/plan/' + response.data.id })
         }
-
-        let self = this;
-        axios.post('https://way-up.herokuapp.com/plans.json', plan)
-          .then(function (response) {
-            console.log(response);
-
-            if (response.data.id) {
-              self.$router.push({path: '/plan/' + response.data.id})
-            }
-
-
-          })
-      },
-      ...mapActions('schedule', ['loadGroups']),
+      })
     },
-    computed: {
-      curDate: function () {
-        return moment().format('DD-MM-YYYY')
-      },
-      ...mapGetters('schedule', ['groupList'])
+    ...mapActions('schedule', ['loadGroups']),
+  },
+  computed: {
+    curDate: function () {
+      return moment().format('DD-MM-YYYY')
     },
-    created() {
-      this.loadGroups();
-    },
-  }
+    ...mapGetters('schedule', ['groupList']),
+  },
+  created() {
+    this.loadGroups()
+  },
+}
 </script>
 
 <style lang="scss" scoped>
-  .buttons-left,
-  .buttons-right {
-    display: flex;
-    align-items: center;
-  }
+.buttons-left,
+.buttons-right {
+  display: flex;
+  align-items: center;
+}
 
-  .cpt-button {
-    text-transform: capitalize;
-  }
+.cpt-button {
+  text-transform: capitalize;
+}
 </style>

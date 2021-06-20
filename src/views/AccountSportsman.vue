@@ -121,227 +121,212 @@
 </template>
 
 <script>
-	import ScheduleHeader from "@/components/ScheduleHeader";
-	import LevelBlock from "@/components/LevelBlock";
-	import UserSidebar from "@/components/UserSidebar";
-	import SnackBar from "@/components/elements/SnackBar";
-	import draggable from "vuedraggable";
-	import DotsMenu from "@/components/DotsMenu";
-	import vueCustomScrollbar from 'vue-custom-scrollbar'
-	import "vue-custom-scrollbar/dist/vueScrollbar.css"
-	import HmProgress from "@/components/elements/HmProgress";
-	import MusicPlayer from "@/components/elements/MusicPlayer";
-	import AccordionExercises from "@/components/AccordionExercises";
-	import InfoBlock from "@/components/elements/InfoBlock";
-	import SidebarWidgets from "@/components/SidebarWidgets";
+import ScheduleHeader from '@/components/ScheduleHeader'
+import LevelBlock from '@/components/LevelBlock'
+import UserSidebar from '@/components/UserSidebar'
+import SnackBar from '@/components/elements/SnackBar'
+import draggable from 'vuedraggable'
+import DotsMenu from '@/components/DotsMenu'
+import vueCustomScrollbar from 'vue-custom-scrollbar'
+import 'vue-custom-scrollbar/dist/vueScrollbar.css'
+import HmProgress from '@/components/elements/HmProgress'
+import MusicPlayer from '@/components/elements/MusicPlayer'
+import AccordionExercises from '@/components/AccordionExercises'
+import InfoBlock from '@/components/elements/InfoBlock'
+import SidebarWidgets from '@/components/SidebarWidgets'
 
-	export default {
-		name: "AccountSportsman",
-		selectedItem: 1,
-		components: {
-			SidebarWidgets,
-			InfoBlock,
-			AccordionExercises,
-			MusicPlayer,
-			HmProgress,
-			DotsMenu,
-			SnackBar,
-			UserSidebar,
-			LevelBlock,
-			ScheduleHeader,
-			draggable,
-			vueCustomScrollbar
-		},
+export default {
+  name: 'AccountSportsman',
+  selectedItem: 1,
+  components: {
+    SidebarWidgets,
+    InfoBlock,
+    AccordionExercises,
+    MusicPlayer,
+    HmProgress,
+    DotsMenu,
+    SnackBar,
+    UserSidebar,
+    LevelBlock,
+    ScheduleHeader,
+    draggable,
+    vueCustomScrollbar,
+  },
 
-		data: () => ({
-			isShowList: false,
-			isShowSidebarWidgets: false,
-			settings: {
-				suppressScrollY: false,
-				suppressScrollX: false,
-				wheelPropagation: false
-			},
-			interval: {},
-			value: 100,
-			snackbar: false,
-			snackbarSettings: false,
-			text: 'Выставлены оценки. Можно ознакомиться в разделе с оценками',
-			timeout: 10000,
-			timeoutSettings: -1,
-			widgetsListOne: [
-				{id: 1, component: 'WidgetHomework'},
-				{id: 2, component: 'WidgetTeam'},
-				{id: 3, component: 'WidgetMapsGoal'},
-				{id: 4, component: 'WidgetMapsGoalZone'},
-				{id: 5, component: 'WidgetLearn'},
-			],
-			widgetsListTwo: [
-				{id: 1, component: 'WidgetEvents'},
-				{id: 2, component: 'WidgetStatisticSeason'},
-				{id: 3, component: 'WidgetLevel'},
-				{id: 4, component: 'WidgetChartPolar'},
-				{id: 5, component: 'WidgetAwards'},
-				{id: 6, component: 'WidgetFormPlayer'},
-			],
+  data: () => ({
+    isShowList: false,
+    isShowSidebarWidgets: false,
+    settings: {
+      suppressScrollY: false,
+      suppressScrollX: false,
+      wheelPropagation: false,
+    },
+    interval: {},
+    value: 100,
+    snackbar: false,
+    snackbarSettings: false,
+    text: 'Выставлены оценки. Можно ознакомиться в разделе с оценками',
+    timeout: 10000,
+    timeoutSettings: -1,
+    widgetsListOne: [
+      { id: 1, component: 'WidgetHomework' },
+      { id: 2, component: 'WidgetTeam' },
+      { id: 3, component: 'WidgetMapsGoal' },
+      { id: 4, component: 'WidgetMapsGoalZone' },
+      { id: 5, component: 'WidgetLearn' },
+    ],
+    widgetsListTwo: [
+      { id: 1, component: 'WidgetEvents' },
+      { id: 2, component: 'WidgetStatisticSeason' },
+      { id: 3, component: 'WidgetLevel' },
+      { id: 4, component: 'WidgetChartPolar' },
+      { id: 5, component: 'WidgetAwards' },
+      { id: 6, component: 'WidgetFormPlayer' },
+    ],
+  }),
 
-
-		}),
-
-
-		beforeDestroy() {
-			clearInterval(this.interval)
-		},
-		methods: {
-			toggleList: function () {
-				this.isShowList = !this.isShowList;
-			},
-			sidebarWidgetsClose: function () {
-				this.isShowSidebarWidgets = false;
-			},
-			sidebarWidgetsOpen: function () {
-				this.isShowSidebarWidgets = true;
-
-			},
-
-		},
-		mounted() {
-
-
-		},
-		watch: {
-			// openNotification: function (val) {
-			//   if(val) {
-			//     this.interval = setInterval(() => {
-			//       if (this.value === 0) {
-			//         return (this.value = 0)
-			//       }
-			//       this.value -= 10
-			//     }.bind(this), 1000)
-			//   }
-			//
-			//   else {
-			//
-			//   }
-			// },
-		}
-	}
+  beforeDestroy() {
+    clearInterval(this.interval)
+  },
+  methods: {
+    toggleList: function () {
+      this.isShowList = !this.isShowList
+    },
+    sidebarWidgetsClose: function () {
+      this.isShowSidebarWidgets = false
+    },
+    sidebarWidgetsOpen: function () {
+      this.isShowSidebarWidgets = true
+    },
+  },
+  mounted() {},
+  watch: {
+    // openNotification: function (val) {
+    //   if(val) {
+    //     this.interval = setInterval(() => {
+    //       if (this.value === 0) {
+    //         return (this.value = 0)
+    //       }
+    //       this.value -= 10
+    //     }.bind(this), 1000)
+    //   }
+    //
+    //   else {
+    //
+    //   }
+    // },
+  },
+}
 </script>
 
 <style scoped lang="scss">
+.v-tab {
+  text-transform: none;
+  font-family: $FiraSansRegular;
+  letter-spacing: normal;
+  min-width: 0;
+  max-width: none;
+  padding: 0;
+  margin: 0 16px;
+}
 
-  .v-tab {
-    text-transform: none;
-    font-family: $FiraSansRegular;
-    letter-spacing: normal;
-    min-width: 0;
-    max-width: none;
-    padding: 0;
-    margin: 0 16px;
+::v-deep {
+  .v-tabs-bar {
+    height: 36px;
   }
 
+  .v-tab--active {
+    color: #000;
+  }
+
+  .v-tabs-items {
+    padding: 30px 3px 60px;
+  }
+
+  .v-snack__content {
+    color: #000;
+    padding: 0 20px 0 0;
+  }
+
+  .v-snack__wrapper {
+    max-width: 400px;
+    padding: 16px 24px;
+    border-radius: 12px;
+    min-height: 92px;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .snackbar-text {
+    //max-width: 60%;
+  }
+
+  .snackbar-right {
+    display: flex;
+    height: 100%;
+  }
+
+  .v-snack__action {
+    height: 100%;
+    margin-right: 0;
+    align-items: flex-start;
+  }
+
+  .snackbar-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    margin-left: 10px;
+  }
+
+  .snackbar-button {
+    color: #326bff;
+    font-family: $FiraSansMedium;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.menu-settings {
+  width: 271px;
+
+  .v-list-item {
+    padding: 10px 20px;
+    min-height: 0px;
+  }
+
+  .v-list-item__title {
+    font-size: 16px;
+  }
+}
+
+.snackbar-settings {
+  height: 56px;
+}
+
+.snackbar-settings {
   ::v-deep {
-    .v-tabs-bar {
-      height: 36px;
+    .v-snack__wrapper {
+      max-width: 100%;
+      margin: 0;
+      background: #292c33;
+      box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08), 0px 4px 4px rgba(0, 0, 0, 0.16);
+      border-radius: 0px 0px 12px 12px;
+      min-height: 0;
+      display: flex;
+      align-items: center;
     }
 
-    .v-tab--active {
-      color: #000;
-    }
-
-    .v-tabs-items {
-      padding: 30px 3px 60px;
+    .button-black {
+      background: #383f4c;
     }
 
     .v-snack__content {
-      color: #000;
-      padding: 0 20px 0 0;
-    }
-
-    .v-snack__wrapper {
-      max-width: 400px;
-      padding: 16px 24px;
-      border-radius: 12px;
-      min-height: 92px;
-      display: flex;
-      align-items: flex-start;
-    }
-
-    .snackbar-text {
-      //max-width: 60%;
-    }
-
-    .snackbar-right {
-      display: flex;
-      height: 100%;
-
-    }
-
-    .v-snack__action {
-      height: 100%;
-      margin-right: 0;
-      align-items: flex-start;
-    }
-
-    .snackbar-buttons {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 100%;
-      margin-left: 10px;
-    }
-
-    .snackbar-button {
-      color: #326BFF;
-      font-family: $FiraSansMedium;
-
-      &:hover {
-        cursor: pointer;
-      }
-
-    }
-
-
-  }
-
-  .menu-settings {
-    width: 271px;
-
-    .v-list-item {
-      padding: 10px 20px;
-      min-height: 0px;
-    }
-
-    .v-list-item__title {
-      font-size: 16px;
+      color: #ffffff;
     }
   }
-
-  .snackbar-settings {
-    height: 56px;
-  }
-
-  .snackbar-settings {
-    ::v-deep {
-      .v-snack__wrapper {
-        max-width: 100%;
-        margin: 0;
-        background: #292C33;
-        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08), 0px 4px 4px rgba(0, 0, 0, 0.16);
-        border-radius: 0px 0px 12px 12px;
-        min-height: 0;
-        display: flex;
-        align-items: center;
-      }
-
-      .button-black {
-        background: #383F4C;
-      }
-
-      .v-snack__content {
-        color: #FFFFFF;
-      }
-    }
-  }
-
-
+}
 </style>

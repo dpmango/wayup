@@ -3,19 +3,19 @@ import Vuex from 'vuex'
 import modules from './modules'
 import createLogger from 'vuex/dist/logger'
 
-Vue.use(Vuex);
-const debug = process.env.NODE_ENV !== 'production';
+Vue.use(Vuex)
+const debug = process.env.NODE_ENV !== 'production'
 
 export default new Vuex.Store({
   modules,
   actions: {
     // Сброс всего хранилища
-    reset({commit}) {
+    reset({ commit }) {
       Object.keys(modules).forEach(moduleName => {
-        commit(`${moduleName}/RESET`);
+        commit(`${moduleName}/RESET`)
       })
-    }
+    },
   },
   strict: debug,
-  plugins: debug? [ createLogger() ] : []
+  plugins: debug ? [createLogger()] : [],
 })

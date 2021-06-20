@@ -108,28 +108,27 @@
 
 </template>
 
-
 <script>
-import TheBreadcrumbs from "@/components/TheBreadcrumbs";
-import TagsTraining from "@/components/Training/TagsTraining";
-import CardIndications from "@/components/CardIndications";
-import AccordionItem from "@/components/AccordionItem";
+import TheBreadcrumbs from '@/components/TheBreadcrumbs'
+import TagsTraining from '@/components/Training/TagsTraining'
+import CardIndications from '@/components/CardIndications'
+import AccordionItem from '@/components/AccordionItem'
 // import draggable from 'vuedraggable'
-import Accordion from "@/components/Accordion";
+import Accordion from '@/components/Accordion'
 //import AccordionTest from "@/components/AccordionTest";
-import AccordionBig from "@/components/AccordionBig";
+import AccordionBig from '@/components/AccordionBig'
 //import BaseLabel from "@/components/BaseLabel";
-import TrainingAside from "@/components/Training/TrainingAside";
-import ModalSummaryPlan from "@/components/ModalSummaryPlan";
-import {Draggable} from 'draggable-vue-directive';
-import moment from 'moment';
-import axios from "axios";
-import {mapActions, mapState} from 'vuex';
+import TrainingAside from '@/components/Training/TrainingAside'
+import ModalSummaryPlan from '@/components/ModalSummaryPlan'
+import { Draggable } from 'draggable-vue-directive'
+import moment from 'moment'
+import axios from 'axios'
+import { mapActions, mapState } from 'vuex'
 //import { EventResource } from '@/store/api.js';
 import 'moment/locale/ru'
-import {API_URL_GRAF} from "../../config/api";
-import CalendarPlanEdit from "@/components/Calendar/CalendarPlanEdit";
-import CalendarPlanCompleted from "@/components/Calendar/CalendarPlanCompleted";
+import { API_URL_GRAF } from '../../config/api'
+import CalendarPlanEdit from '@/components/Calendar/CalendarPlanEdit'
+import CalendarPlanCompleted from '@/components/Calendar/CalendarPlanCompleted'
 
 export default {
   name: 'Training',
@@ -148,7 +147,7 @@ export default {
     TagsTraining,
     TheBreadcrumbs,
     CalendarPlanEdit,
-    CalendarPlanCompleted
+    CalendarPlanCompleted,
     // draggable
   },
   data: () => ({
@@ -165,48 +164,48 @@ export default {
     macrocycle: '',
     group: '',
 
-    componentCalendar: ''
+    componentCalendar: '',
   }),
   computed: {
     dayWeek: function () {
-      return moment(this.plan.dateFrom).format('dddd');
+      return moment(this.plan.dateFrom).format('dddd')
     },
     monthDay: function () {
-      return moment(this.plan.dateFrom).format('DD MMMM');
+      return moment(this.plan.dateFrom).format('DD MMMM')
     },
     timePeriod: function () {
-      return moment(this.plan.dateFrom).format('HH:mm') + ' — ' + moment(this.plan.dateTo).format('HH:mm');
+      return moment(this.plan.dateFrom).format('HH:mm') + ' — ' + moment(this.plan.dateTo).format('HH:mm')
     },
-    ...mapState('events', ['utils'])
+    ...mapState('events', ['utils']),
   },
   methods: {
     add: function () {
-      this.list.push({name: "Juan"});
+      this.list.push({ name: 'Juan' })
     },
 
     replace: function () {
-      this.list = [{name: "Edgard"}];
+      this.list = [{ name: 'Edgard' }]
     },
 
     clone: function (el) {
       return {
-        name: el.name + " cloned"
-      };
+        name: el.name + ' cloned',
+      }
     },
 
     log: function (evt) {
-      window.console.log(evt);
+      window.console.log(evt)
     },
 
     toggleOpen: function (index) {
       this.accordionBigItems = this.accordionBigItems.map((accordionBigItem, i) => {
         if (index === i) {
-          accordionBigItem.open = !accordionBigItem.open;
+          accordionBigItem.open = !accordionBigItem.open
         } else {
-          accordionBigItem.open = false;
+          accordionBigItem.open = false
         }
-        return accordionBigItem;
-      });
+        return accordionBigItem
+      })
     },
 
     editTraining: function () {
@@ -223,12 +222,10 @@ export default {
         .then(function (response) {
             console.log(response);
         })*/
-
         // Удаляем тренировку
         /*axios.delete('https://way-up.herokuapp.com/plan_parts/31.json').then(function (response) {
             console.log(response);
         })*/
-
         // Редактируем тренировку
         /*axios.put('https://way-up.herokuapp.com/plan_parts/34.json', {
             "exercise_id": null,
@@ -245,45 +242,41 @@ export default {
             console.log(response);
         })*/
       }
-      this.isActiveEdit = !this.isActiveEdit;
+      this.isActiveEdit = !this.isActiveEdit
     },
 
     toggleModalPlan: function () {
-      this.isActiveModal = !this.isActiveModal;
+      this.isActiveModal = !this.isActiveModal
     },
 
     getAccardionBigItem(part) {
       let parts1 = {
         name: part,
-        open: true
-      };
-      let part1Children = [];
+        open: true,
+      }
+      let part1Children = []
       if (this.parts[parts1.name]) {
         for (let i = 0; i < this.parts[parts1.name].length; i++) {
-          let part = this.parts[parts1.name][i];
+          let part = this.parts[parts1.name][i]
 
           for (let j = 0; j < part['exercise_name'].length; j++) {
-
-            let ex = this.dataExer.filter(item => item.title == part['exercise_name'][j])[0];
+            let ex = this.dataExer.filter(item => item.title == part['exercise_name'][j])[0]
 
             if (ex) {
-              let pt = ex;
-              pt.plan_part_id = part.id;
-              part1Children.push(pt);
+              let pt = ex
+              pt.plan_part_id = part.id
+              part1Children.push(pt)
             }
           }
-
-
         }
       }
 
-      parts1.children = part1Children;
-      return parts1;
+      parts1.children = part1Children
+      return parts1
     },
 
     getLabelPart(children) {
-
-      return children.length + ' упражнений';
+      return children.length + ' упражнений'
     },
 
     getMinuteLabel(duration) {
@@ -292,11 +285,11 @@ export default {
 
     getLoadShortLabel(load) {
       let loadLabel = {
-        'minimal': 'Y',
-        'normal': 'Б',
-        'submax': 'С',
-        'maximal': 'М'
-      };
+        minimal: 'Y',
+        normal: 'Б',
+        submax: 'С',
+        maximal: 'М',
+      }
       return loadLabel[load]
     },
 
@@ -307,23 +300,37 @@ export default {
   created() {
     if (this.$route.params.id) {
       // Событие
-      var self = this;
+      var self = this
 
-      axios.get(API_URL_GRAF + '/events/coach/' + this.$route.params.id, {headers: {'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '' , 'Content-Type': 'application/json; charset=utf-8'}}).then(function (response) {
-        self.plan = response.data;
-        axios.get(API_URL_GRAF + '/groups/', {headers: {'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '' , 'Content-Type': 'application/json; charset=utf-8'}}).then(function (response) {
-          self.group = response.data.filter((item) => {
-            return item.id == self.plan.group
-          })[0];
-        });
-        self.loadUtils();
-      });
+      axios
+        .get(API_URL_GRAF + '/events/coach/' + this.$route.params.id, {
+          headers: {
+            Authorization: localStorage.getItem('access') ? 'Bearer ' + localStorage.getItem('access') : '',
+            'Content-Type': 'application/json; charset=utf-8',
+          },
+        })
+        .then(function (response) {
+          self.plan = response.data
+          axios
+            .get(API_URL_GRAF + '/groups/', {
+              headers: {
+                Authorization: localStorage.getItem('access') ? 'Bearer ' + localStorage.getItem('access') : '',
+                'Content-Type': 'application/json; charset=utf-8',
+              },
+            })
+            .then(function (response) {
+              self.group = response.data.filter(item => {
+                return item.id == self.plan.group
+              })[0]
+            })
+          self.loadUtils()
+        })
 
       //this.loadPlan(this.$route.params.id).then(() => {
-        //this.plan = this.$store.state.schedule.plan;
-        // Получаем микроцикл, мезоцикл, макроцикл
-        //var self = this;
-        /*axios.get('https://way-up.herokuapp.com/microcycles/' + this.plan.microcycle_id + '.json').then(function (response) {
+      //this.plan = this.$store.state.schedule.plan;
+      // Получаем микроцикл, мезоцикл, макроцикл
+      //var self = this;
+      /*axios.get('https://way-up.herokuapp.com/microcycles/' + this.plan.microcycle_id + '.json').then(function (response) {
           self.microcycle = response.data.title;
 
           axios.get('https://way-up.herokuapp.com/mesocycles/' + response.data.mesocycle_id + '.json').then(function (response) {
@@ -338,37 +345,32 @@ export default {
     }
 
     this.loadExer().then(() => {
-      this.dataExer = this.$store.state.schedule.exer;
+      this.dataExer = this.$store.state.schedule.exer
       this.loadParts().then(() => {
-        let groupParts = {};
-        let curParts = this.$store.state.schedule.plan_parts.filter(item => item.plan_id == this.$route.params.id);
+        let groupParts = {}
+        let curParts = this.$store.state.schedule.plan_parts.filter(item => item.plan_id == this.$route.params.id)
 
         curParts.map(item => {
-          if (!groupParts[item.plan_part_type]) groupParts[item.plan_part_type] = [];
-          groupParts[item.plan_part_type].push(item);
-        });
+          if (!groupParts[item.plan_part_type]) groupParts[item.plan_part_type] = []
+          groupParts[item.plan_part_type].push(item)
+        })
 
-        this.parts = groupParts;
+        this.parts = groupParts
 
-        this.accordionBigItems.push(this.getAccardionBigItem('Подготовительная часть'));
-        this.accordionBigItems.push(this.getAccardionBigItem('Основная часть'));
-        this.accordionBigItems.push(this.getAccardionBigItem('Заключительная часть'));
+        this.accordionBigItems.push(this.getAccardionBigItem('Подготовительная часть'))
+        this.accordionBigItems.push(this.getAccardionBigItem('Основная часть'))
+        this.accordionBigItems.push(this.getAccardionBigItem('Заключительная часть'))
       })
     })
   },
 
   mounted() {
-
     //this.$store.dispatch('plans', this.$store.state.token)
-
-  }
-
-
+  },
 }
 </script>
 
 <style lang="scss">
-
 .training-head {
   margin-bottom: rem(64px);
 }
@@ -376,8 +378,9 @@ export default {
 /* summury-plan */
 
 .summury-plan__modal {
-  background: #F1F3F9;
-  box-shadow: 0px 4px 12px rgba(165, 169, 180, 0.2), 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1), 0px 4px 5px rgba(50, 107, 255, 0.06);
+  background: #f1f3f9;
+  box-shadow: 0px 4px 12px rgba(165, 169, 180, 0.2), 0px 1px 4px rgba(121, 140, 189, 0.2),
+    0px 1px 0px rgba(0, 0, 0, 0.1), 0px 4px 5px rgba(50, 107, 255, 0.06);
   border-radius: rem(12px);
   padding: rem(25px);
   width: rem(410px);
@@ -417,18 +420,17 @@ export default {
 }
 
 .summury-plan__list {
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: rem(8px);
   padding-left: 0 !important;
   margin-bottom: rem(16px);
-
 }
 
 .summury-plan__item {
   display: flex;
   align-items: center;
   padding: rem(6px) rem(8px);
-  border-bottom: 1px solid #F1F3F9;
+  border-bottom: 1px solid #f1f3f9;
 
   &:last-child {
     border-bottom: none;
@@ -438,37 +440,31 @@ export default {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    @include width-flex(30%)
-    justify-content: flex-end;
+    @include width-flex(30%) justify-content: flex-end;
 
     .v-chip--label {
-      @include last-mr-0
+      @include last-mr-0;
     }
-
   }
 }
 
 .summury-plan__num {
-  @include width-flex(10%)
-  font-size: rem(12px);
+  @include width-flex(10%) font-size: rem(12px);
   padding-left: rem(5px);
   display: flex;
-  color: rgba(0, 0, 0, .4);
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .summury-plan__desc {
-  @include width-flex(60%)
-  font-size: rem(14px);
-
+  @include width-flex(60%) font-size: rem(14px);
 }
 
 .summury-plan__block-title {
   font-size: rem(10px);
   letter-spacing: 1px;
-  color: rgba(0, 0, 0, .4);
+  color: rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
   margin-bottom: rem(6px);
-
 }
 
 .training-aside {
@@ -481,7 +477,7 @@ export default {
   }
 
   .accordion-panel__header-desc {
-    @include width-flex(100%)
+    @include width-flex(100%);
   }
 
   .accordion-panel__title {
@@ -489,7 +485,5 @@ export default {
   }
 }
 
-
 /**/
-
 </style>
