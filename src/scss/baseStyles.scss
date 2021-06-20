@@ -816,4 +816,12 @@
   @include width-flex(10%)
 }
 
+.v-messages__message{
+  white-space: nowrap;
+}
+
+.dots-menu-icon{
+  @include width-flex(24px)
+}
+
 /**/
