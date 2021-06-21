@@ -1,15 +1,22 @@
 <template lang="pug">
   v-expansion-panels.accordion-training
     draggable.accordion-group(
-      :list='groupt'
+      :list='filterGroupt'
       :group={name: 'test', pull: 'clone'}
     )
 
       v-expansion-panel.accordion-panel(
-        v-for='(element, index) in groupt'
+        v-for='(element, index) in filterGroupt'
         :key='index'
       )
-        ExersiceBig(:item="element" :groupName="groupt.name" :index="index" :utils="utils" :exevent="getExEventId(element.id)")
+        ExersiceBig(
+          :item="element"
+          :groupName="groupt.name"
+          :index="index"
+          :utils="utils"
+          :exevent="getExEventId(element)"
+          @delete="deleteItem"
+          )
 </template>
 
 <script>
@@ -30,6 +37,7 @@
     },
     data: () => ({
       editExercise:false,
+      filterGroupt: []
     }),
     components: {
       TrainingEditBlock,
@@ -46,14 +54,23 @@
       editExcercise: function () {
         this.editExercise = !this.editExercise;
       },
-      getExEventId: function (id) {
-        let ex = this.events.filter((item) => {
-          return item.exercise.id == id;
-        })
+      deleteItem: function (item) {
+        console.log('delere', item);
 
-        if(ex) {
-          return ex[0].id;
+        this.filterGroupt = this.filterGroupt.splice(this.filterGroupt.indexOf(item), 1)
+        //this.phones.splice(index, 1)
+      },
+      getExEventId: function (elem) {
+        if(elem.id) {
+          let ex = this.events.filter((item) => {
+            return item.exercise.id == elem.id;
+          })
+
+          if(ex.length) {
+            return ex[0].id;
+          }
         }
+
         return 0;
       },
       getLoadLabel: function (load) {
@@ -84,6 +101,9 @@
         return loadLabel[load]
       }
     },
+    mounted() {
+      this.filterGroupt = this.groupt;
+    }
   }
 </script>
 

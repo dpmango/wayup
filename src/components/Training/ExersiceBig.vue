@@ -110,16 +110,20 @@ div
         return loadLabel[load]
       },
       deleteExcercise: function () {
-        axios({
-          method: 'delete',
-          url: API_URL_GRAF + '/exercises_event/' + this.exevent +'/',
-          headers: {
-            'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
-            'Content-Type': 'application/json; charset=utf-8'
-          }
-        }).then(() => {
-          window.location.reload();
-        })
+        if(this.exevent > 0) {
+          axios({
+            method: 'delete',
+            url: API_URL_GRAF + '/exercises_event/' + this.exevent +'/',
+            headers: {
+              'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
+              'Content-Type': 'application/json; charset=utf-8'
+            }
+          }).then(() => {
+
+          })
+        }
+        this.$emit('delete', this.item);
+
       }
 
     }
