@@ -51,6 +51,7 @@ Vue.component('base-select-mini', () => import('./components/library/old/BaseSel
 
 
 Vue.component('base-select', () => import('./components/library/BaseSelect.vue'));
+Vue.component('base-select-primary', () => import('./components/library/BaseSelectPrimary.vue'));
 Vue.component('base-input', () => import('./components/library/BaseInput.vue'));
 Vue.component('base-input-password', () => import('./components/library/BaseInputPassword'));
 Vue.component('base-badge', () => import('./components/library/BaseBadge'));
