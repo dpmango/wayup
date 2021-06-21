@@ -129,11 +129,6 @@
         return loadLabel[load]
       }
     },
-    mounted() {
-      console.log(this.groupt.length);
-    }
-
-
   }
 </script>
 

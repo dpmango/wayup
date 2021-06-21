@@ -117,7 +117,7 @@
                             classAttr='select-default select-bg-white'
                             label="Группа"
                             :items="selectItems"
-                            multiple="true"
+                            :multiple="true"
                           )
                         v-col(
                           md='7'

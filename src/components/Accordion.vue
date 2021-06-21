@@ -1,12 +1,12 @@
 <template lang="pug">
-  v-expansion-panels.accordion-training(v-if="groupt.length")
+  v-expansion-panels.accordion-training
     draggable.accordion-group(
-      :list='groupt'
+      :list='groupt.exercices'
       :group={name: 'test', pull: 'clone'}
     )
 
       v-expansion-panel.accordion-panel(
-        v-for='(element, index) in groupt'
+        v-for='(element, index) in groupt.exercices'
         :key='element.id'
       )
 
@@ -34,37 +34,42 @@
             )
           .accordion-panel__header-desc
             .accordion-panel__title
-              | {{ element.exercise.title }}
+              | {{ element.title }}
             .labels.mb-3
               base-badge.mr-2.mb-2(
-                v-if="element.recommended_duration"
-                :label="element.recommended_duration"
+                v-if="element.duration"
+                :label="element.duration + ' мин'"
                 background='rgba(241, 243, 249, 1)'
                 textColor="#000"
               )
               base-badge.mr-2.mb-2(
-                v-if="element.type_of_exercise"
-                :label="element.type_of_exercise"
+                v-if="groupt.name"
+                :label="groupt.name"
                 background='rgba(241, 243, 249, 1)'
                 textColor="#000"
               )
               base-badge.mr-2.mb-2(
-                v-if="element.location"
-                :label="element.location"
+                v-if="element.playground[0]"
+                :label="element.playground[0].name"
                 background='rgba(241, 243, 249, 1)'
                 textColor="#000"
               )
               base-badge.mr-2.mb-2(
-                v-if="element.load_value"
-                :label="getLoadLabel(element.load_value)"
-                :background='getLoadBg(element.load_value)'
-                :textColor="getLoadText(element.load_value)"
+                label="Средняя"
+                background='rgba(235, 173, 16, .2)'
+                textColor="rgba(158, 114, 0, 1)"
               )
-            .training-desc {{  element.exercise.description }}
+              //- base-badge.mr-2.mb-2(
+               //-  v-if="element.load_value"
+              //-   :label="getLoadLabel(element.load_value)"
+               //-  :background='getLoadBg(element.load_value)'
+               //-  :textColor="getLoadText(element.load_value)"
+            //-  )
+            .training-desc {{  element.description }}
         v-expansion-panel-content.accordion-panel__content
-          AccordionTabs(:elem="element.exercise")
+          AccordionTabs(:elem="element.exercise" v-if="element.exercise")
         div(:class="!editExercise ? 'd-none' : 'd-block'")
-          TrainingEditBlock
+          //TrainingEditBlock
 
 
 
@@ -80,7 +85,7 @@
   export default {
 
     props: {
-      groupt: Array,
+      groupt: Object,
       groupName: String
     },
     data: () => ({
@@ -130,11 +135,6 @@
         return loadLabel[load]
       }
     },
-    mounted() {
-      console.log(this.groupt.length);
-    }
-
-
   }
 </script>
 

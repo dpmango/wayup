@@ -48,7 +48,6 @@
                 label="Единицы"
                 :items="unitsList"
                 v-model="units"
-                :rules="rules.required"
               )
           v-row
             v-col(md="5")
@@ -247,6 +246,7 @@
   import axios from "axios";
   import {API_URL_GRAF} from "@/config/api";
   import SelectMenu from "@/components/elements/SelectMenu";
+  import { ExerciseResource } from '@/store/api.js';
 
   export default {
     name: "ModalTrainerNewExercise",
@@ -326,37 +326,38 @@
             "guidelines": this.guidelines,
             "duration": this.duration,
             "participantsNumber": this.participantsNumber,
-            "age": this.age.value,
-            "preparationPeriod": this.preparationPeriod,
-            "mesocycle": this.mesocycle.value,
-            "microcycle": this.microcycle.value,
-            "educationPeriod": this.educationStage.value,
-            "trainingMethods": this.trainingMethods.value,
-            "organizationForm": this.organizationForm,
-            "mainResource": this.mainResource.value,
-            "equipment": this.equipment.value,
-            "loadIntensity": this.loadIntensity,
+            "age": [this.age.value],
+            "preparationPeriod": [this.preparationPeriod],
+            "macrocycle" : [this.preparationPeriod],
+            "mesocycle": [this.mesocycle.value],
+            "microcycle": [this.microcycle.value],
+            "educationPeriod": [this.educationStage.value],
+            "trainingMethods": [this.trainingMethods.value],
+            "organizationForm": [this.organizationForm],
+            "mainResource": [this.mainResource.value],
+            "equipment": [this.equipment.value],
+            "loadIntensity": 1,
             "videoUrl": this.videoUrl,
-            "playground": this.playground.value,
-            "typeOfPreparation": this.typeOfPreparation.value,
-            "sportType": this.sportType.value,
-            "eventPart": this.eventPart,
-            "positionType": this.positionType.value,
-            "mainSkills": [
-              this.mainSkills
-            ],
-            "extraSkills": [
-              this.extraSkills
-            ]
+            "playground": [this.playground.value],
+            "typeOfPreparation": [this.typeOfPreparation.value],
+            "sportType": [this.sportType.value],
+            "eventPart": [this.eventPart],
+            "positionType": [this.positionType.value],
+            "mainSkills": Array.from(this.mainSkills, x => x.value),
+            "extraSkills": Array.from(this.extraSkills, x => x.value)
           };
 
           // Отправляем форму
-          this.$store.dispatch('events/createExercise', requestData).then(() => {
-
+          ExerciseResource.create(requestData).then().catch(err => {
+            console.log(err);
+            throw err.response;
           });
+         /* this.$store.dispatch('events/createExercise', requestData).then(() => {
+             window.location.reload()
+          });*/
 
         }
-        // this.$store.dispatch('events/createEvent', requestData);
+
       },
       createList(list, name) {
         let listNormal = [];

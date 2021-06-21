@@ -1,5 +1,5 @@
 import {
-  RESET, SET_EVENT, ADD_EX, SET_EVENT_LIST, SET_UTILS
+  RESET, SET_EVENT, ADD_EX, SET_EVENT_LIST, SET_UTILS, SET_EXERCISE_LIST
 } from '../mutation-types';
 
 import { EventResource, ExerciseResource } from '../api.js';
@@ -39,6 +39,9 @@ const mutations = {
   },
   [SET_UTILS](state, payload) {
     state.utils = payload;
+  },
+  [SET_EXERCISE_LIST](state, payload) {
+    state.exersiceList = payload;
   },
   [RESET](state) {
     const newState = initialState();
@@ -90,15 +93,6 @@ const actions = {
     });
   },
 
-  async createExercise(store,data) {
-    await ExerciseResource.create(data).then(response => {
-      console.log(response);
-    }).catch(err => {
-      console.log(err);
-      throw err.response;
-    });
-  },
-
   async loadEvents(store) {
     await store.dispatch('loadUtils').then(() => {
      EventResource.list().then(response => {
@@ -108,7 +102,15 @@ const actions = {
         throw err.response;
       });
     });
+  },
 
+  async loadExercise( { commit }) {
+    await ExerciseResource.list().then(response => {
+        commit(SET_EXERCISE_LIST, response.data);
+      }).catch(err => {
+        console.log(err);
+        throw err.response;
+      });
   },
 
   async loadUtils({commit}) {
