@@ -63,6 +63,15 @@ export const ProfileResource = {
     }
 };
 
+export const ExerciseResource = {
+    create(data) {
+        return HTTP_GRAF.post('/exercises/', data);
+    },
+    list() {
+        return HTTP_GRAF.get('/exercises/');
+    },
+};
+
 
 
 // Старое АПИ

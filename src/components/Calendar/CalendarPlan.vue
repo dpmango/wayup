@@ -91,7 +91,7 @@
                         .accordion-big__header
                           .accordion-big__header-title {{ accordionBigItem.name }}
                     template(v-slot:accord-body)
-                      Accordion(:groupt="accordionBigItem.exercisesEvent")
+                      TrainingAccardion(:groupt="accordionBigItem.exercisesEvent")
               v-row
                 v-col(
                   md='6'
@@ -114,22 +114,19 @@ import TheBreadcrumbs from "@/components/TheBreadcrumbs";
 import TagsTraining from "@/components/Training/TagsTraining";
 import CardIndications from "@/components/CardIndications";
 import AccordionItem from "@/components/AccordionItem";
-// import draggable from 'vuedraggable'
 import Accordion from "@/components/Accordion";
-//import AccordionTest from "@/components/AccordionTest";
 import AccordionBig from "@/components/AccordionBig";
-//import BaseLabel from "@/components/BaseLabel";
 import TrainingAside from "@/components/Training/TrainingAside";
 import ModalSummaryPlan from "@/components/ModalSummaryPlan";
 import {Draggable} from 'draggable-vue-directive';
 import moment from 'moment';
 import axios from "axios";
 import {mapActions, mapState} from 'vuex';
-//import { EventResource } from '@/store/api.js';
 import 'moment/locale/ru'
 import {API_URL_GRAF} from "../../config/api";
 import CalendarPlanEdit from "@/components/Calendar/CalendarPlanEdit";
 import CalendarPlanCompleted from "@/components/Calendar/CalendarPlanCompleted";
+import TrainingAccardion from "@/components/Training/TrainingAccardion";
 
 export default {
   name: 'Training',
@@ -148,14 +145,14 @@ export default {
     TagsTraining,
     TheBreadcrumbs,
     CalendarPlanEdit,
-    CalendarPlanCompleted
+    CalendarPlanCompleted,
+    TrainingAccardion
     // draggable
   },
   data: () => ({
     isActiveEdit: true,
     isActiveModal: false,
     dialog: false,
-    items: ['Группа С8 | 10-13', 'Группа С8 | 10-14', 'Группа С8 | 10-15'],
     accordionBigItems: [],
     plan: {},
     dataExer: [],
@@ -301,7 +298,7 @@ export default {
     },
 
     ...mapActions('schedule', ['loadPlan', 'loadExer', 'loadParts']),
-    ...mapActions('events', ['loadUtils']),
+    ...mapActions('events', ['loadUtils', 'loadExercise']),
   },
 
   created() {
@@ -318,26 +315,14 @@ export default {
         });
         self.loadUtils();
       });
-
-      //this.loadPlan(this.$route.params.id).then(() => {
-        //this.plan = this.$store.state.schedule.plan;
-        // Получаем микроцикл, мезоцикл, макроцикл
-        //var self = this;
-        /*axios.get('https://way-up.herokuapp.com/microcycles/' + this.plan.microcycle_id + '.json').then(function (response) {
-          self.microcycle = response.data.title;
-
-          axios.get('https://way-up.herokuapp.com/mesocycles/' + response.data.mesocycle_id + '.json').then(function (response) {
-            self.mesocycle = response.data.title;
-
-            axios.get('https://way-up.herokuapp.com/macrocycles/' + response.data.macrocycle_id + '.json').then(function (response) {
-              self.macrocycle = response.data.title;
-            })
-          })
-        })*/
-      //});
     }
 
-    this.loadExer().then(() => {
+
+    this.loadExercise().then(() => {
+      this.dataExer = this.$store.state.events.exersiceList;
+    });
+
+    /*this.loadExer().then(() => {
       this.dataExer = this.$store.state.schedule.exer;
       this.loadParts().then(() => {
         let groupParts = {};
@@ -354,7 +339,7 @@ export default {
         this.accordionBigItems.push(this.getAccardionBigItem('Основная часть'));
         this.accordionBigItems.push(this.getAccardionBigItem('Заключительная часть'));
       })
-    })
+    })*/
   },
 
   mounted() {

@@ -20,6 +20,7 @@
           v-expansion-panel-content
             .labels
               v-chip(
+                v-if="false"
                 class="tag-filters mr-2 mb-5"
                 link
                 @click="showAll"
@@ -29,6 +30,7 @@
                 | Все
 
               v-chip(
+                v-if="false"
                 class="tag-filters mr-2 mb-5"
                 link
                 @click="sort"
@@ -48,7 +50,7 @@
 
               base-select(
                 classAttr='select-default select-bg-gray mb-5'
-                label="Тип упражнения"
+                label="Форма организации"
                 :items="exerItems"
                 solo=true
                 :value="selectType"
@@ -68,8 +70,8 @@
       nameEx: '',
       selectPlace: '',
       selectType: '',
-      placeItems: ['лёд', 'зал', 'Улица'],
-      exerItems: ['Индивидуальное', 'Групповое (в подгруппах)', 'Командное', 'Домашнее задание'],
+      placeItems: ['Лед', 'Зал', 'Улица'],
+      exerItems: ['Индивидуальная', 'Групповая', 'Командная', 'Домашнее задание'],
       sortActive: false
     }),
     watch: {
