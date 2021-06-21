@@ -14,9 +14,9 @@
       label="Добавить новое упражнение"
       @click='dialogExercise = true'
     )
-    template(v-for="(group, key) in groupEx")
+    template(v-for="group in dataEexercises")
       .training-aside__head
-        .training-aside__title {{ key }}
+        .training-aside__title {{ group.name }}
       Accordion(:groupt="group")
 
 </template>
@@ -47,31 +47,32 @@ export default {
   },
   watch: {
     exercises: function (val) {
-      //console.log('dataEexercises');
-      //console.log(val);
       this.dataEexercises = val;
     },
-  },
-  computed: {
-    groupEx: function () {
-      let ex = {};
-      this.dataEexercises.map(item => {
-        if(!ex[item.type_of_preparation]) ex[item.type_of_preparation] = [];
-        ex[item.type_of_preparation].push(item);
-      });
-      return ex;
-    }
   },
   methods: {
     filter: function (val) {
       if(val.length > 0) {
-        this.dataEexercises = this.exercises.filter(item => {
-          if(item.title.toLowerCase().indexOf(val) != -1 || item.title.indexOf(val) != -1) {
-            return true;
-          } else {
-            return false;
+        let newEx = [];
+        this.exercises.map(item => {
+          let ex = item.exercices.filter((item1) => {
+            if(item1.title.toLowerCase().indexOf(val) != -1 || item1.title.indexOf(val) != -1) {
+              return true;
+            } else {
+              return false;
+            }
+          });
+          if(ex.length > 0) {
+            let ob = {
+              id: item.id,
+              name: item.name,
+              slug: item.slug,
+              exercices: ex
+            };
+            newEx.push(ob)
           }
         });
+        this.dataEexercises = newEx;
       } else {
         this.dataEexercises = this.exercises;
       }
@@ -96,7 +97,7 @@ export default {
     },
 
     selectEx: function () {
-      this.dataEexercises =this.exercises.filter(item => {
+      /*this.dataEexercises =this.exercises.filter(item => {
         let location = true;
         let type = true;
         if(this.location.length > 0) {
@@ -107,7 +108,34 @@ export default {
           type = (item.type_of_exercise == this.type);
         }
         return (location && type);
+      });*/
+
+      let newEx = [];
+      this.exercises.map(item => {
+        let ex = item.exercices.filter((item1) => {
+          let location = true;
+          let type = true;
+          if(this.location.length > 0) {
+            location = (item1.playground[0].name == this.location);
+          }
+
+          if(this.type.length > 0) {
+            type = (item1.organizationForm[0].name == this.type);
+          }
+          return (location && type);
+        });
+        if(ex.length > 0) {
+          let ob = {
+            id: item.id,
+            name: item.name,
+            slug: item.slug,
+            exercices: ex
+          };
+          newEx.push(ob)
+        }
       });
+      this.dataEexercises = newEx;
+
     },
     sortEx: function (sort) {
       if(sort) {
@@ -130,9 +158,6 @@ export default {
 
     }
   },
-  mounted() {
-
-  }
 
 
 }

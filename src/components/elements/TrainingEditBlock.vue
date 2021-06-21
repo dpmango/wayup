@@ -257,7 +257,7 @@ export default {
           self.equipmentList = self.createList(response.data.equipments, 'name');
           self.typeOfPreparationList = self.createList(response.data.exerciseCategories, 'name');
 
-          console.log('response utils ', response)
+          //console.log('response utils ', response)
 
         })
         .catch(function (error) {

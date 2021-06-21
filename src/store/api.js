@@ -58,10 +58,21 @@ export const EventResource = {
 }
 
 export const ProfileResource = {
-  get() {
-    return HTTP_GRAF.get('/coaches/')
-  },
-}
+    get() {
+        return HTTP_GRAF.get('/coaches/');
+    }
+};
+
+export const ExerciseResource = {
+    create(data) {
+        return HTTP_GRAF.post('/exercises/', data);
+    },
+    list() {
+        return HTTP_GRAF.get('/exercises/');
+    },
+};
+
+
 
 // Старое АПИ
 export const PlanResource = {
