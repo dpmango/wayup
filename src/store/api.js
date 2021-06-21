@@ -70,6 +70,9 @@ export const ExerciseResource = {
     list() {
         return HTTP_GRAF.get('/exercises/');
     },
+    update(id, data) {
+        return HTTP_GRAF.put('/exercises/'+id + '/', data);
+    }
 };
 
 

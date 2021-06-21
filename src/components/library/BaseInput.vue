@@ -23,10 +23,7 @@
 export default {
   name: "BaseInput",
   props: {
-    value: {
-      type: String,
-      default: ''
-    },
+    value: [String, Number],
     label: {
       type: String,
       default: ''
