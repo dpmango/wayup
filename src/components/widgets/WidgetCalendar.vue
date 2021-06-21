@@ -1,6 +1,5 @@
 <template lang="pug">
   .widget
-    
     // calendar widget header
     .widget-header
       .widget-header__top

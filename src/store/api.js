@@ -121,11 +121,14 @@ export const ProfileResource = {
 
 export const ExerciseResource = {
   create(data) {
-    return HTTP_GRAF.post('/exercises/', data)
-  },
-  list() {
-    return HTTP_GRAF.get('/exercises/')
-  },
+    return HTTP_GRAF.post('/exercises/', data);
+},
+list() {
+    return HTTP_GRAF.get('/exercises/');
+},
+update(id, data) {
+    return HTTP_GRAF.put('/exercises/'+id + '/', data);
+}
 }
 
 // Старое АПИ

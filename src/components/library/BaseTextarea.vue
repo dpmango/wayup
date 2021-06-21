@@ -44,6 +44,10 @@ export default {
     errors: {
       type: Array
     },
+    value: {
+      type: String,
+      default: ''
+    },
   },
   computed: {
     inputVal: {

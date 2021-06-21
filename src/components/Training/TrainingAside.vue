@@ -17,7 +17,7 @@
     template(v-for="group in dataEexercises")
       .training-aside__head
         .training-aside__title {{ group.name }}
-      Accordion(:groupt="group")
+      Accordion(:groupt="group.exercices")
 
 </template>
 

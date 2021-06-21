@@ -348,14 +348,12 @@
           };
 
           // Отправляем форму
-          ExerciseResource.create(requestData).then().catch(err => {
+          ExerciseResource.create(requestData).then(() => {
+            window.location.reload();
+          }).catch(err => {
             console.log(err);
             throw err.response;
           });
-         /* this.$store.dispatch('events/createExercise', requestData).then(() => {
-             window.location.reload()
-          });*/
-
         }
 
       },

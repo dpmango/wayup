@@ -26,14 +26,23 @@
               v-model="duration"
               :rules="rules.required"
             )
-            base-select(
+            //- base-select-primary(
+            //-  style='width:119px;'
+            //-  classAttr='select-default select-bg-gray'
+            //-  label=""
+            //-  :items="unitsList"
+            //-  v-model="units"
+            //-)
+
+            v-combobox(
               style='width:119px;'
-              classAttr='select-default select-bg-gray'
-              label="Единицы"
+              outlined
+              class='select-default select-bg-gray'
               :items="unitsList"
+              label=''
               v-model="units"
-              :rules="rules.required"
             )
+
       .training-edit__row.mb-4
         .training-edit__left
           .text-middle Тип упражнения
@@ -106,14 +115,16 @@
         .training-edit__right
           v-row
             v-col(md="5")
-              base-select(
-                classAttr='select-default select-bg-gray'
+              v-combobox(
+                class='select-default select-bg-gray'
                 label=""
                 v-model="equipment"
                 :items="equipmentList"
                 :rules="rules.required"
+                multiple
               )
-      .training-edit__row.mb-12
+
+      //.training-edit__row.mb-12
         .training-edit__left
         .training-edit__right
           base-button(
@@ -145,7 +156,7 @@
                     label="Сохранить"
                     type="submit"
                   )
-              .block-white.popup-block.v-application
+              //.block-white.popup-block.v-application
                 .close-button(@click='menu = false')
                   svg.icon-16(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
                     path(d='M3 13L13 3M13 13L3 3' stroke='#326BFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
@@ -162,6 +173,7 @@
             base-button(
               classAttr='button-default button-gray button-big'
               label="Отменить изменения"
+              @click="$emit('close')"
             )
 
       .training-edit__row
@@ -179,12 +191,15 @@
 
 <script>
 import SelectMenu from "@/components/elements/SelectMenu";
-import axios from "axios";
-import {API_URL_GRAF} from "@/config/api";
+import { ExerciseResource } from '@/store/api.js';
 
 export default {
   name: "TrainingEditBlock",
   components: {SelectMenu},
+  props: {
+    utils: [Object, Array],
+    ex: [Object, Array],
+  },
   data: () => ({
     rules: {
       required: [value => !!value || "Поле обязательно"]
@@ -196,39 +211,49 @@ export default {
     message: false,
     hints: true,
 
-
     title: '',
     description: '',
     guidelines: '',
     duration: '',
-    units: '',
-    unitsList: ['Минуты', 'Круги', 'Повторения', 'Подходы'],
-    typeOfPreparation: '',
+    units: ['Минуты'],
+    unitsList: ['Минуты', 'Часы'],
+    typeOfPreparation: {},
     typeOfPreparationList: [],
     loadIntensity: '',
-    loadIntensityList: ['Малая', 'Средняя', 'Большая', 'Субмаксимальная', 'Максимальная'],
+    loadIntensityList: [
+      {text: 'Малая', value: 1},
+      {text: 'Средняя', value: 2},
+      {text: 'Большая', value: 3},
+      {text: 'Субмаксимальная', value: 4},
+      {text: 'Максимальная', value: 5},
+    ],
     videoUrl: '',
-    equipment: '',
+    equipment: [],
     equipmentList: [],
 
   }),
   methods: {
-
     submitForm() {
       if (this.$refs.createExerciseEditForm.validate()) {
         let requestData = {
-          "title": this.title,
-          "description": this.description,
-          "guidelines": this.guidelines,
-          "duration": this.duration,
-          "equipment": this.equipment.value,
-          "loadIntensity": this.loadIntensity,
-          "videoUrl": this.videoUrl,
-          "typeOfPreparation": this.typeOfPreparation.value
-
+          title: this.title,
+          duration: this.duration,
+          typeOfPreparation: [this.typeOfPreparation.value],
+          loadIntensity: [this.loadIntensity.value],
+          description: this.description,
+          videoUrl: this.videoUrl,
+          guidelines: this.guidelines,
+          equipment: Array.from(this.equipment, x => x.value),
         };
-        console.log('requestData Exercise Edit', requestData)
 
+        // Отправляем форму
+        ExerciseResource.update(this.ex.id, requestData).then(() => {
+          window.location.reload();
+
+        }).catch(err => {
+          console.log(err);
+          throw err.response;
+        });
       }
       // this.$store.dispatch('events/createEvent', requestData);
     },
@@ -245,24 +270,25 @@ export default {
   },
 
   mounted() {
-    let self = this;
 
-    axios.get(API_URL_GRAF + '/events/utils/', {
-      headers: {
-        'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
-        'Content-Type': 'application/json; charset=utf-8'
-      }
+    this.equipmentList = this.createList(this.utils.equipments, 'name');
+    this.typeOfPreparationList = this.createList(this.utils.exerciseCategories, 'name');
+
+    this.title = this.ex.title;
+    this.duration = this.ex.duration;
+    this.typeOfPreparation = {text: this.ex.typeOfPreparation[0].name, value: this.ex.typeOfPreparation[0].id};
+
+    let textLoad = this.loadIntensityList.filter(item => {
+      return item.id == this.ex.loadIntensity[0].value;
+    });
+    this.loadIntensity = {value: this.ex.loadIntensity[0].id, text: textLoad[0].text}
+    this.description = this.ex.description;
+    this.videoUrl = this.ex.videoUrl;
+    this.guidelines = this.ex.guidelines;
+
+    this.ex.equipment.map(item => {
+      this.equipment.push({value: item.id, text: item.name})
     })
-        .then(function (response) {
-          self.equipmentList = self.createList(response.data.equipments, 'name');
-          self.typeOfPreparationList = self.createList(response.data.exerciseCategories, 'name');
-
-          //console.log('response utils ', response)
-
-        })
-        .catch(function (error) {
-          console.log(error);
-        })
 
 
   },
@@ -294,6 +320,7 @@ export default {
 
 .training-edit__right {
   @include width-flex(85%)
+  padding: 0 rem(20px);
 
 }
 
@@ -304,5 +331,6 @@ export default {
 
 }
 
-
+//@import "./scss/combox.scss";
+@import "src/scss/combox";
 </style>

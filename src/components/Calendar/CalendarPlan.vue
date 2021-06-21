@@ -22,7 +22,7 @@
 
           .buttons-wrap(data-app)
             base-button(
-              :label="!isActiveEdit ? 'Редактировать' :'Применить'"
+              label='Применить'
               classAttr='button-default button-gray mr-4'
               @click="editTraining"
             )
@@ -82,7 +82,7 @@
                     :classAttr="accordionBigItem"
                     :index="i"
                     :key="i"
-                    :open="accordionBigItem.exercisesEvent.length"
+                    :open="planEx[accordionBigItem.slug].length"
                     @toggleOpen="toggleOpen"
                   )
                     template(v-slot:accord-header)
@@ -91,7 +91,7 @@
                         .accordion-big__header
                           .accordion-big__header-title {{ accordionBigItem.name }}
                     template(v-slot:accord-body)
-                      TrainingAccardion(:groupt="accordionBigItem.exercisesEvent")
+                      TrainingAccordion(:groupt="planEx[accordionBigItem.slug]" :utils="utils" :events="accordionBigItem.exercisesEvent")
               v-row
                 v-col(
                   md='6'
@@ -125,7 +125,7 @@ import 'moment/locale/ru'
 import {API_URL_GRAF} from "../../config/api";
 import CalendarPlanEdit from "@/components/Calendar/CalendarPlanEdit";
 import CalendarPlanCompleted from "@/components/Calendar/CalendarPlanCompleted";
-import TrainingAccardion from "@/components/Training/TrainingAccardion";
+import TrainingAccordion from "@/components/Training/TrainingAccordion";
 
 export default {
   name: 'Training',
@@ -145,7 +145,7 @@ export default {
     TheBreadcrumbs,
     CalendarPlanEdit,
     CalendarPlanCompleted,
-    TrainingAccardion
+    TrainingAccordion
     // draggable
   },
   data: () => ({
@@ -162,8 +162,22 @@ export default {
     group: '',
 
     componentCalendar: '',
+    planEx: {
+      pre: [],
+      main: [],
+      end: []
+    },
+    finishStart: false,
+    finishMain: false,
+    finishEnd: false,
   }),
   computed: {
+    finishAll: function() {
+      if(this.finishStart && this.finishMain && this.finishEnd) {
+        return true;
+      }
+      return false;
+    },
     dayWeek: function () {
       return moment(this.plan.dateFrom).format('dddd')
     },
@@ -174,6 +188,12 @@ export default {
       return moment(this.plan.dateFrom).format('HH:mm') + ' — ' + moment(this.plan.dateTo).format('HH:mm')
     },
     ...mapState('events', ['utils']),
+  },
+  watch: {
+    finishAll: function (val) {
+      console.log('watch', val);
+    },
+
   },
   methods: {
     add: function () {
@@ -194,6 +214,14 @@ export default {
       window.console.log(evt)
     },
 
+    getExBigItem(item) {
+      let ex = [];
+      item.map(item => {
+        ex.push(item.exercise)
+      });
+      return ex;
+    },
+
     toggleOpen: function (index) {
       this.accordionBigItems = this.accordionBigItems.map((accordionBigItem, i) => {
         if (index === i) {
@@ -206,70 +234,96 @@ export default {
     },
 
     editTraining: function () {
-      if (this.isActiveEdit) {
-        // Созадем часть плана
-        /*axios.post('https://way-up.herokuapp.com/plan_parts.json', {
-            "exercise_id": 12,
-            "plan_id": 17,
-            "plan_part_type": "Основная часть",
-            "created_at": "2021-03-26T21:32:17.417Z",
-            "updated_at": "2021-03-26T21:32:17.417Z",
-            "url": "https://way-up.herokuapp.com/plan_parts/27.json"
-        })
-        .then(function (response) {
-            console.log(response);
-        })*/
-        // Удаляем тренировку
-        /*axios.delete('https://way-up.herokuapp.com/plan_parts/31.json').then(function (response) {
-            console.log(response);
-        })*/
-        // Редактируем тренировку
-        /*axios.put('https://way-up.herokuapp.com/plan_parts/34.json', {
-            "exercise_id": null,
-            "plan_id": 17,
-            "plan_part_type": "Заключительная часть",
-            "created_at": "2021-04-29T06:11:20.896Z",
-            "updated_at": "2021-04-29T06:11:20.896Z",
-            "url": "https://way-up.herokuapp.com/plan_parts/34.json",
-            "exercise_name": [
-                "Квадрат из приставных шагов",
-                "Квадрат из T-образных и приставных шагов",
-            ]
-        }).then(function (response) {
-            console.log(response);
-        })*/
-      }
-      this.isActiveEdit = !this.isActiveEdit
+
+      var self = this;
+      axios({
+        method: 'delete',
+        url: API_URL_GRAF + '/events/exercises_event/'+ this.plan.id +'/',
+        headers: {
+          'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
+          'Content-Type': 'application/json; charset=utf-8'
+        }
+      }).then(function () {
+        let pre = self.plan.eventParts.filter(item => item.slug == 'pre');
+        if(pre.length == 0) self.finishStart = true;
+        self.planEx.pre.map((item, key) => {
+          let requestData = {
+            order: key,
+            event: self.plan.id,
+            eventPart: pre[0].id,
+            exercise: item.id
+          };
+          axios({
+            method: 'post',
+            url: API_URL_GRAF + '/exercises_event/',
+            data: requestData,
+            headers: {
+              'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
+              'Content-Type': 'application/json; charset=utf-8'
+            }
+          }).then(function () {
+            self.finishStart = true;
+            console.log('finishPre');
+          });
+        });
+
+        // Основная часть
+        let main = self.plan.eventParts.filter(item => item.slug == 'main');
+        if(main.length == 0) self.finishMain = true;
+        self.planEx.main.map((item, key) => {
+          let requestMainData = {
+            order: key,
+            event: self.plan.id,
+            eventPart: main[0].id,
+            exercise: item.id
+          };
+          axios({
+            method: 'post',
+            url: API_URL_GRAF + '/exercises_event/',
+            data: requestMainData,
+            headers: {
+              'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
+              'Content-Type': 'application/json; charset=utf-8'
+            }
+          }).then(() => {
+            self.finishMain = true;
+            console.log('finishMain');
+          })
+        });
+
+
+        // Заключительная часть
+
+        let end = self.plan.eventParts.filter(item => item.slug == 'end');
+        if(end.length == 0) self.finishEnd = true;
+        self.planEx.end.map((item, key) => {
+          let requestEndData = {
+            order: key,
+            event: self.plan.id,
+            eventPart: end[0].id,
+            exercise: item.id
+          };
+          axios({
+            method: 'post',
+            url: API_URL_GRAF + '/exercises_event/',
+            data: requestEndData,
+            headers: {
+              'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
+              'Content-Type': 'application/json; charset=utf-8'
+            }
+          }).then(() => {
+            self.finishEnd = true;
+            console.log('finishEnd');
+          })
+        });
+
+      });
+
+
     },
 
     toggleModalPlan: function () {
-      this.isActiveModal = !this.isActiveModal
-    },
-
-    getAccardionBigItem(part) {
-      let parts1 = {
-        name: part,
-        open: true,
-      }
-      let part1Children = []
-      if (this.parts[parts1.name]) {
-        for (let i = 0; i < this.parts[parts1.name].length; i++) {
-          let part = this.parts[parts1.name][i]
-
-          for (let j = 0; j < part['exercise_name'].length; j++) {
-            let ex = this.dataExer.filter(item => item.title == part['exercise_name'][j])[0]
-
-            if (ex) {
-              let pt = ex
-              pt.plan_part_id = part.id
-              part1Children.push(pt)
-            }
-          }
-        }
-      }
-
-      parts1.children = part1Children
-      return parts1
+      this.isActiveModal = !this.isActiveModal;
     },
 
     getLabelPart(children) {
@@ -299,9 +353,28 @@ export default {
       // Событие
       var self = this;
 
-      axios.get(API_URL_GRAF + '/events/coach/' + this.$route.params.id, {headers: {'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '' , 'Content-Type': 'application/json; charset=utf-8'}}).then(function (response) {
+      axios.get(API_URL_GRAF + '/events/coach/' + this.$route.params.id, {
+        headers: {
+          'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
+          'Content-Type': 'application/json; charset=utf-8'
+        }
+      }).then(function (response) {
         self.plan = response.data;
-        axios.get(API_URL_GRAF + '/groups/', {headers: {'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '' , 'Content-Type': 'application/json; charset=utf-8'}}).then(function (response) {
+        let pre = self.plan.eventParts.filter(item => item.slug == 'pre');
+        self.planEx.pre = self.getExBigItem(pre[0].exercisesEvent);
+
+        let main = self.plan.eventParts.filter(item => item.slug == 'main');
+        self.planEx.main = self.getExBigItem(main[0].exercisesEvent);
+
+        let end = self.plan.eventParts.filter(item => item.slug == 'end');
+        self.planEx.end = self.getExBigItem(end[0].exercisesEvent);
+
+        axios.get(API_URL_GRAF + '/groups/', {
+          headers: {
+            'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
+            'Content-Type': 'application/json; charset=utf-8'
+          }
+        }).then(function (response) {
           self.group = response.data.filter((item) => {
             return item.id == self.plan.group
           })[0];
@@ -315,29 +388,8 @@ export default {
       this.dataExer = this.$store.state.events.exersiceList
     })
 
-    /*this.loadExer().then(() => {
-      this.dataExer = this.$store.state.schedule.exer;
-      this.loadParts().then(() => {
-        let groupParts = {}
-        let curParts = this.$store.state.schedule.plan_parts.filter(item => item.plan_id == this.$route.params.id)
-
-        curParts.map(item => {
-          if (!groupParts[item.plan_part_type]) groupParts[item.plan_part_type] = []
-          groupParts[item.plan_part_type].push(item)
-        })
-
-        this.parts = groupParts
-
-        this.accordionBigItems.push(this.getAccardionBigItem('Подготовительная часть'))
-        this.accordionBigItems.push(this.getAccardionBigItem('Основная часть'))
-        this.accordionBigItems.push(this.getAccardionBigItem('Заключительная часть'))
-      })
-    })*/
   },
 
-  mounted() {
-    //this.$store.dispatch('plans', this.$store.state.token)
-  },
 }
 </script>
 

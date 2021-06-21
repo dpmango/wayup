@@ -1,48 +1,22 @@
 <template lang="pug">
   v-expansion-panels.accordion-training
     draggable.accordion-group(
-      :list='groupt'
-      :group={name: 'test', pull: 'clone', put: false}
+      :list='filterGroupt'
+      :group={name: 'test', pull: 'clone'}
     )
 
       v-expansion-panel.accordion-panel(
-        v-for='(element, index) in groupt'
-        :key='element.id'
+        v-for='(element, index) in filterGroupt'
+        :key='index'
       )
-
-        v-expansion-panel-header.accordion-panel__header
-          .panel-num {{index + 1 }}
-          img.icon-20.more-icon(
-            src="@/assets/images/svg/more-icon.svg"
+        ExersiceBig(
+          :item="element"
+          :groupName="groupt.name"
+          :index="index"
+          :utils="utils"
+          :exevent="getExEventId(element)"
+          @delete="deleteItem"
           )
-          .img-wrap.img-wrap_left.mr-4
-            img(
-              src="@/assets/images/img-traning.png"
-            )
-          .accordion-panel__header-desc
-            .accordion-panel__title
-              | {{ element.title }}
-            .labels.mb-3
-              base-badge.mr-2.mb-2(
-                v-if="element.duration"
-                :label="element.duration + ' мин'"
-                background='rgba(241, 243, 249, 1)'
-                textColor="#000"
-              )
-              base-badge.mr-2.mb-2(
-                v-if="element.playground[0]"
-                :label="element.playground[0].name"
-                background='rgba(241, 243, 249, 1)'
-                textColor="#000"
-              )
-              base-badge.mr-2.mb-2(
-                :label="element.loadIntensity[0].name"
-                :background='getLoadBg(element.loadIntensity[0].id)'
-                :textColor="getLoadText(element.loadIntensity[0].id)"
-              )
-            .training-desc.training-short-decs {{  element.description.slice(0, 60) + '... ' }}
-        v-expansion-panel-content.accordion-panel__content
-          .training-desc {{  element.description }}
 </template>
 
 <script>
@@ -51,26 +25,53 @@
   import DotsMenu from "@/components/DotsMenu";
   import AddBlock from "@/components/elements/addBlock";
   import TrainingEditBlock from "@/components/elements/TrainingEditBlock";
+  import ExersiceBig from "@/components/Training/ExersiceBig";
 
   export default {
 
     props: {
       groupt: Array,
-      groupName: String
+      groupName: String,
+      utils: [Object, Array],
+      events: Array
     },
+    data: () => ({
+      editExercise:false,
+      filterGroupt: []
+    }),
     components: {
       TrainingEditBlock,
       AddBlock,
       DotsMenu,
       AccordionTabs,
       draggable,
+      ExersiceBig
     },
 
-    name: "Accordion",
+    name: "TrainingAccordion",
 
     methods: {
       editExcercise: function () {
         this.editExercise = !this.editExercise;
+      },
+      deleteItem: function (item) {
+        console.log('delere', item);
+
+        this.filterGroupt = this.filterGroupt.splice(this.filterGroupt.indexOf(item), 1)
+        //this.phones.splice(index, 1)
+      },
+      getExEventId: function (elem) {
+        if(elem.id) {
+          let ex = this.events.filter((item) => {
+            return item.exercise.id == elem.id;
+          })
+
+          if(ex.length) {
+            return ex[0].id;
+          }
+        }
+
+        return 0;
       },
       getLoadLabel: function (load) {
         let loadLabel = {
@@ -83,25 +84,26 @@
       },
       getLoadBg: function (load) {
         let loadLabel = {
-          1 : 'rgba(61, 197, 13, .2)',
-          2 : 'rgba(235, 173, 16, .2)' ,
-          3 : 'rgba(236, 72, 101, .2)',
-          4 : 'rgba(112, 42, 142, .2)',
-          5 : 'rgba(112, 72, 136, .2)'
+          'minimal' : 'rgba(61, 197, 13, .2)',
+          'normal' : 'rgba(235, 173, 16, .2)' ,
+          'submax' : 'rgba(235, 173, 16, .2)',
+          'maximal' : 'rgba(236, 72, 101, .2)'
         };
         return loadLabel[load]
       },
       getLoadText: function (load) {
         let loadLabel = {
-          1 : 'rgba(31, 120, 0, 1)',
-          2 : 'rgba(158, 114, 0, 1)' ,
-          3 : 'rgba(161, 34, 56, 1)',
-          4 : 'rgba(161, 34, 56, 1)',
-          5 : 'rgba(161, 34, 56, 1)'
+          'minimal' : 'rgba(31, 120, 0, 1)',
+          'normal' : 'rgba(158, 114, 0, 1)' ,
+          'submax' : 'rgba(158, 114, 0, 1)',
+          'maximal' : 'rgba(161, 34, 56, 1)'
         };
         return loadLabel[load]
       }
     },
+    mounted() {
+      this.filterGroupt = this.groupt;
+    }
   }
 </script>
 
@@ -114,10 +116,6 @@
 
   .v-item-group {
     margin-bottom: rem(25px);
-  }
-
-  .v-expansion-panel--active .training-short-decs {
-    display: none;
   }
 
   .accordion-training{
