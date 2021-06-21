@@ -27,7 +27,7 @@ export default {
     const $refreshToken = async () => {
       const refresh = localStorage.getItem('refresh')
 
-      console.log('refreshing token', refresh)
+      // console.log('refreshing token', refresh)
 
       if (refresh) {
         try {
