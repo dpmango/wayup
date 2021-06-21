@@ -37,8 +37,25 @@ HTTP.interceptors.response.use(
 
 // Новое АПИ
 export const AuthApi = {
-  login(data) {
-    return HTTP_GRAF.post('/auth/users/login/', data)
+  /**
+    @param email String required
+    @param password String required
+  **/
+  login(request) {
+    return HTTP_GRAF.post('/auth/users/login/', request)
+  },
+  /**
+    @param refresh String required
+  **/
+  refresh(request) {
+    return HTTP_GRAF.post('/auth/users/refresh/', request)
+  },
+  /**
+    @param email String required
+    @param code String required
+  **/
+  verify(request) {
+    return HTTP_GRAF.post('/auth/users/verify/', request)
   },
 }
 
@@ -58,21 +75,19 @@ export const EventResource = {
 }
 
 export const ProfileResource = {
-    get() {
-        return HTTP_GRAF.get('/coaches/');
-    }
-};
+  get() {
+    return HTTP_GRAF.get('/coaches/')
+  },
+}
 
 export const ExerciseResource = {
-    create(data) {
-        return HTTP_GRAF.post('/exercises/', data);
-    },
-    list() {
-        return HTTP_GRAF.get('/exercises/');
-    },
-};
-
-
+  create(data) {
+    return HTTP_GRAF.post('/exercises/', data)
+  },
+  list() {
+    return HTTP_GRAF.get('/exercises/')
+  },
+}
 
 // Старое АПИ
 export const PlanResource = {

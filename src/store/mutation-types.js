@@ -1,5 +1,6 @@
 // Авторизация
 export const SET_ACCESS = 'SET_ACCESS'
+export const SET_REFRESH = 'SET_REFRESH'
 export const REMOVE_ACCESS = 'REMOVE_ACCESS'
 export const SET_PROFILE = 'SET_PROFILE'
 export const SET_ROLE = 'SET_ROLE'

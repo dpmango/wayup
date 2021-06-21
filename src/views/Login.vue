@@ -43,15 +43,14 @@
 </template>
 
 <script>
-import SelectUser from "@/components/elements/UserSelect.vue";
-import {required, email} from 'vuelidate/lib/validators';
-import {AuthApi} from '@/store/api';
-//import {mapActions} from 'vuex';
+import SelectUser from '@/components/elements/UserSelect.vue'
+import { required, email } from 'vuelidate/lib/validators'
 
+import { mapActions } from 'vuex'
 
 export default {
-  name: "Login",
-  components: {SelectUser},
+  name: 'Login',
+  components: { SelectUser },
 
   data() {
     return {
@@ -59,69 +58,65 @@ export default {
       password: '',
       showPassword: false,
       rememberUser: false,
-      rejectText: ''
+      rejectText: '',
     }
   },
   validations: {
     email: {
       required,
-      email
+      email,
     },
     password: {
       required,
-    }
+    },
   },
   methods: {
-    //...mapActions('auth', ['login']),
-    submitForm() {
-      this.rejectText = '';
-      this.$v.$touch();
+    ...mapActions('auth', ['login']),
+    async submitForm() {
+      this.rejectText = ''
+      this.$v.$touch()
+
       if (!this.$v.$invalid) {
-
-        AuthApi.login({email: this.email, password: this.password}).then(response => {
-          this.$store.dispatch('auth/login', response.data.access).then(() => {
-            this.$store.dispatch('auth/role', response.data.userRole);
-            this.$store.dispatch('auth/loadProfile');
-            window.location.reload();
-          });
-
-        }, reason => {
-          console.log('error');
-          console.log(reason);
-          this.rejectText = reason.data.status + ' ' + reason.data.error;
-        });
-
+        await this.login({ email: this.email, password: this.password }).then(
+          () => {
+            this.$store.dispatch('auth/loadProfile')
+            // window.location.reload()
+          },
+          reason => {
+            console.warn('login error', reason)
+            this.rejectText = reason.data.status + ' ' + reason.data.error
+          }
+        )
       }
     },
   },
   computed: {
     emailErrors() {
       const errors = []
-      if (!this.$v.email.$dirty) return errors;
+      if (!this.$v.email.$dirty) return errors
       if (!this.$v.email.email) {
-        errors.push("Проверьте правильность написания почты. Адрес почта содержит символ @, например:ivanov@pochta.ru");
+        errors.push('Проверьте правильность написания почты. Адрес почта содержит символ @, например:ivanov@pochta.ru')
       }
-      !this.$v.email.required && errors.push("Укажите почту");
+      !this.$v.email.required && errors.push('Укажите почту')
       return errors
     },
     passwordErrors() {
-      const errors = [];
-      if (!this.$v.password.$dirty) return errors;
-      !this.$v.password.required && errors.push("Пароль обязателен");
-      return errors;
-
-    }
-  }
+      const errors = []
+      if (!this.$v.password.$dirty) return errors
+      !this.$v.password.required && errors.push('Пароль обязателен')
+      return errors
+    },
+  },
 }
 </script>
 
 <style lang="scss">
 .reject {
-  color: #EC4865;
+  color: #ec4865;
 }
 
 .form-login {
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1), 0px 4px 5px rgba(50, 107, 255, 0.06);
   border-radius: 12px;
   width: 438px;
@@ -131,7 +126,6 @@ export default {
   text-align: center;
   padding: 40px 48px 58px;
   box-sizing: border-box;
-
 }
 
 .logo-form {
@@ -150,6 +144,4 @@ export default {
   color: #999999;
   margin-top: 10px;
 }
-
-
 </style>
