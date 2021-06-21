@@ -1,12 +1,12 @@
 <template lang="pug">
-  v-expansion-panels.accordion-training(v-if="groupt.length")
+  v-expansion-panels.accordion-training(v-if="groupt1.length")
     draggable.accordion-group(
-      :list='groupt'
+      :list='groupt1'
       :group={name: 'test', pull: 'clone'}
     )
 
       v-expansion-panel.accordion-panel(
-        v-for='(element, index) in groupt'
+        v-for='(element, index) in groupt1'
         :key='element.id'
       )
 
@@ -79,7 +79,7 @@
   export default {
 
     props: {
-      groupt: Array,
+      groupt1: Array,
       groupName: String
     },
     data: () => ({

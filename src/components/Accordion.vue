@@ -1,12 +1,12 @@
 <template lang="pug">
   v-expansion-panels.accordion-training
     draggable.accordion-group(
-      :list='groupt.exercices'
+      :list='groupt'
       :group={name: 'test', pull: 'clone'}
     )
 
       v-expansion-panel.accordion-panel(
-        v-for='(element, index) in groupt.exercices'
+        v-for='(element, index) in groupt'
         :key='element.id'
       )
 
@@ -85,13 +85,19 @@
   export default {
 
     props: {
-      groupt: Object,
+      groupt: Array,
       groupName: String
     },
     data: () => ({
       editExercise:false,
-      items: ['Группа С8 | 10-13', 'Группа С8 | 10-14', 'Группа С8 | 10-15'],
+      test: []
     }),
+    watch: {
+      groupt: function (val) {
+        this.test = val;
+        console.log('test', this.test);
+      },
+    },
     components: {
       TrainingEditBlock,
       AddBlock,

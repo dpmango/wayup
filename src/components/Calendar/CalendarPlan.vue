@@ -91,7 +91,7 @@
                         .accordion-big__header
                           .accordion-big__header-title {{ accordionBigItem.name }}
                     template(v-slot:accord-body)
-                      TrainingAccardion(:groupt="accordionBigItem.exercisesEvent")
+                      Accordion(:groupt="accordionBigItem.exercisesEvent")
               v-row
                 v-col(
                   md='6'
@@ -193,6 +193,14 @@ export default {
 
     log: function (evt) {
       window.console.log(evt);
+    },
+
+    getExBigItem(item) {
+      let ex = [];
+      item.map(item => {
+        ex.push(item.exercise)
+      });
+      return ex;
     },
 
     toggleOpen: function (index) {
