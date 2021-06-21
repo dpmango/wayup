@@ -109,23 +109,23 @@
 </template>
 
 <script>
-import TheBreadcrumbs from '@/components/TheBreadcrumbs'
-import TagsTraining from '@/components/Training/TagsTraining'
-import CardIndications from '@/components/CardIndications'
-import AccordionItem from '@/components/AccordionItem'
-import Accordion from '@/components/Accordion'
-import AccordionBig from '@/components/AccordionBig'
-import TrainingAside from '@/components/Training/TrainingAside'
-import ModalSummaryPlan from '@/components/ModalSummaryPlan'
-import { Draggable } from 'draggable-vue-directive'
-import moment from 'moment'
-import axios from 'axios'
-import { mapActions, mapState } from 'vuex'
+import TheBreadcrumbs from "@/components/TheBreadcrumbs";
+import TagsTraining from "@/components/Training/TagsTraining";
+import CardIndications from "@/components/CardIndications";
+import AccordionItem from "@/components/AccordionItem";
+import Accordion from "@/components/Accordion";
+import AccordionBig from "@/components/AccordionBig";
+import TrainingAside from "@/components/Training/TrainingAside";
+import ModalSummaryPlan from "@/components/ModalSummaryPlan";
+import {Draggable} from 'draggable-vue-directive';
+import moment from 'moment';
+import axios from "axios";
+import {mapActions, mapState} from 'vuex';
 import 'moment/locale/ru'
-import { API_URL_GRAF } from '../../config/api'
-import CalendarPlanEdit from '@/components/Calendar/CalendarPlanEdit'
-import CalendarPlanCompleted from '@/components/Calendar/CalendarPlanCompleted'
-import TrainingAccardion from '@/components/Training/TrainingAccardion'
+import {API_URL_GRAF} from "../../config/api";
+import CalendarPlanEdit from "@/components/Calendar/CalendarPlanEdit";
+import CalendarPlanCompleted from "@/components/Calendar/CalendarPlanCompleted";
+import TrainingAccardion from "@/components/Training/TrainingAccardion";
 
 export default {
   name: 'Training',
@@ -145,7 +145,7 @@ export default {
     TheBreadcrumbs,
     CalendarPlanEdit,
     CalendarPlanCompleted,
-    TrainingAccardion,
+    TrainingAccardion
     // draggable
   },
   data: () => ({
@@ -297,32 +297,19 @@ export default {
   created() {
     if (this.$route.params.id) {
       // Событие
-      var self = this
+      var self = this;
 
-      axios
-        .get(API_URL_GRAF + '/events/coach/' + this.$route.params.id, {
-          headers: {
-            Authorization: localStorage.getItem('access') ? 'Bearer ' + localStorage.getItem('access') : '',
-            'Content-Type': 'application/json; charset=utf-8',
-          },
-        })
-        .then(function (response) {
-          self.plan = response.data
-          axios
-            .get(API_URL_GRAF + '/groups/', {
-              headers: {
-                Authorization: localStorage.getItem('access') ? 'Bearer ' + localStorage.getItem('access') : '',
-                'Content-Type': 'application/json; charset=utf-8',
-              },
-            })
-            .then(function (response) {
-              self.group = response.data.filter(item => {
-                return item.id == self.plan.group
-              })[0]
-            })
-          self.loadUtils()
-        })
+      axios.get(API_URL_GRAF + '/events/coach/' + this.$route.params.id, {headers: {'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '' , 'Content-Type': 'application/json; charset=utf-8'}}).then(function (response) {
+        self.plan = response.data;
+        axios.get(API_URL_GRAF + '/groups/', {headers: {'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '' , 'Content-Type': 'application/json; charset=utf-8'}}).then(function (response) {
+          self.group = response.data.filter((item) => {
+            return item.id == self.plan.group
+          })[0];
+        });
+        self.loadUtils();
+      });
     }
+
 
     this.loadExercise().then(() => {
       this.dataExer = this.$store.state.events.exersiceList
