@@ -47,7 +47,8 @@
 
     // widget
     .widget-content
-        span.dev-log {{events}}
+        // span.dev-log {{events}}
+        // span.dev-log {{groupScheduleGetter}}
         template(v-if="view === 'week'")
             .calendar
                 .hours-wrap
@@ -59,7 +60,7 @@
                             .hours-time-item(v-for="m in 2") {{ 10 * m }}.00
                         .hours-col(v-for="n in 7" :class="{ hoursDisable: (n == 6 || n == 7) }")
 
-                            template(v-for="event in groupSchedule[n]")
+                            template(v-for="event in groupScheduleGetter[n]")
                                 CalendarEvent(:event="event" :base="heightHourCeil")
                 .weeks
                     .hours-time
@@ -90,8 +91,7 @@ export default {
       initDay: moment().toDate(),
       view: 'week',
       weekDays: moment.weekdaysShort(true),
-      heightHourCeil: 26,
-      schedule: [],
+      heightHourCeil: 16,
     }
   },
   computed: {
@@ -126,6 +126,7 @@ export default {
       let currentHour = this.initDayMomentConstructor.hour()
       let currentMinute = this.initDayMomentConstructor.minute()
       let heightHour = (currentMinute / 60) * 20
+
       return {
         top: `${(currentHour - 7) * this.heightHourCeil + heightHour}px`,
         display: currentHour >= 19 || currentHour < 7 ? 'none' : 'block',
@@ -136,6 +137,10 @@ export default {
       return {
         left: `calc(((100% - 35px) / 7) * ${dayCol} + 35px)`,
       }
+    },
+
+    groupScheduleGetter() {
+      return this.groupSchedule(this.initDayMomentConstructor)
     },
 
     ...mapGetters('events', ['events', 'groupSchedule']),
@@ -425,7 +430,7 @@ export default {
   }
   ::v-deep {
     .event {
-      padding: 4px;
+      padding: 2px 4px;
     }
     .event-rating {
       top: 50%;
@@ -433,12 +438,15 @@ export default {
       font-size: 10px;
       padding: 4px 6px;
     }
-    .event-time {
+    .event-time,
+    .event-rating,
+    .event-desc {
       display: none;
     }
     .event-title {
       font-size: 12px;
       line-height: 1;
+      font-family: $FiraSansRegular;
     }
   }
 }

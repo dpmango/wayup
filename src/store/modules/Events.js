@@ -68,32 +68,17 @@ const getters = {
       events.push(dataEvent)
     })
 
-    console.log(events)
-
     return events
   },
-  groupSchedule(state) {
-    const startWeek = date => {
-      console.log(date)
-      return moment(date).startOf('week')
-    }
-    const endWeek = date => {
-      return moment(date).endOf('week')
-    }
-
+  groupSchedule: (state, getters) => date => {
     let groupSchedule = []
     for (let i = 1; i <= 7; i++) {
       groupSchedule[i] = []
     }
 
-    state.eventList.map(item => {
+    getters.events.map(item => {
       if (
-        moment(item.start_time).isBetween(
-          startWeek(item.start_time).toDate(),
-          endWeek(item.start_time).toDate(),
-          undefined,
-          '[]'
-        )
+        moment(item.start_time).isBetween(date.startOf('week').toDate(), date.endOf('week').toDate(), undefined, '[]')
       ) {
         let day = moment(item.start_time).isoWeekday()
         groupSchedule[day].push(item)

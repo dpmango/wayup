@@ -51,7 +51,6 @@ export default {
       let momentJs = moment(time)
       let hour = momentJs.hour()
       let minute = momentJs.minute()
-      console.log(hour, minute, hour - 7 + minute / 60)
       return (hour - 7 + minute / 60) * this.base
     },
   },
