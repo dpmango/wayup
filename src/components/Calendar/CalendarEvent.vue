@@ -19,15 +19,15 @@
 import moment from 'moment'
 
 export default {
-  name: "CalendarEvent",
+  name: 'CalendarEvent',
   props: {
     event: {
-      type: Object
+      type: Object,
     },
     base: {
       type: Number,
-      default: 1
-    }
+      default: 1,
+    },
   },
   data: function () {
     return {
@@ -37,33 +37,31 @@ export default {
   computed: {
     eventStyle: function () {
       return {
-        height: (this.base * this.event.duration) + 'px',
+        height: this.base * this.event.duration + 'px',
         top: this.convertTimeToOffset(this.event.start_time) + 'px',
-        opacity: (this.isDraggable) ? 0.5 : 1
+        opacity: this.isDraggable ? 0.5 : 1,
       }
     },
     time: function () {
-      return moment(this.event.start_time).format('HH:mm');
-    }
+      return moment(this.event.start_time).format('HH:mm')
+    },
   },
   methods: {
     convertTimeToOffset(time) {
-      let momentJs = moment(time);
-      let hour = momentJs.hour();
-      let minute = momentJs.minute();
-      return ((hour - 7) + minute / 60) * this.base;
+      let momentJs = moment(time)
+      let hour = momentJs.hour()
+      let minute = momentJs.minute()
+      return (hour - 7 + minute / 60) * this.base
     },
   },
-  mounted() {
-
-  },
+  mounted() {},
 }
 </script>
 
 <style lang="scss" scoped>
 .event {
-  background: #FFF5DD;
-  box-shadow: inset -1px 0px 0px rgba(0, 0, 0, 0.16), inset 2px 0px 0px #FFBF26, inset 0px -1px 0px rgba(0, 0, 0, 0.16);
+  background: #fff5dd;
+  box-shadow: inset -1px 0px 0px rgba(0, 0, 0, 0.16), inset 2px 0px 0px #ffbf26, inset 0px -1px 0px rgba(0, 0, 0, 0.16);
   padding: rem(8px) rem(10px);
   position: absolute;
   overflow: hidden;
@@ -85,7 +83,7 @@ export default {
 
   &-title {
     font-size: rem(12px);
-    font-family: "Fira Sans Medium";
+    font-family: 'Fira Sans Medium';
 
     &.ellipsis {
       text-overflow: ellipsis;
@@ -100,7 +98,7 @@ export default {
   &-rating {
     background: rgba(235, 173, 16, 0.2);
     border-radius: rem(4px);
-    color: #9E7200;
+    color: #9e7200;
     font-size: rem(10px);
     padding: rem(4px) rem(8px);
     display: inline-block;

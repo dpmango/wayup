@@ -187,27 +187,26 @@ const routes = [
 ]
 
 const router = new VueRouter({
-    mode: 'history',
-    base: process.env.BASE_URL,
-    routes
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes,
 })
 
 // Провека авторизации пользователя
 router.beforeEach((to, from, next) => {
-  const publicPages = ["/login", "/registration"];
-  const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem("access");
+  const publicPages = ['/login', '/registration']
+  const authRequired = !publicPages.includes(to.path)
+  const loggedIn = localStorage.getItem('access')
 
   if (authRequired && !loggedIn) {
-    next("/login");
+    next('/login')
   } else {
-    next();
+    next()
   }
 
-  if(!authRequired && loggedIn) {
-      next("/");
+  if (!authRequired && loggedIn) {
+    next('/')
   }
-});
-
+})
 
 export default router

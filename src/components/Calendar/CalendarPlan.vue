@@ -108,7 +108,6 @@
 
 </template>
 
-
 <script>
 import TheBreadcrumbs from "@/components/TheBreadcrumbs";
 import TagsTraining from "@/components/Training/TagsTraining";
@@ -180,15 +179,15 @@ export default {
       return false;
     },
     dayWeek: function () {
-      return moment(this.plan.dateFrom).format('dddd');
+      return moment(this.plan.dateFrom).format('dddd')
     },
     monthDay: function () {
-      return moment(this.plan.dateFrom).format('DD MMMM');
+      return moment(this.plan.dateFrom).format('DD MMMM')
     },
     timePeriod: function () {
-      return moment(this.plan.dateFrom).format('HH:mm') + ' — ' + moment(this.plan.dateTo).format('HH:mm');
+      return moment(this.plan.dateFrom).format('HH:mm') + ' — ' + moment(this.plan.dateTo).format('HH:mm')
     },
-    ...mapState('events', ['utils'])
+    ...mapState('events', ['utils']),
   },
   watch: {
     finishAll: function (val) {
@@ -198,21 +197,21 @@ export default {
   },
   methods: {
     add: function () {
-      this.list.push({name: "Juan"});
+      this.list.push({ name: 'Juan' })
     },
 
     replace: function () {
-      this.list = [{name: "Edgard"}];
+      this.list = [{ name: 'Edgard' }]
     },
 
     clone: function (el) {
       return {
-        name: el.name + " cloned"
-      };
+        name: el.name + ' cloned',
+      }
     },
 
     log: function (evt) {
-      window.console.log(evt);
+      window.console.log(evt)
     },
 
     getExBigItem(item) {
@@ -226,12 +225,12 @@ export default {
     toggleOpen: function (index) {
       this.accordionBigItems = this.accordionBigItems.map((accordionBigItem, i) => {
         if (index === i) {
-          accordionBigItem.open = !accordionBigItem.open;
+          accordionBigItem.open = !accordionBigItem.open
         } else {
-          accordionBigItem.open = false;
+          accordionBigItem.open = false
         }
-        return accordionBigItem;
-      });
+        return accordionBigItem
+      })
     },
 
     editTraining: function () {
@@ -328,8 +327,7 @@ export default {
     },
 
     getLabelPart(children) {
-
-      return children.length + ' упражнений';
+      return children.length + ' упражнений'
     },
 
     getMinuteLabel(duration) {
@@ -338,11 +336,11 @@ export default {
 
     getLoadShortLabel(load) {
       let loadLabel = {
-        'minimal': 'Y',
-        'normal': 'Б',
-        'submax': 'С',
-        'maximal': 'М'
-      };
+        minimal: 'Y',
+        normal: 'Б',
+        submax: 'С',
+        maximal: 'М',
+      }
       return loadLabel[load]
     },
 
@@ -387,8 +385,8 @@ export default {
 
 
     this.loadExercise().then(() => {
-      this.dataExer = this.$store.state.events.exersiceList;
-    });
+      this.dataExer = this.$store.state.events.exersiceList
+    })
 
   },
 
@@ -396,7 +394,6 @@ export default {
 </script>
 
 <style lang="scss">
-
 .training-head {
   margin-bottom: rem(64px);
 }
@@ -404,8 +401,9 @@ export default {
 /* summury-plan */
 
 .summury-plan__modal {
-  background: #F1F3F9;
-  box-shadow: 0px 4px 12px rgba(165, 169, 180, 0.2), 0px 1px 4px rgba(121, 140, 189, 0.2), 0px 1px 0px rgba(0, 0, 0, 0.1), 0px 4px 5px rgba(50, 107, 255, 0.06);
+  background: #f1f3f9;
+  box-shadow: 0px 4px 12px rgba(165, 169, 180, 0.2), 0px 1px 4px rgba(121, 140, 189, 0.2),
+    0px 1px 0px rgba(0, 0, 0, 0.1), 0px 4px 5px rgba(50, 107, 255, 0.06);
   border-radius: rem(12px);
   padding: rem(25px);
   width: rem(410px);
@@ -445,18 +443,17 @@ export default {
 }
 
 .summury-plan__list {
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: rem(8px);
   padding-left: 0 !important;
   margin-bottom: rem(16px);
-
 }
 
 .summury-plan__item {
   display: flex;
   align-items: center;
   padding: rem(6px) rem(8px);
-  border-bottom: 1px solid #F1F3F9;
+  border-bottom: 1px solid #f1f3f9;
 
   &:last-child {
     border-bottom: none;
@@ -466,37 +463,34 @@ export default {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    @include width-flex(30%)
+    @include width-flex(30%);
     justify-content: flex-end;
 
     .v-chip--label {
-      @include last-mr-0
+      @include last-mr-0;
     }
-
   }
 }
 
 .summury-plan__num {
-  @include width-flex(10%)
+  @include width-flex(10%);
   font-size: rem(12px);
   padding-left: rem(5px);
   display: flex;
-  color: rgba(0, 0, 0, .4);
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .summury-plan__desc {
-  @include width-flex(60%)
+  @include width-flex(60%);
   font-size: rem(14px);
-
 }
 
 .summury-plan__block-title {
   font-size: rem(10px);
   letter-spacing: 1px;
-  color: rgba(0, 0, 0, .4);
+  color: rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
   margin-bottom: rem(6px);
-
 }
 
 .training-aside {
@@ -509,7 +503,7 @@ export default {
   }
 
   .accordion-panel__header-desc {
-    @include width-flex(100%)
+    @include width-flex(100%);
   }
 
   .accordion-panel__title {
@@ -517,7 +511,5 @@ export default {
   }
 }
 
-
 /**/
-
 </style>

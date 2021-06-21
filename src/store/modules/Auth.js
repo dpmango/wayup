@@ -1,7 +1,5 @@
-import {
-  SET_ACCESS, RESET, REMOVE_ACCESS, SET_PROFILE, SET_ROLE
-} from '../mutation-types';
-import { ProfileResource } from '../api.js';
+import { SET_ACCESS, SET_REFRESH, RESET, REMOVE_ACCESS, SET_PROFILE, SET_ROLE } from '../mutation-types'
+import { AuthApi, ProfileResource } from '@/store/api'
 
 /*
 |--------------------------------------------------------------------------
@@ -9,17 +7,17 @@ import { ProfileResource } from '../api.js';
 |--------------------------------------------------------------------------
 */
 const initialState = () => ({
-  access: localStorage.getItem("access") || "",
+  access: localStorage.getItem('access') || '',
   profile: {},
-  role: localStorage.getItem("role") || "",
-});
+  role: localStorage.getItem('role') || '',
+})
 
 /*
 |--------------------------------------------------------------------------
 | State
 |--------------------------------------------------------------------------
 */
-const state = initialState;
+const state = initialState
 /*
 |--------------------------------------------------------------------------
 | Mutations
@@ -27,32 +25,33 @@ const state = initialState;
 */
 const mutations = {
   [SET_ACCESS](state, payload) {
-    state.access = payload;
+    state.access = payload
+  },
+  [SET_REFRESH](state, payload) {
+    state.refresh = payload
   },
   [SET_ROLE](state, payload) {
-    state.role = payload;
+    state.role = payload
   },
   [SET_PROFILE](state, payload) {
-    state.profile = payload;
+    state.profile = payload
   },
   [REMOVE_ACCESS](state) {
-    state.access = '';
+    state.access = ''
   },
   [RESET](state) {
-    const newState = initialState();
+    const newState = initialState()
     Object.keys(newState).forEach(key => {
       state[key] = newState[key]
-    });
+    })
   },
-};
+}
 /*
 |--------------------------------------------------------------------------
 | Getters
 |--------------------------------------------------------------------------
 */
-const getters = {
-
-};
+const getters = {}
 
 /*
 |--------------------------------------------------------------------------
@@ -60,37 +59,56 @@ const getters = {
 |--------------------------------------------------------------------------
 */
 const actions = {
+  async login({ commit }, { email, password }) {
+    const [err, data] = await AuthApi.login({ email, password })
 
-  async login({commit}, payload) {
-    commit(SET_ACCESS, payload);
-    localStorage.setItem("access", payload);
+    if (err) throw err
+
+    const { access, refresh, userRole } = data
+
+    commit(SET_ACCESS, access)
+    commit(SET_REFRESH, refresh)
+    commit(SET_ROLE, userRole)
+    localStorage.setItem('access', access)
+    localStorage.setItem('refresh', refresh)
+    localStorage.setItem('role', userRole)
+
+    return data
   },
 
-  role({commit}, payload) {
-    commit(SET_ROLE, payload);
-    localStorage.setItem("role", payload);
+  logout({ commit }) {
+    commit(RESET)
+    localStorage.removeItem('access')
+    localStorage.removeItem('refresh')
   },
 
-  logout({commit}) {
-    commit(RESET);
-    localStorage.removeItem("access");
+  async refreshToken({ commit }, { refresh }) {
+    const [err, data] = await AuthApi.refresh({ refresh })
+
+    if (err) throw err
+
+    commit(SET_ACCESS, data.access)
+    commit(SET_REFRESH, data.refresh)
+    localStorage.setItem('access', data.access)
+    localStorage.setItem('refresh', data.refresh)
+
+    return data
   },
-
-  async loadProfile({commit}) {
-    await ProfileResource.get().then(response => {
-      commit(SET_PROFILE, response.data);
-    }).catch(err => {
-      console.log(err);
-      throw err.response;
-    });
-  }
-
-
-};
+  async loadProfile({ commit }) {
+    await ProfileResource.get()
+      .then(response => {
+        commit(SET_PROFILE, response.data)
+      })
+      .catch(err => {
+        console.log(err)
+        throw err.response
+      })
+  },
+}
 
 export default {
   state,
   getters,
   mutations,
-  actions
+  actions,
 }
