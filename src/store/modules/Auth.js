@@ -60,10 +60,9 @@ const getters = {}
 */
 const actions = {
   async login({ commit }, { email, password }) {
-    console.log(email, password)
-    const { data } = await AuthApi.login({ email, password }).catch(err => {
-      throw err.response
-    })
+    const [err, data] = await AuthApi.login({ email, password })
+
+    if (err) throw err
 
     const { access, refresh, userRole } = data
 
@@ -83,6 +82,18 @@ const actions = {
     localStorage.removeItem('refresh')
   },
 
+  async refreshToken({ commit }, { refresh }) {
+    const [err, data] = await AuthApi.refresh({ refresh })
+
+    if (err) throw err
+
+    commit(SET_ACCESS, data.access)
+    commit(SET_REFRESH, data.refresh)
+    localStorage.setItem('access', data.access)
+    localStorage.setItem('refresh', data.refresh)
+
+    return data
+  },
   async loadProfile({ commit }) {
     await ProfileResource.get()
       .then(response => {

@@ -36,6 +36,7 @@ Vue.use(VueSimpleAccordion, {
   tags: {},
 })
 
+
 Vue.config.productionTip = false
 
 Vue.component('base-label', () => import('./components/library/old/BaseLabel.vue'))

@@ -77,16 +77,16 @@ export default {
       this.$v.$touch()
 
       if (!this.$v.$invalid) {
-        await this.login({ email: this.email, password: this.password }).then(
-          () => {
+        await this.login({ email: this.email, password: this.password })
+          .then(() => {
             this.$store.dispatch('auth/loadProfile')
-            // window.location.reload()
-          },
-          reason => {
+            // TODO - should not be reloaded
+            window.location.reload()
+          })
+          .catch(reason => {
             console.warn('login error', reason)
             this.rejectText = reason.data.status + ' ' + reason.data.error
-          }
-        )
+          })
       }
     },
   },

@@ -17,11 +17,34 @@ if (token) {
   HTTP.headers = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json; charset=utf-8' }
 }
 
+HTTP_GRAF.interceptors.request.use(x => {
+  console.log(`${x.method.toUpperCase()} | ${x.url}`, x.params, x.data)
+  const access = localStorage.getItem('access')
+
+  if (access) x.headers.Authorization = `Bearer ${access}`
+
+  return x
+})
+
 HTTP_GRAF.interceptors.response.use(
-  response => {
-    return response
+  x => {
+    console.log(`${x.status} | ${x.config.url}`, x.data)
+    const access = localStorage.getItem('access')
+
+    if (access) x.headers.Authorization = `Bearer ${access}`
+
+    return x
   },
-  error => {
+  async error => {
+    if (error.response && !error.response.config.url.includes('rest-auth')) {
+      if (parseInt(error.response && error.response.status) === 401) {
+        // await store.dispatch('auth/logout');
+        console.log('TODO - should dispatch logout action')
+      }
+    }
+
+    // $sentry.captureException(error);
+
     return Promise.reject(error.response)
   }
 )
@@ -41,21 +64,37 @@ export const AuthApi = {
     @param email String required
     @param password String required
   **/
-  login(request) {
-    return HTTP_GRAF.post('/auth/users/login/', request)
+  async login(request) {
+    try {
+      const { data } = await HTTP_GRAF.post('/auth/users/login/', request)
+      return [null, data]
+    } catch (error) {
+      return [error, null]
+    }
   },
+
   /**
     @param refresh String required
   **/
-  refresh(request) {
-    return HTTP_GRAF.post('/auth/users/refresh/', request)
+  async refresh(request) {
+    try {
+      const { data } = await HTTP_GRAF.post('/auth/users/refresh/', request)
+      return [null, data]
+    } catch (error) {
+      return [error, null]
+    }
   },
   /**
     @param email String required
     @param code String required
   **/
-  verify(request) {
-    return HTTP_GRAF.post('/auth/users/verify/', request)
+  async verify(request) {
+    try {
+      const { data } = await HTTP_GRAF.post('/auth/users/verify/', request)
+      return [null, data]
+    } catch (error) {
+      return [error, null]
+    }
   },
 }
 
