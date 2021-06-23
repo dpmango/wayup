@@ -56,7 +56,7 @@
 
                     .training-desc {{ item.exercise.description }}
                   .accordion-panel__header-desc_right.pr-10
-                    div
+                    div(@click.stop='onClick()')
                       base-button(
                         classAttr='button-default button-blue button-big ml-auto'
                         label="Оценить"
