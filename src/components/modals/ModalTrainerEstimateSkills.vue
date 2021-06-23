@@ -63,7 +63,7 @@
   export default {
     name: "ModalTrainerEstimateSkills",
     components: {AccordionSkills, AccordionEstimation, TrainingRating},
-    props: ['visible', 'sportsman', 'exer'],
+    props: ['visible', 'sportsman', 'exer', 'plan'],
     computed: {
       showSkills: {
         get() {
@@ -83,7 +83,6 @@
         let elems = this.$refs.tr;
 
         elems.map((item) => {
-          console.log(item);
           let estimate = {
             mark: item.exercises_estimate + 1,
             comment: "",
@@ -102,8 +101,8 @@
             'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
             'Content-Type': 'application/json; charset=utf-8'
           }
-        }).then(function (response) {
-          console.log(response);
+        }).then(function () {
+          window.location.reload();
         });
       }
     }
