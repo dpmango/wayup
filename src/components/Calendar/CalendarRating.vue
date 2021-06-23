@@ -116,6 +116,7 @@
       @close="dialogEventSkills=false"
       :sportsman="plan.attenders[0].user"
       :exer="ratingEvent"
+      :plan="plan"
         v-if="dialogEventSkills"
       )
 
