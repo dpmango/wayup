@@ -12,16 +12,16 @@
             src="@/assets/images/avatar.png"
           )
       .player-block__right
-        .player-block__name.title-medium.mb-1 Василевский Антон
+        .player-block__name.title-medium.mb-1 {{ item.user.firstName }} {{ item.user.lastName }}
         .player-block__labels
           .labels
             base-badge.mr-2.mb-1(
-              label='99'
+              :label='item.teamNumber'
               color='#F1F3F9'
               textColor="#000000"
             )
             base-badge.mr-2.mb-1(
-              label='П. Нападающий'
+              :label='changeGamer(item.positionName)'
               color='#F1F3F9'
               textColor="#000000"
             )
@@ -62,8 +62,8 @@
         v-model='menu'
         :close-on-content-click='false'
         :nudge-width='385'
-        top='true'
-        open-on-click="true"
+        :top='true'
+        :open-on-click="true"
         nudge-top="60"
         content-class="menu-tooltip-estimate"
       )
@@ -73,9 +73,10 @@
             base-button(
               classAttr='button-default button-blue button-small ml-auto'
               label="Оценить"
-              disabled=true
+              :disabled="false"
+              @click ="$router.push({name:'CalendarWeek'})"
             )
-        .block-white.popup-block.v-application
+        //.block-white.popup-block.v-application
           .close-button(@click='menu = false')
             svg.icon-16(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
               path(d='M3 13L13 3M13 13L3 3' stroke='#326BFF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
@@ -104,7 +105,7 @@ export default {
       type: [String],
       default: ''
     },
-
+    item: Object
   },
   components: {
     vueCustomScrollbar
@@ -126,6 +127,16 @@ export default {
   methods: {
     toggleList: function () {
       this.isShowList = !this.isShowList;
+    },
+    changeGamer(gamer) {
+      let g = {
+        defender: 'Защитник',
+        goalkeeper: 'Вратари',
+        forward: 'Нападающие',
+      };
+
+      if(g[gamer]) return g[gamer];
+      return '';
     },
     // changeGamer(gamer) {
     //   this.currentGamer = gamer;

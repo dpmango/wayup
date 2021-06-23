@@ -22,7 +22,7 @@
       img.tag-icon(
         src=`@/assets/images/svg/icon-man.svg`
       )
-      .tag-text {{ typeLesson.title  }}
+      .tag-text {{ typeLesson  }}
 
     .tags-item(v-if="typePreparation")
       img.tag-icon(
@@ -57,10 +57,10 @@ export default {
 
     },
     typeLesson: function() {
-     if(this.utils.eventTypes) {
-        return this.utils.eventTypes.filter(item => {
+     if(this.utils.organizationForms) {
+        return this.utils.organizationForms.filter(item => {
           return item.id == this.plan.typeLesson;
-        })[0]
+        })[0].name
       }
       return false;
 

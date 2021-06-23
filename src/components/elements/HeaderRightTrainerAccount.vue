@@ -47,7 +47,12 @@
 
 <script>
 export default {
-  name: "HeaderRightTrainerAccount"
+  name: "HeaderRightTrainerAccount",
+  methods: {
+    sidebarWidgetsOpen() {
+      return true;
+    }
+  }
 }
 </script>
 

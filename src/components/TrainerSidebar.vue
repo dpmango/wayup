@@ -11,7 +11,7 @@
       .user-desc__block.mb-4
         .title-small.mb-1 Личные данные
         router-link(to="/profile")
-          a(href='#').text-small.text-blue Редактировать
+          router-link(to='/profile').text-small.text-blue Редактировать
 
 
 

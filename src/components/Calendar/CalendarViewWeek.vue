@@ -21,8 +21,8 @@
           .hours-col(v-for="n in 7" :class="{ hoursDisable: (n == 6 || n == 7) }")
 
             .hours-item(v-for="m in 12" @mouseover="showAddBtn" @mouseleave="hideAddBtn")
-             // base-button(label='' classAttr='button-default button-big-icon add-event'
-             //   @click="createEvent(getDate(n), (6 + m))"
+             base-button(label='' classAttr='button-default button-big-icon add-event'
+               @click="createEvent(getDate(n), (6 + m))"
               )
                 template(#icon-left)
                   svg.icon-16(width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg')
@@ -43,9 +43,9 @@
             :inTimeEnd="createTimeEnd"
             :visible='dialogEvent'
             @close="dialogEvent=false"
-
+            v-if="dialogEvent"
           )
-          ModalTrainerEstimateSkills(:visible='dialogEventSkills' @close="dialogEventSkills=false")
+
 
 </template>
 
@@ -54,7 +54,6 @@ import moment from 'moment'
 import CalendarEvent from '@/components/Calendar/CalendarEvent'
 import CalendarDragEvent from '@/components/Calendar/CalendarDragEvent'
 import ModalTrainerNewEvent from '@/components/modals/ModalTrainerNewEvent'
-import ModalTrainerEstimateSkills from '../modals/ModalTrainerEstimateSkills'
 
 export default {
   name: 'CalendarViewWeek',
@@ -66,7 +65,7 @@ export default {
       type: [Array, Object],
     },
   },
-  components: { ModalTrainerEstimateSkills, ModalTrainerNewEvent, CalendarEvent, CalendarDragEvent },
+  components: { ModalTrainerNewEvent, CalendarEvent, CalendarDragEvent },
   data: function () {
     return {
       weekDays: moment.weekdaysShort(true),
@@ -236,11 +235,11 @@ export default {
           let eventTarget = this.$children[child]
 
           if (eventTarget.event) {
-            if (moment(moment()).isAfter(moment(eventTarget.event.start_time).add(eventTarget.event.duration, 'h'))) {
+            if (moment().isAfter(moment(eventTarget.event.start_time).add(eventTarget.event.duration, 'h'))) {
               // Если событие уже прошло
               // Показываем модалку оценки
               //this.dialogEventSkills = true;
-              this.$router.push({ name: 'IndividualLesson' })
+              this.$router.push({ name: 'Rating', params: { id: eventTarget.event.id } } )
             } else {
               // Если событие не неступило
               // Переходим в редактирование
@@ -384,9 +383,9 @@ export default {
     },
 
     createEvent(date, time) {
-      this.createTimeStart = time + ':00'
-      this.createTimeEnd = time + 1 + ':00'
-      this.createDate = date
+      this.createTimeStart = (time < 10) ? '0' + time + ':00' : time + ':00';
+      this.createTimeEnd = ((time + 1) < 10) ? '0' + (time +1)  + ':00' : (time +1)  + ':00';
+      this.createDate = date;
       this.dialogEvent = true
     },
   },

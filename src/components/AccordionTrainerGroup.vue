@@ -3,7 +3,7 @@
     v-expansion-panels
       v-expansion-panel.mb-3
         v-expansion-panel-header.accordion-panel__header
-          .h5.title-medium.mr-10 НП-1
+          .h5.title-medium.mr-10 {{ item.name }}
           .d-block
             .text-small.text-gray.mb-4 Возраст
             .text 8-9 лет
@@ -15,18 +15,18 @@
               .avatars-block
                 a.avatar-group-link(
                   href='#'
-                  v-for='(item,i) in 5' :key='i'
+                  v-for='(item,i) in item.sportsmans.length' :key='i'
                 )
                   v-avatar.avatar-group(
                     size='24'
                   )
                     img(src="@/assets/images/avatar.png")
-            .avatars-block-text 24 спортсмена
+            .avatars-block-text {{ item.sportsmans.length }} спортсмена
 
 
 
         v-expansion-panel-content
-          TrainerGroupItem(v-for='(item,i) in 3' :key='i')
+          TrainerGroupItem(v-for='(item,i) in item.sportsmans' :key='i' :item="item")
 
 
 </template>
@@ -41,7 +41,8 @@ import TrainerGroupItem from "@/components/TrainerGroupItem";
 export default {
 
   props: {
-    groupName: String
+    groupName: String,
+    item: Object
   },
   data: () => ({}),
   components: {

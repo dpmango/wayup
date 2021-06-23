@@ -359,6 +359,10 @@ export default {
           'Content-Type': 'application/json; charset=utf-8'
         }
       }).then(function (response) {
+        if (moment().isAfter(moment.utc(response.data.dateTo))) {
+          self.$router.push({ name: 'Rating', params: { id: response.data.id } })
+        }
+
         self.plan = response.data;
         let pre = self.plan.eventParts.filter(item => item.slug == 'pre');
         self.planEx.pre = self.getExBigItem(pre[0].exercisesEvent);

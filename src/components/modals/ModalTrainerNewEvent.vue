@@ -262,6 +262,18 @@ export default {
   },
   mounted() {
 
+    if(this.inTimeStart.length) {
+      this.timeStart = [this.inTimeStart];
+    }
+
+    if(this.inTimeEnd.length) {
+      this.timeEnd = [this.inTimeEnd];
+    }
+
+    if(this.inDate) {
+      this.dateStart = new Date(moment(this.inDate, "DD-MM-YYYY").format('YYYY-MM-DD'));
+    }
+
     let self = this;
 
     axios.get(API_URL_GRAF + '/events/utils/', {headers: {'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '' , 'Content-Type': 'application/json; charset=utf-8'}})

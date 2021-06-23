@@ -41,6 +41,14 @@ const routes = [
         component: () => import('@/components/Calendar/CalendarPlan'),
     },
 
+    // Оценка индивидуального занятия
+    {
+        path: '/rating/:id',
+        name: 'Rating',
+        meta: {layout: 'main', userSettings: true},
+        component: () => import('@/components/Calendar/CalendarRating'),
+    },
+
     // Кабинет спортсмена
     {
         path: '/account-sportsman',
@@ -112,7 +120,7 @@ const routes = [
         path: '/registration',
         name: 'Registration',
         meta: {layout: 'empty'},
-        component: () => import(/* webpackChunkName: "about" */ '../views/Registration')
+        component: () => import('../views/Registration')
     },
 
     // Авторизация
@@ -120,7 +128,7 @@ const routes = [
         path: '/login',
         name: 'Login',
         meta: {layout: 'empty'},
-        component: () => import(/* webpackChunkName: "about" */ '../views/Login')
+        component: () => import('../views/Login')
     },
 
     // Профиль тренера
@@ -129,7 +137,7 @@ const routes = [
         path: '/profile',
         name: 'Profile',
         meta: {layout: 'main', userSettings: true},
-        component: () => import(/* webpackChunkName: "about" */ '../views/Personal/Trainer/Profile')
+        component: () => import('../views/Personal/Trainer/Profile')
     },
 
     // Профиль тренера (заполненный)
@@ -138,7 +146,7 @@ const routes = [
         path: '/profile-complete',
         name: 'ProfileComplete',
         meta: {layout: 'main', userSettings: true},
-        component: () => import(/* webpackChunkName: "about" */ '../views/Personal/Trainer/ProfileComplete')
+        component: () => import('../views/Personal/Trainer/ProfileComplete')
     },
 
 
@@ -148,7 +156,7 @@ const routes = [
         path: '/information',
         name: 'Information',
         meta: {layout: 'main', userSettings: true},
-        component: () => import(/* webpackChunkName: "about" */ '../views/Personal/Trainer/Information')
+        component: () => import('../views/Personal/Trainer/Information')
     },
 
 
@@ -158,7 +166,7 @@ const routes = [
         path: '/individual-lesson',
         name: 'IndividualLesson',
         meta: {layout: 'main', userSettings: true},
-        component: () => import(/* webpackChunkName: "about" */ '../views/Personal/Trainer/IndividualLesson')
+        component: () => import('../views/Personal/Trainer/IndividualLesson')
     },
 
     // Библиотека компонентов
@@ -175,13 +183,13 @@ const routes = [
         path: '/demo2',
         name: 'Demo2',
         meta: {layout: 'main'},
-        component: () => import(/* webpackChunkName: "about" */ '../views/Demo2')
+        component: () => import('../views/Demo2')
     },
     {
         path: '/demo3',
         name: 'Demo3',
         meta: {layout: 'main'},
-        component: () => import(/* webpackChunkName: "about" */ '../views/Demo3')
+        component: () => import('../views/Demo3')
     },
 
 ]

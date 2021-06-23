@@ -28,12 +28,9 @@
                   .widget-header__title Спортсмены, с которыми сейчас работаю
               .widget-content.pb-16
                 .text-small.mt-5.mb-10 Расскажите о своем опыте
-                base-button(label='Заполнить'  classAttr='button-default button-blue button-big mb-16')
-            WidgetTrainerSportsmanWork
+                base-button(label='Заполнить'  classAttr='button-default button-blue button-big mb-16' @click="$router.push({ name: 'Profile'})")
+            WidgetTrainerSportsmanWork(:items="profile.sportsmans")
         ModalTrainerSportsmanWork
-        ModalTrainerEstimateSkills
-        ModalTrainerNewEvent
-
 
 </template>
 
@@ -41,11 +38,9 @@
 import TrainerSidebar from "@/components/TrainerSidebar";
 import ModalTrainerSportsmanWork from "@/components/modals/ModalTrainerSportsmanWork";
 import WidgetTrainerSportsmanWork from "@/components/widgets/WidgetTrainerSportsmanWork";
-// import SidebarNewExercise from "@/components/SidebarNewExercise";
-import ModalTrainerEstimateSkills from "@/components/modals/ModalTrainerEstimateSkills";
-import ModalTrainerNewEvent from "@/components/modals/ModalTrainerNewEvent";
 import ScheduleHeader from "@/components/ScheduleHeader";
 import HeaderTrainerAccount from "@/components/elements/HeaderTrainerAccount";
+import {mapActions, mapState} from 'vuex';
 
 export default {
   name: "ProfileComplete",
@@ -55,9 +50,6 @@ export default {
   components: {
     HeaderTrainerAccount,
     ScheduleHeader,
-    ModalTrainerNewEvent,
-    ModalTrainerEstimateSkills,
-    // SidebarNewExercise,
     WidgetTrainerSportsmanWork,
     ModalTrainerSportsmanWork,
     TrainerSidebar
@@ -71,7 +63,15 @@ export default {
 
     },
 
+    ...mapActions('auth', ['loadProfile']),
+
   },
+  computed: {
+    ...mapState('auth', ['profile']),
+  },
+  created() {
+    this.loadProfile();
+  }
 }
 </script>
 
