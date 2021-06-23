@@ -25,10 +25,10 @@
         :settings='settings'
         :swicher="!isShowList ? true : false"
       )
-        .d-block
-          AccordionTrainerGroup(v-for='(item,i) in 3' :key='i')
-        .d-block
-          TrainerGroupItem(v-for='(item,i) in 3' :key='i')
+        .d-block(v-if="isShowGroup")
+          AccordionTrainerGroup(v-for='(item,i) in groups' :key='i' :item="item")
+        .d-block(v-else)
+          TrainerGroupItem(v-for='(item,i) in sportsmans' :key='i' :item="item")
 
 
 
@@ -62,7 +62,8 @@ export default {
       type: [String],
       default: ''
     },
-
+    groups: Array,
+    sportsmans: Array
   },
   components: {
     TrainerGroupItem,
@@ -72,6 +73,7 @@ export default {
   },
   data: () => ({
     isShowList: false,
+    isShowGroup: true,
     gamers: ['Группы', 'Спортсмены'],
     // playerList: null,
     settings: {
@@ -84,23 +86,14 @@ export default {
     toggleList: function () {
       this.isShowList = !this.isShowList;
     },
-    // changeGamer(gamer) {
-    //   this.currentGamer = gamer;
-    //   switch (gamer) {
-    //     case 'Вратари':
-    //       this.playerList = this.data.filter(item => item.position == "goalkeeper");
-    //       break;
-    //     case 'Защитники':
-    //       this.playerList = this.data.filter(item => item.position == "defender");
-    //       break;
-    //     case 'Нападающие':
-    //       this.playerList = this.data.filter(item => item.position == "forward");
-    //       break;
-    //     case 'Друзья':
-    //       this.playerList = this.data.filter(item => item.position == "friend");
-    //       break;
-    //   }
-    // }
+    changeGamer(gamer) {
+      if(gamer == 'Спортсмены') {
+        this.isShowGroup = false;
+      }
+      if(gamer == 'Группы') {
+        this.isShowGroup = true;
+      }
+    }
   },
   mounted() {
     // this.playerList = this.data.filter(item => item.position == "goalkeeper")

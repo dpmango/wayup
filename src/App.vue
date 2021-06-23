@@ -20,9 +20,9 @@ export default {
     EmptyLayout,
   },
   mounted() {
-    if (this.$store.state.auth.access) {
+    /*if (this.$store.state.auth.access) {
       this.$store.dispatch('auth/loadProfile')
-    }
+    }*/
 
     const $refreshToken = async () => {
       const refresh = localStorage.getItem('refresh')

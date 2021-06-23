@@ -18,7 +18,7 @@ if (token) {
 }
 
 HTTP_GRAF.interceptors.request.use(x => {
-  console.log(`${x.method.toUpperCase()} | ${x.url}`, x.params, x.data)
+
   const access = localStorage.getItem('access')
 
   if (access) x.headers.Authorization = `Bearer ${access}`
@@ -28,7 +28,7 @@ HTTP_GRAF.interceptors.request.use(x => {
 
 HTTP_GRAF.interceptors.response.use(
   x => {
-    console.log(`${x.status} | ${x.config.url}`, x.data)
+
     const access = localStorage.getItem('access')
 
     if (access) x.headers.Authorization = `Bearer ${access}`
@@ -39,7 +39,7 @@ HTTP_GRAF.interceptors.response.use(
     if (error.response && !error.response.config.url.includes('rest-auth')) {
       if (parseInt(error.response && error.response.status) === 401) {
         // await store.dispatch('auth/logout');
-        console.log('TODO - should dispatch logout action')
+        //console.log('TODO - should dispatch logout action')
       }
     }
 

@@ -11,7 +11,7 @@
         :swicher="!isShowList ? true : false"
 
       )
-        .award-items(v-for='(item,i) in 7' :key='i')
+        .award-items(v-for='(item,i) in items' :key='i')
           .award-item
             table
               tbody
@@ -22,12 +22,12 @@
                     )
                       img(src="@/assets/images/avatar.png")
                     .d-block
-                      .name.mb-2 Емельянов Никита
-                      .status.text-small.text-gray Защитник
+                      .name.mb-2 {{ item.user.firstName }} - {{ item.user.lastName }}
+                      .status.text-small.text-gray {{ changeGamer(item.positionName)}}
                 td
                   .d-block.pl-16.pr-4
                     .text-small.text-gray.mb-1 Дата рождения, возраст
-                    .text-middle 24 сентября 2013, 8 лет
+                    .text-middle {{ item.user.dateBirth}}, {{ item.user.age }} лет
                 td
                   .d-block.pl-10.pr-4
                     .text-small.text-gray.mb-1 Рост
@@ -71,6 +71,7 @@ export default {
       type: [String],
       default: ''
     },
+    items: [Array]
   },
   data: () => ({
     isShowList: false,
@@ -84,7 +85,17 @@ export default {
     handleOnClick: function () {
       this.isShowList = !this.isShowList;
       this.$emit("toggle");
-    }
+    },
+    changeGamer(gamer) {
+      let g = {
+        defender: 'Защитник',
+        goalkeeper: 'Вратари',
+        forward: 'Нападающие',
+      };
+
+      if(g[gamer]) return g[gamer];
+      return '';
+    },
 
 
   },

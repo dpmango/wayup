@@ -10,8 +10,8 @@
           v-col(md="12")
             GeneralProgress
             WidgetCalendar
-          v-col(md="7")
-            WidgetTrainerGroup
+          v-col(md="12")
+            WidgetTrainerGroup(:groups="groups" :sportsmans="profile.sportsmans")
 
 
 </template>
@@ -21,10 +21,34 @@ import WidgetTrainerGroup from '@/components/widgets/WidgetTrainerGroup'
 import WidgetCalendar from '@/components/widgets/WidgetCalendar'
 import HeaderTrainerAccount from '@/components/elements/HeaderTrainerAccount'
 import GeneralProgress from '@/components/personal/GeneralProgress'
+import {API_URL_GRAF} from "@/config/api";
+import axios from "axios";
+import {mapActions, mapState} from 'vuex';
 
 export default {
   name: 'Information',
   components: { GeneralProgress, HeaderTrainerAccount, WidgetTrainerGroup, WidgetCalendar },
+  data: () => ({
+    groups: [],
+  }),
+  methods: {
+    ...mapActions('auth', ['loadProfile']),
+  },
+  computed: {
+    ...mapState('auth', ['profile']),
+  },
+  mounted() {
+    var self = this;
+    axios.get(API_URL_GRAF + '/groups/', {
+      headers: {
+        'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
+        'Content-Type': 'application/json; charset=utf-8'
+      }
+    }).then(function (response) {
+      self.groups = response.data;
+    });
+    this.loadProfile();
+  }
 }
 </script>
 

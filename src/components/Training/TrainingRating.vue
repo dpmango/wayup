@@ -1,116 +1,75 @@
 <template lang="pug">
-  v-dialog(v-model='showSkills' max-width='900px')
-    .v-application.v-application--is-ltr
-      .modal-close( @click.stop="showSkills=false")
-      .modal-body
-        .d-flex.align-center.mb-8
-          v-avatar.avatar-player(
-            size='28'
-          )
-            img(src="@/assets/images/avatar.png")
-          .name.ml-2 {{ sportsman.firstName }} {{ sportsman.lastName }}
-        .d-flex.align-center.mb-5
-          .modal-title Оценка навыка
-           // base-badge.ml-16(
-           //   label="не завершено"
-           //   background="rgba(0, 0, 0, 0.1)"
-           //   textColor="#666666"
-           // )
+  .exercises__block
+    .exercises__block-left.mr-8
+      .emoji-56.mt-n3 🚩
+    .exercises__block-right
+      .exercises__block-title.mb-12 {{ skill.name }}
+      v-btn-toggle.exercises-estimate.mb-8(v-model='exercises_estimate' mandatory='')
+        v-tooltip(bottom='')
+          template(v-slot:activator='{ on, attrs }')
+            v-btn.border-red(v-bind='attrs' v-on='on')
+              | 1
+        v-tooltip(bottom='')
+          template(v-slot:activator='{ on, attrs }')
+            v-btn.border-red(v-bind='attrs' v-on='on')
+              | 2
+        v-tooltip(bottom='')
+          template(v-slot:activator='{ on, attrs }')
+            v-btn.border-red(v-bind='attrs' v-on='on')
+              | 3
 
-        .mainSkills(v-if="exer.exercise.mainSkills.length") Основные навыки
-        TrainingRating(
-          v-for="skill in exer.exercise.mainSkills"
-          :key="skill.id"
-          :skill="skill"
-          ref="tr"
-          )
-        .mainSkills(v-if="exer.exercise.extraSkills.length") Дополнительные навыки
-        TrainingRating(
-          v-for="skill in exer.exercise.extraSkills"
-          :key="skill.id"
-          :skill="skill"
-          ref="tr"
-        )
+        v-tooltip(bottom='')
+          template(v-slot:activator='{ on, attrs }')
+            v-btn.border-gray(v-bind='attrs' v-on='on')
+              | 4
 
-      .modal-footer
-        .d-flex.align-center.justify-end
-          //base-button(
-          //  classAttr='button-default button-nav-left mr-4'
-          //  label="Назад"
-          // )
-          //  template(#icon-left)
-           //   svg.arrow-buttom(width='16' height='40' viewBox='0 0 16 40' fill='none' xmlns='http://www.w3.org/2000/svg')
-            //    path(d='M16 40H13.8799C10.6851 40 7.79656 38.0992 6.53261 35.165L1.36338 23.165C0.493114 21.1447 0.493115 18.8553 1.36338 16.835L6.53261 4.835C7.79657 1.90083 10.6851 0 13.8799 0H16V40Z')
-          base-button(
-            classAttr='button-default button-nav-right'
-            label="Сохранить"
-            @click="estimate"
-          )
-            template(#icon-left)
-              svg.arrow-buttom(width='16' height='40' viewBox='0 0 16 40' fill='none' xmlns='http://www.w3.org/2000/svg')
-                path(d='M16 40H13.8799C10.6851 40 7.79656 38.0992 6.53261 35.165L1.36338 23.165C0.493114 21.1447 0.493115 18.8553 1.36338 16.835L6.53261 4.835C7.79657 1.90083 10.6851 0 13.8799 0H16V40Z')
-
-
+        v-tooltip(bottom='')
+          template(v-slot:activator='{ on, attrs }')
+            v-btn.border-gray(v-bind='attrs' v-on='on')
+              | 5
+        v-tooltip(bottom='')
+          template(v-slot:activator='{ on, attrs }')
+            v-btn.border-gray(v-bind='attrs' v-on='on')
+              | 6
+        v-tooltip(bottom='')
+          template(v-slot:activator='{ on, attrs }')
+            v-btn.border-green(v-bind='attrs' v-on='on')
+              | 7
+        v-tooltip(bottom='')
+          template(v-slot:activator='{ on, attrs }')
+            v-btn.border-green(v-bind='attrs' v-on='on')
+              | 8
+        v-tooltip(bottom='')
+          template(v-slot:activator='{ on, attrs }')
+            v-btn.border-green(v-bind='attrs' v-on='on')
+              | 9
+        v-tooltip(bottom='')
+          template(v-slot:activator='{ on, attrs }')
+            v-btn.border-green(v-bind='attrs' v-on='on')
+              | 10
 </template>
 
 <script>
-  import AccordionEstimation from "@/components/AccordionEstimation";
-  import AccordionSkills from "@/components/AccordionSkills";
-  import TrainingRating from "@/components/Training/TrainingRating";
-  import axios from "axios";
-  import {API_URL_GRAF} from "../../config/api";
-
   export default {
-    name: "ModalTrainerEstimateSkills",
-    components: {AccordionSkills, AccordionEstimation, TrainingRating},
-    props: ['visible', 'sportsman', 'exer'],
-    computed: {
-      showSkills: {
-        get() {
-          return this.visible
-        },
-        set(value) {
-          if (!value) {
-            this.$emit('close')
-          }
-        }
-      }
-    },
-    methods: {
-      estimate() {
-        // Отправить на сервер
-        let estimateList = [];
-        let elems = this.$refs.tr;
+    name: "TrainingRating",
+    props: ['skill'],
 
-        elems.map((item) => {
-          console.log(item);
-          let estimate = {
-            mark: item.exercises_estimate + 1,
-            comment: "",
-            sportsman: this.plan.attenders[0].user.id,
-            skill: item.skill.id,
-            exerciseEvent: this.exer.id
-          };
-          estimateList.push(estimate);
-        });
-
-        axios({
-          method: 'post',
-          url: API_URL_GRAF + '/skills/marks/',
-          data: estimateList,
-          headers: {
-            'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
-            'Content-Type': 'application/json; charset=utf-8'
-          }
-        }).then(function (response) {
-          console.log(response);
-        });
+    data: () => ({
+      exercises_estimate: 0
+    }),
+    mounted() {
+      if(this.skill.mark) {
+        this.exercises_estimate = parseInt((this.skill.mark / 10) - 1);
       }
     }
+
   }
 </script>
 
 <style scoped lang="scss">
+  .exercises__block {
+    padding-bottom: 50px;
+  }
   .mainSkills {
     padding-bottom: 20px;
     opacity: .6;
