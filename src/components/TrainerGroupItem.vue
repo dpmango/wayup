@@ -9,7 +9,7 @@
           width='2'
         )
           img.player-photo(
-            src="@/assets/images/avatar.png"
+            :src='item.user.avatar'
           )
       .player-block__right
         .player-block__name.title-medium.mb-1 {{ item.user.firstName }} {{ item.user.lastName }}
@@ -26,6 +26,7 @@
               textColor="#000000"
             )
             base-badge.mr-2.mb-1(
+              v-if="item.isReserve"
               label='Запас'
               color='#F1F3F9'
               textColor="#000000"
