@@ -23,7 +23,6 @@ import HeaderTrainerAccount from '@/components/elements/HeaderTrainerAccount'
 import GeneralProgress from '@/components/personal/GeneralProgress'
 import {API_URL_GRAF} from "@/config/api";
 import axios from "axios";
-import {mapActions, mapState} from 'vuex';
 
 export default {
   name: 'Information',
@@ -31,12 +30,7 @@ export default {
   data: () => ({
     groups: [],
   }),
-  methods: {
-    ...mapActions('auth', ['loadProfile']),
-  },
-  computed: {
-    ...mapState('auth', ['profile']),
-  },
+  props: ['profile'],
   mounted() {
     var self = this;
     axios.get(API_URL_GRAF + '/groups/', {
@@ -47,7 +41,6 @@ export default {
     }).then(function (response) {
       self.groups = response.data;
     });
-    this.loadProfile();
   }
 }
 </script>

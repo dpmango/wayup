@@ -8,7 +8,17 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: "/",
-        redirect: '/profile-complete'
+        redirect: (() => {
+            const role = localStorage.getItem('role');
+            if(role == 'C') {
+                return '/account-trainer';
+            }
+            if(role == 'Sp') {
+                return '/account-sportsman';
+            }
+
+
+        })
     },
 
     // Календарь
@@ -63,7 +73,7 @@ const routes = [
         path: '/account-trainer',
         name: 'PersonalTrainer',
         component: () => import('../views/AccountTrainer'),
-        redirect: '/account-trainer/main',
+        redirect: '/account-trainer/profile-complete',
         children: TrainerChildren,
     },
 
@@ -131,44 +141,6 @@ const routes = [
         component: () => import('../views/Login')
     },
 
-    // Профиль тренера
-
-    {
-        path: '/profile',
-        name: 'Profile',
-        meta: {layout: 'main', userSettings: true},
-        component: () => import('../views/Personal/Trainer/Profile')
-    },
-
-    // Профиль тренера (заполненный)
-
-    {
-        path: '/profile-complete',
-        name: 'ProfileComplete',
-        meta: {layout: 'main', userSettings: true},
-        component: () => import('../views/Personal/Trainer/ProfileComplete')
-    },
-
-
-    // Общая информация (тренер)
-
-    {
-        path: '/information',
-        name: 'Information',
-        meta: {layout: 'main', userSettings: true},
-        component: () => import('../views/Personal/Trainer/Information')
-    },
-
-
-    // Общая информация (тренер)
-
-    {
-        path: '/individual-lesson',
-        name: 'IndividualLesson',
-        meta: {layout: 'main', userSettings: true},
-        component: () => import('../views/Personal/Trainer/IndividualLesson')
-    },
-
     // Библиотека компонентов
     {
         path: '/components',
@@ -205,6 +177,20 @@ router.beforeEach((to, from, next) => {
   const publicPages = ['/login', '/registration']
   const authRequired = !publicPages.includes(to.path)
   const loggedIn = localStorage.getItem('access')
+
+    const sportsmanPage = '/account-sportsman';
+    const trainerPage = '/account-trainer';
+    const role = localStorage.getItem('role');
+    const isPrivateSportsman = to.path.includes(sportsmanPage)
+    const isPrivateTrainer = to.path.includes(trainerPage)
+
+    if(role == 'C' && isPrivateSportsman) {
+        next('/account-trainer')
+    }
+
+    if(role == 'Sp' && isPrivateTrainer) {
+        next('/account-sportsman')
+    }
 
   if (authRequired && !loggedIn) {
     next('/login')

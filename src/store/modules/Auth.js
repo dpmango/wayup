@@ -64,13 +64,15 @@ const actions = {
 
     if (err) throw err
 
-    const { access, refresh, userRole } = data
+    //const { access, refresh, userRole } = data
+
+    const { access,  userRole } = data
 
     commit(SET_ACCESS, access)
-    commit(SET_REFRESH, refresh)
+    //commit(SET_REFRESH, refresh)
     commit(SET_ROLE, userRole)
     localStorage.setItem('access', access)
-    localStorage.setItem('refresh', refresh)
+    //localStorage.setItem('refresh', refresh)
     localStorage.setItem('role', userRole)
 
     return data

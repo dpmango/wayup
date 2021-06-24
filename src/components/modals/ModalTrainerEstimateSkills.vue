@@ -22,6 +22,8 @@
           v-for="skill in exer.exercise.mainSkills"
           :key="skill.id"
           :skill="skill"
+          :mistakelist="mistakelist"
+          :mistakeFactorList="mistakeFactorList"
           ref="tr"
           )
         .mainSkills(v-if="exer.exercise.extraSkills.length") Дополнительные навыки
@@ -29,6 +31,8 @@
           v-for="skill in exer.exercise.extraSkills"
           :key="skill.id"
           :skill="skill"
+          :mistakelist="mistakelist"
+          :mistakeFactorList="mistakeFactorList"
           ref="tr"
         )
 
@@ -55,15 +59,15 @@
 
 <script>
   import AccordionEstimation from "@/components/AccordionEstimation";
-  import AccordionSkills from "@/components/AccordionSkills";
   import TrainingRating from "@/components/Training/TrainingRating";
+  import moment from 'moment'
   import axios from "axios";
   import {API_URL_GRAF} from "../../config/api";
 
   export default {
     name: "ModalTrainerEstimateSkills",
-    components: {AccordionSkills, AccordionEstimation, TrainingRating},
-    props: ['visible', 'sportsman', 'exer', 'plan'],
+    components: {AccordionEstimation, TrainingRating},
+    props: ['visible', 'sportsman', 'exer', 'plan', 'mistakelist', 'mistakeFactorList'],
     computed: {
       showSkills: {
         get() {
@@ -80,20 +84,61 @@
       estimate() {
         // Отправить на сервер
         let estimateList = [];
+        let homeWorkList = [];
+        let homeMistakeList = [];
         let elems = this.$refs.tr;
 
         elems.map((item) => {
-          let estimate = {
-            mark: item.exercises_estimate + 1,
-            comment: "",
-            sportsman: this.plan.attenders[0].user.id,
-            skill: item.skill.id,
-            exerciseEvent: this.exer.id
-          };
-          estimateList.push(estimate);
+          //console.log('exercises_estimate', item.exercises_estimate);
+          if(item.exercises_estimate !== null) {
+            let estimate = {
+              mark: item.exercises_estimate + 1,
+              comment: "",
+              sportsman: this.plan.attenders[0].id,
+              skill: item.skill.id,
+              exerciseEvent: this.exer.id
+            };
+
+            estimateList.push(estimate);
+          }
+
+
+          if(item.$refs.home) {
+            item.$refs.home.homemistakes.map(ms => {
+              console.log(Object.keys(ms.mistakes).length);
+              //console.log(ms.mistakes.value);
+              if(Object.keys(ms.mistakes).length) {
+
+                let mistake =  {
+                  reference: ms.mistakes.value,
+                  skill: item.skill.id,
+                  factors: Array.from(ms.factors, x => x.value),
+                  sportsman:  this.plan.attenders[0].id
+                };
+                homeMistakeList.push(mistake)
+              }
+
+            });
+
+            if(item.$refs.home.homework.length) {
+              let task = {
+                title: item.$refs.home.homework,
+                dateToDo: moment(item.$refs.home.dateStart).utc().format('YYYY-MM-DD'),
+                sportsman: this.plan.attenders[0].id,
+                skill: item.skill.id,
+              };
+
+              homeWorkList.push(task);
+            }
+
+          }
+
         });
 
-        axios({
+
+        // Отправляем оценки
+        if(estimateList.length > 0) {
+          axios({
           method: 'post',
           url: API_URL_GRAF + '/skills/marks/',
           data: estimateList,
@@ -102,8 +147,41 @@
             'Content-Type': 'application/json; charset=utf-8'
           }
         }).then(function () {
-          window.location.reload();
+            // Отправляем ошибки
+            if(homeMistakeList.length > 0) {
+              axios({
+                method: 'post',
+                url: API_URL_GRAF + '/homework/mistakes/',
+                data: homeMistakeList,
+                headers: {
+                  'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
+                  'Content-Type': 'application/json; charset=utf-8'
+                }
+              }).then(function () {
+                // Отправляем ДЗ
+                if(homeWorkList.length > 0) {
+                  axios({
+                    method: 'post',
+                    url: API_URL_GRAF + '/homework/hometasks/',
+                    data: homeWorkList,
+                    headers: {
+                      'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
+                      'Content-Type': 'application/json; charset=utf-8'
+                    }
+                  }).then(function () {
+                    window.location.reload();
+                  });
+                } else {
+                  window.location.reload();
+                }
+              });
+            } else {
+              window.location.reload();
+            }
         });
+        }
+
+
       }
     }
   }

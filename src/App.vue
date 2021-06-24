@@ -24,10 +24,8 @@ export default {
       this.$store.dispatch('auth/loadProfile')
     }*/
 
-    const $refreshToken = async () => {
+    /*const $refreshToken = async () => {
       const refresh = localStorage.getItem('refresh')
-
-      // console.log('refreshing token', refresh)
 
       if (refresh) {
         try {
@@ -37,14 +35,14 @@ export default {
           // throw new Error('Ошибка обновления токена');
         }
       }
-    }
+    }*/
 
-    $refreshToken()
+    //$refreshToken()
 
     // TODO - add cookies timestamps
 
     setInterval(() => {
-      $refreshToken()
+      //$refreshToken()
     }, 30 * 60 * 1000)
   },
 }

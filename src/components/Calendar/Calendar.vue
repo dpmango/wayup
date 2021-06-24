@@ -58,9 +58,11 @@ export default {
       }
     },
     ...mapActions('events', ['loadEvents']),
+    ...mapActions('auth', ['loadProfile']),
   },
   created() {
-    this.loadEvents()
+    this.loadEvents(),
+      this.loadProfile()
   },
 }
 </script>

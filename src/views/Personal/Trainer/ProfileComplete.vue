@@ -6,7 +6,7 @@
         md='12'
       )
         .link-profile__block
-          router-link.link-profile(to="/information") Общая информация
+          router-link.link-profile(to="/account-trainer/information") Общая информация
         h1.title-big.mb-5 Мой профиль
         //SidebarNewExercise(
         //  @sidebarWidgetsClose="sidebarWidgetsClose"
@@ -40,13 +40,13 @@ import ModalTrainerSportsmanWork from "@/components/modals/ModalTrainerSportsman
 import WidgetTrainerSportsmanWork from "@/components/widgets/WidgetTrainerSportsmanWork";
 import ScheduleHeader from "@/components/ScheduleHeader";
 import HeaderTrainerAccount from "@/components/elements/HeaderTrainerAccount";
-import {mapActions, mapState} from 'vuex';
 
 export default {
   name: "ProfileComplete",
   data: () => ({
     isShowSidebarWidgets: false,
   }),
+  props: ['profile'],
   components: {
     HeaderTrainerAccount,
     ScheduleHeader,
@@ -63,15 +63,8 @@ export default {
 
     },
 
-    ...mapActions('auth', ['loadProfile']),
+  },
 
-  },
-  computed: {
-    ...mapState('auth', ['profile']),
-  },
-  created() {
-    this.loadProfile();
-  }
 }
 </script>
 
