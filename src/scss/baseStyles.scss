@@ -824,4 +824,9 @@
   @include width-flex(24px)
 }
 
+.player-photo__wrap{
+  border-radius: 50%;
+  overflow: hidden;
+}
+
 /**/

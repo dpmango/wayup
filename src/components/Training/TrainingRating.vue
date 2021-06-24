@@ -1,74 +1,105 @@
 <template lang="pug">
-  .exercises__block
-    .exercises__block-left.mr-8
-      .emoji-56.mt-n3 🚩
-    .exercises__block-right
-      .exercises__block-title.mb-12 {{ skill.name }}
-      v-btn-toggle.exercises-estimate.mb-8(v-model='exercises_estimate' mandatory='')
-        v-tooltip(bottom='')
-          template(v-slot:activator='{ on, attrs }')
-            v-btn.border-red(v-bind='attrs' v-on='on')
-              | 1
-        v-tooltip(bottom='')
-          template(v-slot:activator='{ on, attrs }')
-            v-btn.border-red(v-bind='attrs' v-on='on')
-              | 2
-        v-tooltip(bottom='')
-          template(v-slot:activator='{ on, attrs }')
-            v-btn.border-red(v-bind='attrs' v-on='on')
-              | 3
+  div
+    .exercises__block
+      .exercises__block-left.mr-8
+        .emoji-56.mt-n3 🚩
+      .exercises__block-right
+        .exercises__block-title.mb-12 {{ skill.name }}
+        v-btn-toggle.exercises-estimate.mb-8(v-model='exercises_estimate' )
+          v-tooltip(bottom='')
+            template(v-slot:activator='{ on, attrs }')
+              v-btn.border-red(v-bind='attrs' v-on='on' )
+                | 1
+          v-tooltip(bottom='')
+            template(v-slot:activator='{ on, attrs }')
+              v-btn.border-red(v-bind='attrs' v-on='on')
+                | 2
+          v-tooltip(bottom='')
+            template(v-slot:activator='{ on, attrs }')
+              v-btn.border-red(v-bind='attrs' v-on='on')
+                | 3
 
-        v-tooltip(bottom='')
-          template(v-slot:activator='{ on, attrs }')
-            v-btn.border-gray(v-bind='attrs' v-on='on')
-              | 4
+          v-tooltip(bottom='')
+            template(v-slot:activator='{ on, attrs }')
+              v-btn.border-gray(v-bind='attrs' v-on='on')
+                | 4
 
-        v-tooltip(bottom='')
-          template(v-slot:activator='{ on, attrs }')
-            v-btn.border-gray(v-bind='attrs' v-on='on')
-              | 5
-        v-tooltip(bottom='')
-          template(v-slot:activator='{ on, attrs }')
-            v-btn.border-gray(v-bind='attrs' v-on='on')
-              | 6
-        v-tooltip(bottom='')
-          template(v-slot:activator='{ on, attrs }')
-            v-btn.border-green(v-bind='attrs' v-on='on')
-              | 7
-        v-tooltip(bottom='')
-          template(v-slot:activator='{ on, attrs }')
-            v-btn.border-green(v-bind='attrs' v-on='on')
-              | 8
-        v-tooltip(bottom='')
-          template(v-slot:activator='{ on, attrs }')
-            v-btn.border-green(v-bind='attrs' v-on='on')
-              | 9
-        v-tooltip(bottom='')
-          template(v-slot:activator='{ on, attrs }')
-            v-btn.border-green(v-bind='attrs' v-on='on')
-              | 10
+          v-tooltip(bottom='')
+            template(v-slot:activator='{ on, attrs }')
+              v-btn.border-gray(v-bind='attrs' v-on='on')
+                | 5
+          v-tooltip(bottom='')
+            template(v-slot:activator='{ on, attrs }')
+              v-btn.border-gray(v-bind='attrs' v-on='on')
+                | 6
+          v-tooltip(bottom='')
+            template(v-slot:activator='{ on, attrs }')
+              v-btn.border-green(v-bind='attrs' v-on='on')
+                | 7
+          v-tooltip(bottom='')
+            template(v-slot:activator='{ on, attrs }')
+              v-btn.border-green(v-bind='attrs' v-on='on')
+                | 8
+          v-tooltip(bottom='')
+            template(v-slot:activator='{ on, attrs }')
+              v-btn.border-green(v-bind='attrs' v-on='on')
+                | 9
+          v-tooltip(bottom='')
+            template(v-slot:activator='{ on, attrs }')
+              v-btn.border-green(v-bind='attrs' v-on='on')
+                | 10
+    div(v-if="isShowAccordions")
+      AccordionSkillsDemo(:mistakelist="mistakelist" :mistakeFactorList="mistakeFactorList" ref="home")
 </template>
 
 <script>
+  import AccordionSkillsDemo from "@/components/AccordionSkillsDemo";
   export default {
     name: "TrainingRating",
-    props: ['skill'],
+    components: {AccordionSkillsDemo},
+    props: ['skill', 'mistakelist', 'mistakeFactorList'],
 
     data: () => ({
-      exercises_estimate: 0
+      isShowAccordions:false,
+      exercises_estimate: null
     }),
     mounted() {
       if(this.skill.mark) {
         this.exercises_estimate = parseInt((this.skill.mark / 10) - 1);
       }
-    }
+
+    },
+    methods:{
+      // showAccordion(){
+      //   console.log('exercises_estimate', this.exercises_estimate )
+      //   if(this.exercises_estimate < 6) {
+      //     this.isShowAccordions = true;
+      //     console.log('true')
+      //
+      //     // console.log('test', this.exercises_estimate )
+      //   }else{
+      //     this.isShowAccordions = false;
+      //     console.log('false')
+      //   }
+      // }
+    },
+    watch: {
+      exercises_estimate: function (val) {
+        if(val < 6) {
+          this.isShowAccordions = true;
+        }else{
+          this.isShowAccordions = false;
+        }
+      },
+
+    },
 
   }
 </script>
 
 <style scoped lang="scss">
   .exercises__block {
-    padding-bottom: 50px;
+    //padding-bottom: 50px;
   }
   .mainSkills {
     padding-bottom: 20px;

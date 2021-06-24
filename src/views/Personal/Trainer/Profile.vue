@@ -401,7 +401,7 @@
                   span.list-more(v-if='!isShowList') Развернуть список
                   span.list-small(v-if='isShowList') Свернуть список
 
-            router-link(to="/profile-complete")
+            router-link(to="/account-trainer/profile-complete")
               base-button(
                 classAttr='button-default button-blue button-big w-100'
                 label="Сохранить"

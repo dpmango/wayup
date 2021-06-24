@@ -117,6 +117,8 @@
       :sportsman="plan.attenders[0].user"
       :exer="ratingEvent"
       :plan="plan"
+      :mistakelist="mistakeList"
+      :mistakeFactorList="mistakeFactorList"
         v-if="dialogEventSkills"
       )
 
@@ -148,7 +150,9 @@
     data: () => ({
       plan: {},
       dialogEventSkills: false,
-      ratingEvent: {}
+      ratingEvent: {},
+      mistakeList: [],
+      mistakeFactorList: []
     }),
     computed: {
       datePlan: function() {
@@ -195,7 +199,7 @@
         // Событие
         let self = this;
         this.loadProfile().then(() => {
-          axios.get(API_URL_GRAF + '/events/coach/' + this.$route.params.id + '/sportsman/'+ this.profile.sportsmans[0].user.id +'/', {
+          axios.get(API_URL_GRAF + '/events/coach/' + this.$route.params.id + '/sportsman/'+ this.profile.sportsmans[0].id +'/', {
             headers: {
               'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
               'Content-Type': 'application/json; charset=utf-8'
@@ -207,7 +211,27 @@
             self.plan = response.data;
 
             self.loadUtils();
+
+            axios.get(API_URL_GRAF + '/homework/mistake_references/', {
+              headers: {
+                'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
+                'Content-Type': 'application/json; charset=utf-8'
+              }
+            }).then(function (response) {
+             self.mistakeList = response.data;
+            });
+
+            axios.get(API_URL_GRAF + '/homework/factors/', {
+              headers: {
+                'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
+                'Content-Type': 'application/json; charset=utf-8'
+              }
+            }).then(function (response) {
+              self.mistakeFactorList = response.data;
+            });
           });
+
+
         });
 
 

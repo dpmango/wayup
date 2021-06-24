@@ -11,6 +11,7 @@
     v-mask="mask"
     :placeholder='placeholder'
     :rules="rules"
+    :maxlength="maxlength"
   )
     template(slot='prepend-inner')
       slot(name="icon")
@@ -57,6 +58,10 @@ export default {
       default: ''
     },
     placeholder: {
+      type: String,
+      default: ''
+    },
+    maxlength: {
       type: String,
       default: ''
     },

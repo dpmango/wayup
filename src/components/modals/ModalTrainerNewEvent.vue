@@ -168,7 +168,7 @@ export default {
         let list = [];
         if(this.profile.sportsmans) {
           this.profile.sportsmans.map(item => {
-            list.push({text: item.user.firstName + ' ' + item.user.lastName, value: item.user.id});
+            list.push({text: item.user.firstName + ' ' + item.user.lastName, value: item.id});
           });
         }
 
