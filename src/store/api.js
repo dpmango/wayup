@@ -117,6 +117,9 @@ export const ProfileResource = {
   get() {
     return HTTP_GRAF.get('/coaches/')
   },
+  edit(data){
+    return HTTP_GRAF.patch('/coaches/', data)
+  }
 }
 
 export const ExerciseResource = {
