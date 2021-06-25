@@ -5,6 +5,7 @@
         .widget-header__title 📊 Таймлайн, отображающий стаж и события
     .widget-content
       // timeline component
+      .dev-log {{events.workplaces}}
       .timeline
         .timeline__events
           .timeline__events-row(v-for="ev in events" :key="ev.id")
@@ -33,51 +34,9 @@ export default {
     return {};
   },
   computed: {
-    getWorkplaces() {
-      return [
-        {
-          id: 1,
-          dateStart: '2014-06-11',
-          dateEnd: '2015-06-11',
-          employer: 'CSKA',
-          position: 'Coach',
-          responsibilities: 'Caoching',
-          coach: 1,
-        },
-        {
-          id: 2,
-          dateStart: '2017-06-11',
-          dateEnd: '2021-06-11',
-          employer: 'CSKA',
-          position: 'Coach',
-          responsibilities: 'Caoching',
-          coach: 1,
-        },
-      ];
-    },
-    getEducations() {
-      return [
-        {
-          id: 1,
-          title: 'Институт',
-          dateStart: '2018-06-11',
-          dateEnd: '2019-06-11',
-          refresherCourses: 'Никаких )',
-          coach: 1,
-        },
-        {
-          id: 2,
-          title: 'Институт',
-          dateStart: '2008-06-11',
-          dateEnd: '2015-06-11',
-          refresherCourses: 'Никаких )',
-          coach: 1,
-        },
-      ];
-    },
     dates() {
-      const workplaces = this.getWorkplaces;
-      const educations = this.getEducations;
+      const workplaces = this.workplaces;
+      const educations = this.educations;
 
       const years = [];
 
@@ -111,13 +70,8 @@ export default {
       };
     },
     events() {
-      // TEMPORARY DATA for testing
-      // const workplaces = this.workplaces
-      const workplaces = this.getWorkplaces;
-
-      // .sort((a,b) => a.dateStart > b.dateStart)
-      // const educations = this.educations
-      const educations = this.getEducations;
+      const workplaces = this.workplaces;
+      const educations = this.educations;
       const { yearMin, yearsDiff } = this.datesDistance;
 
       const getStyle = ({ dateStart, dateEnd }) => {
@@ -156,7 +110,7 @@ export default {
             return {
               ...mapperFunction(x),
               ...{
-                // title: `${x.employer} : ${x.position} : ${x.responsibilities}`,
+                title: `📆 ${x.employer} ${x.position} : ${x.responsibilities}`,
               },
             };
           }),
@@ -167,7 +121,7 @@ export default {
             return {
               ...mapperFunction(x),
               ...{
-                // title: `${x.title} : ${x.Никаких}`,
+                title: `📆 ${x.title}`,
               },
             };
           }),
