@@ -13,6 +13,7 @@ import Vuelidate from 'vuelidate'
 import { VueMaskDirective } from 'v-mask'
 import VueDatePicker from '@mathieustan/vue-datepicker'
 import '@mathieustan/vue-datepicker/dist/vue-datepicker.min.css'
+import VTooltip from 'v-tooltip'
 
 Vue.use(VueDatePicker, {
   lang: 'ru',
@@ -35,6 +36,8 @@ Vue.use(Vuelidate)
 Vue.use(VueSimpleAccordion, {
   tags: {},
 })
+
+Vue.use(VTooltip)
 
 Vue.config.productionTip = false
 

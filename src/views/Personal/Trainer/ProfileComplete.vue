@@ -23,13 +23,8 @@
           )
             base-button(label='Скачать резюме'  classAttr='button-default button-blue button-big mb-6')
             
-            // tiomeline widget
-            .widget
-              .widget-header
-                .widget-header__top
-                  .widget-header__title 📊 Таймлайн, отображающий стаж и события
-              .widget-content.pb-16
-                WidgetTrainerTimeline(:workplaces="profile.workplaces" :educations="profile.educations")
+            // timeline widget
+            WidgetTrainerTimeline(:workplaces="profile.workplaces" :educations="profile.educations")
 
             WidgetTrainerSportsmanWork(:items="profile.sportsmans")
         
