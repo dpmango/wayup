@@ -463,7 +463,7 @@ export default {
 }
 
 .profile-table__left {
-  @include width-flex(10%)
+  @include width-flex(10%);
   padding-right: 10px;
 }
 

@@ -22,14 +22,17 @@
             md='10'
           )
             base-button(label='Скачать резюме'  classAttr='button-default button-blue button-big mb-6')
+            
+            // tiomeline widget
             .widget
               .widget-header
                 .widget-header__top
-                  .widget-header__title Спортсмены, с которыми сейчас работаю
+                  .widget-header__title 📊 Таймлайн, отображающий стаж и события
               .widget-content.pb-16
-                .text-small.mt-5.mb-10 Расскажите о своем опыте
-                base-button(label='Заполнить'  classAttr='button-default button-blue button-big mb-16' @click="$router.push({ name: 'Profile'})")
+                WidgetTrainerTimeline(:workplaces="profile.workplaces" :educations="profile.educations")
+
             WidgetTrainerSportsmanWork(:items="profile.sportsmans")
+        
         ModalTrainerSportsmanWork
 
 </template>
@@ -38,6 +41,7 @@
 import TrainerSidebar from "@/components/TrainerSidebar";
 import ModalTrainerSportsmanWork from "@/components/modals/ModalTrainerSportsmanWork";
 import WidgetTrainerSportsmanWork from "@/components/widgets/WidgetTrainerSportsmanWork";
+import WidgetTrainerTimeline from "@/components/widgets/WidgetTrainerTimeline";
 import ScheduleHeader from "@/components/ScheduleHeader";
 import HeaderTrainerAccount from "@/components/elements/HeaderTrainerAccount";
 
@@ -51,6 +55,7 @@ export default {
     HeaderTrainerAccount,
     ScheduleHeader,
     WidgetTrainerSportsmanWork,
+    WidgetTrainerTimeline,
     ModalTrainerSportsmanWork,
     TrainerSidebar
   },
