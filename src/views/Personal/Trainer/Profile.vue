@@ -38,7 +38,7 @@
                         base-input(
                           label="Введите"
                           classAttr="input-default input-big text-gray w-100"
-                          v-model="form.last_name"
+                          v-model="form.lastName"
                         )
 
                     .inputs-row
@@ -49,7 +49,7 @@
                         base-input(
                           label="Введите"
                           classAttr="input-default input-big text-gray w-100"
-                          v-model="form.first_name"
+                          v-model="form.firstName"
                         )
                     .inputs-row
 
@@ -212,13 +212,12 @@
                               v-model='form.docIssuer'
                               v-mask="'### ###'"
                             )
-                          v-col(
-                            md='10'
-                          )
+                          v-col(md='10')
 
                             base-input(
                               label="Введите"
                               classAttr="input-default input-big text-gray w-100"
+                              v-model='form.docIssuerName'
                             )
                     .inputs-row
                       .profile-table__left
@@ -234,9 +233,7 @@
                         DropzonePhotoPassportBlock
 
                 .widget-footer
-                  .widget-footer__text(
-                    @click='toggleList'
-                  )
+                  .widget-footer__text(@click='toggleList')
                     span.list-more(v-if='!isShowList') Развернуть список
                     span.list-small(v-if='isShowList') Свернуть список
 
@@ -410,6 +407,7 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
 import moment from 'moment';
 import ScheduleHeader from '@/components/ScheduleHeader';
 import DropzonePhotoBlock from '@/components/elements/DropzonePhotoBlock';
@@ -417,14 +415,16 @@ import DropzonePhotoPassportBlock from '@/components/elements/DropzonePhotoPassp
 import DataPicker from '@/components/elements/DataPicker';
 import HeaderTrainerAccount from '@/components/elements/HeaderTrainerAccount';
 
+import { ProfileResource } from '@/store/api'
+
 export default {
   name: 'Profile',
   components: { HeaderTrainerAccount, DataPicker, DropzonePhotoPassportBlock, DropzonePhotoBlock, ScheduleHeader },
   data: () => ({
     isShowList: true,
     form: {
-      last_name: null,
-      first_name: null,
+      lastName: null,
+      firstName: null,
       nickname: null,
       birthday: new Date(),
       marriage: null,
@@ -436,6 +436,7 @@ export default {
       docSeries: null,
       docNumber: null,
       docIssuer: null,
+      docIssuerName: null,
       registration: null,
       docDate: new Date(),
       photos: null,
@@ -459,12 +460,14 @@ export default {
       rhesus: ['Положительный', 'Отрицательный'],
     },
   }),
-
+  computed: {
+    ...mapGetters('auth', ['profile'])
+  },
   methods: {
-    handleSubmit() {
+    async handleSubmit() {
       const {
-        last_name,
-        first_name,
+        lastName,
+        firstName,
         nickname,
         birthday,
         marriage,
@@ -476,6 +479,7 @@ export default {
         docSeries,
         docNumber,
         docIssuer,
+        docIssuerName,
         registration,
         docDate,
         photos,
@@ -495,8 +499,8 @@ export default {
       } = this.form;
 
       console.log({
-        last_name,
-        first_name,
+        lastName,
+        firstName,
         nickname,
         birthday,
         marriage,
@@ -507,6 +511,7 @@ export default {
         docSeries,
         docNumber,
         docIssuer,
+        docIssuerName,
         registration,
         docDate,
         photos,
@@ -523,6 +528,32 @@ export default {
         coursesEnd,
         diploma,
       });
+
+      // console.log('getter profile', this.profile)
+
+      await ProfileResource.edit({
+        ...this.profile, 
+        ...{
+          user: {
+            
+            ...this.profile.user,
+            ...{
+              lastName,
+              firstName
+            }
+          },
+          sportsmans: this.profile.sportsmans.map(x=> x.id)
+        },
+      })
+      .then(response => {
+        console.log({response})
+      })
+      .catch(err => {
+        console.log(err)
+        throw err.response
+      })
+
+
     },
     toggleList() {
       this.isShowList = !this.isShowList;

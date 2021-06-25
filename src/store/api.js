@@ -117,9 +117,18 @@ export const ProfileResource = {
   get() {
     return HTTP_GRAF.get('/coaches/')
   },
-  edit(data){
-    return HTTP_GRAF.patch('/coaches/', data)
-  }
+  /**
+    @param email String required
+    @param password String required
+  **/
+  async edit(request) {
+    try {
+      const { data } = await HTTP_GRAF.put('/coaches/', request)
+      return [null, data]
+    } catch (error) {
+      return [error, null]
+    }
+  },
 }
 
 export const ExerciseResource = {
