@@ -5,7 +5,8 @@
         .widget-header__title 📊 Таймлайн, отображающий стаж и события
     .widget-content
       // timeline component
-      .dev-log {{events.workplaces}}
+      //- .dev-log {{workplaces}} {{educations}}
+
       .timeline
         .timeline__events
           .timeline__events-row(v-for="ev in events" :key="ev.id")
@@ -52,7 +53,9 @@ export default {
       return [...new Set(years)].sort((a, b) => a - b);
     },
     dateKeys() {
-      return [...Array(this.datesDistance.yearsDiff).keys()];
+      let dates = this.datesDistance.yearsDiff
+
+      return [...Array(dates || 1).keys()]
     },
     datesDistance() {
       const { min, max } = this.dates.reduce(
@@ -121,7 +124,7 @@ export default {
             return {
               ...mapperFunction(x),
               ...{
-                title: `📆 ${x.title}`,
+                title: `📆 ${x.title} : ${x.refresherCourses}`,
               },
             };
           }),
