@@ -118,8 +118,32 @@ export const ProfileResource = {
     return HTTP_GRAF.get('/coaches/')
   },
   /**
-    @param email String required
-    @param password String required
+    @params USER required
+    * @param user.firstName String
+    * @param user.lastName String
+    @param user.isStaff Boolean
+    @param user.isActive Boolean
+    * @param user.email String(email)
+    * @param user.phone String(maxLength: 20 minLenght: 1)
+    @param user.patronymic String
+    @param user.age Integer
+    * @param user.dateBirth String(date)
+    * @param nickname String
+
+    @ user params outside user object
+    * @param passportSeries	String
+    * @param passportNumber	string
+    * @param address	string
+    * @param unitCode	string
+    * @param unitName	string
+    * @param dateIssue	string($date)
+    * @param isMarried	boolean
+
+    @ other saved of params of (SET_PROFILE)
+    * @param sportsmans [uniqueItems] required
+    * @param educations [EducationUpdate]
+    * @param workplaces [WorkPlaceUpdate]
+    * 
   **/
   async edit(request) {
     try {

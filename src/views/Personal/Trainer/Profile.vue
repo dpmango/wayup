@@ -66,7 +66,7 @@
                       .profile-table__left
                         .profile-title Дата рождения
                       .profile-table__right
-                        DataPicker(:value="form.birhtday" @input="(v) => handleDatepickerChange(v, 'birthday')")
+                        DataPicker(:value="form.dateBirth" @input="(v) => handleDatepickerChange(v, 'dateBirth')")
 
                     .inputs-row
 
@@ -85,7 +85,7 @@
                                   classAttr='segment-default segment-big'
                                   :label="val"
                                   tag="div"
-                                  v-model="form.marriage"
+                                  v-model="form.isMarried"
                                   @click='toggle'
                                 )
 
@@ -155,6 +155,7 @@
                     span.list-small(v-if='isShowList') Свернуть список
 
 
+              // 2 - ПАССПОРТНЫЕ ДАННЫЕ
               .widget.mb-4
                 .widget-header
                   .widget-header__top
@@ -177,7 +178,7 @@
                             base-input(
                               classAttr="input-default input-big text-gray w-100 mr-2"
                               placeholder="хх хх"
-                              v-model='form.docSeries'
+                              v-model='form.passportSeries'
                               v-mask="'## ##'"
                             )
                           v-col(
@@ -186,7 +187,7 @@
                             base-input(
                               classAttr="input-default input-big text-gray w-100 mr-2"
                               placeholder="ххх ххх"
-                              v-model='form.docNumber'
+                              v-model='form.passportNumber'
                               v-mask="'### ###'"
                             )
                     .inputs-row
@@ -426,15 +427,15 @@ export default {
       lastName: null,
       firstName: null,
       nickname: null,
-      birthday: new Date(),
-      marriage: null,
+      dateBirth: new Date(),
+      isMarried: null,
       email: null,
       phone: null,
       group: null,
       rhesus: null,
 
-      docSeries: null,
-      docNumber: null,
+      passportSeries: null,
+      passportNumber: null,
       docIssuer: null,
       docIssuerName: null,
       registration: null,
@@ -469,69 +470,39 @@ export default {
         lastName,
         firstName,
         nickname,
-        birthday,
-        marriage,
+        dateBirth,
         email,
         phone,
-        group,
-        rhesus,
+        isMarried,
+        // group,
+        // rhesus,
 
-        docSeries,
-        docNumber,
+        passportSeries,
+        passportNumber,
         docIssuer,
         docIssuerName,
         registration,
         docDate,
-        photos,
-        dateStart,
-        dateEnd,
-        employer,
-        position,
-        duties,
 
-        education,
-        educationStart,
-        educationEnd,
-        courses,
-        coursesStart,
-        coursesEnd,
-        diploma,
+        // photos,
+        // dateStart,
+        // dateEnd,
+        // employer,
+        // position,
+        // duties,
+
+        // education,
+        // educationStart,
+        // educationEnd,
+        // courses,
+        // coursesStart,
+        // coursesEnd,
+        // diploma,
       } = this.form;
-
-      console.log({
-        lastName,
-        firstName,
-        nickname,
-        birthday,
-        marriage,
-        email,
-        phone,
-        group,
-        rhesus,
-        docSeries,
-        docNumber,
-        docIssuer,
-        docIssuerName,
-        registration,
-        docDate,
-        photos,
-        dateStart,
-        dateEnd,
-        employer,
-        position,
-        duties,
-        education,
-        educationStart,
-        educationEnd,
-        courses,
-        coursesStart,
-        coursesEnd,
-        diploma,
-      });
 
       // console.log('getter profile', this.profile)
 
-      await ProfileResource.edit({
+      const patchObject = {
         ...this.profile, 
         ...{
           user: {
@@ -539,12 +510,28 @@ export default {
             ...this.profile.user,
             ...{
               lastName,
-              firstName
+              firstName,
+              dateBirth,
+              nickname,
+              email,
+              phone
+              // patronymic // TODO - no input or conflict with firstName
+            },
+            ...{
+              isMarried,
+              passportSeries,
+              passportNumber,
+              address: registration,
+              unitCode: docIssuer,
+              unitName: docIssuerName,
+              dateIssue: docDate
             }
           },
           sportsmans: this.profile.sportsmans.map(x=> x.id)
         },
-      })
+      }
+
+      await ProfileResource.edit(patchObject)
       .then(response => {
         console.log({response})
       })
