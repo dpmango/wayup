@@ -1,5 +1,6 @@
 import { SET_ACCESS, SET_REFRESH, RESET, REMOVE_ACCESS, SET_PROFILE, SET_ROLE } from '../mutation-types'
 import { AuthApi, ProfileResource } from '@/store/api'
+import moment from 'moment';
 
 /*
 |--------------------------------------------------------------------------
@@ -107,6 +108,83 @@ const actions = {
 
     return data
   },
+  async editProfile({commit}, {profile, personal, passport, workplaces, educations}){
+    
+    const {
+      lastName,
+      firstName,
+      nickname,
+      dateBirth,
+      email,
+      phone,
+      isMarried,
+      // group,
+      // rhesus,
+    } = personal;
+    
+    const {
+      passportSeries, passportNumber, docIssuer, docIssuerName, registration, docDate
+    } = passport
+
+    const patchObject = {
+      ...profile,
+      ...{
+        user: {
+          ...profile.user,
+          ...{
+            lastName,
+            firstName,
+            dateBirth: moment(dateBirth).format('YYYY-MM-DD'),
+            nickname,
+            email,
+            phone,
+            // patronymic // TODO - no input or conflict with firstName
+          },
+          ...{
+            isMarried,
+            passportSeries,
+            passportNumber,
+            address: registration,
+            unitCode: docIssuer,
+            unitName: docIssuerName,
+            dateIssue: moment(docDate).format('YYYY-MM-DD'),
+          },
+        },
+        workplaces: workplaces.map((x) => {
+          return {
+            coach: 1, // todo - tmp fix
+            dateEnd: moment(x.dateStart).format('YYYY-MM-DD'),
+            dateStart: moment(x.dateEnd).format('YYYY-MM-DD'),
+            employer: x.employer,
+            // id: 1, // todo - should ids be created on backend ?
+            position: x.position,
+            responsibilities: x.duties,
+          }
+        }),
+        educations: educations.map((x) => {
+          return {
+            coach: 1, // todo - tmp fix
+            dateEnd: moment(x.dateStart).format('YYYY-MM-DD'),
+            dateStart: moment(x.dateStart).format('YYYY-MM-DD'),
+            employer: x.employer,
+            // id: 1 // todo - should ids be created on backend ?
+            refresherCourses: x.courses,
+            title: x.title,
+          }
+        }),
+
+        sportsmans: profile.sportsmans.map((x) => x.id),
+      },
+    };
+
+    const [err, data] = await ProfileResource.edit(patchObject)
+
+    if (err) throw err
+
+    commit(SET_PROFILE, data)
+
+    return data
+  }
 }
 
 export default {

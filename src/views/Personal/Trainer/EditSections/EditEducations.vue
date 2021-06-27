@@ -10,7 +10,7 @@
         :class="!isShowList ? 'scroll-area p-0' : 'scroll-area p-0 show'"
         style='max-height: 0px;'
       )
-        .place__block
+        .place__block(v-for="(form, idx) in forms" :key="idx")
           .inputs-row
 
             .profile-table__left
@@ -36,9 +36,7 @@
                   .ml-n16
                     DataPicker(:value="form.dateEnd" @input="(v) => handleDatepickerChange(v, 'dateEnd')")
 
-
           .inputs-row
-
             .profile-table__left
               .profile-title Курсы повышения квалификации
             .profile-table__right
@@ -47,6 +45,7 @@
                 classAttr="input-default input-big text-gray w-100"
                 v-model="form.courses"
               )
+          
           .inputs-row
             .profile-table__left
               .profile-title Дата начала
@@ -54,12 +53,12 @@
               v-row.align-center
                 v-col(md='2')
                   DataPicker(:value="form.coursesStart" @input="(v) => handleDatepickerChange(v, 'coursesStart')")
-
                 v-col(md='2')
                   .profile-title Дата окончания
                 v-col(md='2')
                   .ml-n16
                     DataPicker(:value="form.coursesEnd" @input="(v) => handleDatepickerChange(v, 'coursesEnd')")
+          
           .inputs-row.mt-6
             .profile-table__left
               .profile-title Загрузить диплом об образовании, сертификаты, грамоты
@@ -68,14 +67,15 @@
               DropzonePhotoPassportBlock
 
           .inputs-row.justify-md-end
-            a(href="#").link-red Удалить
-        .place__block
+            a(href="#" @click="$emit('handleDelete', idx)").link-red Удалить
+
 
       .inputs-row.justify-md-end
         base-button(
           v-if="isShowList"
           classAttr='button-default button-gray button-big'
-          label="Добавить место работы"
+          label="Добавить образование"
+          @click="$emit('handleAdd')"
         )
           template(#icon-left)
             svg.icon-16.mr-2(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
@@ -85,7 +85,7 @@
       .widget-footer__text(@click='toggleList')
         span.list-more(v-if='!isShowList') Развернуть список
         span.list-small(v-if='isShowList') Свернуть список
-
+        
 </template>
 
 <script>
@@ -97,8 +97,9 @@ import DataPicker from '@/components/elements/DataPicker';
 export default {
   components: { DataPicker, DropzonePhotoPassportBlock, DropzonePhotoBlock },
   props:{
-    form: Object,
-    select: Object
+    forms: Array,
+    select: Object,
+    multiple: Boolean
   },
   data: () => ({
     isShowList: false,
