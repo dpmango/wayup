@@ -2,402 +2,30 @@
   div
     HeaderTrainerAccount
     v-row
-      v-col(
-        md='12'
-      )
-
+      v-col(md='12')
         h1.title-big.mb-5 Мой профиль
+
         v-row
-          v-col(
-            md='2'
-          )
+          v-col(md='2')
             dropzone-photo-block
 
-          v-col(
-            md='10'
-          )
+          v-col(md='10')
             base-button(label='Скачать резюме'  classAttr='button-default button-blue button-big mb-6')
 
             form(@submit.prevent="handleSubmit")
-              .widget.mb-4
-                .widget-header
-                  .widget-header__top
-                    .widget-header__title Личные данные
+              // 1 - Личные
+              EditPersonal(:form="personal" :select="select")
 
-                .widget-content.widget-content_gray.widget-content_profile(
-                  :class="!isShowList ? 'pt-0 pb-0' : ''"
-                )
-                  .profile__body(
-                    :class="!isShowList ? 'scroll-area p-0' : 'scroll-area p-0 show'"
-                    style='max-height: 0px;'
-                  )
-                    .inputs-row
-                      .profile-table__left
-                        .profile-title Фамилия
-                      .profile-table__right
-                        base-input(
-                          label="Введите"
-                          classAttr="input-default input-big text-gray w-100"
-                          v-model="form.lastName"
-                        )
-
-                    .inputs-row
-
-                      .profile-table__left
-                        .profile-title Имя Отчество
-                      .profile-table__right
-                        base-input(
-                          label="Введите"
-                          classAttr="input-default input-big text-gray w-100"
-                          v-model="form.firstName"
-                        )
-                    .inputs-row
-
-                      .profile-table__left
-                        .profile-title Никнейм
-                      .profile-table__right
-                        base-input(
-                          label="Введите"
-                          classAttr="input-default input-big text-gray w-100"
-                          v-model="form.nickname"
-                        )
-
-                    .inputs-row
-                      .profile-table__left
-                        .profile-title Дата рождения
-                      .profile-table__right
-                        DataPicker(:value="form.dateBirth" @input="(v) => handleDatepickerChange(v, 'dateBirth')")
-
-                    .inputs-row
-
-                      .profile-table__left
-                        .profile-title В браке
-                      .profile-table__right
-                        .segments-block
-                          v-item-group.d-flex(mandatory)
-                            v-item(
-                              v-for="val in select.marriage"
-                              :key="val"
-                              v-slot='{ active, toggle }'
-                            )
-                              .segments-item
-                                base-segment(
-                                  classAttr='segment-default segment-big'
-                                  :label="val"
-                                  tag="div"
-                                  v-model="form.isMarried"
-                                  @click='toggle'
-                                )
-
-                    .inputs-row
-
-                      .profile-table__left
-                        .profile-title E-mail
-                      .profile-table__right
-                        base-input(
-                          label="Введите"
-                          classAttr="input-default input-big text-gray w-100"
-                          v-model="form.email"
-                        )
-                    .inputs-row
-
-                      .profile-table__left
-                        .profile-title Телефон
-                      .profile-table__right
-                        v-row
-                          v-col(md='2')
-                            base-input(
-                              label=""
-                              classAttr="input-default input-big text-gray w-100"
-                              placeholder="х (ххх) ххх-хх-хх"
-                              v-model='form.phone'
-                              v-mask="'# (###) ###-##-##'"
-                            )
-                    .inputs-row.mb-3
-                      .profile-table__left
-                        .profile-title Группа крови
-                      .profile-table__right
-                        v-row.align-center
-                          v-col(
-                            md='3'
-                          )
-                            base-select(
-                              classAttr='select-default select-bg-white'
-                              label="Группа"
-                              :items="select.group"
-                              :multiple="true"
-                              v-model="form.group"
-                            )
-                          v-col(
-                            md='7'
-                          )
-                            .d-flex.align-center
-                              .profile-title.mr-4 Резус фактор
-                              .segments-block
-                                v-item-group.d-flex.mb-0(mandatory)
-                                  v-item(
-                                    v-for="val in select.rhesus"
-                                    :key="val"
-                                    v-slot='{ active, toggle }'
-                                  )
-                                    .segments-item
-                                      base-segment(
-                                        classAttr='segment-default segment-big'
-                                        :label="val"
-                                        tag="div"
-                                        v-model="form.rhesus"
-                                        @click='toggle'
-                                      )
-
-                .widget-footer
-                  .widget-footer__text(@click='toggleList')
-                    span.list-more(v-if='!isShowList') Развернуть список
-                    span.list-small(v-if='isShowList') Свернуть список
-
-
-              // 2 - ПАССПОРТНЫЕ ДАННЫЕ
-              .widget.mb-4
-                .widget-header
-                  .widget-header__top
-                    .widget-header__title Паспортные данные
-                .widget-content.widget-content_gray.widget-content_profile(
-                  :class="!isShowList ? 'pt-0 pb-0' : ''"
-                )
-                  .profile__body(
-                    :class="!isShowList ? 'scroll-area p-0' : 'scroll-area p-0 show'"
-                    style='max-height: 0px;'
-                  )
-                    .inputs-row
-                      .profile-table__left
-                        .profile-title Серия и номер
-                      .profile-table__right
-                        v-row
-                          v-col(
-                            md='2'
-                          )
-                            base-input(
-                              classAttr="input-default input-big text-gray w-100 mr-2"
-                              placeholder="хх хх"
-                              v-model='form.passportSeries'
-                              v-mask="'## ##'"
-                            )
-                          v-col(
-                            md='2'
-                          )
-                            base-input(
-                              classAttr="input-default input-big text-gray w-100 mr-2"
-                              placeholder="ххх ххх"
-                              v-model='form.passportNumber'
-                              v-mask="'### ###'"
-                            )
-                    .inputs-row
-                      .profile-table__left
-                        .profile-title Адрес регистрации
-                      .profile-table__right
-                        base-input(
-                          label="Введите"
-                          classAttr="input-default input-big text-gray w-100"
-                          v-model="form.registration"
-                        )
-                    .inputs-row
-                      .profile-table__left
-                        .profile-title Кем выдан
-                      .profile-table__right
-                        v-row
-                          v-col(
-                            md='2'
-                          )
-                            base-input(
-                              classAttr="input-default input-big text-gray w-100 mr-2"
-                              placeholder="ххх ххх"
-                              v-model='form.docIssuer'
-                              v-mask="'### ###'"
-                            )
-                          v-col(md='10')
-
-                            base-input(
-                              label="Введите"
-                              classAttr="input-default input-big text-gray w-100"
-                              v-model='form.docIssuerName'
-                            )
-                    .inputs-row
-                      .profile-table__left
-                        .profile-title Дата выдачи
-                      .profile-table__right
-                        DataPicker(:value="form.docDate" @input="(v) => handleDatepickerChange(v, 'docDate')")
-
-                    .inputs-row.mt-6
-                      .profile-table__left
-                        .profile-title Фото паспорта
-                      .profile-table__right
-                        // TODO v-model photos
-                        DropzonePhotoPassportBlock
-
-                .widget-footer
-                  .widget-footer__text(@click='toggleList')
-                    span.list-more(v-if='!isShowList') Развернуть список
-                    span.list-small(v-if='isShowList') Свернуть список
-
-              .widget.mb-4
-                .widget-header
-                  .widget-header__top
-                    .widget-header__title Место работы
-                .widget-content.widget-content_gray.widget-content_profile(
-                  :class="!isShowList ? 'pt-0 pb-0' : ''"
-                )
-                  .profile__body(
-                    :class="!isShowList ? 'scroll-area p-0' : 'scroll-area p-0 show'"
-                    style='max-height: 0px;'
-                  )
-                    .place__block
-                      .inputs-row
-                        .profile-table__left
-                          .profile-title Дата начала
-                        .profile-table__right
-                          v-row.align-center
-                            v-col(md='2')
-                              DataPicker(:value="form.dateStart" @input="(v) => handleDatepickerChange(v, 'dateStart')")
-                            v-col(md='2')
-                              .profile-title Дата окончания
-                            v-col(md='2')
-                              .ml-n16
-                                DataPicker(:value="form.dateEnd" @input="(v) => handleDatepickerChange(v, 'dateEnd')")
-
-                      .inputs-row
-                        .profile-table__left
-                          .profile-title Работодатель
-                        .profile-table__right
-                          base-input(
-                            label="Введите"
-                            classAttr="input-default input-big text-gray w-100"
-                            v-model="form.employer"
-                          )
-
-                      .inputs-row
-                        .profile-table__left
-                          .profile-title Должность
-                        .profile-table__right
-                          base-input(
-                            label="Введите"
-                            classAttr="input-default input-big text-gray w-100"
-                            v-model="form.position"
-                          )
-
-                      .inputs-row
-                        .profile-table__left
-                          .profile-title Обязанности
-                        .profile-table__right
-                          base-textarea(
-                            label="Введите"
-                            row="25"
-                            v-model="form.duties"
-                          )
-
-                      .inputs-row.justify-md-end
-                        a(href="#").link-red Удалить
-                    .place__block
-
-                  .inputs-row.justify-md-end
-                    base-button(
-                      classAttr='button-default button-gray button-big'
-                      label="Добавить место работы"
-                    )
-                      template(#icon-left)
-                        svg.icon-16.mr-2(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
-                          path(d='M8.74049 2.24051C8.74049 1.83154 8.40895 1.5 7.99998 1.5C7.59101 1.5 7.25947 1.83154 7.25947 2.24051V7.25947H2.24051C1.83154 7.25947 1.5 7.59101 1.5 7.99998C1.5 8.40895 1.83154 8.74049 2.24051 8.74049H7.25947V13.7595C7.25947 14.1685 7.59101 14.5 7.99998 14.5C8.40895 14.5 8.74049 14.1685 8.74049 13.7595V8.74049H13.7595C14.1685 8.74049 14.5 8.40895 14.5 7.99998C14.5 7.59101 14.1685 7.25947 13.7595 7.25947H8.74049V2.24051Z' fill='black')
-
-                .widget-footer
-                  .widget-footer__text(
-                    @click='toggleList'
-                  )
-                    span.list-more(v-if='!isShowList') Развернуть список
-                    span.list-small(v-if='isShowList') Свернуть список
-              .widget.mb-4
-                .widget-header
-                  .widget-header__top
-                    .widget-header__title Образование
-                .widget-content.widget-content_gray.widget-content_profile(
-                  :class="!isShowList ? 'pt-0 pb-0' : ''"
-                )
-                  .profile__body(
-                    :class="!isShowList ? 'scroll-area p-0' : 'scroll-area p-0 show'"
-                    style='max-height: 0px;'
-                  )
-                    .place__block
-                      .inputs-row
-
-                        .profile-table__left
-                          .profile-title Образование
-                        .profile-table__right
-                          base-input(
-                            label="Введите"
-                            classAttr="input-default input-big text-gray w-100"
-                            v-model="form.education"
-                          )
-
-                      .inputs-row
-                        .profile-table__left
-                          .profile-title Дата начала
-                        .profile-table__right
-                          v-row.align-center
-                            v-col(md='2')
-                              DataPicker(:value="form.educationStart" @input="(v) => handleDatepickerChange(v, 'educationStart')")
-
-                            v-col(md='2')
-                              .profile-title Дата окончания
-                            v-col(md='2')
-                              .ml-n16
-                                DataPicker(:value="form.educationEnd" @input="(v) => handleDatepickerChange(v, 'educationEnd')")
-
-
-                      .inputs-row
-
-                        .profile-table__left
-                          .profile-title Курсы повышения квалификации
-                        .profile-table__right
-                          base-input(
-                            label="Введите"
-                            classAttr="input-default input-big text-gray w-100"
-                            v-model="form.courses"
-                          )
-                      .inputs-row
-                        .profile-table__left
-                          .profile-title Дата начала
-                        .profile-table__right
-                          v-row.align-center
-                            v-col(md='2')
-                              DataPicker(:value="form.coursesStart" @input="(v) => handleDatepickerChange(v, 'coursesStart')")
-
-                            v-col(md='2')
-                              .profile-title Дата окончания
-                            v-col(md='2')
-                              .ml-n16
-                                DataPicker(:value="form.coursesEnd" @input="(v) => handleDatepickerChange(v, 'coursesEnd')")
-                      .inputs-row.mt-6
-                        .profile-table__left
-                          .profile-title Загрузить диплом об образовании, сертификаты, грамоты
-                        .profile-table__right
-                          // TODO - diploma
-                          DropzonePhotoPassportBlock
-
-                      .inputs-row.justify-md-end
-                        a(href="#").link-red Удалить
-                    .place__block
-
-                  .inputs-row.justify-md-end
-                    base-button(
-                      classAttr='button-default button-gray button-big'
-                      label="Добавить место работы"
-                    )
-                      template(#icon-left)
-                        svg.icon-16.mr-2(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
-                          path(d='M8.74049 2.24051C8.74049 1.83154 8.40895 1.5 7.99998 1.5C7.59101 1.5 7.25947 1.83154 7.25947 2.24051V7.25947H2.24051C1.83154 7.25947 1.5 7.59101 1.5 7.99998C1.5 8.40895 1.83154 8.74049 2.24051 8.74049H7.25947V13.7595C7.25947 14.1685 7.59101 14.5 7.99998 14.5C8.40895 14.5 8.74049 14.1685 8.74049 13.7595V8.74049H13.7595C14.1685 8.74049 14.5 8.40895 14.5 7.99998C14.5 7.59101 14.1685 7.25947 13.7595 7.25947H8.74049V2.24051Z' fill='black')
-
-                .widget-footer
-                  .widget-footer__text(@click='toggleList')
-                    span.list-more(v-if='!isShowList') Развернуть список
-                    span.list-small(v-if='isShowList') Свернуть список
-
+              // 2 - Пасспорт
+              EditPassport(:form="passport" :select="select")
+              
+              // 3 - Работа
+              EditWorkplaces(:form="workplaces" :select="select")
+              
+              //- // 4 - Образование
+              EditEducations(:form="educations" :select="select")
+              
+              // submit
               base-button(
                 type="submit"
                 classAttr='button-default button-blue button-big w-100'
@@ -411,19 +39,31 @@
 import {mapGetters} from 'vuex';
 import moment from 'moment';
 import ScheduleHeader from '@/components/ScheduleHeader';
+import HeaderTrainerAccount from '@/components/elements/HeaderTrainerAccount';
 import DropzonePhotoBlock from '@/components/elements/DropzonePhotoBlock';
 import DropzonePhotoPassportBlock from '@/components/elements/DropzonePhotoPassportBlock';
-import DataPicker from '@/components/elements/DataPicker';
-import HeaderTrainerAccount from '@/components/elements/HeaderTrainerAccount';
 
 import { ProfileResource } from '@/store/api'
+import EditPersonal from './EditSections/EditPersonal'
+import EditPassport from './EditSections/EditPassport'
+import EditWorkplaces from './EditSections/EditWorkplaces'
+import EditEducations from './EditSections/EditEducations'
+
 
 export default {
   name: 'Profile',
-  components: { HeaderTrainerAccount, DataPicker, DropzonePhotoPassportBlock, DropzonePhotoBlock, ScheduleHeader },
+  components: { 
+    HeaderTrainerAccount, 
+    ScheduleHeader, 
+    DropzonePhotoBlock, 
+    DropzonePhotoPassportBlock,
+    EditPersonal,
+    EditPassport,
+    EditWorkplaces,
+    EditEducations
+  },
   data: () => ({
-    isShowList: true,
-    form: {
+    personal: {
       lastName: null,
       firstName: null,
       nickname: null,
@@ -431,30 +71,36 @@ export default {
       isMarried: null,
       email: null,
       phone: null,
-      group: null,
-      rhesus: null,
-
+      group: null, // todo - api
+      rhesus: null, // todo - api
+    },
+    passport: {
       passportSeries: null,
       passportNumber: null,
       docIssuer: null,
       docIssuerName: null,
       registration: null,
       docDate: new Date(),
-      photos: null,
+      photos: null, // todo - api
+    },
+    workplaces: [{
+      id: 1,
       dateStart: new Date(),
       dateEnd: new Date(),
       employer: null,
       position: null,
-      duties: null,
-
-      education: null,
-      educationStart: new Date(),
-      educationEnd: new Date(),
+      duties: null
+    }],
+    educations: [{
+      title: null,
+      dateStart: new Date(),
+      dateEnd: new Date(),
       courses: null,
-      coursesStart: new Date(),
-      coursesEnd: new Date(),
-      diploma: null,
-    },
+
+      coursesStart: new Date(), // todo - api
+      coursesEnd: new Date(), // todo - api
+      diploma: null, // todo - api
+    }],
     select: {
       marriage: ['Да', 'Нет'],
       group: ['|', '||', '|||', '||||'],
@@ -482,7 +128,9 @@ export default {
       // const clear = (x) => x || '';
       const {
         user: {firstName, lastName, email, phone, nickname, dateBirth},
-        isMarried, passportSeries, passportNumber, address, unitCode, unitName, dateIssue
+        isMarried, passportSeries, passportNumber, address, unitCode, unitName, dateIssue,
+        workplaces,
+        educations,
       } = data;
 
       console.log('TODO:: ProfileResouce.get', data)
@@ -491,8 +139,8 @@ export default {
         return moment(str, 'DD-MM-YYY').toDate()
       }
 
-      this.form = {
-        ...this.form,
+      this.personal = {
+        ...this.personal,
         ...{
           lastName,
           firstName,
@@ -503,7 +151,11 @@ export default {
           email,
           // group,
           // rhesus,
-
+        }
+      }
+      this.passport = {
+        ...this.passport,
+        ...{
           passportSeries,
           passportNumber,
           registration: address,
@@ -513,6 +165,31 @@ export default {
         }
       };
 
+      if (workplaces.length >= 1){
+        this.workplaces = workplaces.map(wp => ({
+          id: wp.id,
+          dateStart: processDate(wp.dateStart),
+          dateEnd: processDate(wp.dateEnd),
+          employer: wp.employer,
+          position: wp.position,
+          duties: wp.responsibilities
+        }))
+
+      }
+
+      if (educations.length >= 1){
+        this.educations = educations.map(ed => ({
+          id: ed.id,
+          title: ed.title,
+          dateStart: processDate(ed.dateStart),
+          dateEnd: processDate(ed.dateEnd),
+          courses: ed.refresherCourses,
+          // coursesStart: new Date(),
+          // coursesEnd: new Date(),
+          // diploma: null,
+        }))
+      }
+
     },
 
     async handleSubmit() {
@@ -521,48 +198,35 @@ export default {
         return;
       }
 
-
       const {
-        lastName,
-        firstName,
-        nickname,
-        dateBirth,
-        email,
-        phone,
-        isMarried,
-        // group,
-        // rhesus,
-
-        passportSeries,
-        passportNumber,
-        docIssuer,
-        docIssuerName,
-        registration,
-        docDate,
-
-        // photos,
-        // dateStart,
-        // dateEnd,
-        // employer,
-        // position,
-        // duties,
-
-        // education,
-        // educationStart,
-        // educationEnd,
-        // courses,
-        // coursesStart,
-        // coursesEnd,
-        // diploma,
-      } = this.form;
-
-      // console.log('getter profile', this.profile)
+        personal: {
+          lastName,
+          firstName,
+          nickname,
+          dateBirth,
+          email,
+          phone,
+          isMarried,
+          // group,
+          // rhesus,
+        },
+        passport: {
+          passportSeries,
+          passportNumber,
+          docIssuer,
+          docIssuerName,
+          registration,
+          docDate,
+        },
+        workplaces,
+        educations,
+      } = this;
+        
 
       const patchObject = {
         ...this.profile, 
         ...{
           user: {
-            
             ...this.profile.user,
             ...{
               lastName,
@@ -583,11 +247,30 @@ export default {
               dateIssue: docDate
             }
           },
+          workplaces: workplaces.map((x) => ({
+            coach: null,
+            dateEnd: x.dateStart.format('YYYY-MM-DD'),
+            dateStart: x.dateEnd.format('YYYY-MM-DD'),
+            employer: x.employer,
+            // id: 1, // todo - should ids be created on backend ?
+            position: x.position,
+            responsibilities: x.duties,
+          })),
+          educations: educations.map((x) => ({
+            coach: null,
+            dateEnd: x.dateStart.format('YYYY-MM-DD'),
+            dateStart: x.dateStart.format('YYYY-MM-DD'),
+            employer: x.employer,
+            // id: 1 // todo - should ids be created on backend ?
+            refresherCourses: x.courses,
+            title: x.title
+          })),
+          
           sportsmans: this.profile.sportsmans.map(x=> x.id)
         },
       }
 
-      console.log('ProfileResource.edit', this.profile)
+      console.log('ProfileResource.edit', patchObject)
 
       await ProfileResource.edit(patchObject)
       .then(response => {
@@ -598,14 +281,8 @@ export default {
         throw err.response
       })
 
+    },
 
-    },
-    toggleList() {
-      this.isShowList = !this.isShowList;
-    },
-    handleDatepickerChange(date, key) {
-      this.form[key] = moment(date);
-    },
   },
 };
 </script>
