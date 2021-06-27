@@ -23,7 +23,7 @@
                     placeholder="хх хх"
                     v-model='form.passportSeries'
                     v-mask="'## ##'"
-                    :error="errors.length"
+                    :error="errors ? true : false"
                     :errors="errors"
                   )
               v-col(md='2')
@@ -33,7 +33,7 @@
                     placeholder="ххх ххх"
                     v-model='form.passportNumber'
                     v-mask="'### ###'"
-                    :error="errors.length"
+                    :error="errors ? true : false"
                     :errors="errors"
                   )
         .inputs-row
@@ -45,7 +45,7 @@
                 label="Введите"
                 classAttr="input-default input-big text-gray w-100"
                 v-model="form.registration"
-                :error="errors.length"
+                :error="errors ? true : false"
                 :errors="errors"
               )
         .inputs-row
@@ -60,7 +60,7 @@
                     placeholder="ххх ххх"
                     v-model='form.docIssuer'
                     v-mask="'### ###'"
-                    :error="errors.length"
+                    :error="errors ? true : false"
                     :errors="errors"
                   )
               v-col(md='10')
@@ -69,7 +69,7 @@
                     label="Введите"
                     classAttr="input-default input-big text-gray w-100"
                     v-model='form.docIssuerName'
-                    :error="errors.length"
+                    :error="errors ? true : false"
                     :errors="errors"
                   )
         .inputs-row

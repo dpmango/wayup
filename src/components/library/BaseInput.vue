@@ -69,7 +69,7 @@ export default {
   },
   computed: {
     getErrors(){
-      return this.errors.length ? this.errors.join(', ') : null 
+      return this.errors && this.errors.length ? this.errors.join(', ') : null 
     },
     inputVal: {
       get() {

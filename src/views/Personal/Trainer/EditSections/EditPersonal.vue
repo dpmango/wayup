@@ -20,7 +20,7 @@
                 label="Введите"
                 classAttr="input-default input-big text-gray w-100"
                 v-model="form.lastName"
-                :error="errors.length"
+                :error="errors ? true : false"
                 :errors="errors"
               )
 
@@ -34,7 +34,7 @@
                 label="Введите"
                 classAttr="input-default input-big text-gray w-100"
                 v-model="form.firstName"
-                :error="errors.length"
+                :error="errors ? true : false"
                 :errors="errors"
               )
 
@@ -48,7 +48,7 @@
                 label="Введите"
                 classAttr="input-default input-big text-gray w-100"
                 v-model="form.nickname"
-                :error="errors.length"
+                :error="errors ? true : false"
                 :errors="errors"
               )
 
@@ -89,7 +89,7 @@
                 label="Введите"
                 classAttr="input-default input-big text-gray w-100"
                 v-model="form.email"
-                :error="errors.length"
+                :error="errors ? true : false"
                 :errors="errors"
               )
         .inputs-row
@@ -106,7 +106,7 @@
                     placeholder="х (ххх) ххх-хх-хх"
                     v-model='form.phone'
                     v-mask="'# (###) ###-##-##'"
-                    :error="errors.length"
+                    :error="errors ? true : false"
                     :errors="errors"
                   )
 
