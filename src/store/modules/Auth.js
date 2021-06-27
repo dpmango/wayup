@@ -99,14 +99,13 @@ const actions = {
     return data
   },
   async loadProfile({ commit }) {
-    await ProfileResource.get()
-      .then(response => {
-        commit(SET_PROFILE, response.data)
-      })
-      .catch(err => {
-        console.log(err)
-        throw err.response
-      })
+    const [err, data] = await ProfileResource.get()
+
+    if (err) throw err.response
+
+    commit(SET_PROFILE, data)
+
+    return data
   },
 }
 

@@ -114,8 +114,13 @@ export const EventResource = {
 }
 
 export const ProfileResource = {
-  get() {
-    return HTTP_GRAF.get('/coaches/')
+  async get() {
+    try {
+      const { data } = await HTTP_GRAF.get('/coaches/')
+      return [null, data]
+    } catch (error) {
+      return [error, null]
+    }
   },
   /**
     @params USER required

@@ -464,8 +464,64 @@ export default {
   computed: {
     ...mapGetters('auth', ['profile'])
   },
+  created() {
+    this.getUser();
+  },
   methods: {
+    async getUser() {
+      const [err, data] = await ProfileResource.get()
+
+      if (err){
+        console.log(err)
+      }
+
+      this.setUserInfo(data);
+
+    },
+    setUserInfo(data) {
+      // const clear = (x) => x || '';
+      const {
+        user: {firstName, lastName, email, phone, nickname, dateBirth},
+        isMarried, passportSeries, passportNumber, address, unitCode, unitName, dateIssue
+      } = data;
+
+      console.log('TODO:: ProfileResouce.get', data)
+
+      const processDate = (str) => {
+        return moment(str, 'DD-MM-YYY').toDate()
+      }
+
+      this.form = {
+        ...this.form,
+        ...{
+          lastName,
+          firstName,
+          nickname,
+          dateBirth: processDate(dateBirth),
+          isMarried,
+          phone,
+          email,
+          // group,
+          // rhesus,
+
+          passportSeries,
+          passportNumber,
+          registration: address,
+          docIssuer: unitCode,
+          docIssuerName: unitName,
+          docDate: processDate(dateIssue)
+        }
+      };
+
+    },
+
     async handleSubmit() {
+      const isValid = await this.$refs.form.validate();
+      if (!isValid) {
+        return;
+      }
+
+
       const {
         lastName,
         firstName,
@@ -530,6 +586,8 @@ export default {
           sportsmans: this.profile.sportsmans.map(x=> x.id)
         },
       }
+
+      console.log('ProfileResource.edit', this.profile)
 
       await ProfileResource.edit(patchObject)
       .then(response => {
