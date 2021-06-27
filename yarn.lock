@@ -7838,6 +7838,11 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
 
+vee-validate@^3.4.10:
+  version "3.4.10"
+  resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-3.4.10.tgz#3009d97bf7d71d6bae32c40321555b8a05a39fd4"
+  integrity sha512-AcX9+WZZerH1/hfe8K+IbjxV0Ttr4+gWgYM7eE6SEiY3LxA2WZkxGd9E9PMGek0WJuppJDmq47kqZgFqAulu0w==
+
 velocity-animate@^1.2.0:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/velocity-animate/-/velocity-animate-1.5.2.tgz#5a351d75fca2a92756f5c3867548b873f6c32105"

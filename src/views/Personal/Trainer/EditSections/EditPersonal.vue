@@ -15,32 +15,42 @@
           .profile-table__left
             .profile-title Фамилия
           .profile-table__right
-            base-input(
-              label="Введите"
-              classAttr="input-default input-big text-gray w-100"
-              v-model="form.lastName"
-            )
+            ValidationProvider(v-slot="{ errors }" class="ui-group" rules="required")
+              base-input(
+                label="Введите"
+                classAttr="input-default input-big text-gray w-100"
+                v-model="form.lastName"
+                :error="errors.length"
+                :errors="errors"
+              )
 
         .inputs-row
 
           .profile-table__left
             .profile-title Имя Отчество
           .profile-table__right
-            base-input(
-              label="Введите"
-              classAttr="input-default input-big text-gray w-100"
-              v-model="form.firstName"
-            )
+            ValidationProvider(v-slot="{ errors }" class="ui-group" rules="required")
+              base-input(
+                label="Введите"
+                classAttr="input-default input-big text-gray w-100"
+                v-model="form.firstName"
+                :error="errors.length"
+                :errors="errors"
+              )
+
         .inputs-row
 
           .profile-table__left
             .profile-title Никнейм
           .profile-table__right
-            base-input(
-              label="Введите"
-              classAttr="input-default input-big text-gray w-100"
-              v-model="form.nickname"
-            )
+            ValidationProvider(v-slot="{ errors }" class="ui-group" rules="required")
+              base-input(
+                label="Введите"
+                classAttr="input-default input-big text-gray w-100"
+                v-model="form.nickname"
+                :error="errors.length"
+                :errors="errors"
+              )
 
         .inputs-row
           .profile-table__left
@@ -74,25 +84,32 @@
           .profile-table__left
             .profile-title E-mail
           .profile-table__right
-            base-input(
-              label="Введите"
-              classAttr="input-default input-big text-gray w-100"
-              v-model="form.email"
-            )
+            ValidationProvider(v-slot="{ errors }" class="ui-group" rules="email|required")
+              base-input(
+                label="Введите"
+                classAttr="input-default input-big text-gray w-100"
+                v-model="form.email"
+                :error="errors.length"
+                :errors="errors"
+              )
         .inputs-row
 
           .profile-table__left
             .profile-title Телефон
           .profile-table__right
             v-row
-              v-col(md='2')
-                base-input(
-                  label=""
-                  classAttr="input-default input-big text-gray w-100"
-                  placeholder="х (ххх) ххх-хх-хх"
-                  v-model='form.phone'
-                  v-mask="'# (###) ###-##-##'"
-                )
+              v-col(md='4')
+                ValidationProvider(v-slot="{ errors }" class="ui-group" rules="tel|required")
+                  base-input(
+                    label=""
+                    classAttr="input-default input-big text-gray w-100"
+                    placeholder="х (ххх) ххх-хх-хх"
+                    v-model='form.phone'
+                    v-mask="'# (###) ###-##-##'"
+                    :error="errors.length"
+                    :errors="errors"
+                  )
+
         .inputs-row.mb-3
           .profile-table__left
             .profile-title Группа крови

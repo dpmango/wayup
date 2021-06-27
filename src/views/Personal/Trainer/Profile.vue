@@ -12,7 +12,8 @@
           v-col(md='10')
             base-button(label='Скачать резюме'  classAttr='button-default button-blue button-big mb-6')
 
-            form(@submit.prevent="handleSubmit" class="profile-edit-form")
+            ValidationObserver(ref="form" v-slot="{}" tag="form" class="profile-edit-form" @submit.prevent="handleSubmit")
+
               .error(v-if="error" v-html="error")
               // 1 - Личные
               EditPersonal(:form="personal" :select="select")
@@ -248,10 +249,11 @@ export default {
       this.educations = this.educations.filter((x, n) => idx !== n);
     },
     async handleSubmit() {
-      // const isValid = await this.$refs.form.validate();
-      // if (!isValid) {
-      //   return;
-      // }
+      const isValid = await this.$refs.form.validate();
+      if (!isValid) {
+        this.error = 'Пожалуйста исправьте выделенные поля'
+        return;
+      }
 
       this.error = ''
 

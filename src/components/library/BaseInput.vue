@@ -12,6 +12,7 @@
     :placeholder='placeholder'
     :rules="rules"
     :maxlength="maxlength"
+    :hint="getErrors"
   )
     template(slot='prepend-inner')
       slot(name="icon")
@@ -67,6 +68,9 @@ export default {
     },
   },
   computed: {
+    getErrors(){
+      return this.errors.join(', ')
+    },
     inputVal: {
       get() {
         return this.value;
