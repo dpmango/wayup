@@ -16,54 +16,62 @@
             .profile-title Серия и номер
           .profile-table__right
             v-row
-              v-col(
-                md='2'
-              )
-                base-input(
-                  classAttr="input-default input-big text-gray w-100 mr-2"
-                  placeholder="хх хх"
-                  v-model='form.passportSeries'
-                  v-mask="'## ##'"
-                )
-              v-col(
-                md='2'
-              )
-                base-input(
-                  classAttr="input-default input-big text-gray w-100 mr-2"
-                  placeholder="ххх ххх"
-                  v-model='form.passportNumber'
-                  v-mask="'### ###'"
-                )
+              v-col(md='2')
+                ValidationProvider(v-slot="{ errors }" class="ui-group" rules="required")
+                  base-input(
+                    classAttr="input-default input-big text-gray w-100 mr-2"
+                    placeholder="хх хх"
+                    v-model='form.passportSeries'
+                    v-mask="'## ##'"
+                    :error="errors.length"
+                    :errors="errors"
+                  )
+              v-col(md='2')
+                ValidationProvider(v-slot="{ errors }" class="ui-group" rules="required")
+                  base-input(
+                    classAttr="input-default input-big text-gray w-100 mr-2"
+                    placeholder="ххх ххх"
+                    v-model='form.passportNumber'
+                    v-mask="'### ###'"
+                    :error="errors.length"
+                    :errors="errors"
+                  )
         .inputs-row
           .profile-table__left
             .profile-title Адрес регистрации
           .profile-table__right
-            base-input(
-              label="Введите"
-              classAttr="input-default input-big text-gray w-100"
-              v-model="form.registration"
-            )
+            ValidationProvider(v-slot="{ errors }" class="ui-group" rules="required")
+              base-input(
+                label="Введите"
+                classAttr="input-default input-big text-gray w-100"
+                v-model="form.registration"
+                :error="errors.length"
+                :errors="errors"
+              )
         .inputs-row
           .profile-table__left
             .profile-title Кем выдан
           .profile-table__right
             v-row
-              v-col(
-                md='2'
-              )
-                base-input(
-                  classAttr="input-default input-big text-gray w-100 mr-2"
-                  placeholder="ххх ххх"
-                  v-model='form.docIssuer'
-                  v-mask="'### ###'"
-                )
+              v-col(md='2')
+                ValidationProvider(v-slot="{ errors }" class="ui-group" rules="required")
+                  base-input(
+                    classAttr="input-default input-big text-gray w-100 mr-2"
+                    placeholder="ххх ххх"
+                    v-model='form.docIssuer'
+                    v-mask="'### ###'"
+                    :error="errors.length"
+                    :errors="errors"
+                  )
               v-col(md='10')
-
-                base-input(
-                  label="Введите"
-                  classAttr="input-default input-big text-gray w-100"
-                  v-model='form.docIssuerName'
-                )
+                ValidationProvider(v-slot="{ errors }" class="ui-group" rules="required")
+                  base-input(
+                    label="Введите"
+                    classAttr="input-default input-big text-gray w-100"
+                    v-model='form.docIssuerName'
+                    :error="errors.length"
+                    :errors="errors"
+                  )
         .inputs-row
           .profile-table__left
             .profile-title Дата выдачи
