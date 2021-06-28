@@ -1,6 +1,6 @@
 import { SET_ACCESS, SET_REFRESH, RESET, REMOVE_ACCESS, SET_PROFILE, SET_ROLE } from '../mutation-types'
 import { AuthApi, ProfileResource } from '@/store/api'
-
+import { TRAINER_ROLE, SPORTSMAN_ROLE } from '@/config/api'
 /*
 |--------------------------------------------------------------------------
 | Начальное состояние - используется для сброса store
@@ -51,7 +51,9 @@ const mutations = {
 | Getters
 |--------------------------------------------------------------------------
 */
-const getters = {}
+const getters = {
+
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -96,15 +98,32 @@ const actions = {
 
     return data
   },
-  async loadProfile({ commit }) {
-    await ProfileResource.get()
-      .then(response => {
-        commit(SET_PROFILE, response.data)
-      })
-      .catch(err => {
-        console.log(err)
-        throw err.response
-      })
+
+  async loadProfile({ commit, state }) {
+
+    if(state.role == TRAINER_ROLE) {
+      await ProfileResource.getTrainer()
+        .then(response => {
+          commit(SET_PROFILE, response.data)
+        })
+        .catch(err => {
+          console.log(err)
+          throw err.response
+        })
+    }
+
+    if(state.role == SPORTSMAN_ROLE) {
+      await ProfileResource.getSportsman()
+        .then(response => {
+          commit(SET_PROFILE, response.data)
+        })
+        .catch(err => {
+          console.log(err)
+          throw err.response
+        })
+    }
+
+
   },
 }
 

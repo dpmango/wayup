@@ -40,6 +40,7 @@
 	import WidgetStatisticAnalytics from "@/components/widgets/WidgetStatisticAnalytics";
   import WidgetLevel from "@/components/widgets/WidgetLevel";
   import WidgetStatisticSeason from "@/components/widgets/WidgetStatisticSeason";
+  import WidgetTeam from '@/components/widgets/WidgetTeam';
 
 
   import {mapActions, mapState} from "vuex";
@@ -52,7 +53,8 @@
 			WidgetStatisticMatch,
       WidgetLevel,
 			vueCustomScrollbar,
-      WidgetStatisticSeason
+      WidgetStatisticSeason,
+      WidgetTeam,
 		},
 		data: () => ({
 			settings: {

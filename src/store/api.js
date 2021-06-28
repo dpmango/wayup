@@ -111,11 +111,17 @@ export const EventResource = {
   update(id, data) {
     return HTTP_GRAF.put(`/events/coach/${id}/`, data)
   },
+  sportsman() {
+    return HTTP_GRAF.get('/events/general/')
+  },
 }
 
 export const ProfileResource = {
-  get() {
+  getTrainer() {
     return HTTP_GRAF.get('/coaches/')
+  },
+  getSportsman() {
+    return HTTP_GRAF.get('/sportsmans/')
   },
 }
 

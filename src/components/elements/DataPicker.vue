@@ -31,7 +31,7 @@ export default {
       default: 'дд мес гггг'
     },
     value: {
-      type: Date,
+      type: [Date, String],
       default: null
     },
   },
