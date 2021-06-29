@@ -130,21 +130,28 @@ export default {
   computed: {
     ...mapGetters('auth', ['profile']),
   },
+  watch: {
+    profile(val){
+      this.setUserInfo(val)
+    }
+  },
   created() {
-    this.getUser();
+    this.setUserInfo(this.profile)
   },
   methods: {
-    async getUser() {
-      const [err, data] = await ProfileResource.get();
+    // async getUser() {
+    //   const [err, data] = await ProfileResource.get();
 
-      if (err) {
-        console.log(err);
-      }
+    //   if (err) {
+    //     console.log(err);
+    //   }
 
-      this.setUserInfo(data);
-    },
+    //   this.setUserInfo(data);
+    // },
     setUserInfo(data) {
       // const clear = (x) => x || '';
+      if (!data) return
+
       const {
         user: { firstName, lastName, email, phone, nickname, dateBirth },
         isMarried,
@@ -286,7 +293,7 @@ export default {
           
         })
     },
-    ...mapActions('auth', ['editProfile'])
+    ...mapActions('auth', ['loadProfile', 'editProfile'])
   },
 };
 </script>
