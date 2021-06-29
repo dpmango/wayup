@@ -164,7 +164,6 @@
 		}
 		,
 		mounted() {
-
 			let chartData = this.dataWeek.chartData;
 			this.getLegend(chartData);
 			let labels = this.getLabelsHour();

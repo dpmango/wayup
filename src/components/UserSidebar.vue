@@ -1,36 +1,47 @@
 <template lang="pug">
   .user-sidebar
     .user-photo__wrap.mb-10
-      img.user-photo(
-        src="@/assets/images/user-photo.jpeg"
+      .user-photo-bg(
+        :style="{ 'background-image': 'url(' + profile.user.avatar + ')'}"
       )
-      .user-photo__ratio 89
+      .user-photo__ratio {{ profile.teamNumber }}
     .user-desc
       .user-desc__block.mb-4
-        .title-small.mb-1 Имя и фамилия
-        .user-name Даниил <br/>Брызгалов
+        .title-small.mb-1 Имя и Фамилия
+        .user-name {{ profile.user.firstName }} {{ profile.user.lastName }}
       .user-desc__block.mb-4
         .title-small.mb-1 Дата рождения, возраст
-        .user-desc__text 9 марта 2003, 18 лет
+        .user-desc__text {{ profile.user.dateBirth }}, {{ profile.user.age }} лет
       .user-desc__block.mb-4
         .title-small.mb-1 Позиция
-        .user-desc__text Вратарь
+        .user-desc__text {{ getPositionName(profile.positionName) }}
       .user-desc__block
         .title-small.mb-1 Группа крови
-        .user-desc__text II (+)
+        .user-desc__text {{ profile.bloodType }}
 
 
 
 </template>
 
 <script>
+  import { getPosition } from '@/mixins/getter'
+
 export default {
-  name: "UserSidebar"
+  name: "UserSidebar",
+  mixins: [getPosition],
+  props: {
+    profile: Object
+  },
 }
 </script>
 
 <style scoped lang="scss">
-
+  .user-photo-bg {
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px;
+  }
 .user-photo__wrap {
   position: relative;
   width: 100%;

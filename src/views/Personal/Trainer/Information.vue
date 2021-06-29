@@ -8,7 +8,6 @@
         .h1.mb-10.mt-16 Общая информация
         v-row
           v-col(md="12")
-            GeneralProgress
             WidgetCalendar
           v-col(md="12")
             WidgetTrainerGroup(:groups="groups" :sportsmans="profile.sportsmans")
@@ -20,13 +19,12 @@
 import WidgetTrainerGroup from '@/components/widgets/WidgetTrainerGroup'
 import WidgetCalendar from '@/components/widgets/WidgetCalendar'
 import HeaderTrainerAccount from '@/components/elements/HeaderTrainerAccount'
-import GeneralProgress from '@/components/personal/GeneralProgress'
 import {API_URL_GRAF} from "@/config/api";
 import axios from "axios";
 
 export default {
   name: 'Information',
-  components: { GeneralProgress, HeaderTrainerAccount, WidgetTrainerGroup, WidgetCalendar },
+  components: { HeaderTrainerAccount, WidgetTrainerGroup, WidgetCalendar },
   data: () => ({
     groups: [],
   }),

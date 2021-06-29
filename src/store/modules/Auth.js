@@ -2,6 +2,7 @@ import { SET_ACCESS, SET_REFRESH, RESET, REMOVE_ACCESS, SET_PROFILE, SET_ROLE } 
 import { AuthApi, ProfileResource } from '@/store/api'
 import moment from 'moment';
 
+import { TRAINER_ROLE, SPORTSMAN_ROLE } from '@/config/api'
 /*
 |--------------------------------------------------------------------------
 | Начальное состояние - используется для сброса store
@@ -99,15 +100,32 @@ const actions = {
 
     return data
   },
-  async loadProfile({ commit }) {
-    const [err, data] = await ProfileResource.get()
 
-    if (err) throw err.response
+  async loadProfile({ commit, state }) {
 
-    commit(SET_PROFILE, data)
+    if(state.role == TRAINER_ROLE) {
+      await ProfileResource.getTrainer()
+        .then(response => {
+          commit(SET_PROFILE, response.data)
+        })
+        .catch(err => {
+          console.log(err)
+          throw err.response
+        })
+    }
 
-    return data
+    if(state.role == SPORTSMAN_ROLE) {
+      await ProfileResource.getSportsman()
+        .then(response => {
+          commit(SET_PROFILE, response.data)
+        })
+        .catch(err => {
+          console.log(err)
+          throw err.response
+        })
+    }
   },
+  
   async editProfile({commit}, {profile, personal, passport, workplaces, educations}){
     
     const {

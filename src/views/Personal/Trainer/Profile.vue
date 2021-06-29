@@ -310,8 +310,9 @@ export default {
   margin-bottom: 12px;
 }
 
-.profile-table__right {
-  @include width-flex(90%);
+.profile-table__left {
+  @include width-flex(10%);
+  padding-right: 10px;
 }
 
 .place__block{

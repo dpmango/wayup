@@ -95,7 +95,7 @@
       v-col(
         md='2'
       )
-        UserSidebar
+        UserSidebar(:profile="profile" v-if="profile.user")
       v-col(
         md='10'
       )
@@ -134,6 +134,7 @@ import MusicPlayer from '@/components/elements/MusicPlayer'
 import AccordionExercises from '@/components/AccordionExercises'
 import InfoBlock from '@/components/elements/InfoBlock'
 import SidebarWidgets from '@/components/SidebarWidgets'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'AccountSportsman',
@@ -170,7 +171,6 @@ export default {
     timeoutSettings: -1,
     widgetsListOne: [
       { id: 1, component: 'WidgetHomework' },
-      { id: 2, component: 'WidgetTeam' },
       { id: 3, component: 'WidgetMapsGoal' },
       { id: 4, component: 'WidgetMapsGoalZone' },
       { id: 5, component: 'WidgetLearn' },
@@ -185,6 +185,10 @@ export default {
     ],
   }),
 
+  computed: {
+    ...mapState('auth', ['profile']),
+  },
+
   beforeDestroy() {
     clearInterval(this.interval)
   },
@@ -198,24 +202,12 @@ export default {
     sidebarWidgetsOpen: function () {
       this.isShowSidebarWidgets = true
     },
+    ...mapActions('auth', ['loadProfile']),
   },
-  mounted() {},
-  watch: {
-    // openNotification: function (val) {
-    //   if(val) {
-    //     this.interval = setInterval(() => {
-    //       if (this.value === 0) {
-    //         return (this.value = 0)
-    //       }
-    //       this.value -= 10
-    //     }.bind(this), 1000)
-    //   }
-    //
-    //   else {
-    //
-    //   }
-    // },
+  mounted() {
+    this.loadProfile()
   },
+
 }
 </script>
 

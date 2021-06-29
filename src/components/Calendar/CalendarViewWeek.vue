@@ -23,6 +23,7 @@
             .hours-item(v-for="m in 12" @mouseover="showAddBtn" @mouseleave="hideAddBtn")
              base-button(label='' classAttr='button-default button-big-icon add-event'
                @click="createEvent(getDate(n), (6 + m))"
+               v-if="role == trainerRole"
               )
                 template(#icon-left)
                   svg.icon-16(width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg')
@@ -54,6 +55,7 @@ import moment from 'moment'
 import CalendarEvent from '@/components/Calendar/CalendarEvent'
 import CalendarDragEvent from '@/components/Calendar/CalendarDragEvent'
 import ModalTrainerNewEvent from '@/components/modals/ModalTrainerNewEvent'
+import { TRAINER_ROLE } from '@/config/api'
 
 export default {
   name: 'CalendarViewWeek',
@@ -79,6 +81,9 @@ export default {
       offsetMinuteMin: 15, // Минимальное смещение в минутах при drag-and-drop
       dialogEvent: false,
       dialogEventSkills: false,
+
+      role: localStorage.getItem('role'),
+      trainerRole: TRAINER_ROLE,
 
       // Время начала - окончания события для модалки
       createTimeStart: '',

@@ -29,6 +29,8 @@
 
 <script>
   import {Chart, registerables} from 'chart.js';
+  import axios from "axios";
+  import {API_URL_GRAF} from "../../config/api";
 
   Chart.register(...registerables);
 
@@ -42,9 +44,9 @@
     data: () => ({
       yLabels: {
         0: 'Отдых',
-        32: 'Легко',
-        64: 'Нормально',
-        100: 'Тяжело',
+        3: 'Легко',
+        6: 'Нормально',
+        10: 'Тяжело',
       },
       chart: null,
 
@@ -61,67 +63,81 @@
       }
     },
 
-    mounted() {
+    methods: {
+      draw(data) {
+        let canvas = document.getElementById('levelChart00');
+        let context = canvas.getContext("2d");
+        let yLabels = this.yLabels;
 
-      let canvas = document.getElementById('levelChart00');
-      let context = canvas.getContext("2d");
-      let yLabels = this.yLabels;
+        let gradientStroke = context.createLinearGradient(0, 0, 0, 180);
+        gradientStroke.addColorStop(0, "red");
+        gradientStroke.addColorStop(.45, "#B57F2E");
+        gradientStroke.addColorStop(.65, "#3DC50D");
+        gradientStroke.addColorStop(1, "#5FFF27");
 
-      let gradientStroke = context.createLinearGradient(0, 0, 0, 180);
-      gradientStroke.addColorStop(0, "red");
-      gradientStroke.addColorStop(.45, "#B57F2E");
-      gradientStroke.addColorStop(.65, "#3DC50D");
-      gradientStroke.addColorStop(1, "#5FFF27");
-
-      this.chart = new Chart(canvas, {
-        type: 'bar',
-        data: {
-          labels: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
-          datasets: [
-            {
-              data: [50, 45, 70, 50, 90, 20, 5],
-              backgroundColor: gradientStroke,
-              borderRadius: {
-                topLeft: 5,
-                topRight: 5
-              },
-              borderSkipped: false,
-            },
-          ]
-        },
-        options: {
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false,
-            },
-            title: {
-              display: false
-            },
-            tooltip: {
-              enabled: false
-            }
-          },
-
-          scales: {
-            y: {
-              beginAtZero: false,
-              min: 0,
-              max: 100,
-              ticks: {
-                stepSize: 16,
-                callback: function (val) {
-                  if(yLabels[val]) {
-                    return yLabels[val];
-                  }
-                  return ' ';
+        this.chart = new Chart(canvas, {
+          type: 'bar',
+          data: {
+            labels: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
+            datasets: [
+              {
+                data: data,
+                backgroundColor: gradientStroke,
+                borderRadius: {
+                  topLeft: 5,
+                  topRight: 5
                 },
-                maxRotation: 0,
+                borderSkipped: false,
+              },
+            ]
+          },
+          options: {
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false,
+              },
+              title: {
+                display: false
+              },
+              tooltip: {
+                enabled: false
               }
             },
+
+            scales: {
+              y: {
+                beginAtZero: false,
+                min: 0,
+                max: 10,
+                ticks: {
+                  stepSize: 3,
+                  callback: function (val) {
+                    if(yLabels[val]) {
+                      return yLabels[val];
+                    }
+                    return ' ';
+                  },
+                  maxRotation: 0,
+                }
+              },
+            }
           }
+        });
+      }
+    },
+
+    mounted() {
+      var self = this;
+      axios.get(API_URL_GRAF + '/events/load/', {
+        headers: {
+          'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
+          'Content-Type': 'application/json; charset=utf-8'
         }
+      }).then((response) => {
+        self.draw(response.data)
       });
+
     }
   }
 </script>

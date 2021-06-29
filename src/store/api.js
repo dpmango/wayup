@@ -111,9 +111,13 @@ export const EventResource = {
   update(id, data) {
     return HTTP_GRAF.put(`/events/coach/${id}/`, data)
   },
+  sportsman() {
+    return HTTP_GRAF.get('/events/general/')
+  },
 }
 
 export const ProfileResource = {
+
   async get() {
     try {
       const { data } = await HTTP_GRAF.get('/coaches/')
@@ -157,6 +161,13 @@ export const ProfileResource = {
     } catch (error) {
       return [error, null]
     }
+  },
+  getTrainer() {
+    return HTTP_GRAF.get('/coaches/')
+
+  },
+  getSportsman() {
+    return HTTP_GRAF.get('/sportsmans/')
   },
 }
 

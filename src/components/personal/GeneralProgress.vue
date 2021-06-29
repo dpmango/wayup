@@ -57,6 +57,8 @@
 
 <script>
   import Highcharts from 'highcharts';
+  import axios from "axios";
+  import {API_URL_GRAF} from "../../config/api";
 
   export default {
     name: "GeneralProgress",
@@ -67,59 +69,95 @@
       }
     },
     data: () => ({
-      types: ['ОФП, СФП', 'Техника', 'Психология'],
+      types: ['ОФП', 'Техника', 'Тактика', 'Психология', 'Игровая', 'Теория'],
       title: 'Общее развитие',
       goalColor: '#A3A3A3',
       predictionColor: '#3DC50D',
       currentColor: '#326BFF',
       currentDataChart: null,
       chart: null,
-      dataChart: [
-        {
-          title: 'ОФП, СФП',
-          labels: ['Гибкость', 'Скорость', 'Сила', 'Выносливость','Координация'],
-          datasets: {
-            goals: [80, 95, 100, 90, 70],
-            prediction: [60, 80, 80, 85, 60],
-            current: [40, 75, 60, 70, 55]
-          }
-        },
-        {
-          title: 'Техника',
-          labels: ['Катание', 'Владение клюшкой', 'Передачи', 'Броски','Отбор и борьба за шайбу'],
-          datasets: {
-            goals: [100, 80, 95, 100, 60],
-            prediction: [70, 65, 85, 90, 50],
-            current: [65, 65, 40, 30, 20]
-          }
-        },
-        {
-          title: 'Психология',
-          labels: ['Параметр1', 'Параметр2', 'Параметр3'],
-          datasets: {
-            goals: [70, 100, 95],
-            prediction: [70, 65, 85],
-            current: [65, 65, 40]
-          }
-        },
-      ],
+      isLoad: false,
+      dataChart: [],
     }),
 
     methods: {
       changeChart(index) {
-        this.currentDataChart = this.dataChart[index];
+
+        let test = this.dataChart;
+        this.currentDataChart = test[index + 1];
         this.chart.update({
           series: this.series,
           xAxis: {
             categories: this.currentDataChart.labels,
           }
         }, true, true);
+      },
+      generateDateChart(data, title) {
+        var dataChartItem = {
+          title: title,
+          labels: [],
+          datasets: {
+            goals: [],
+            prediction: [],
+            current: []
+          }
+        };
+
+
+          let ofp = data.filter(item => {
+            return item.name == title;
+          })[0];
+
+        if(ofp) {
+          let ofpLabels = Array.from(ofp.skills, (k) => k.name).filter((v, i, a) => {
+            return a.indexOf(v) === i
+          });
+
+          dataChartItem.labels = ofpLabels;
+
+          ofpLabels.map(item => {
+            let skills = ofp.skills.filter(itemskill => {
+              return itemskill.name == item;
+            })
+            let sum =0;
+              skills.map(item => {
+                sum += item.lastMark
+              });
+            dataChartItem.datasets.current.push(sum/skills.length)
+
+            dataChartItem.datasets.goals.push(skills[0].goal);
+            dataChartItem.datasets.prediction.push(skills[0].predict);
+          });
+        }
+
+        return dataChartItem;
+      },
+      async load() {
+        var self = this;
+        await axios.get(API_URL_GRAF + '/skills/general/', {
+          headers: {
+            'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
+            'Content-Type': 'application/json; charset=utf-8'
+          }
+        }).then((response) => {
+          // TODO Добавляю дублирующий элемент потому что происходит замена нулевого. Баг, полечить
+          self.dataChart.push(self.generateDateChart(response.data, 'ОФП'));
+
+
+          self.dataChart.push(self.generateDateChart(response.data, 'ОФП'));
+          self.dataChart.push(self.generateDateChart(response.data, 'Техника'));
+          self.dataChart.push(self.generateDateChart(response.data, 'Тактика'));
+          self.dataChart.push(self.generateDateChart(response.data, 'Психология'));
+          self.dataChart.push(self.generateDateChart(response.data, 'Игровая'));
+          self.dataChart.push(self.generateDateChart(response.data, 'Теория'));
+        });
       }
     },
 
     computed: {
       series: function () {
-        return [{
+        return [
+          {
           type: 'spline',
           name: 'Цели на сезон',
           color: this.goalColor,
@@ -192,16 +230,16 @@
         ]
       },
     },
-
-    mounted() {
-      // Hightchart ------------
+    async mounted() {
+      await this.load();
 
       if (this.dataChart && this.dataChart.length > 0) {
-        this.currentDataChart = this.dataChart[0];
-        let dataChart = this.currentDataChart;
-        let labels = dataChart.labels;
-        let dataSets = dataChart.datasets;
 
+        this.currentDataChart = this.dataChart[0];
+        console.log(this.dataChart);
+        let dataChart1 = this.currentDataChart;
+        let labels = dataChart1.labels;
+        let dataSets = dataChart1.datasets;
         this.chart = Highcharts.chart('generalProgressChart', {
           title: false,
           legend: false,
@@ -220,12 +258,17 @@
                   return this.value;
                 }
               },
-              useHTML: true
-            }
+              useHTML: true,
+              //rotation: -45,
+              //padding: 0,
+            },
+            startOnTick: true,
+            //left: 0,
+            //right: 0
           },
           yAxis: {
             title: false,
-            max: 100
+            max: 100,
           },
           credits: {
             enabled: false
@@ -233,7 +276,6 @@
           series: this.series,
         });
       }
-
 
     }
   }

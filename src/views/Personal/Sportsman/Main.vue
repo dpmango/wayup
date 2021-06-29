@@ -181,7 +181,7 @@ export default {
     ...mapActions('widgets', ['loadWidgetsListMain']),
   },
   created() {
-    this.loadWidgetsListMain()
+    this.loadWidgetsListMain();
   },
 }
 </script>
