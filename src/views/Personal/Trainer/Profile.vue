@@ -7,8 +7,8 @@
 
         v-row
           v-col(md='2')
-            dropzone-photo-block
-
+            dropzone-photo-block(:src="personal.avatar")
+            
           v-col(md='10')
             base-button(label='Скачать резюме'  classAttr='button-default button-blue button-big mb-6')
 
@@ -58,6 +58,7 @@ import ScheduleHeader from '@/components/ScheduleHeader';
 import HeaderTrainerAccount from '@/components/elements/HeaderTrainerAccount';
 import DropzonePhotoBlock from '@/components/elements/DropzonePhotoBlock';
 import DropzonePhotoPassportBlock from '@/components/elements/DropzonePhotoPassportBlock';
+import isEmpty from 'lodash/isEmpty';
 
 import { ProfileResource } from '@/store/api';
 import EditPersonal from './EditSections/EditPersonal';
@@ -80,6 +81,7 @@ export default {
   data: () => ({
     error: '',
     personal: {
+      avatar: null,
       lastName: null,
       firstName: null,
       nickname: null,
@@ -150,10 +152,10 @@ export default {
     // },
     setUserInfo(data) {
       // const clear = (x) => x || '';
-      if (!data) return
+      if (isEmpty(data)) return
 
       const {
-        user: { firstName, lastName, email, phone, nickname, dateBirth },
+        user: { firstName, lastName, email, phone, nickname, dateBirth, avatar },
         isMarried,
         passportSeries,
         passportNumber,
@@ -165,15 +167,16 @@ export default {
         educations,
       } = data;
 
-      console.log('TODO:: ProfileResouce.get', data);
+      // console.log('Profile: setUserInfo', data);
 
       const processDate = (str) => {
-        return moment(str, 'DD-MM-YYY').toDate();
+        return moment(str, 'YYYY-MM-DD').toDate();
       };
 
       this.personal = {
         ...this.personal,
         ...{
+          avatar,
           lastName,
           firstName,
           nickname,

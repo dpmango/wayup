@@ -127,7 +127,6 @@ const actions = {
   },
   
   async editProfile({commit}, {profile, personal, passport, workplaces, educations}){
-    
     const {
       lastName,
       firstName,
@@ -144,56 +143,84 @@ const actions = {
       passportSeries, passportNumber, docIssuer, docIssuerName, registration, docDate
     } = passport
 
-    const patchObject = {
-      ...profile,
-      ...{
-        user: {
-          ...profile.user,
-          ...{
-            lastName,
-            firstName,
-            dateBirth: moment(dateBirth).format('YYYY-MM-DD'),
-            nickname,
-            email,
-            phone,
-            // patronymic // TODO - no input or conflict with firstName
-          },
-          ...{
-            isMarried,
-            passportSeries,
-            passportNumber,
-            address: registration,
-            unitCode: docIssuer,
-            unitName: docIssuerName,
-            dateIssue: moment(docDate).format('YYYY-MM-DD'),
-          },
-        },
-        workplaces: workplaces.map((x) => {
-          return {
-            coach: 1, // todo - tmp fix
-            dateEnd: moment(x.dateStart).format('YYYY-MM-DD'),
-            dateStart: moment(x.dateEnd).format('YYYY-MM-DD'),
-            employer: x.employer,
-            // id: 1, // todo - should ids be created on backend ?
-            position: x.position,
-            responsibilities: x.duties,
-          }
-        }),
-        educations: educations.map((x) => {
-          return {
-            coach: 1, // todo - tmp fix
-            dateEnd: moment(x.dateStart).format('YYYY-MM-DD'),
-            dateStart: moment(x.dateStart).format('YYYY-MM-DD'),
-            employer: x.employer,
-            // id: 1 // todo - should ids be created on backend ?
-            refresherCourses: x.courses,
-            title: x.title,
-          }
-        }),
 
-        sportsmans: profile.sportsmans.map((x) => x.id),
-      },
+    let patchObject = {
+      user: {},
+      // workplaces: workplaces.map((x) => {
+      //   return {
+      //     coach: 1, // todo - tmp fix
+      //     dateEnd: moment(x.dateStart).format('YYYY-MM-DD'),
+      //     dateStart: moment(x.dateEnd).format('YYYY-MM-DD'),
+      //     employer: x.employer,
+      //     // id: 1, // todo - should ids be created on backend ?
+      //     position: x.position,
+      //     responsibilities: x.duties,
+      //   }
+      // }),
+      // educations: educations.map((x) => {
+      //   return {
+      //     coach: 1, // todo - tmp fix
+      //     dateEnd: moment(x.dateStart).format('YYYY-MM-DD'),
+      //     dateStart: moment(x.dateStart).format('YYYY-MM-DD'),
+      //     employer: x.employer,
+      //     // id: 1 // todo - should ids be created on backend ?
+      //     refresherCourses: x.courses,
+      //     title: x.title,
+      //   }
+      // }),
+      sportsmans: profile.sportsmans.map((x) => x.id),
     };
+
+    const addToPatch = (field, name, val, type) => {
+      const clear = (val, type) => {
+        if (type === 'string'){
+          return val.trim()
+        } else if (type === 'date') {
+          // todo..
+        }
+
+        return val
+      }
+
+      let curField = profile[name]
+      let clearValue = clear(val);
+
+      let targetField = clearValue
+
+      if (field !== 'root'){
+        curField = profile[field][name]
+      }
+      
+      // setter 
+      // console.log(curField, targetField)
+      const hasChanged = curField !== targetField
+      // console.log(`${name} has changed`, hasChanged);
+
+      if (hasChanged){
+        if (field !== 'root'){
+          patchObject[field][name] = clearValue
+        } else {
+          patchObject[name] = clearValue
+        }
+      }
+    }
+
+    addToPatch('user', 'lastName', lastName, 'string')
+    addToPatch('user', 'firstName', firstName, 'string')
+    addToPatch('user', 'dateBirth', moment(dateBirth).format('YYYY-MM-DD'), 'date')
+    addToPatch('user', 'nickname', nickname, 'string')
+    addToPatch('user', 'email', email, 'string')
+    addToPatch('user', 'phone', phone, 'string')
+
+    addToPatch('root', 'isMarried', isMarried)
+    addToPatch('root', 'passportSeries', passportSeries, 'string')
+    addToPatch('root', 'passportNumber', passportNumber, 'string')
+    addToPatch('root', 'address', registration, 'string')
+    addToPatch('root', 'unitCode', docIssuer, 'string')
+    addToPatch('root', 'unitName', docIssuerName, 'string')
+    addToPatch('root', 'dateIssue', moment(docDate).format('YYYY-MM-DD'), 'date')
+    
+    console.log('patch object', patchObject)
 
     const [err, data] = await ProfileResource.edit(patchObject)
 
