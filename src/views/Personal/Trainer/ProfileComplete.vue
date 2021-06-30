@@ -16,7 +16,7 @@
           v-col(
             md='2'
           )
-            TrainerSidebar
+            TrainerSidebar(:profile="profile")
 
           v-col(
             md='10'
@@ -24,7 +24,10 @@
             base-button(label='Скачать резюме'  classAttr='button-default button-blue button-big mb-6')
             
             // timeline widget
-            WidgetTrainerTimeline(:workplaces="profile.workplaces" :educations="profile.educations")
+            WidgetTrainerTimeline(
+              :workplaces="profile.workplaces"
+              :educations="profile.educations"
+              v-if="profile.workplaces && profile.educations")
 
             WidgetTrainerSportsmanWork(:items="profile.sportsmans")
         

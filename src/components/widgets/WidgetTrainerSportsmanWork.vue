@@ -1,5 +1,5 @@
 <template lang="pug">
-  .widget.widget-award
+  .widget.widget-award(v-if="items")
     .widget-header
       .widget-header__top
         .widget-header__title Спортсмены, с которыми сейчас работаю
@@ -20,7 +20,7 @@
                     v-avatar.avatar-player.mr-3(
                       size='32'
                     )
-                      img(src="@/assets/images/avatar.png")
+                      img(:src="item.user.avatar")
                     .d-block
                       .name.mb-2 {{ item.user.firstName }} - {{ item.user.lastName }}
                       .status.text-small.text-gray {{ changeGamer(item.positionName)}}
@@ -39,14 +39,14 @@
                 td
                   .d-block.pl-10.pr-4
                     .text-small.text-gray.mb-1 Хват клюшки
-                    .text-middle Правый
+                    .text-middle {{ item.grip }}
                 td
                   .d-block.pl-10.pr-4
                     .text-small.text-gray.mb-1 Кровь
-                    .text-middle IV (-)
+                    .text-middle {{ item.bloodType }}
 
 
-    .widget-footer
+    .widget-footer(v-if="items.length > 5")
       .widget-footer__text(
         @click="handleOnClick($event)"
       )

@@ -57,8 +57,11 @@
 
 <script>
   import Highcharts from 'highcharts';
+  //import SeriesLabel from 'highcharts/modules/series-label';
   import axios from "axios";
   import {API_URL_GRAF} from "../../config/api";
+
+  //SeriesLabel(Highcharts);
 
   export default {
     name: "GeneralProgress",
@@ -166,7 +169,31 @@
             radius: 5,
             symbol: 'circle'
           },
-          data: this.currentDataChart.datasets.goals,
+          data: [{
+            y: this.currentDataChart.datasets.goals[0]*0.5,
+            marker: {
+              radius: 0,
+              states: {
+                hover: {
+                  enabled: false,
+                },
+              },
+            },
+            noTooltip: true
+            },
+            ...this.currentDataChart.datasets.goals,
+            {
+              y:  this.currentDataChart.datasets.goals[0]*0.5,
+              marker: {
+                radius: 0,
+                states: {
+                  hover: {
+                    enabled: false,
+                  },
+                },
+              },
+              noTooltip: true
+            }],
           lineWidth: 1,
           dashStyle: '5, 3',
           states: {
@@ -177,6 +204,7 @@
         },
           {
             type: 'areaspline',
+            clip: false,
             name: 'Прогноз на заданный период',
             color: this.predictionColor,
             fillColor: {
@@ -192,7 +220,31 @@
               radius: 5,
               symbol: 'circle'
             },
-            data: this.currentDataChart.datasets.prediction,
+            data: [{
+              y: this.currentDataChart.datasets.prediction[0]*0.5,
+              marker: {
+                radius: 0,
+                states: {
+                  hover: {
+                    enabled: false,
+                  },
+                },
+              },
+              noTooltip: true
+              },
+              ...this.currentDataChart.datasets.prediction,
+              {
+                y: this.currentDataChart.datasets.prediction[0]*0.5,
+                marker: {
+                  radius: 0,
+                  states: {
+                    hover: {
+                      enabled: false,
+                    },
+                  },
+                },
+                noTooltip: true
+              }],
             lineWidth: 1,
             dashStyle: '5, 3',
             states: {
@@ -203,6 +255,7 @@
           },
           {
             type: 'areaspline',
+            clip: false,
             name: 'Текущие показатели',
             color: this.currentColor,
             fillColor: {
@@ -217,14 +270,37 @@
               radius: 5,
               symbol: 'circle'
             },
-            data: this.currentDataChart.datasets.current,
+            data: [{
+              y: this.currentDataChart.datasets.current[0]*0.5,
+              marker: {
+                radius: 0,
+                states: {
+                  hover: {
+                    enabled: false,
+                  },
+                },
+              },
+              noTooltip: true,
+            },
+              ...this.currentDataChart.datasets.current,
+              { y: this.currentDataChart.datasets.current[0]*0.5,
+                marker: {
+                  radius: 0,
+                  states: {
+                    hover: {
+                      enabled: false,
+                    },
+                  },
+                },
+                noTooltip: true,}
+                ],
             lineWidth: 1,
             dashStyle: '5, 3',
             states: {
               inactive: {
                 enabled: false
-              }
-            }
+              },
+            },
           },
 
         ]
@@ -236,22 +312,49 @@
       if (this.dataChart && this.dataChart.length > 0) {
 
         this.currentDataChart = this.dataChart[0];
-        console.log(this.dataChart);
         let dataChart1 = this.currentDataChart;
-        let labels = dataChart1.labels;
+        let labels = ['', ...dataChart1.labels, ''];
         let dataSets = dataChart1.datasets;
         this.chart = Highcharts.chart('generalProgressChart', {
+          tooltip: {
+            formatter: function() {
+              if(!this.point.noTooltip) {
+                return this.series.name+'<br/><b>'+this.point.y+'</b>';
+              }
+
+              return false;
+            }
+          },
+          plotOptions: {
+            series: {
+              label: {
+                connectorAllowed: false
+              },
+              //pointStart: 100
+              //pointStart: 100,
+              //groupPadding: 0
+            },
+            areaspline: {
+              label: {
+                //connectorAllowed: true
+              }
+              //clip: false,
+             // pointStart: 100
+            }
+          },
           title: false,
           legend: false,
-          margin: 0,
           xAxis: {
+           left: 0,
+           // min: 100,
+           // endOnTick: false,
+           // maxPadding: 0,
             categories: labels,
             labels: {
               formatter: function () {
                 let diff = dataSets.prediction[this.pos] - dataSets.current[this.pos];
                 if (diff > 0) {
                   return this.value + '<span class="xAxis_up" style="color:#3DC50D;position:relative;padding-left: 20px">' +
-                    //'<img :src=`${@/assets/images/chart_arrow.png}`>' +
                     '<span style="width: 0;height: 0;border:5px solid transparent;border-bottom-color:#3DC50D;border-bottom-width:7px;position:absolute;left:7px;"></span>' +
                     diff + '</span>';
                 } else {
@@ -259,12 +362,9 @@
                 }
               },
               useHTML: true,
-              //rotation: -45,
-              //padding: 0,
             },
-            startOnTick: true,
-            //left: 0,
-            //right: 0
+           startOnTick: true,
+
           },
           yAxis: {
             title: false,

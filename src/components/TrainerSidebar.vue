@@ -1,13 +1,13 @@
 <template lang="pug">
-  .user-sidebar
+  .user-sidebar(v-if="profile.user")
     .user-photo__wrap.mb-6
       img.user-photo(
-        src="@/assets/images/trainer-photo.png"
+        :src="profile.user.avatar"
       )
     .user-desc
       .user-desc__block.mb-4
         .title-small.mb-1 Имя и фамилия
-        .user-name Даниил Сергеевич Брызгалов
+        .user-name {{ profile.user.firstName }} {{ profile.user.patronymic }} {{ profile.user.lastName }}
       .user-desc__block.mb-4
         .title-small.mb-1 Личные данные
         router-link(to="/account-trainer/profile")
@@ -20,7 +20,8 @@
 
 <script>
 export default {
-  name: "TrainerSidebar"
+  name: "TrainerSidebar",
+  props: ['profile']
 }
 </script>
 

@@ -31,33 +31,30 @@
               color='#F1F3F9'
               textColor="#000000"
             )
-    .d-block.mr-10
+    .d-block.mr-10(v-if="item.ofp")
       .text-middle.text-gray.mb-2 ОФП, СФП
       .d-flex.align-end
-        .num 8,1
-        <!-- при отрицательном результате 'green-result' заменить на 'red-result' -->
-        .summary-indication.green-result.d-flex.align-center
+        .num {{ item.ofp }}
+        .summary-indication.d-flex.align-center(:class="[item.ofpDynamic > 0 ? 'green-result' : 'red-result']")
           svg.progress-indication(width='8' height='5' viewBox='0 0 8 5' fill='none' xmlns='http://www.w3.org/2000/svg')
             path(d='M4 0L8 5H0L4 0Z' )
-          .progress-quant 0.5
-    .d-block.mr-10
+          .progress-quant {{ item.ofpDynamic }}
+    .d-block.mr-10(v-if="item.technic")
       .text-middle.text-gray.mb-2 Техника
       .d-flex.align-end
-        .num 8,1
-        <!-- при отрицательном результате 'green-result' заменить на 'red-result' -->
-        .summary-indication.green-result.d-flex.align-center
+        .num {{ item.technic }}
+        .summary-indication.d-flex.align-center(:class="[item.technicDynamic > 0 ? 'green-result' : 'red-result']")
           svg.progress-indication(width='8' height='5' viewBox='0 0 8 5' fill='none' xmlns='http://www.w3.org/2000/svg')
             path(d='M4 0L8 5H0L4 0Z' )
-          .progress-quant 0.5
-    .d-block.mr-10
+          .progress-quant {{ item.technicDynamic }}
+    .d-block.mr-10(v-if="item.tactic")
       .text-middle.text-gray.mb-2 Тактика
       .d-flex.align-end
-        .num 8,1
-        <!-- при отрицательном результате 'green-result' заменить на 'red-result' -->
-        .summary-indication.green-result.d-flex.align-center
+        .num {{ item.tactic }}
+        .summary-indication.d-flex.align-center(:class="[item.tacticDynamic > 0 ? 'green-result' : 'red-result']")
           svg.progress-indication(width='8' height='5' viewBox='0 0 8 5' fill='none' xmlns='http://www.w3.org/2000/svg')
             path(d='M4 0L8 5H0L4 0Z' )
-          .progress-quant 0.5
+          .progress-quant {{ item.tacticDynamic }}
     .d-block.ml-auto
       v-menu(
         v-model='menu'
