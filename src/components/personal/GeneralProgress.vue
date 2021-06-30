@@ -57,11 +57,9 @@
 
 <script>
   import Highcharts from 'highcharts';
-  //import SeriesLabel from 'highcharts/modules/series-label';
   import axios from "axios";
-  import {API_URL_GRAF} from "../../config/api";
-
-  //SeriesLabel(Highcharts);
+  import {API_URL_GRAF, SPORTSMAN_ROLE, TRAINER_ROLE} from "../../config/api";
+  import {mapState} from 'vuex';
 
   export default {
     name: "GeneralProgress",
@@ -69,7 +67,8 @@
       data: {
         type: Array,
         required: false
-      }
+      },
+      sportsman: Object
     },
     data: () => ({
       types: ['ОФП', 'Техника', 'Тактика', 'Психология', 'Игровая', 'Теория'],
@@ -94,6 +93,14 @@
             categories: this.currentDataChart.labels,
           }
         }, true, true);
+      },
+      generateData(data) {
+        // TODO Добавляю дублирующий элемент потому что происходит замена нулевого. Баг, полечить
+        this.dataChart.push(this.generateDateChart(data, this.types[0]))
+
+        this.types.map(item => {
+          this.dataChart.push(this.generateDateChart(data, item))
+        });
       },
       generateDateChart(data, title) {
         var dataChartItem = {
@@ -137,22 +144,14 @@
       },
       async load() {
         var self = this;
-        await axios.get(API_URL_GRAF + '/skills/general/', {
+
+        await axios.get(this.requestUrl, {
           headers: {
             'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
             'Content-Type': 'application/json; charset=utf-8'
           }
         }).then((response) => {
-          // TODO Добавляю дублирующий элемент потому что происходит замена нулевого. Баг, полечить
-          self.dataChart.push(self.generateDateChart(response.data, 'ОФП'));
-
-
-          self.dataChart.push(self.generateDateChart(response.data, 'ОФП'));
-          self.dataChart.push(self.generateDateChart(response.data, 'Техника'));
-          self.dataChart.push(self.generateDateChart(response.data, 'Тактика'));
-          self.dataChart.push(self.generateDateChart(response.data, 'Психология'));
-          self.dataChart.push(self.generateDateChart(response.data, 'Игровая'));
-          self.dataChart.push(self.generateDateChart(response.data, 'Теория'));
+          self.generateData(response.data);
         });
       }
     },
@@ -305,6 +304,16 @@
 
         ]
       },
+      requestUrl: function () {
+        if(this.role == SPORTSMAN_ROLE) {
+          return API_URL_GRAF + '/skills/general/';
+        }
+        if(this.role == TRAINER_ROLE) {
+          return API_URL_GRAF + '/skills/general/' + this.sportsman.id;
+        }
+        return false;
+      },
+      ...mapState('auth', ['role'])
     },
     async mounted() {
       await this.load();
