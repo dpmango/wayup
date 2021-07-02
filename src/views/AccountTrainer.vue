@@ -16,8 +16,8 @@ export default {
   computed: {
     ...mapState('auth', ['profile']),
   },
-  created() {
-    this.loadProfile();
+  async created() {
+    await this.loadProfile();
   }
 }
 </script>

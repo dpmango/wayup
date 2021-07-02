@@ -78,7 +78,7 @@ export const AuthApi = {
   **/
   async refresh(request) {
     try {
-      const { data } = await HTTP_GRAF.post('/auth/users/refresh/', request)
+      const { data } = await HTTP_GRAF.post('/auth/users/refresh/', {"refresh": request})
       return [null, data]
     } catch (error) {
       return [error, null]

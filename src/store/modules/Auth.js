@@ -3,6 +3,8 @@ import { AuthApi, ProfileResource } from '@/store/api'
 import moment from 'moment';
 
 import { TRAINER_ROLE, SPORTSMAN_ROLE } from '@/config/api'
+import { TRAINER_ROLE, SPORTSMAN_ROLE, TIME_ACCESS } from '@/config/api'
+
 /*
 |--------------------------------------------------------------------------
 | Начальное состояние - используется для сброса store
@@ -12,7 +14,8 @@ const initialState = () => ({
   access: localStorage.getItem('access') || '',
   profile: {},
   role: localStorage.getItem('role') || '',
-})
+  refresh: localStorage.getItem('refresh') || '',
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +50,7 @@ const mutations = {
       state[key] = newState[key]
     })
   },
-}
+};
 /*
 |--------------------------------------------------------------------------
 | Getters
@@ -68,35 +71,41 @@ const actions = {
 
     if (err) throw err
 
-    //const { access, refresh, userRole } = data
+    const { access,  userRole, refresh } = data;
 
-    const { access,  userRole } = data
+    commit(SET_ACCESS, access);
+    commit(SET_REFRESH, refresh);
+    commit(SET_ROLE, userRole);
+    localStorage.setItem('access', access);
+    localStorage.setItem('refresh', refresh);
+    localStorage.setItem('role', userRole);
 
-    commit(SET_ACCESS, access)
-    //commit(SET_REFRESH, refresh)
-    commit(SET_ROLE, userRole)
-    localStorage.setItem('access', access)
-    //localStorage.setItem('refresh', refresh)
-    localStorage.setItem('role', userRole)
+    document.cookie = "access=" + access + "; max-age=" + TIME_ACCESS;
 
     return data
   },
 
   logout({ commit }) {
-    commit(RESET)
+    commit(RESET);
+    document.cookie = "access=" + localStorage.getItem('access') + "; max-age=-1";
     localStorage.removeItem('access')
     localStorage.removeItem('refresh')
+    localStorage.removeItem('role')
+
+
   },
 
-  async refreshToken({ commit }, { refresh }) {
-    const [err, data] = await AuthApi.refresh({ refresh })
+  async refreshToken({ commit, state }) {
+    const [err, data] = await AuthApi.refresh(state.refresh);
 
-    if (err) throw err
+    if (err) throw err;
 
-    commit(SET_ACCESS, data.access)
-    commit(SET_REFRESH, data.refresh)
-    localStorage.setItem('access', data.access)
-    localStorage.setItem('refresh', data.refresh)
+    commit(SET_ACCESS, data.access);
+    commit(SET_REFRESH, data.refresh);
+    localStorage.setItem('access', data.access);
+    localStorage.setItem('refresh', data.refresh);
+
+    document.cookie = "access=" + data.access + "; max-age=" + TIME_ACCESS;
 
     return data
   },

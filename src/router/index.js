@@ -2,8 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import SportsmanChildren from './route-account-sportsmen'
 import TrainerChildren from './route-account-trainer'
+import Vuex from 'vuex'
+import store from '@/store';
 
 Vue.use(VueRouter)
+Vue.use(Vuex)
 
 const routes = [
     {
@@ -11,7 +14,7 @@ const routes = [
         redirect: (() => {
             const role = localStorage.getItem('role');
             if(role == 'C') {
-                return '/account-trainer';
+                return '/account-trainer/information';
             }
             if(role == 'Sp') {
                 return '/account-sportsman';
@@ -89,7 +92,7 @@ const routes = [
     {
         path: "/wizard",
         name: "Wizard",
-        meta: { layout: "main", requiresAuth: true },
+        meta: { layout: "main", requiresAuth: true, userSettings: true },
         component: () => import("../views/Wizard"),
     },
 
@@ -97,7 +100,7 @@ const routes = [
     {
         path: "/treelist",
         name: "Treelist",
-        meta: { layout: "main", requiresAuth: true },
+        meta: { layout: "main", requiresAuth: true, userSettings: true },
         component: () => import("../views/Treelist"),
     },
 
@@ -172,8 +175,16 @@ const router = new VueRouter({
   routes,
 })
 
+function getCookie(name) {
+    let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    if (match) return match[2];
+    return '';
+}
+
 // Провека авторизации пользователя
 router.beforeEach((to, from, next) => {
+
+
   const publicPages = ['/login', '/registration']
   const authRequired = !publicPages.includes(to.path)
   const loggedIn = localStorage.getItem('access')
@@ -183,6 +194,29 @@ router.beforeEach((to, from, next) => {
     const role = localStorage.getItem('role');
     const isPrivateSportsman = to.path.includes(sportsmanPage)
     const isPrivateTrainer = to.path.includes(trainerPage)
+    //console.log(authRequired);
+    if (authRequired) {
+        let accessCookie = getCookie('access');
+        if(accessCookie) {
+            //console.log(accessCookie);
+        } else {
+            const $refreshToken = async () => {
+                const refresh = localStorage.getItem('refresh')
+
+                if (refresh) {
+                    try {
+                        await store.dispatch('auth/refreshToken', { refresh })
+                    } catch (error) {
+                        store.dispatch('auth/logout')
+
+                    }
+                }
+            }
+            $refreshToken();
+
+        }
+    }
+
 
     if(role == 'C' && isPrivateSportsman) {
         next('/account-trainer')
@@ -192,15 +226,15 @@ router.beforeEach((to, from, next) => {
         next('/account-sportsman')
     }
 
-  if (authRequired && !loggedIn) {
-    next('/login')
-  } else {
-    next()
-  }
+      if (authRequired && !loggedIn) {
+        next('/login')
+      } else {
+        next()
+      }
 
-  if (!authRequired && loggedIn) {
-    next('/')
-  }
+      if (!authRequired && loggedIn) {
+        next('/')
+      }
 })
 
 export default router

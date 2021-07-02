@@ -71,6 +71,7 @@
 
 <script>
 import moment from 'moment-timezone'
+import 'moment/locale/ru'
 import CalendarEvent from '@/components/Calendar/CalendarEvent'
 
 import { mapActions, mapGetters } from 'vuex'
