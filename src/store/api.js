@@ -117,8 +117,54 @@ export const EventResource = {
 }
 
 export const ProfileResource = {
+
+  async get() {
+    try {
+      const { data } = await HTTP_GRAF.get('/coaches/')
+      return [null, data]
+    } catch (error) {
+      return [error, null]
+    }
+  },
+  /**
+    @params USER required
+    * @param user.firstName String
+    * @param user.lastName String
+    @param user.isStaff Boolean
+    @param user.isActive Boolean
+    * @param user.email String(email)
+    * @param user.phone String(maxLength: 20 minLenght: 1)
+    @param user.patronymic String
+    @param user.age Integer
+    * @param user.dateBirth String(date)
+    * @param nickname String
+
+    @ user params outside user object
+    * @param passportSeries	String
+    * @param passportNumber	string
+    * @param address	string
+    * @param unitCode	string
+    * @param unitName	string
+    * @param dateIssue	string($date)
+    * @param isMarried	boolean
+
+    @ other saved of params of (SET_PROFILE)
+    * @param sportsmans [uniqueItems] required
+    * @param educations [EducationUpdate]
+    * @param workplaces [WorkPlaceUpdate]
+    * 
+  **/
+  async edit(request) {
+    try {
+      const { data } = await HTTP_GRAF.put('/coaches/', request)
+      return [null, data]
+    } catch (error) {
+      return [error, null]
+    }
+  },
   getTrainer() {
     return HTTP_GRAF.get('/coaches/')
+
   },
   getSportsman() {
     return HTTP_GRAF.get('/sportsmans/')

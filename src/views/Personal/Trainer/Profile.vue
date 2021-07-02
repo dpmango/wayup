@@ -2,458 +2,316 @@
   div
     HeaderTrainerAccount
     v-row
-      v-col(
-        md='12'
-      )
-
+      v-col(md='12')
         h1.title-big.mb-5 Мой профиль
+
         v-row
-          v-col(
-            md='2'
-          )
-            dropzone-photo-block
-
-          v-col(
-            md='10'
-          )
+          v-col(md='2')
+            dropzone-photo-block(:src="personal.avatar")
+            
+          v-col(md='10')
             base-button(label='Скачать резюме'  classAttr='button-default button-blue button-big mb-6')
-            .widget.mb-4
-              .widget-header
-                .widget-header__top
-                  .widget-header__title Личные данные
-              .widget-content.widget-content_gray.widget-content_profile(
-                :class="!isShowList ? 'pt-0 pb-0' : ''"
+
+            ValidationObserver(ref="form" v-slot="{}" tag="form" class="profile-edit-form" @submit.prevent="handleSubmit")
+
+              .error(v-if="error" v-html="error")
+              // 1 - Личные
+              EditPersonal(:form="personal" :select="select")
+
+              // 2 - Пасспорт
+              EditPassport(:form="passport" :select="select")
+
+              // 3 - Работа (multiple)
+              EditWorkplaces(
+                :forms="workplaces"
+                :multiple="true"
+                :select="select"
+                @handleAdd="handleWorkplaceAdd"
+                @handleDelete="handleWorkplaceDelete"
               )
-                .profile__body(
-                  :class="!isShowList ? 'scroll-area p-0' : 'scroll-area p-0 show'"
-                  style='max-height: 0px;'
-                )
-                  .inputs-row
-                    .profile-table__left
-                      .profile-title Фамилия
-                    .profile-table__right
-                      base-input(
-                        label="Введите"
-                        classAttr="input-default input-big text-gray w-100"
-                      )
 
-                  .inputs-row
-
-                    .profile-table__left
-                      .profile-title Имя Отчество
-                    .profile-table__right
-                      base-input(
-                        label="Введите"
-                        classAttr="input-default input-big text-gray w-100"
-                      )
-                  .inputs-row
-
-                    .profile-table__left
-                      .profile-title Никнейм
-                    .profile-table__right
-                      base-input(
-                        label="Введите"
-                        classAttr="input-default input-big text-gray w-100"
-                      )
-
-                  .inputs-row
-                    .profile-table__left
-                      .profile-title Дата рождения
-                    .profile-table__right
-                      DataPicker
-
-                  .inputs-row
-
-                    .profile-table__left
-                      .profile-title В браке
-                    .profile-table__right
-                      .segments-block
-                        v-item-group.d-flex(mandatory)
-                          v-item(
-                            v-for="val in marriageList"
-                            :key="val"
-                            v-slot='{ active, toggle }'
-                          )
-                            .segments-item
-                              base-segment(
-                                classAttr='segment-default segment-big'
-                                :label="val"
-                                tag="div"
-                                @click='toggle'
-                              )
-
-                  .inputs-row
-
-                    .profile-table__left
-                      .profile-title E-mail
-                    .profile-table__right
-                      base-input(
-                        label="Введите"
-                        classAttr="input-default input-big text-gray w-100"
-                      )
-                  .inputs-row
-
-                    .profile-table__left
-                      .profile-title Телефон
-                    .profile-table__right
-                      v-row
-                        v-col(md='2')
-                          base-input(
-                            label=""
-                            classAttr="input-default input-big text-gray w-100"
-                            placeholder="х (ххх) ххх-хх-хх"
-                            v-model='phone'
-                            v-mask="'# (###) ###-##-##'"
-                          )
-                  .inputs-row.mb-3
-                    .profile-table__left
-                      .profile-title Группа крови
-                    .profile-table__right
-                      v-row.align-center
-                        v-col(
-                          md='3'
-                        )
-                          base-select(
-                            classAttr='select-default select-bg-white'
-                            label="Группа"
-                            :items="selectItems"
-                            :multiple="true"
-                          )
-                        v-col(
-                          md='7'
-                        )
-                          .d-flex.align-center
-                            .profile-title.mr-4 Резус фактор
-                            .segments-block
-                              v-item-group.d-flex.mb-0(mandatory)
-                                v-item(
-                                  v-for="val in rhesusList"
-                                  :key="val"
-                                  v-slot='{ active, toggle }'
-                                )
-                                  .segments-item
-                                    base-segment(
-                                      classAttr='segment-default segment-big'
-                                      :label="val"
-                                      tag="div"
-                                      @click='toggle'
-                                    )
-
-              .widget-footer
-                .widget-footer__text(
-                  @click='toggleList'
-                )
-                  span.list-more(v-if='!isShowList') Развернуть список
-                  span.list-small(v-if='isShowList') Свернуть список
-
-
-            .widget.mb-4
-              .widget-header
-                .widget-header__top
-                  .widget-header__title Паспортные данные
-              .widget-content.widget-content_gray.widget-content_profile(
-                :class="!isShowList ? 'pt-0 pb-0' : ''"
+              // 4 - Образование (multiple)
+              EditEducations(
+                :forms="educations"
+                :multiple="true"
+                :select="select"
+                @handleAdd="handleEducationAdd"
+                @handleDelete="handleEducationDelete"
               )
-                .profile__body(
-                  :class="!isShowList ? 'scroll-area p-0' : 'scroll-area p-0 show'"
-                  style='max-height: 0px;'
-                )
-                  .inputs-row
-                    .profile-table__left
-                      .profile-title Серия и номер
-                    .profile-table__right
-                      v-row
-                        v-col(
-                          md='2'
-                        )
-                          base-input(
-                            classAttr="input-default input-big text-gray w-100 mr-2"
-                            placeholder="хх хх"
-                            v-model='series'
-                            v-mask="'## ##'"
-                          )
-                        v-col(
-                          md='2'
-                        )
-                          base-input(
-                            classAttr="input-default input-big text-gray w-100 mr-2"
-                            placeholder="ххх ххх"
-                            v-model='number'
-                            v-mask="'### ###'"
-                          )
-                  .inputs-row
-                    .profile-table__left
-                      .profile-title Адрес регистрации
-                    .profile-table__right
-                      base-input(
-                        label="Введите"
-                        classAttr="input-default input-big text-gray w-100"
-                      )
-                  .inputs-row
-                    .profile-table__left
-                      .profile-title Кем выдан
-                    .profile-table__right
-                      v-row
-                        v-col(
-                          md='2'
-                        )
-                          base-input(
-                            classAttr="input-default input-big text-gray w-100 mr-2"
-                            placeholder="ххх ххх"
-                            v-model='numberGet'
-                            v-mask="'### ###'"
-                          )
-                        v-col(
-                          md='10'
-                        )
 
-                          base-input(
-                            label="Введите"
-                            classAttr="input-default input-big text-gray w-100"
-                          )
-                  .inputs-row
-                    .profile-table__left
-                      .profile-title Дата выдачи
-                    .profile-table__right
-                      DataPicker
-                  .inputs-row.mt-6
-                    .profile-table__left
-                      .profile-title Фото паспорта
-                    .profile-table__right
-                      DropzonePhotoPassportBlock
-              .widget-footer
-                .widget-footer__text(
-                  @click='toggleList'
-                )
-                  span.list-more(v-if='!isShowList') Развернуть список
-                  span.list-small(v-if='isShowList') Свернуть список
+              .error(v-if="error" v-html="error")
 
-            .widget.mb-4
-              .widget-header
-                .widget-header__top
-                  .widget-header__title Место работы
-              .widget-content.widget-content_gray.widget-content_profile(
-                :class="!isShowList ? 'pt-0 pb-0' : ''"
-              )
-                .profile__body(
-                  :class="!isShowList ? 'scroll-area p-0' : 'scroll-area p-0 show'"
-                  style='max-height: 0px;'
-                )
-                  .place__block
-                    .inputs-row
-                      .profile-table__left
-                        .profile-title Дата начала
-                      .profile-table__right
-                        v-row.align-center
-                          v-col(
-                            md='2'
-                          )
-                            DataPicker
-
-                          v-col(
-                            md='2'
-                          )
-                            .profile-title Дата окончания
-                          v-col(
-                            md='2'
-                          )
-                            .ml-n16
-                              DataPicker
-
-                    .inputs-row
-
-                      .profile-table__left
-                        .profile-title Работодатель
-                      .profile-table__right
-                        base-input(
-                          label="Введите"
-                          classAttr="input-default input-big text-gray w-100"
-                        )
-                    .inputs-row
-
-                      .profile-table__left
-                        .profile-title Должность
-                      .profile-table__right
-                        base-input(
-                          label="Введите"
-                          classAttr="input-default input-big text-gray w-100"
-                        )
-                    .inputs-row
-                      .profile-table__left
-                        .profile-title Обязанности
-                      .profile-table__right
-                        base-textarea(
-                          label="Введите"
-                          row="25"
-                        )
-                    .inputs-row.justify-md-end
-                      a(href="#").link-red Удалить
-                  .place__block
-
-                .inputs-row.justify-md-end
-                  base-button(
-                    classAttr='button-default button-gray button-big'
-                    label="Добавить место работы"
-                  )
-                    template(#icon-left)
-                      svg.icon-16.mr-2(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
-                        path(d='M8.74049 2.24051C8.74049 1.83154 8.40895 1.5 7.99998 1.5C7.59101 1.5 7.25947 1.83154 7.25947 2.24051V7.25947H2.24051C1.83154 7.25947 1.5 7.59101 1.5 7.99998C1.5 8.40895 1.83154 8.74049 2.24051 8.74049H7.25947V13.7595C7.25947 14.1685 7.59101 14.5 7.99998 14.5C8.40895 14.5 8.74049 14.1685 8.74049 13.7595V8.74049H13.7595C14.1685 8.74049 14.5 8.40895 14.5 7.99998C14.5 7.59101 14.1685 7.25947 13.7595 7.25947H8.74049V2.24051Z' fill='black')
-
-              .widget-footer
-                .widget-footer__text(
-                  @click='toggleList'
-                )
-                  span.list-more(v-if='!isShowList') Развернуть список
-                  span.list-small(v-if='isShowList') Свернуть список
-            .widget.mb-4
-              .widget-header
-                .widget-header__top
-                  .widget-header__title Образование
-              .widget-content.widget-content_gray.widget-content_profile(
-                :class="!isShowList ? 'pt-0 pb-0' : ''"
-              )
-                .profile__body(
-                  :class="!isShowList ? 'scroll-area p-0' : 'scroll-area p-0 show'"
-                  style='max-height: 0px;'
-                )
-                  .place__block
-                    .inputs-row
-
-                      .profile-table__left
-                        .profile-title Образование
-                      .profile-table__right
-                        base-input(
-                          label="Введите"
-                          classAttr="input-default input-big text-gray w-100"
-                        )
-
-                    .inputs-row
-                      .profile-table__left
-                        .profile-title Дата начала
-                      .profile-table__right
-                        v-row.align-center
-                          v-col(
-                            md='2'
-                          )
-                            DataPicker
-
-                          v-col(
-                            md='2'
-                          )
-                            .profile-title Дата окончания
-                          v-col(
-                            md='2'
-                          )
-                            .ml-n16
-                              DataPicker
-
-
-                    .inputs-row
-
-                      .profile-table__left
-                        .profile-title Курсы повышения квалификации
-                      .profile-table__right
-                        base-input(
-                          label="Введите"
-                          classAttr="input-default input-big text-gray w-100"
-                        )
-                    .inputs-row
-                      .profile-table__left
-                        .profile-title Дата начала
-                      .profile-table__right
-                        v-row.align-center
-                          v-col(
-                            md='2'
-                          )
-                            DataPicker
-
-                          v-col(
-                            md='2'
-                          )
-                            .profile-title Дата окончания
-                          v-col(
-                            md='2'
-                          )
-                            .ml-n16
-                              DataPicker
-                    .inputs-row.mt-6
-                      .profile-table__left
-                        .profile-title Загрузить диплом об образовании, сертификаты, грамоты
-                      .profile-table__right
-                        DropzonePhotoPassportBlock
-                    .inputs-row.justify-md-end
-                      a(href="#").link-red Удалить
-                  .place__block
-
-                .inputs-row.justify-md-end
-                  base-button(
-                    classAttr='button-default button-gray button-big'
-                    label="Добавить место работы"
-                  )
-                    template(#icon-left)
-                      svg.icon-16.mr-2(width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg')
-                        path(d='M8.74049 2.24051C8.74049 1.83154 8.40895 1.5 7.99998 1.5C7.59101 1.5 7.25947 1.83154 7.25947 2.24051V7.25947H2.24051C1.83154 7.25947 1.5 7.59101 1.5 7.99998C1.5 8.40895 1.83154 8.74049 2.24051 8.74049H7.25947V13.7595C7.25947 14.1685 7.59101 14.5 7.99998 14.5C8.40895 14.5 8.74049 14.1685 8.74049 13.7595V8.74049H13.7595C14.1685 8.74049 14.5 8.40895 14.5 7.99998C14.5 7.59101 14.1685 7.25947 13.7595 7.25947H8.74049V2.24051Z' fill='black')
-
-              .widget-footer
-                .widget-footer__text(
-                  @click='toggleList'
-                )
-                  span.list-more(v-if='!isShowList') Развернуть список
-                  span.list-small(v-if='isShowList') Свернуть список
-
-            router-link(to="/account-trainer/profile-complete")
+              // submit
               base-button(
+                type="submit"
                 classAttr='button-default button-blue button-big w-100'
                 label="Сохранить"
-
               )
 
 
 </template>
 
 <script>
-import ScheduleHeader from "@/components/ScheduleHeader";
-import DropzonePhotoBlock from "@/components/elements/DropzonePhotoBlock";
-import DropzonePhotoPassportBlock from "@/components/elements/DropzonePhotoPassportBlock";
-import DataPicker from "@/components/elements/DataPicker";
-import HeaderTrainerAccount from "@/components/elements/HeaderTrainerAccount";
+import { mapGetters, mapActions } from 'vuex';
+import moment from 'moment';
+import ScheduleHeader from '@/components/ScheduleHeader';
+import HeaderTrainerAccount from '@/components/elements/HeaderTrainerAccount';
+import DropzonePhotoBlock from '@/components/elements/DropzonePhotoBlock';
+import DropzonePhotoPassportBlock from '@/components/elements/DropzonePhotoPassportBlock';
+import isEmpty from 'lodash/isEmpty';
+
+import { ProfileResource } from '@/store/api';
+import EditPersonal from './EditSections/EditPersonal';
+import EditPassport from './EditSections/EditPassport';
+import EditWorkplaces from './EditSections/EditWorkplaces';
+import EditEducations from './EditSections/EditEducations';
 
 export default {
-  name: "Profile",
-  components: {HeaderTrainerAccount, DataPicker, DropzonePhotoPassportBlock, DropzonePhotoBlock, ScheduleHeader},
+  name: 'Profile',
+  components: {
+    HeaderTrainerAccount,
+    ScheduleHeader,
+    DropzonePhotoBlock,
+    DropzonePhotoPassportBlock,
+    EditPersonal,
+    EditPassport,
+    EditWorkplaces,
+    EditEducations,
+  },
   data: () => ({
-    isShowList: true,
-    marriageList: ['Да', 'Нет'],
-    rhesusList: ['Положительный', 'Отрицательный'],
-    selectItems: ['|', '||', '|||', '||||',],
-    phone: '',
-    series: '',
-    number: '',
-    numberGet: ''
-
-  }),
-
-  methods: {
-    toggleList: function () {
-      this.isShowList = !this.isShowList;
+    error: '',
+    personal: {
+      avatar: null,
+      lastName: null,
+      firstName: null,
+      nickname: null,
+      dateBirth: new Date(),
+      isMarried: null,
+      email: null,
+      phone: null,
+      group: null, // todo - api
+      rhesus: null, // todo - api
     },
+    passport: {
+      passportSeries: null,
+      passportNumber: null,
+      docIssuer: null,
+      docIssuerName: null,
+      registration: null,
+      docDate: new Date(),
+      photos: null, // todo - api
+    },
+    workplaces: [
+      {
+        // id: 1,
+        dateStart: new Date(),
+        dateEnd: new Date(),
+        employer: null,
+        position: null,
+        duties: null,
+      },
+    ],
+    educations: [
+      {
+        title: null,
+        dateStart: new Date(),
+        dateEnd: new Date(),
+        courses: null,
 
-  }
-}
+        coursesStart: new Date(), // todo - api
+        coursesEnd: new Date(), // todo - api
+        diploma: null, // todo - api
+      },
+    ],
+    select: {
+      marriage: ['Да', 'Нет'],
+      group: ['|', '||', '|||', '||||'],
+      rhesus: ['Положительный', 'Отрицательный'],
+    },
+  }),
+  computed: {
+    ...mapGetters('auth', ['profile']),
+  },
+  watch: {
+    profile(val){
+      this.setUserInfo(val)
+    }
+  },
+  created() {
+    this.setUserInfo(this.profile)
+  },
+  methods: {
+    // async getUser() {
+    //   const [err, data] = await ProfileResource.get();
 
+    //   if (err) {
+    //     console.log(err);
+    //   }
+
+    //   this.setUserInfo(data);
+    // },
+    setUserInfo(data) {
+      // const clear = (x) => x || '';
+      if (isEmpty(data)) return
+
+      const {
+        user: { firstName, lastName, email, phone, nickname, dateBirth, avatar },
+        isMarried,
+        passportSeries,
+        passportNumber,
+        address,
+        unitCode,
+        unitName,
+        dateIssue,
+        workplaces,
+        educations,
+      } = data;
+
+      // console.log('Profile: setUserInfo', data);
+
+      const processDate = (str) => {
+        return moment(str, 'YYYY-MM-DD').toDate();
+      };
+
+      this.personal = {
+        ...this.personal,
+        ...{
+          avatar,
+          lastName,
+          firstName,
+          nickname,
+          dateBirth: processDate(dateBirth),
+          isMarried,
+          phone,
+          email,
+          // group,
+          // rhesus,
+        },
+      };
+      this.passport = {
+        ...this.passport,
+        ...{
+          passportSeries,
+          passportNumber,
+          registration: address,
+          docIssuer: unitCode,
+          docIssuerName: unitName,
+          docDate: processDate(dateIssue),
+        },
+      };
+
+      if (workplaces.length >= 1) {
+        this.workplaces = workplaces.map((wp) => ({
+          id: wp.id,
+          dateStart: processDate(wp.dateStart),
+          dateEnd: processDate(wp.dateEnd),
+          employer: wp.employer,
+          position: wp.position,
+          duties: wp.responsibilities,
+        }));
+      }
+
+      if (educations.length >= 1) {
+        this.educations = educations.map((ed) => ({
+          id: ed.id,
+          title: ed.title,
+          dateStart: processDate(ed.dateStart),
+          dateEnd: processDate(ed.dateEnd),
+          courses: ed.refresherCourses,
+          // coursesStart: new Date(),
+          // coursesEnd: new Date(),
+          // diploma: null,
+        }));
+      }
+    },
+    handleWorkplaceAdd() {
+      this.workplaces = [
+        ...this.workplaces,
+        ...[{
+          id: this.workplaces[this.workplaces.length - 1].id + 1,
+          dateStart: new Date(),
+          dateEnd: new Date(),
+          employer: null,
+          position: null,
+          duties: null,
+        }],
+      ];
+    },
+    handleEducationAdd() {
+      this.educations = [
+        ...this.educations,
+        ...[{
+          id: this.educations[this.educations.length - 1].id + 1,
+          title: null,
+          dateStart: new Date(),
+          dateEnd: new Date(),
+          courses: null,
+          coursesStart: new Date(),
+          coursesEnd: new Date(),
+          diploma: null,
+        }],
+      ];
+    },
+    handleWorkplaceDelete(idx) {
+      this.workplaces = this.workplaces.filter((x, n) => idx !== n);
+    },
+    handleEducationDelete(idx) {
+      this.educations = this.educations.filter((x, n) => idx !== n);
+    },
+    async handleSubmit() {
+      const isValid = await this.$refs.form.validate();
+      if (!isValid) {
+        this.error = 'Пожалуйста исправьте выделенные поля'
+        return;
+      }
+
+      this.error = ''
+
+      await this.editProfile({
+        profile: this.profile, 
+        personal: this.personal, 
+        passport: this.passport, 
+        workplaces: this.workplaces, 
+        educations: this.educations
+      })
+        .then(() => {
+          this.$router.push({ name: 'PersonalTrainerProfileComplete'})
+        })
+        .catch(err => {
+          console.log(err);
+          if (err.status === 400){
+            try{
+              Object.keys(err.data).forEach((key) => {
+                Object.keys(err.data[key]).forEach(val => {
+                  this.error += `${val}: ${JSON.stringify(err.data[key][val][0])} <br/>`;
+                })
+              });
+            } catch(err){
+              this.error = 'Ошибка при сохрании! Проверьте поля'
+            }
+            
+          } else {
+            this.error = err.data
+          }
+          
+        })
+    },
+    ...mapActions('auth', ['loadProfile', 'editProfile'])
+  },
+};
 </script>
 
-<style scoped lang="scss">
-
-
+<style lang="scss">
 .profile-table__left {
   height: 100%;
   display: flex;
   align-items: center;
+  @include width-flex(10%);
+  padding-right: 10px;
 }
 
 .profile-title {
-  color: #999999;
+  color: #999;
 }
 
 .inputs-row {
@@ -467,9 +325,24 @@ export default {
   padding-right: 10px;
 }
 
-.profile-table__right {
-  @include width-flex(90%)
+.place__block{
+  &:not(:first-child){
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(gray, .5);
+  }
+}
 
+.profile-edit-form{
+.error{
+  border-radius: 8px;
+  margin: 8px 0;
+  color: white;
+  font-size: 13px;
+  background: rgba(tomato, .1);
+  border: 2px solid rgba(tomato, .5);
+  padding: 6px 12px;
+}
 }
 
 </style>

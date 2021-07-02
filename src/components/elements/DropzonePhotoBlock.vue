@@ -1,5 +1,8 @@
 <template lang="pug">
-  vue-dropzone#dropzone(ref='myVueDropzone' :options='dropzoneOptions')
+  vue-dropzone#dropzone(ref='myVueDropzone' :options='dropzoneOptions' :useCustomSlot="true")
+    .current-image
+      img(:src="src")
+
 </template>
 
 <script>
@@ -11,6 +14,9 @@ export default {
   name: "DropzonePhotoBlock",
   components: {
     vueDropzone: vue2Dropzone
+  },
+  props: {
+    src: String
   },
   data: () => ({
     dropzoneOptions: {
@@ -33,6 +39,24 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.current-image{
+  position: absolute;
+  z-index: 2;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  img{
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
 .dropzone {
   position: relative;
   height: 350px;
@@ -43,7 +67,7 @@ export default {
   border: 1px solid #C0C8E0;
   margin-bottom: 25px;
   border-radius: 12px;
-  @include background-cover('photo-trainer-empty.png')
+  @include background-cover('photo-trainer-empty.png');
   background-color: #F1F3F9;
   max-width: 100%;
   padding: 0;
@@ -101,11 +125,11 @@ export default {
 .dz-started {
   border: none;
 
-  ::v-deep {
-    .dz-message {
-      //display: none !important;
-    }
-  }
+  // ::v-deep {
+  //   .dz-message {
+  //     //display: none !important;
+  //   }
+  // }
 }
 
 </style>

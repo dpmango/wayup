@@ -582,7 +582,8 @@ export default {
 
   &:after {
     content: '';
-    @include background-contain('arrow-down.svg') opacity: 0.56;
+    @include background-contain('arrow-down.svg');
+    opacity: 0.56;
     width: rem(14px);
     height: rem(14px);
     transform: rotate(-90deg);
