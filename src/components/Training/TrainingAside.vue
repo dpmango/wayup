@@ -14,10 +14,11 @@
       label="Добавить новое упражнение"
       @click='dialogExercise = true'
     )
-    template(v-for="group in dataEexercises")
-      .training-aside__head
-        .training-aside__title {{ group.name }}
-      Accordion(:groupt="group.exercices")
+    .training-aside-body
+      template(v-for="group in dataEexercises")
+        .training-aside__head(v-if="group.exercices.length")
+          .training-aside__title {{ group.name }}
+        Accordion(:groupt="group.exercices" v-if="group.exercices.length")
 
 </template>
 
@@ -164,7 +165,13 @@ export default {
 </script>
 
 <style lang="scss" >
-
+  .accordion-big__body {
+    min-height: 150px;
+  }
+  .training-aside-body {
+    max-height: 600px;
+    overflow: auto;
+  }
 
   .training-aside {
     .v-expansion-panels{

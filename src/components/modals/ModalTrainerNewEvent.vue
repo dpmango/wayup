@@ -15,7 +15,7 @@
             v-model="title"
             :rules="rules.required"
           )
-          base-select(
+          base-select-simple(
             classAttr='select-default select-bg-white mb-6'
             label="Событие"
             :items="typePreparationList"
@@ -23,14 +23,14 @@
             v-model="typeOfPreparation"
             :rules="rules.required"
           )
-          base-select(
+          base-select-simple(
             classAttr='select-default select-bg-white mb-6'
             label="Позиция"
             :items="positionList"
             v-model="positionType"
             :rules="rules.required"
           )
-          base-select(
+          base-select-simple(
             classAttr='select-default select-bg-white mb-6'
             label="Выбрать спортсмена"
             :items="sportsmanList"
@@ -43,7 +43,7 @@
                 placeholder="Начало"
                 v-model="dateStart"
               )
-          base-select(
+          base-select-simple(
             classAttr='select-default select-bg-white mb-6'
             label="Место проведения"
             :items="locationList"
@@ -51,7 +51,7 @@
             @change="clearPlayground"
             :rules="rules.required"
           )
-          base-select(
+          base-select-simple(
             classAttr='select-default select-bg-white mb-6'
             label="Площадка"
             :items="playgroundList"
@@ -60,7 +60,7 @@
           )
           v-row.mb-1
             v-col(md="5")
-              base-select(
+              base-select-simple(
                 classAttr='select-default select-bg-white'
                 label="Время с"
                 :items="timeStartList"
@@ -69,7 +69,7 @@
                 :rules="rules.required"
               )
             v-col(md="5")
-              base-select(
+              base-select-simple(
                 classAttr='select-default select-bg-white'
                 label="Время по"
                 :items="timeEndList"
@@ -83,11 +83,11 @@
             .text-gray.text-small.ml-2 {{ timePeriodLabel }}
           v-row
             v-col(md="7")
-              base-select(
+              base-select-simple(
                 classAttr='select-default select-bg-white'
                 label="Напомнить"
                 :items="reminderList"
-                 v-model="reminder"
+                v-model="reminder"
                 :rules="rules.required"
               )
         .modal-footer
@@ -188,7 +188,7 @@ export default {
 
     playgroundList: function () {
       let locs =  this.locations.filter(item => {
-        return (item.id == this.location.value)
+        return (item.id == this.location)
       });
       let loc = locs[0];
       let list = [];
@@ -237,23 +237,20 @@ export default {
           "dateFrom": moment(timestart).utc(),
           "dateTo": moment(timeend).utc(),
           "purposeLesson": "-",
-          "typeOfPreparation": this.typeOfPreparation.value,
-          "location": this.location.value,
-          "playground": this.playground.value,
+          "typeOfPreparation": this.typeOfPreparation,
+          "location": this.location,
+          "playground": this.playground,
           "reminder": this.reminder.value,
           "typeLesson": 1,
-          "positionType": this.positionType.value,
+          "positionType": this.positionType,
           "group": 1,
           "coach": this.profile.id,
           "attenders": [
-            this.sportsman.value
+            this.sportsman
           ]
         };
-
-        this.$store.dispatch('events/createEvent', requestData).then(() => {
-          // Переходим на страницу события
-          //this.$router.push({name: 'Plan', params: {id: this.event.id}});
-
+        //console.log(requestData);
+       this.$store.dispatch('events/createEvent', requestData).then(() => {
           window.location.reload();
         });
       }

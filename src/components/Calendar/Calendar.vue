@@ -17,6 +17,7 @@ import CalendarViewMonth from '@/components/Calendar/CalendarViewMonth'
 import CalendarViewWeek from '@/components/Calendar/CalendarViewMonth'
 import { mapActions, mapGetters } from 'vuex'
 import ModalTrainerNewEvent from '@/components/modals/ModalTrainerNewEvent'
+import { TRAINER_ROLE, SPORTSMAN_ROLE } from '@/config/api'
 
 export default {
   name: 'Calendar',
@@ -57,12 +58,22 @@ export default {
         this.initDay = moment().toDate()
       }
     },
-    ...mapActions('events', ['loadEvents']),
+    ...mapActions('events', ['loadEvents', 'loadEventsSportsman']),
     ...mapActions('auth', ['loadProfile']),
   },
   created() {
-    this.loadEvents(),
-      this.loadProfile()
+    const role = localStorage.getItem('role');
+
+    if(role == TRAINER_ROLE) {
+      this.loadEvents();
+        this.loadProfile();
+    }
+
+    if(role == SPORTSMAN_ROLE) {
+      this.loadEventsSportsman();
+
+    }
+
   },
 }
 </script>

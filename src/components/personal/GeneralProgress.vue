@@ -57,6 +57,9 @@
 
 <script>
   import Highcharts from 'highcharts';
+  import axios from "axios";
+  import {API_URL_GRAF, SPORTSMAN_ROLE, TRAINER_ROLE} from "../../config/api";
+  import {mapState} from 'vuex';
 
   export default {
     name: "GeneralProgress",
@@ -64,62 +67,99 @@
       data: {
         type: Array,
         required: false
-      }
+      },
+      sportsman: Object
     },
     data: () => ({
-      types: ['ОФП, СФП', 'Техника', 'Психология'],
+      types: ['ОФП', 'Техника', 'Тактика', 'Психология', 'Игровая', 'Теория'],
       title: 'Общее развитие',
       goalColor: '#A3A3A3',
       predictionColor: '#3DC50D',
       currentColor: '#326BFF',
       currentDataChart: null,
       chart: null,
-      dataChart: [
-        {
-          title: 'ОФП, СФП',
-          labels: ['Гибкость', 'Скорость', 'Сила', 'Выносливость','Координация'],
-          datasets: {
-            goals: [80, 95, 100, 90, 70],
-            prediction: [60, 80, 80, 85, 60],
-            current: [40, 75, 60, 70, 55]
-          }
-        },
-        {
-          title: 'Техника',
-          labels: ['Катание', 'Владение клюшкой', 'Передачи', 'Броски','Отбор и борьба за шайбу'],
-          datasets: {
-            goals: [100, 80, 95, 100, 60],
-            prediction: [70, 65, 85, 90, 50],
-            current: [65, 65, 40, 30, 20]
-          }
-        },
-        {
-          title: 'Психология',
-          labels: ['Параметр1', 'Параметр2', 'Параметр3'],
-          datasets: {
-            goals: [70, 100, 95],
-            prediction: [70, 65, 85],
-            current: [65, 65, 40]
-          }
-        },
-      ],
+      isLoad: false,
+      dataChart: [],
     }),
 
     methods: {
       changeChart(index) {
-        this.currentDataChart = this.dataChart[index];
+
+        let test = this.dataChart;
+        this.currentDataChart = test[index + 1];
         this.chart.update({
           series: this.series,
           xAxis: {
             categories: this.currentDataChart.labels,
           }
         }, true, true);
+      },
+      generateData(data) {
+        // TODO Добавляю дублирующий элемент потому что происходит замена нулевого. Баг, полечить
+        this.dataChart.push(this.generateDateChart(data, this.types[0]))
+
+        this.types.map(item => {
+          this.dataChart.push(this.generateDateChart(data, item))
+        });
+      },
+      generateDateChart(data, title) {
+        var dataChartItem = {
+          title: title,
+          labels: [],
+          datasets: {
+            goals: [],
+            prediction: [],
+            current: []
+          }
+        };
+
+
+          let ofp = data.filter(item => {
+            return item.name == title;
+          })[0];
+
+        if(ofp) {
+          let ofpLabels = Array.from(ofp.skills, (k) => k.name).filter((v, i, a) => {
+            return a.indexOf(v) === i
+          });
+
+          dataChartItem.labels = ofpLabels;
+
+          ofpLabels.map(item => {
+            let skills = ofp.skills.filter(itemskill => {
+              return itemskill.name == item;
+            })
+            let sum =0;
+              skills.map(item => {
+                sum += item.lastMark
+              });
+            dataChartItem.datasets.current.push(sum/skills.length)
+
+            dataChartItem.datasets.goals.push(skills[0].goal);
+            dataChartItem.datasets.prediction.push(skills[0].predict);
+          });
+        }
+
+        return dataChartItem;
+      },
+      async load() {
+        var self = this;
+
+        await axios.get(this.requestUrl, {
+          headers: {
+            'Authorization': localStorage.getItem("access") ? "Bearer " + localStorage.getItem("access") : '',
+            'Content-Type': 'application/json; charset=utf-8'
+          }
+        }).then((response) => {
+          self.generateData(response.data);
+        });
       }
     },
 
     computed: {
       series: function () {
-        return [{
+        return [
+          {
           type: 'spline',
           name: 'Цели на сезон',
           color: this.goalColor,
@@ -128,7 +168,31 @@
             radius: 5,
             symbol: 'circle'
           },
-          data: this.currentDataChart.datasets.goals,
+          data: [{
+            y: this.currentDataChart.datasets.goals[0]*0.5,
+            marker: {
+              radius: 0,
+              states: {
+                hover: {
+                  enabled: false,
+                },
+              },
+            },
+            noTooltip: true
+            },
+            ...this.currentDataChart.datasets.goals,
+            {
+              y:  this.currentDataChart.datasets.goals[0]*0.5,
+              marker: {
+                radius: 0,
+                states: {
+                  hover: {
+                    enabled: false,
+                  },
+                },
+              },
+              noTooltip: true
+            }],
           lineWidth: 1,
           dashStyle: '5, 3',
           states: {
@@ -139,6 +203,7 @@
         },
           {
             type: 'areaspline',
+            clip: false,
             name: 'Прогноз на заданный период',
             color: this.predictionColor,
             fillColor: {
@@ -154,7 +219,31 @@
               radius: 5,
               symbol: 'circle'
             },
-            data: this.currentDataChart.datasets.prediction,
+            data: [{
+              y: this.currentDataChart.datasets.prediction[0]*0.5,
+              marker: {
+                radius: 0,
+                states: {
+                  hover: {
+                    enabled: false,
+                  },
+                },
+              },
+              noTooltip: true
+              },
+              ...this.currentDataChart.datasets.prediction,
+              {
+                y: this.currentDataChart.datasets.prediction[0]*0.5,
+                marker: {
+                  radius: 0,
+                  states: {
+                    hover: {
+                      enabled: false,
+                    },
+                  },
+                },
+                noTooltip: true
+              }],
             lineWidth: 1,
             dashStyle: '5, 3',
             states: {
@@ -165,6 +254,7 @@
           },
           {
             type: 'areaspline',
+            clip: false,
             name: 'Текущие показатели',
             color: this.currentColor,
             fillColor: {
@@ -179,53 +269,115 @@
               radius: 5,
               symbol: 'circle'
             },
-            data: this.currentDataChart.datasets.current,
+            data: [{
+              y: this.currentDataChart.datasets.current[0]*0.5,
+              marker: {
+                radius: 0,
+                states: {
+                  hover: {
+                    enabled: false,
+                  },
+                },
+              },
+              noTooltip: true,
+            },
+              ...this.currentDataChart.datasets.current,
+              { y: this.currentDataChart.datasets.current[0]*0.5,
+                marker: {
+                  radius: 0,
+                  states: {
+                    hover: {
+                      enabled: false,
+                    },
+                  },
+                },
+                noTooltip: true,}
+                ],
             lineWidth: 1,
             dashStyle: '5, 3',
             states: {
               inactive: {
                 enabled: false
-              }
-            }
+              },
+            },
           },
 
         ]
       },
+      requestUrl: function () {
+        if(this.role == SPORTSMAN_ROLE) {
+          return API_URL_GRAF + '/skills/general/';
+        }
+        if(this.role == TRAINER_ROLE) {
+          return API_URL_GRAF + '/skills/general/' + this.sportsman.id;
+        }
+        return false;
+      },
+      ...mapState('auth', ['role'])
     },
-
-    mounted() {
-      // Hightchart ------------
+    async mounted() {
+      await this.load();
 
       if (this.dataChart && this.dataChart.length > 0) {
-        this.currentDataChart = this.dataChart[0];
-        let dataChart = this.currentDataChart;
-        let labels = dataChart.labels;
-        let dataSets = dataChart.datasets;
 
+        this.currentDataChart = this.dataChart[0];
+        let dataChart1 = this.currentDataChart;
+        let labels = ['', ...dataChart1.labels, ''];
+        let dataSets = dataChart1.datasets;
         this.chart = Highcharts.chart('generalProgressChart', {
+          tooltip: {
+            formatter: function() {
+              if(!this.point.noTooltip) {
+                return this.series.name+'<br/><b>'+this.point.y+'</b>';
+              }
+
+              return false;
+            }
+          },
+          plotOptions: {
+            series: {
+              label: {
+                connectorAllowed: false
+              },
+              //pointStart: 100
+              //pointStart: 100,
+              //groupPadding: 0
+            },
+            areaspline: {
+              label: {
+                //connectorAllowed: true
+              }
+              //clip: false,
+             // pointStart: 100
+            }
+          },
           title: false,
           legend: false,
-          margin: 0,
           xAxis: {
+           left: 0,
+           // min: 100,
+           // endOnTick: false,
+           // maxPadding: 0,
             categories: labels,
             labels: {
               formatter: function () {
                 let diff = dataSets.prediction[this.pos] - dataSets.current[this.pos];
                 if (diff > 0) {
                   return this.value + '<span class="xAxis_up" style="color:#3DC50D;position:relative;padding-left: 20px">' +
-                    //'<img :src=`${@/assets/images/chart_arrow.png}`>' +
                     '<span style="width: 0;height: 0;border:5px solid transparent;border-bottom-color:#3DC50D;border-bottom-width:7px;position:absolute;left:7px;"></span>' +
                     diff + '</span>';
                 } else {
                   return this.value;
                 }
               },
-              useHTML: true
-            }
+              useHTML: true,
+            },
+           startOnTick: true,
+
           },
           yAxis: {
             title: false,
-            max: 100
+            max: 100,
           },
           credits: {
             enabled: false
@@ -233,7 +385,6 @@
           series: this.series,
         });
       }
-
 
     }
   }

@@ -53,7 +53,6 @@ export default {
   }),
   mounted() {
     let dataChart = this.data;
-    console.log('dataChart', dataChart)
     this.widgetMainNumber = dataChart['%ОБ'];
     let ctx = document.getElementById('throwRadarChart');
     const data = {

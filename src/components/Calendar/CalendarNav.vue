@@ -5,11 +5,13 @@
         label='Добавить занятие'
         classAttr='button-default button-gray button-big mr-6'
         @click="dialogEvent = true"
+        v-if="role == trainerRole"
         )
       base-select(
         classAttr='select-default select-big select-bg-gray'
         label="Выберите группу"
         :items="groupList"
+        v-if="role == trainerRole"
       )
     .buttons-right
       .segments-block
@@ -90,6 +92,7 @@ import moment from 'moment'
 import axios from 'axios'
 import { mapActions, mapGetters } from 'vuex'
 import ModalTrainerNewEvent from '@/components/modals/ModalTrainerNewEvent'
+import { TRAINER_ROLE } from '@/config/api'
 
 export default {
   name: 'CalendarNav',
@@ -108,6 +111,8 @@ export default {
       },
     ],
     dialogEvent: false,
+    role: localStorage.getItem('role'),
+    trainerRole: TRAINER_ROLE
     //groupList: []
   }),
   methods: {

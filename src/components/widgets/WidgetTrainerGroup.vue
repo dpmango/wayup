@@ -34,7 +34,7 @@
 
 
 
-    .widget-footer
+    .widget-footer(v-if="false")
       .widget-footer__text(
         @click='toggleList'
       )

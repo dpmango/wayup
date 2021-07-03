@@ -36,7 +36,7 @@
             path(d='M6.66675 1.6665V4.99984' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
             path(d='M2.5 8.3335H17.5'  stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
 
-      li.sidebar__item
+      //- li.sidebar__item
         router-link.sidebar-link(to='/commands' active-class='sidebar-link-active')
           svg.sidebar-link-icon(width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg')
             g(clip-path='url(#clip0)')
@@ -49,185 +49,184 @@
                 rect(width='20' height='20' fill='white')
 
 
-      li.sidebar__item
-        router-link.sidebar-link(to='/media' active-class='sidebar-link-active')
-          svg.sidebar-link-icon(width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg')
-            path(d='M10.0001 18.3332C14.6025 18.3332 18.3334 14.6022 18.3334 9.99984C18.3334 5.39746 14.6025 1.6665 10.0001 1.6665C5.39771 1.6665 1.66675 5.39746 1.66675 9.99984C1.66675 14.6022 5.39771 18.3332 10.0001 18.3332Z'  stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
-            path(d='M8.33325 6.6665L13.3333 9.99984L8.33325 13.3332V6.6665Z' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
+    //- li.sidebar__item
+       router-link.sidebar-link(to='/media' active-class='sidebar-link-active')
+         svg.sidebar-link-icon(width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg')
+           path(d='M10.0001 18.3332C14.6025 18.3332 18.3334 14.6022 18.3334 9.99984C18.3334 5.39746 14.6025 1.6665 10.0001 1.6665C5.39771 1.6665 1.66675 5.39746 1.66675 9.99984C1.66675 14.6022 5.39771 18.3332 10.0001 18.3332Z'  stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
+           path(d='M8.33325 6.6665L13.3333 9.99984L8.33325 13.3332V6.6665Z' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
 
 
-      li.sidebar__item
-        router-link.sidebar-link(to='/chat' active-class='sidebar-link-active')
-          svg.sidebar-link-icon(width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg')
-            path(d='M17.5 12.5C17.5 12.942 17.3244 13.366 17.0118 13.6785C16.6993 13.9911 16.2754 14.1667 15.8333 14.1667H5.83333L2.5 17.5V4.16667C2.5 3.72464 2.67559 3.30072 2.98816 2.98816C3.30072 2.67559 3.72464 2.5 4.16667 2.5H15.8333C16.2754 2.5 16.6993 2.67559 17.0118 2.98816C17.3244 3.30072 17.5 3.72464 17.5 4.16667V12.5Z' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
+    //- li.sidebar__item
+      router-link.sidebar-link(to='/chat' active-class='sidebar-link-active')
+        svg.sidebar-link-icon(width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg')
+          path(d='M17.5 12.5C17.5 12.942 17.3244 13.366 17.0118 13.6785C16.6993 13.9911 16.2754 14.1667 15.8333 14.1667H5.83333L2.5 17.5V4.16667C2.5 3.72464 2.67559 3.30072 2.98816 2.98816C3.30072 2.67559 3.72464 2.5 4.16667 2.5H15.8333C16.2754 2.5 16.6993 2.67559 17.0118 2.98816C17.3244 3.30072 17.5 3.72464 17.5 4.16667V12.5Z' stroke-width='2' stroke-linecap='round' stroke-linejoin='round')
 
     template(
       v-if="$route.meta.userSettings"
-      )
-        .user-settings.mt-auto
-          v-menu(top='' :offset-x='offset' attach='.user-settings')
-            template(v-slot:activator='{ on, attrs }')
-              v-avatar.avatar-settings(
-                size='40'
-                v-bind='attrs' v-on='on'
-              )
-                img(src="@/assets/images/photo-trainer-empty.png")
+    )
+      .user-settings.mt-auto
+        v-menu(top='' :offset-x='offset' attach='.user-settings')
+          template(v-slot:activator='{ on, attrs }')
+            v-avatar.avatar-settings(
+              size='40'
+              v-bind='attrs' v-on='on'
+            )
+              img(src="@/assets/images/photo-trainer-empty.png")
 
-            //v-list
-            //  v-list-item(v-for='(item, index) in items' :key='index')
-            //    .user-settings-icon {{ item.icon }}
-            //    v-list-item-title.ml-4 {{ item.title }}
-            v-list
-              v-list-item
-                v-list-item-title.ml-4
-                  router-link(to='/account-trainer/profile-complete') Профиль
-              v-list-item.item-exit
-                v-list-item-title.ml-4(@click="logout") Выйти из системы
-
+          //v-list
+          //  v-list-item(v-for='(item, index) in items' :key='index')
+          //    .user-settings-icon {{ item.icon }}
+          //    v-list-item-title.ml-4 {{ item.title }}
+          v-list
+            v-list-item
+              v-list-item-title.ml-4
+                router-link(to='/account-trainer/profile-complete') Профиль
+            v-list-item.item-exit
+              v-list-item-title.ml-4(@click="logout") Выйти из системы
 
 
 </template>
 
 <script>
 
-export default {
-  name: "TheSidebar",
-  data: () => ({
-    // items: [
-    //   {
-    //     icon:'🛒',
-    //     title: ' Прокачать'
-    //   },
-    //   {
-    //     icon:'💬',
-    //     title: 'Попросить подсказать'
-    //   },
-    //   {
-    //     icon:'👤',
-    //     title: 'Профиль'
-    //   },
-    //   {
-    //     icon:'👀 ',
-    //     title: 'Не показывать'
-    //   },
-    // ],
-    offset: true,
-  }),
-  methods: {
-    logout() {
-      this.$store.dispatch('auth/logout');
-      window.location.href = '/';
+  export default {
+    name: "TheSidebar",
+    data: () => ({
+      // items: [
+      //   {
+      //     icon:'🛒',
+      //     title: ' Прокачать'
+      //   },
+      //   {
+      //     icon:'💬',
+      //     title: 'Попросить подсказать'
+      //   },
+      //   {
+      //     icon:'👤',
+      //     title: 'Профиль'
+      //   },
+      //   {
+      //     icon:'👀 ',
+      //     title: 'Не показывать'
+      //   },
+      // ],
+      offset: true,
+    }),
+    methods: {
+      logout() {
+        this.$store.dispatch('auth/logout');
+        window.location.href = '/';
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
 
-//@import "src/scss/app";
+  //@import "src/scss/app";
 
 
-.sidebar {
-  width: rem(120px);
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  height: 100vh;
-  z-index: 100;
-}
+  .sidebar {
+    width: rem(120px);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    z-index: 100;
+  }
 
-.img-logo {
-  width: 54px;
-  height: 60px;
-  margin: 15px auto 55px;
-
-
-}
+  .img-logo {
+    width: 54px;
+    height: 60px;
+    margin: 15px auto 55px;
 
 
+  }
 
-.sidebar-link {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
 
-  &:hover {
+  .sidebar-link {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+
+    &:hover {
+      background: #326BFF;
+
+      .sidebar-link-icon {
+        stroke: #ffffff;
+      }
+
+      .sidebar-link-icon_rect {
+        rect {
+          fill: #ffffff;
+        }
+      }
+    }
+
+    :focus {
+      background: #326BFF;
+      transition: opacity .2s cubic-bezier(.4, 0, .6, 1);
+    }
+
+  }
+
+  .sidebar-link-active {
     background: #326BFF;
 
     .sidebar-link-icon {
       stroke: #ffffff;
     }
 
-    .sidebar-link-icon_rect {
-      rect {
-        fill: #ffffff;
-      }
-    }
   }
-
-  :focus {
-    background: #326BFF;
-    transition: opacity .2s cubic-bezier(.4, 0, .6, 1);
-  }
-
-}
-
-.sidebar-link-active {
-  background: #326BFF;
 
   .sidebar-link-icon {
-    stroke: #ffffff;
+    stroke: #888888;
+    width: 20px;
+    min-width: 20px;
   }
 
-}
-
-.sidebar-link-icon {
-  stroke: #888888;
-  width: 20px;
-  min-width: 20px;
-}
-
-.sidebar-link-icon_rect {
-  rect {
-    fill: #888888;
-  }
-}
-
-.sidebar__item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 24px;
-}
-
-.user-settings{
-  margin-bottom: 34px;
-  margin-left: auto;
-  margin-right: auto;
-  .v-list-item{
-    padding-right: 16px;
-    padding-left: 16px;
-    min-height: 39px;
-    &:hover{
-      cursor: pointer;
+  .sidebar-link-icon_rect {
+    rect {
+      fill: #888888;
     }
   }
-  .v-menu__content{
-    width: 271px;
+
+  .sidebar__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 24px;
   }
 
-  .item-exit{
-    background: #E4E8F2;
+  .user-settings {
+    margin-bottom: 34px;
+    margin-left: auto;
+    margin-right: auto;
+
+    .v-list-item {
+      padding-right: 16px;
+      padding-left: 16px;
+      min-height: 39px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .v-menu__content {
+      width: 271px;
+    }
+
+    .item-exit {
+      background: #E4E8F2;
+    }
   }
-}
-
-
 
 
 </style>

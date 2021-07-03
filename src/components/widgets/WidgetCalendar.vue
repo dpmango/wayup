@@ -71,9 +71,11 @@
 
 <script>
 import moment from 'moment-timezone'
+import 'moment/locale/ru'
 import CalendarEvent from '@/components/Calendar/CalendarEvent'
 
 import { mapActions, mapGetters } from 'vuex'
+import { TRAINER_ROLE, SPORTSMAN_ROLE } from '@/config/api'
 
 export default {
   name: 'WidgetCalendar',
@@ -181,12 +183,22 @@ export default {
       )
     },
 
-    ...mapActions('events', ['loadEvents']),
+    ...mapActions('events', ['loadEvents', 'loadEventsSportsman']),
   },
   watch: {},
   mounted() {
-    this.setinitDay()
-    this.loadEvents()
+    this.setinitDay();
+
+    const role = localStorage.getItem('role');
+
+    if(role == TRAINER_ROLE) {
+      this.loadEvents();
+    }
+
+    if(role == SPORTSMAN_ROLE) {
+      this.loadEventsSportsman();
+    }
+
   },
 }
 </script>

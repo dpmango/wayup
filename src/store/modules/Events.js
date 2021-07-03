@@ -122,6 +122,17 @@ const actions = {
     });
   },
 
+  async loadEventsSportsman(store) {
+    await store.dispatch('loadUtils').then(() => {
+      EventResource.sportsman().then(response => {
+        store.commit(SET_EVENT_LIST, response.data);
+      }).catch(err => {
+        console.log(err);
+        throw err.response;
+      });
+    });
+  },
+
   async loadExercise( { commit }) {
     await ExerciseResource.list().then(response => {
         commit(SET_EXERCISE_LIST, response.data);
@@ -143,13 +154,7 @@ const actions = {
   },
 
   async updateEvent(store, data) {
-    console.log(data)
     await EventResource.update(data.id, data.data)
-      .then(response => {
-        console.log(response)
-        console.log(store.event)
-        //commit(SET_UTILS, response.data);
-      })
       .catch(err => {
         console.log(err)
         throw err.response
